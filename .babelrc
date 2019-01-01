@@ -1,0 +1,25 @@
+{
+  "presets": [
+    ["env", {
+      "modules": false,
+      "targets": {
+        "browsers": ["> 1%", "last 2 versions", "not ie <= 8"]
+      }
+    }],
+    "stage-2"
+  ],
+  "plugins": [
+    ["transform-runtime"],
+    ["transform-modules", {
+      "cube-ui": {
+        "transform": "./node_modules/cube-ui/src/modules/${member}",
+        "kebabCase": true
+      }
+    }],
+    ["import", {
+      "libraryName": "vant",
+      "libraryDirectory": "es",
+      "style": true
+    }]
+  ]
+}
