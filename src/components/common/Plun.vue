@@ -1,63 +1,68 @@
 <template>
-  <div class="container">
-    <div class="title">
-      <span
-        v-for="(item,index) in navList"
-        :key="item.id"
-        :class="{'active': nowIndex===index}"
-        @click="handClick(index)"
-      >{{item.name}}</span>
-    </div>
-    <div>
-      <form action="javascript:return true;">
-        <input
-          type="text"
-          placeholder="点击评论..."
-          @keypress="searchGoods"
-          class="pluna"
-          v-model="value"
-        >
-      </form>
-    </div>
-    <!-- 评论内容 -->
-    <div
-      class="content"
-      @touchstart="touchStart($event)"
-      @touchmove="touchMove($event)"
-      @touchend="touchEnd()"
-      id="page"
-    >
-      <div
-        class="level has-text-centered"
-        v-show="isLoadMoreShow"
-        style="margin:10px 2px 0 2px;background-color:white;"
-      >{{loadWords}}</div>
-      <div class="peosCon" v-for="(item,index) in list" :key="index" :id="item.id">
-        <div class="left">
-          <img :src="item.headimages">
-        </div>
-        <div class="right">
-          <div class="word" style="color:#E88A25">{{item.username}}</div>
-          <div class="wordC">{{item.content}}</div>
-          <div class="childC" v-for="(pl,index) in list[index].option" :key="index">
-            <!-- 二级评论数组套数组 -->
-            <div class="childCa" v-for="(pla,index) in pl" :key="index">
-              <span class="plaW">{{pla.username}}:</span>
-              <span class="plad">{{pla.content}}</span>
-            </div>
-          </div>
-          <div class="number">
-            <div>{{item.addtime}}</div>
 
-            <div class="pl">
-              <img :src="require('@/assets/pl.png')">
+  
+    <div class="container">
+      <div class="title">
+        <span
+          v-for="(item,index) in navList"
+          :key="item.id"
+          :class="{'active': nowIndex===index}"
+          @click="handClick(index)"
+        >{{item.name}}</span>
+      </div>
+      <div>
+        <form action="javascript:return true;">
+          <input
+            type="text"
+            placeholder="点击评论..."
+            @keypress="searchGoods"
+            class="pluna"
+            v-model="value"
+          >
+        </form>
+      </div>
+        <div v-if="shows" class="contentss">暂无数据</div>
+      <!-- 评论内容 -->
+      <div
+        class="content"
+        @touchstart="touchStart($event)"
+        @touchmove="touchMove($event)"
+        @touchend="touchEnd()"
+        id="page"
+        v-if="showa"
+      >
+        <div
+          class="level has-text-centered"
+          v-show="isLoadMoreShow"
+          style="margin:10px 2px 0 2px;background-color:white;"
+        >{{loadWords}}</div>
+        <div class="peosCon" v-for="(item,index) in list" :key="index" :id="item.id">
+          <div class="left">
+            <img :src="item.headimages">
+          </div>
+          <div class="right">
+            <div class="word" style="color:#E88A25">{{item.username}}</div>
+            <div class="wordC">{{item.content}}</div>
+            <div class="childC" v-for="(pl,index) in list[index].option" :key="index">
+              <!-- 二级评论数组套数组 -->
+              <div class="childCa" v-for="(pla,index) in pl" :key="index">
+                <span class="plaW">{{pla.username}}:</span>
+                <span class="plad">{{pla.content}}</span>
+              </div>
+            </div>
+            <div class="number">
+              <div>{{item.addtime}}</div>
+
+              <div class="pl">
+                <img :src="require('@/assets/pl.png')">
+              </div>
             </div>
           </div>
         </div>
+        <div class="has-text-centered" v-show="loadding">正在加载中状态...</div>
       </div>
-      <div class="has-text-centered" v-show="loadding">正在加载中状态...</div>
     </div>
-  </div>
+
 </template>
 
 <script type="text/ecmascript-6">
@@ -72,7 +77,8 @@ export default {
       list: [],
       istext: false,
       value: "",
-
+      showa: true,
+      shows:false,
       top: 0,
       state: 0,
       startY: 0, //保存开始滑动时，y轴位置
@@ -93,9 +99,8 @@ export default {
         if (word) {
           plunPush(this.id, this.value)
             .then(res => {
-              this.value = "";212
+              this.value = "";
               this.refresh();
-
               if (res.config.headers.token == "") {
                 this.$router.push({ path: "/phone" });
               }
@@ -122,7 +127,10 @@ export default {
       plun(this.id)
         .then(res => {
           this.list = res.data.data;
-          console.log(this.list);
+          if (this.list.length == 0) {
+            this.shows = true
+            this.showa = false;
+          }
           // Vue.set(this.list);
         })
         .catch(err => {
@@ -134,6 +142,12 @@ export default {
 </script>
 
 <style lang="stylus" type="text/stylus" rel="stylesheet/stylus" scoped>
+.contentss{
+  font-size 14px
+  color #666
+  margin-left 43%
+  margin-top 180px
+}
 .plaW {
   color: #0072D2;
   font-size: 13px;

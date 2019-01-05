@@ -19,7 +19,6 @@ export function fetch(options) {
         'version': '1',
         'model': 'hw',
       },
-      timeout: 30 * 1000, // 30秒超时
     });
     instance.interceptors.request.use(
       config => {
