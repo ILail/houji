@@ -13,7 +13,7 @@ export function fetch(options) {
         // 'token_in_header': global_.token,//token从全局变量那里传过来
         'token': '',
         'did': 'dfdfdffff',
-        'apptype': 'android',
+        'apptype': 'ios',
         'sign': '26644EBFD0C996C83B8E35005CBA0443DA20A54E0137DB73A838D3ACAA0DED1C056BCCFA6C22E5AB047E3B9695D7C4E3A960BAB8C8DFFA06548AB6E2E1A9E22832FDC6089785FA2BD96D03F1CE4015C0868AEE49080F259CCE922455E79C9954F48AC9128341E3ABB419CED937A192B0',
         'os': '12',
         'version': '1',
@@ -24,17 +24,11 @@ export function fetch(options) {
     instance.interceptors.request.use(
       config => {
         if (store.state.token) { // 判断是否存在token，如果存在的话，则每个http header都加上token
-
+          // wx_pub
           config.headers.token = a
         }
         if (store.state.token == "undefined") {
-          store.commit(types.LOGOUT);
-          router.replace({
-            path: '/phone',
-            query: {
-              redirect: router.currentRoute.fullPath
-            }
-          })
+          config.headers.token = ""
         }
         return config;
       },
@@ -49,7 +43,7 @@ export function fetch(options) {
 
       error => {
         if (error.response) {
-          console.log(rerror.response)
+          // console.log(rerror.response)
           switch (error.response.status) {
             case 401:
               // 返回 401 清除token信息并跳转到登录页面
@@ -62,6 +56,7 @@ export function fetch(options) {
               })
           }
         }
+
         return Promise.reject(error.response.data) // 返回接口返回的错误信息
       });
 
@@ -71,7 +66,7 @@ export function fetch(options) {
         resolve(response); //把请求到的数据发到引用请求的地方
       })
       .catch(error => {
-        console.log('请求异常信息：' + error);
+        // console.log('请求异常信息：' + error);
         reject(error);
       });
   });

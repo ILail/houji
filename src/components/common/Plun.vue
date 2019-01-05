@@ -93,12 +93,13 @@ export default {
         if (word) {
           plunPush(this.id, this.value)
             .then(res => {
-              this.value = "";
+              this.value = "";212
               this.refresh();
-              alert("评论成功");
+
               if (res.config.headers.token == "") {
                 this.$router.push({ path: "/phone" });
               }
+              alert("评论成功");
             })
             .catch(err => {
               console.log(err, "请求失败");
@@ -142,9 +143,11 @@ export default {
   display: flex;
   align-items: center;
 }
-.plad{
-  margin -2px 0 0 5px
+
+.plad {
+  margin: -2px 0 0 5px;
 }
+
 .childC {
   background: rgba(247, 247, 247, 1);
   padding: 10px;

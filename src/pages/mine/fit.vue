@@ -26,9 +26,9 @@
             <van-switch v-model="checked" size="24px" active-color="#259B24"/>
           </div>
         </li>
-        <li class="line">
+        <!-- <li class="line">
           <span class="word">清除缓存</span>
-        </li>
+        </li> -->
       </ul>
     </div>
     <div class="warpall">
@@ -89,7 +89,7 @@ export default {
   align-items: center;
   justify-content: space-between;
   border-bottom: 1px solid #eee;
-  padding: 10px 0 10px 2%;
+  padding: 15px 0 15px 2%;
 }
 
 .word {

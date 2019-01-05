@@ -1,9 +1,31 @@
 <template>
   <div>
     <!-- 轮播 -->
-    <van-swipe :autoplay="3000" indicator-color="#D21623">
+    <van-swipe :autoplay="time" indicator-color="#D21623" @change="onChange">
+      <van-swipe-item v-if="shows">
+        <video
+          width="100%"
+          height="375px"
+          x5-video-player-type="h5"
+          x5-video-player-fullscreen="true"
+          x5-playsinline
+          playsinline
+          webkit-playsinline
+          preload="auto"
+          :src="video"
+          :poster="pic"
+          x-webkit-airplay="allow"
+          @click="pauseVideo"
+          @ended="onPlayerEnded($event)"
+        ></video>
+        <!-- <div class="imgsaaa" @click="pauseVideo" v-show="show">
+          <img :src="imgs">
+        </div>-->
+        <img :src="imgs" class="imgsaa" @click="pauseVideo" v-show="show">
+        <!-- <img :src="pic" style="width:100%"> -->
+      </van-swipe-item>
       <van-swipe-item v-for="item of picList" :key="item.id">
-        <img class="swiper-img" :src="item">
+        <img class="swiper-img" :src="item" @click="imghir" style="width:100%">
       </van-swipe-item>
     </van-swipe>
     <!-- 内容 -->
@@ -51,6 +73,7 @@
     </div>
     <!-- 详情页 -->
     <div class="peoDela" v-html="list.content"></div>
+
     <!-- 底部 -->
   </div>
 </template>
@@ -58,48 +81,66 @@
 import { crowd_funding } from "@/components/axios/api";
 import Vue from "vue";
 import { Swipe, SwipeItem } from "vant";
-
+import { ImagePreview } from "vant";
 Vue.use(Swipe).use(SwipeItem);
 export default {
   data() {
     return {
       list: {},
-      picList: []
+      picList: [],
+      pic: "",
+      video: "",
+      imgs: require("@/assets/bof.png"),
+      num: "",
+      show: true,
+      time: 3000,
+      shows: true
     };
   },
   created() {
     this.id = this.$route.query.key; //获取上个页面传递的id,在下面获取数据的时候先提交id
     crowd_funding(this.id)
       .then(res => {
-        // this.sowingMap
         res = res.data;
         if (res.status && res.data) {
           const data = res.data;
           this.list = data;
           this.picList = data.imgs.split(",");
+          this.pic = res.data.video_pic;
+          this.video = res.data.video_data;
+          if (this.pic == "" && this.video == "") {
+            this.shows = false;
+          }
         }
       })
       .catch(err => {
         console.log(err, "请求失败");
       });
   },
-  // mounted() {
-  //   window.addEventListener("scroll", this.watchScroll);
-  // },
   methods: {
-    // watchScroll() {
-    //   var scrollTop =
-    //     window.pageYOffset ||
-    //     document.documentElement.scrollTop ||
-    //     document.body.scrollTop;
-    //   var _this = this;
-    //   if (scrollTop > 0) {
-    //     _this.$refs.mybox.$el.style.marginTop = 60+'px'
-    //   }else{
-    //     _this.$refs.mybox.$el.style.marginTop = 0+'px'
-    //   }
-    // },
+    onChange(index) {
+      this.num = index;
+    },
+    imghir() {
+      ImagePreview(this.picList);
+    },
+    pauseVideo() {
+      //暂停\播放
+      this.time = 0;
+      let video = document.querySelector("video");
+      console.log(this.num);
+      if (this.num != 0) {
+        video.pause();
+      }
+      video.play();
 
+      this.show = false;
+    },
+    onPlayerEnded(player) {
+      this.time = 3000;
+      //视频结束
+      this.show = true;
+    },
     computedResidualTime: function(list) {
       let residualTime = list.left_time;
       let day = parseInt(residualTime / (24 * 3600));
@@ -119,6 +160,13 @@ export default {
 };
 </script>
 <style lang="stylus" type="text/stylus" rel="stylesheet/stylus" scoped>
+.imgsaa {
+  position: absolute;
+  left: 45%;
+  width: 50px;
+  top: 170px;
+}
+
 [v-cloak] {
   display: none;
 }
@@ -136,7 +184,7 @@ export default {
   font-family: PingFangSC-Semibold;
   font-weight: 600;
   color: rgba(51, 51, 51, 1);
-  line-height 1.3
+  line-height: 1.3;
 }
 
 .content {
@@ -144,7 +192,7 @@ export default {
   font-family: PingFangSC-Regular;
   font-weight: 400;
   color: rgba(102, 102, 102, 1);
-  line-height 1.3
+  line-height: 1.3;
 }
 
 .mubiao {
@@ -247,7 +295,7 @@ export default {
 
 .Originator img {
   width: 50px;
-  height 50px
+  height: 50px;
   border-radius: 50%;
 }
 
@@ -275,10 +323,10 @@ export default {
   margin-top: 5px;
 }
 
-.peoDela, >>> p img {
+.peoDela >>> p img {
   width: 100%;
   margin-top: 20px;
-  // padding-bottom: 5px;
+  padding-bottom: 50px;
 }
 </style>
 

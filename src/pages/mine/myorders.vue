@@ -56,22 +56,22 @@ export default {
         { component: five }
       ],
       nowIndex: 0,
-      id:null
+      idnum: null
     };
   },
   created() {
-    this.id = this.$route.query.key;
-    this.selectedId = this.id;
+    
+    this.selectedId = this.$route.query.key
   },
   mounted() {
-    this.id = this.$route.query.key;
+    this.idnum = this.$route.query.key;
     setTimeout(
       function() {
         var mySwiperA = new Swiper(".wrapA", {
           autoHeight: true
         });
 
-        mySwiperA.slideTo(this.id, 0, false);
+        mySwiperA.slideTo(this.idnum, 0, false);
         mySwiperA.on("slideChange", () => {
           this.selectedId = mySwiperA.activeIndex;
           this.$root.eventHub.$emit("changeTab", mySwiperA.activeIndex);

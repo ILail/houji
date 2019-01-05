@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div ref="wrappers">
     <div class="container">
       <div class="wrap">
         <router-link to="/search">
@@ -115,49 +115,41 @@ export default {
       num: ""
     };
   },
-  mounted() {
-    window.addEventListener("scroll", this.watchScroll);
-    // 接收swiper组件发射的index进行导航按钮切换高亮和更新模板地址
-    this.$root.eventHub.$on("slideTab", this.slideTab);
-    setTimeout(
-      function() {
-        var mySwiperA = new Swiper(".wrapA", {
-          autoHeight: true
-        });
 
-        mySwiperA.on("slideChange", () => {
-          // 监控滑动后当前页面的索引，将索引发射到导航组件
-          // 左右滑动时将当前slide的索引发送到nav组件
-          
-          this.$root.eventHub.$emit("slideTab", mySwiperA.activeIndex);
-        });
-        // 接收nav组件传过来的导航按钮索引值，跳转到相应内容区
-        this.$root.eventHub.$on("changeTab", index => {
-          // 点击导航键跳转相应内容区
-          mySwiperA.slideTo(index, 0, false);
-        });
-      }.bind(this),
-      1000
-    );
-  },
   created: function() {
-    // this.selecteda = this.$route.query.key; //获取上个页面传递的id,在下面获取数据的时候先提交id
     fs()
       .then(res => {
-        // console.log(res.data);
         res = res.data;
         if (res.status && res.data) {
           this.tabs = res.data;
-          //   const numN = this.tabs[0].crowd_funding_class_id; // 获取第一个的id  24
-          //   this.numN = numN;
-          // this.tabs.forEach((item,index) => {
-          //   console.log(item.crowd_funding_class_id[0])
-          // })
         }
       })
       .catch(err => {
         console.log(err, "请求失败");
       });
+  },
+  mounted() {
+    window.addEventListener("scroll", this.watchScroll);
+    setTimeout(() => {
+      this.$refs.wrappers.style.visibility = "visible";
+    }, 1000);
+
+    // this.$refs.wrappers.style.visibility = "visible";
+
+    let mySwiperA = new Swiper(".wrapA", {});
+    mySwiperA.on("slideChange", () => {
+      // 监控滑动后当前页面的索引，将索引发射到导航组件
+      // 左右滑动时将当前slide的索引发送到nav组件
+
+      this.$root.eventHub.$emit("slideTab", mySwiperA.activeIndex);
+    });
+    // 接收nav组件传过来的导航按钮索引值，跳转到相应内容区
+    this.$root.eventHub.$on("changeTab", index => {
+      // 点击导航键跳转相应内容区
+      mySwiperA.slideTo(index, 0, false);
+    });
+    // 接收swiper组件发射的index进行导航按钮切换高亮和更新模板地址
+    this.$root.eventHub.$on("slideTab", this.slideTab);
   },
   methods: {
     slideTab(index) {
@@ -193,6 +185,15 @@ export default {
 };
 </script>
 <style lang="stylus" scoped>
+.swiper-slide {
+  height: 0px;
+  overflow-y: hidden;
+}
+
+.swiper-slide-active {
+  height: auto;
+}
+
 .isFixed {
   position: fixed;
   top: 0;

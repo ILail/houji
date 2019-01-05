@@ -18,7 +18,6 @@
         </li>
         <li>
           <router-link
-            t
             :to="{  
         path: 'addressdetail',     
         query: {   
@@ -144,7 +143,6 @@ export default {
       .then(res => {
         // console.log(res.data);
         res = res.data;
-        console.log(res);
         if (res.status && res.data) {
           const data = res.data;
           this.sowingMap = data.sowingMap;

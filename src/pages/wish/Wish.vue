@@ -51,9 +51,9 @@
                   <div class="sl">
                     <div>￥{{pl.support_money}}</div>
                     <div class="slAll">
-                      <span @click="reduce(index)">-</span>
+                      <span @click="reduce(index,pl.wish_id)">-</span>
                       <input type="text" v-model="pl.wish_nums">
-                      <span @click="add(index)">+</span>
+                      <span @click="add(index,pl.wish_id)">+</span>
                     </div>
                   </div>
                 </div>
@@ -95,6 +95,8 @@ import { rSwiperOut, rSwiperOutItem } from "@/bus/components/swiperOut";
 import MineHeader from "./component/Like";
 import { wishPush } from "@/components/axios/api";
 import { forDetil } from "@/components/axios/api";
+import { Addjia } from "@/components/axios/api";
+
 // import HomeMi from "@/components/Tabber";
 import Item from "@/components/Item.vue";
 export default {
@@ -153,10 +155,9 @@ export default {
     };
   },
 
-  mounted: function() {
+  created: function() {
     wishPush()
       .then(res => {
-        console.log(res.data.data.wish_list.list);
         this.json = res.data.data.wish_list.list;
         this.list = res.data.data.recommend;
       })
@@ -345,20 +346,34 @@ export default {
       }
     },
     //商品--
-    reduce(index) {
+    reduce(index, id) {
       if (this.json[this.Index].options[index].wish_nums <= 1) {
         return;
       }
-      this.json[this.Index].options[index].wish_nums--;
+      const numjia = this.json[this.Index].options[index].wish_nums--;
       this.price();
+      Addjia(id, numjia - 1)
+        .then(res => {
+          console.log(res);
+        })
+        .catch(err => {
+          console.log(err, "请求失败");
+        });
     },
     //商品++
-    add(index) {
+    add(index, id) {
       if (this.json[this.Index].options[index].wish_nums > 999999) {
         return;
       }
-      this.json[this.Index].options[index].wish_nums++;
+      const numji = this.json[this.Index].options[index].wish_nums++;
       this.price();
+      Addjia(id, numji + 1)
+        .then(res => {
+          console.log(res);
+        })
+        .catch(err => {
+          console.log(err, "请求失败");
+        });
     },
     //结算支付
     js() {
@@ -786,16 +801,18 @@ export default {
 
 .slAll {
   display: flex;
-  width: 40%;
+  width: 45%;
   align-items: center;
 }
 
 .slAll input {
-  width: 50%;
+  width: 55%;
   border-top: 1px solid rgba(0, 0, 0, 0.6);
   border-bottom: 1px solid rgba(0, 0, 0, 0.6);
   text-align: center;
   height: 27px;
+  -webkit-appearance: none;
+  border-radius: 0;
 }
 
 .slAll span {

@@ -1,5 +1,5 @@
 <template>
-  <div ref="wrappers" style="visibility:hidden;">
+  <div ref="wrappers" style="visibility:visible;">
     <!-- 推荐 -->
     <div :class="searchBarFixed == true ? 'isFixed' :''" id="searchBar">
       <home-header></home-header>
@@ -147,61 +147,46 @@ export default {
     };
   },
   created: function() {
-     setTimeout(
-      function() {
-        this.$refs.wrappers.style.visibility = "visible"
-      }.bind(this),
-      800
-    );
     lookOption()
       .then(res => {
-        // console.log(res.data);
         res = res.data;
-
         if (res.status && res.data) {
           const data = res.data;
-
           this.sowingMap = data.sowingMap;
         }
       })
       .catch(err => {
         console.log(err, "请求失败");
       });
+    // 首页图片 设置定时器加载 不然swiper 会有bug (图片的吭) bind 解决this 指向
   },
   mounted() {
-    // this.scroll = new Bscroll(this.$refs.wrapper);
     window.addEventListener("scroll", this.watchScroll);
-    // 接收swiper组件发射的index进行导航按钮切换高亮和更新模板地址
-    // this.$root.eventHub.$on("slideTab", this.slideTab);
-    // 首页图片 设置定时器加载 不然swiper 会有bug (图片的吭) bind 解决this 指向
-    setTimeout(
-      function() {
-        var mySwiperA = new Swiper(".wrapWa", {
-          // 页面高度自适应
-          autoHeight: true
-          // initialSlide: this.$route.path === "/" ? 0 : 0
-        });
 
-        mySwiperA.on("slideChange", () => {
-          this.selectedId = mySwiperA.activeIndex;
-          // 监控滑动后当前页面的索引，将索引发射到导航组件
-          // 左右滑动时将当前slide的索引发送到nav组件
-          // this.$root.eventHub.$emit("slideTab", mySwiperA.activeIndex);
-          if (mySwiperA.activeIndex >= 3) {
-            this.shiw = false;
-          } else {
-            this.shiw = true;
-          }
-        });
-        // 接收nav组件传过来的导航按钮索引值，跳转到相应内容区
-        this.$root.eventHub.$on("changeTab", index => {
-          // 点击导航键跳转相应内容区
-          mySwiperA.slideTo(index, 0, false);
-        });
-        // console.log(mySwiperA);
-      }.bind(this),
-      1000
-    );
+    setTimeout(() => {
+      this.$refs.wrappers.style.visibility = "visible";
+    }, 1300);
+
+    let mySwiperA = new Swiper(".wrapWa", {});
+    mySwiperA.on("slideChange", () => {
+      this.selectedId = mySwiperA.activeIndex;
+      // 监控滑动后当前页面的索引，将索引发射到导航组件
+      // 左右滑动时将当前slide的索引发送到nav组件
+      // this.$root.eventHub.$emit("slideTab", mySwiperA.activeIndex);
+      if (mySwiperA.activeIndex >= 3) {
+        this.shiw = false;
+      } else {
+        this.shiw = true;
+      }
+    });
+    // 接收nav组件传过来的导航按钮索引值，跳转到相应内容区
+    this.$root.eventHub.$on("changeTab", index => {
+      // 点击导航键跳转相应内容区
+      mySwiperA.slideTo(index, 0, false);
+    });
+
+    // 接收swiper组件发射的index进行导航按钮切换高亮和更新模板地址---如果是自己定义写nav
+    // this.$root.eventHub.$on("slideTab", this.slideTab);
   },
   methods: {
     getVal: function(res) {
@@ -209,17 +194,8 @@ export default {
     },
     handleChange(item, index) {
       this.nowIndex = index;
-
       this.$root.eventHub.$emit("changeTab", index);
     },
-
-    // slideTab(index) {
-    // this.nowIndex = index;
-    // let router = new VueRouter();
-    // let href = index === 0 ? "/" : "/";
-    // 利用路由的push方法更新路径地址
-    // router.push(href);
-    // },
     watchScroll() {
       var scrollTop =
         window.pageYOffset ||
@@ -240,6 +216,15 @@ export default {
 </script>
 
 <style lang="stylus" type="text/stylus" rel="stylesheet/stylus" scoped>
+.swiper-slide {
+  height: 0px;
+  overflow-y: hidden;
+}
+
+.swiper-slide-active {
+  height: auto;
+}
+
 .isFixed {
   position: fixed;
   top: 0;

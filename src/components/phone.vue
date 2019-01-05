@@ -113,7 +113,7 @@ a {
 }
 
 .mobel input {
-  width: 75%;
+  width: 71%;
   height: 20px;
   line-height: 20px;
 }
@@ -173,13 +173,16 @@ a {
 }
 
 .bott {
+  overflow hidden
   margin-top: 15px;
 }
 
 .content {
-  float: left;
+  width: 93%;
+  float: right;
   margin-top: 1px;
   margin-left: 5px;
+  font-size 12px
 }
 </style>
 

@@ -1,6 +1,6 @@
 <template>
   <div class="one">
-   <p>暂时无数据3…………</p>
+  <p>暂无订单</p>
   </div>
 </template>
 

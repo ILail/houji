@@ -11,72 +11,74 @@
         </div>
       </div>
     </div>
-
-    <!-- 剩余时间 -->
-    <div class="muchTime">
-      <div class="line"></div>
-      <div class="content">
-        本场还剩余
-        <span style="color:#333333">2：30：15</span>
-      </div>
-      <div class="line"></div>
-    </div>
-    <div style="background:#eee;height:10px"></div>
-    <!-- 产品 -->
-    <div class="main_a">
-      <div class="listAll container">
-        <img
-          src="http://qiniuyun.ngba.cn/Uploads/image/default/2018-11/20181112105532_76920.jpg"
-          class="crowd-img"
-        >
-        <div class="intro-area">
-          <div class="title">朱礼茶国品安吉茶一罐50克</div>
-          <div class="intro">不是所有的白茶都是安吉白茶</div>
-          <div class="middle">
-            <span class="priceNow">限时价：</span>
-            <span class="priceTrue">¥ 125</span>
-          </div>
-          <div class="bottom">
-            <span class="bottomS">仅剩286件</span>
-            <span class="bottomM">马上抢</span>
-          </div>
+    <div style="height:200px;width:100%"></div>
+    <div v-if="show">
+      <!-- 剩余时间 -->
+      <div class="muchTime">
+        <div class="line"></div>
+        <div class="content">
+          本场还剩余
+          <span style="color:#333333">2：30：15</span>
         </div>
+        <div class="line"></div>
       </div>
       <div style="background:#eee;height:10px"></div>
-      <div class="listAll container">
-        <img
-          src="http://qiniuyun.ngba.cn/Uploads/image/default/2018-11/20181112105532_76920.jpg"
-          class="crowd-img"
-        >
-        <div class="intro-area">
-          <div class="title">朱礼茶国品安吉茶一罐50克</div>
-          <div class="intro">不是所有的白茶都是安吉白茶</div>
-          <div class="middle">
-            <span class="priceNow">限时价：</span>
-            <span class="priceTrue">¥ 125</span>
-          </div>
-          <div class="bottom">
-            <span class="bottomS">仅剩286件</span>
-            <span class="bottomM">马上抢</span>
+      <!-- 产品 -->
+      <div class="main_a">
+        <div class="listAll container">
+          <img
+            src="http://qiniuyun.ngba.cn/Uploads/image/default/2018-11/20181112105532_76920.jpg"
+            class="crowd-img"
+          >
+          <div class="intro-area">
+            <div class="title">朱礼茶国品安吉茶一罐50克</div>
+            <div class="intro">不是所有的白茶都是安吉白茶</div>
+            <div class="middle">
+              <span class="priceNow">限时价：</span>
+              <span class="priceTrue">¥ 125</span>
+            </div>
+            <div class="bottom">
+              <span class="bottomS">仅剩286件</span>
+              <span class="bottomM">马上抢</span>
+            </div>
           </div>
         </div>
-      </div>
-      <div style="background:#eee;height:10px"></div>
-      <div class="listAll container">
-        <img
-          src="http://qiniuyun.ngba.cn/Uploads/image/default/2018-11/20181112105532_76920.jpg"
-          class="crowd-img"
-        >
-        <div class="intro-area">
-          <div class="title">朱礼茶国品安吉茶一罐50克</div>
-          <div class="intro">不是所有的白茶都是安吉白茶</div>
-          <div class="middle">
-            <span class="priceNow">限时价：</span>
-            <span class="priceTrue">¥ 125</span>
+        <div style="background:#eee;height:10px"></div>
+        <div class="listAll container">
+          <img
+            src="http://qiniuyun.ngba.cn/Uploads/image/default/2018-11/20181112105532_76920.jpg"
+            class="crowd-img"
+          >
+          <div class="intro-area">
+            <div class="title">朱礼茶国品安吉茶一罐50克</div>
+            <div class="intro">不是所有的白茶都是安吉白茶</div>
+            <div class="middle">
+              <span class="priceNow">限时价：</span>
+              <span class="priceTrue">¥ 125</span>
+            </div>
+            <div class="bottom">
+              <span class="bottomS">仅剩286件</span>
+              <span class="bottomM">马上抢</span>
+            </div>
           </div>
-          <div class="bottom">
-            <span class="bottomS">仅剩286件</span>
-            <span class="bottomM">马上抢</span>
+        </div>
+        <div style="background:#eee;height:10px"></div>
+        <div class="listAll container">
+          <img
+            src="http://qiniuyun.ngba.cn/Uploads/image/default/2018-11/20181112105532_76920.jpg"
+            class="crowd-img"
+          >
+          <div class="intro-area">
+            <div class="title">朱礼茶国品安吉茶一罐50克</div>
+            <div class="intro">不是所有的白茶都是安吉白茶</div>
+            <div class="middle">
+              <span class="priceNow">限时价：</span>
+              <span class="priceTrue">¥ 125</span>
+            </div>
+            <div class="bottom">
+              <span class="bottomS">仅剩286件</span>
+              <span class="bottomM">马上抢</span>
+            </div>
           </div>
         </div>
       </div>
@@ -97,6 +99,7 @@ export default {
   // 从后台获取到时间数据
   data() {
     return {
+      show: false,
       navList: [
         {
           name: "已经开抢",

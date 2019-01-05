@@ -35,7 +35,7 @@ import Txiana from '@/pages/mine/tixian'
 import Jiaoyi from '@/pages/mine/jyi'
 import bankMark from '@/pages/mine/bank'
 import Confirmation from '@/components/common/Confirmation'
-
+import Confirmations from '@/components/common/Confirmations'
 import store from '@/components/vuex/store'
 import * as types from '@/components/vuex/types'
 Vue.use(Router)
@@ -177,6 +177,10 @@ const routes = [{
   path: '/queren',
   name: '确认订单',
   component: Confirmation
+},,{
+  path: '/querenone',
+  name: '确认',
+  component: Confirmations
 }]
 // })
 // 页面刷新时，重新赋值token,用户名也在界面上展示

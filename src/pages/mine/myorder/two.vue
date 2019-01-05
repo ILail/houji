@@ -4,7 +4,7 @@
       <p>内容加载中......</p>
     </div>
     <div class="content" v-show="toggleShow">
-      <p>暂时无数据2…………</p>
+      <p>暂无订单</p>
     </div>
   </div>
 </template>

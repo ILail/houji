@@ -17,7 +17,7 @@
           <div class="list">{{items.crowd_funding_name}}</div>
           <div class="progressAll">
             <div class="progress-outer">
-              <span class="progress" :style="{width:items.progress+'%'}"></span>
+              <span class="progress" :style="{width:computedResidualTimea(items)+'%'}"></span>
             </div>
             <span class="progressA">{{items.progress}}%</span>
           </div>
@@ -56,6 +56,13 @@ export default {
         day = 0;
       }
       return `${day}天`;
+    },
+    computedResidualTimea: function(itemCon) {
+      let progress = itemCon.progress;
+      if (progress >= 100) {
+        progress = 100;
+      }
+      return `${progress}`;
     }
   }
 };

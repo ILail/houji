@@ -1,31 +1,51 @@
 <template>
   <div class="active">
     <div style="background:#fff">
-      <div class="wrap">
-        <router-link to="yhkbd">
+      <router-link to="yhkbd">
+        <div class="wrap">
           <div class="wrapa">
             <div style="font-size:14px">银行卡</div>
-            <input type="text" placeholder="绑定银行卡">
+            <input type="text" v-model="masg">
           </div>
-        </router-link>
-        <img :src="img" class="wrapImg">
-      </div>
+
+          <img :src="img" class="wrapImg">
+        </div>
+      </router-link>
     </div>
 
     <div style="background:#fff;margin-top:10px">
       <div class="fnagshi">提现金额</div>
-      <span class="sthf" style="  padding-left:2%">¥</span>
-      <input type="text" class="sthf">
+      <div class="midddds">
+        <span class="sthf" style="  padding-left:2%">¥</span>
+        <input type="text" class="sthf">
+      </div>
     </div>
 
-    <div class="action">立即提现</div>
+    <div class="action" @click="enter">立即提现</div>
   </div>
 </template>
 
 <script>
+import { moreBank } from "@/components/axios/api";
 export default {
   data() {
-    return { img: require("@/assets/rr.png") };
+    return { img: require("@/assets/rr.png"), masg: "" };
+  },
+  created() {
+    const arr = this.$route.query.dataObjo;
+    const arrs = this.$route.query.dataObjb;
+    // arr+'(arrs)'
+    if (arr == undefined && arrs == undefined) {
+      
+      this.masg = "绑定银行卡";
+    } else {
+      this.masg = arr + "(" + arrs + ")";
+    }
+  },
+  methods: {
+    enter() {
+      alert("请app上提现");
+    }
   }
 };
 </script>
@@ -50,6 +70,12 @@ export default {
   align-items: center;
   justify-content: space-between;
   padding: 15px 2% 15px 2%;
+}
+
+.midddds {
+  display: flex;
+  align-items: center;
+  padding-bottom: 5px;
 }
 
 .wrapa {

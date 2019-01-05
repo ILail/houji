@@ -44,7 +44,7 @@
       <div class="hostory container" v-if="isShow">
         <div>
           <span class="suos">历史收索</span>
-          <span style="float:right;color:#666666" @click="clickcourse(isShow)">清除</span>
+          <span style="float:right;color:#666666" @click="clickcourse()">清除</span>
         </div>
         <!-- 收索的记录 -->
         <div class="content" v-for=" item of list" :key="item.id">
@@ -206,8 +206,8 @@ export default {
       }
     },
     // 清除缓存 刷新页面
-    clickcourse(isShow) {
-      location.reload();
+    clickcourse() {
+      this.isShow=false
       localStorage.clear();
     }
     // handleCityClick(res) {

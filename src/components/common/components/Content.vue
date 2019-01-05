@@ -37,8 +37,7 @@ export default {
   },
   data() {
     return {
-      wx: require("@/assets/right_.png"),
-      wxone: require("@/assets/mine/xu.png")
+     
     };
   },
 };

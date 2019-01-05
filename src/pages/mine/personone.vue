@@ -4,14 +4,19 @@
       <ul>
         <li class="line">
           <span class="word">头像</span>
+
+          <van-uploader :after-read="onRead">
+            <img :src="letter.headimgurl" alt class="weix">
+          </van-uploader>
         </li>
-        <li class="line">
+        <li class="line" style="height:30px">
           <span class="word">昵称</span>
-          <span class="imgsa">大苏打撒旦撒旦</span>
+          <!-- <span class="imgsa">{{letter.username}}</span> -->
+          <textarea  v-model="desca" class="wordAlla">{{letter.username}}</textarea>
         </li>
         <li class="linea">
           <span class="word">个人简介</span>
-          <textarea maxlength="200" @input="descInput" v-model="desc" class="wordAll"/>
+          <textarea @input="descInput" v-model="desc" class="wordAll">{{letter.self_introduction}}</textarea>
           <div class="num">{{remnant}}</div>
         </li>
       </ul>
@@ -22,20 +27,55 @@
   </div>
 </template>
 <script>
+import Vue from "vue";
+import { Uploader } from "vant";
+
+Vue.use(Uploader);
+import { peosMS } from "@/components/axios/api";
+import secret from "@/utils/utils";
+import { people } from "@/components/axios/api";
 export default {
   name: "Fit",
   data() {
     return {
       remnant: 118,
-      desc: ""
+      desc: "",
+      desca: "",
+      letter: "",
+      imsg: ""
     };
   },
+  created() {
+    people()
+      .then(res => {
+        const num = secret.Decrypt(res.data.data);
+        this.letter = JSON.parse(num);
+      })
+      .catch(err => {
+        console.log(err, "请求失败");
+        this.$router.push("/phone");
+      });
+  },
   methods: {
+    onRead(file) {
+      this.imsg = file.content;
+    },
     descInput() {
       var txtVal = this.desc.length;
       this.remnant = 118 - txtVal;
     },
-    enenneen() {}
+    enenneen() {
+      // const imgs = secret.Decrypt(this.imsg);
+      peosMS(this.desca, this.desc)
+        .then(res => {
+          console.log(res);
+          alert("保存成功")
+          this.$router.go(0)
+        })
+        .catch(err => {
+          console.log(err, "请求失败");
+        });
+    }
   }
 };
 </script>
@@ -46,7 +86,13 @@ export default {
   display: block;
   margin-top: 10px;
 }
-
+.wordAlla {
+  width: 30%;
+  height: 50px;
+  text-align right 
+  line-height 50px
+  display: block;
+}
 .num {
   color: #999;
   font-size: 13px;
@@ -58,6 +104,12 @@ export default {
 
 .linea {
   padding: 10px 2% 10px 2%;
+}
+
+.weix {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
 }
 
 .active {
@@ -91,7 +143,7 @@ export default {
 }
 
 .enterH {
-  width 96%
+  width: 96%;
   height: 50px;
   text-align: center;
   line-height: 50px;
@@ -101,7 +153,7 @@ export default {
   background: #D21623;
   color: #fff;
   border-radius: 5px;
-  margin-left 2% 
+  margin-left: 2%;
 }
 
 .warpall {

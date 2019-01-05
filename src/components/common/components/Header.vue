@@ -1,6 +1,6 @@
 <template>
   <div>
-    <img :src="wxone">
+    <img :src="wxone" style="width:100%">
     <div class="header container" @click="address" v-if="show">
       <div>
         <div class="word">

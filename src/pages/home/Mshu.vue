@@ -18,9 +18,8 @@
               <span class="money">¥{{itemCon.now_money}}</span>
             </div>
             <div class="crowd-right">
-              <span>
-                <img :src="itemCon.headimgurl">
-              </span>
+              <img :src="itemCon.headimgurl">
+              
               <span class="peoMuch">{{itemCon.nickname}}</span>
             </div>
           </div>
@@ -201,18 +200,22 @@ export default {
   color: #666;
 }
 
+.crowd-money {
+  display: flex;
+  align-items: center;
+}
+
 .crowd-right {
   display: flex;
-  align-self: center;
+  align-items: center;
   color: #999;
 }
 
 .crowd-right img {
-  width: 12px;
-  vertical-align: baseline;
-  margin-right: 3px;
-  height: 12px;
+  width: 13px;
+  height: 13px;
   border-radius: 50%;
+  margin: -1px 3px 0 0;
 }
 
 .crowdTimg {

@@ -8,7 +8,7 @@ export function lookOption() { //lookOption是你要调用接口的名字，issu
   return fetch({
     //api.Hallowmas 引用url.js里面的数据
     url: api.Hallowmas + '/v2/frontPageHead',
-    method: 'get', //请求方法
+    method: 'GET', //请求方法
     // params:{}
     //   currentUserId:userId //传过去的参数
     // }
@@ -19,7 +19,7 @@ export function lookOption() { //lookOption是你要调用接口的名字，issu
 export function search(name) {
   return fetch({
     url: api.Hallowmas + '/v2/index?keyword=' + name + '',
-    method: "get",
+    method: "GET",
     data: {
       keyword: name
     }
@@ -30,7 +30,7 @@ export function search(name) {
 export function crowd_funding(id) {
   return fetch({
     url: api.Hallowmas + '/v2/crowdFunding/crowdFundingDetails?crowd_funding_id=' + id + '',
-    method: "get",
+    method: "GET",
     data: {
       id: id
     }
@@ -41,7 +41,7 @@ export function crowd_funding(id) {
 export function fs() {
   return fetch({
     url: api.Hallowmas + '/v2/crowdFunding/crowdFundingClass',
-    method: "get",
+    method: "GET",
   })
 }
 
@@ -49,7 +49,7 @@ export function fs() {
 export function fsDetail(id) {
   return fetch({
     url: api.Hallowmas + '/v2/index?crowd_funding_class_id=' + id + '',
-    method: "get",
+    method: "GET",
     data: {
       id: id
     }
@@ -60,7 +60,7 @@ export function fsDetail(id) {
 export function address() {
   return fetch({
     url: api.Hallowmas + '/v2/geographica/geographicalList',
-    method: "get",
+    method: "GET",
   })
 }
 
@@ -68,7 +68,7 @@ export function address() {
 export function addresslist(id) {
   return fetch({
     url: api.Hallowmas + '/v2/geographica/geographicalCrowdList?geographical_id= ' + 6 + '',
-    method: "post",
+    method: "POST",
     data: {
       id: id
     }
@@ -80,7 +80,7 @@ export function wishList(wish_nums, crowd_funding_return_id, crowd_funding_id) {
   //let data = [];
   return fetch({
     url: api.Hallowmas + '/v2/crowdFunding/addWishList',
-    method: "post",
+    method: "POST",
     data: {
       wish_nums: wish_nums,
       crowd_funding_return_id: crowd_funding_return_id,
@@ -94,12 +94,7 @@ export function wishList(wish_nums, crowd_funding_return_id, crowd_funding_id) {
 export function wishPush() {
   return fetch({
     url: api.Hallowmas + '/v2/crowdFunding/wishList',
-    method: "get",
-    // data: {
-    //   wish_nums: wish_nums,
-    //   crowd_funding_return_id:crowd_funding_return_id,
-    //   crowd_funding_id:crowd_funding_id
-    // }
+    method: "GET",
   })
 }
 
@@ -107,7 +102,7 @@ export function wishPush() {
 export function specifications(id) {
   return fetch({
     url: api.Hallowmas + '/v2/crowdFunding/specifications?crowd_funding_id=' + id + '',
-    method: "get",
+    method: "GET",
     data: {
       id: id
     }
@@ -123,7 +118,7 @@ export function yzm(mobile, code_type) {
   }
   return fetch({
     url: api.Hallowmas + '/v2/verificationCode',
-    method: "post",
+    method: "POST",
 
     data: data
   })
@@ -133,7 +128,7 @@ export function wx(phone, code) {
   //let data = [];
   return fetch({
     url: api.Hallowmas + '/v2/login',
-    method: "post",
+    method: "POST",
     data: {
       phone,
       code
@@ -145,11 +140,7 @@ export function wx(phone, code) {
 export function plun(id, page) {
   return fetch({
     url: api.Hallowmas + '/v2/crowdFunding/discussionList?crowd_funding_id=' + id + '&page=' + page + '',
-    method: "get",
-    data: {
-      id: id,
-      page: page
-    }
+    method: "GET",
   })
 }
 
@@ -158,7 +149,7 @@ export function plun(id, page) {
 export function plunPushs(comment_id, crowd_funding_id, content) {
   return fetch({
     url: api.Hallowmas + '/v2/crowdFunding/comment',
-    method: "post",
+    method: "POST",
     data: [
       comment_id,
       crowd_funding_id,
@@ -171,7 +162,7 @@ export function plunPushs(comment_id, crowd_funding_id, content) {
 export function plunPush(crowd_funding_id, content) {
   return fetch({
     url: api.Hallowmas + '/v2/crowdFunding/comment',
-    method: "post",
+    method: "POST",
     data: {
       crowd_funding_id: crowd_funding_id,
       content: content
@@ -183,7 +174,7 @@ export function plunPush(crowd_funding_id, content) {
 export function people() {
   return fetch({
     url: api.Hallowmas + '/v2/member/memberInfo',
-    method: "get",
+    method: "GET",
 
   })
 }
@@ -192,7 +183,7 @@ export function people() {
 export function gass() {
   return fetch({
     url: api.Hallowmas + '/v2/index?crowd_funding_type= ' + 111 + ' ',
-    method: "get",
+    method: "GET",
 
   })
 }
@@ -201,7 +192,7 @@ export function gass() {
 export function foryou() {
   return fetch({
     url: api.Hallowmas + '/v2/recommendedForYou ',
-    method: "get",
+    method: "GET",
 
   })
 }
@@ -229,15 +220,15 @@ export function Confirone(wish_id, support_type) {
 }
 
 // 确认订单2
-export function Confirtwo(crowd_funding_id, crowd_funding_return_id,wish_nums,support_type) {
+export function Confirtwo(crowd_funding_id, crowd_funding_return_id, wish_nums, support_type) {
   return fetch({
     url: api.Hallowmas + '/v2/single/support',
     method: "POST",
     data: {
       crowd_funding_id: crowd_funding_id,
       crowd_funding_return_id: crowd_funding_return_id,
-      wish_nums:wish_nums,
-      support_type:support_type
+      wish_nums: wish_nums,
+      support_type: support_type
     }
   })
 }
@@ -294,7 +285,7 @@ export function getUser(user_address_id) {
 export function Travels(crowd_funding_id) {
   return fetch({
     url: api.Hallowmas + '/v2/crowdFunding/crowdFundingTravels',
-    method: 'post',
+    method: 'POST',
     data: {
       crowd_funding_id: crowd_funding_id
     }
@@ -314,13 +305,145 @@ export function getMove(user_address_id) {
 
 
 // 充值
-export function getChong(channel,amount) {
+export function getChong(channel, amount) {
   return fetch({
     url: api.Hallowmas + '/v2/member/recharge',
-    method: "POST ",
+    method: "POST",
     data: {
       channel: channel,
-      amount:amount
+      amount: amount
+    }
+  })
+}
+
+// 购物车加减
+export function Addjia(wish_id, wish_nums) {
+  console.log(wish_id, wish_nums)
+  var data = {
+    wish_id,
+    wish_nums
+  }
+  return fetch({
+    url: api.Hallowmas + '/v2/crowdFunding/editWishList',
+    method: "POST",
+    data: data
+  })
+}
+
+// 我的订单
+export function MyOrder(order_type, page) {
+
+  var data = {
+    order_type,
+    page
+  }
+  return fetch({
+    url: api.Hallowmas + '/v2/member/getMemberOrder',
+    method: "POST",
+    data: data
+  })
+}
+
+// 我的全部项目
+export function MyObject() {
+  return fetch({
+    url: api.Hallowmas + '/v2/crowdFunding/myProject?orderType=[under_way,completed,fail]',
+    method: "GET",
+
+  })
+}
+// 我的项目进行中
+export function MyObjectone() {
+  return fetch({
+    url: api.Hallowmas + '/v2/crowdFunding/myProject?orderType=under_way',
+    method: "GET",
+
+  })
+}
+// 我的项目已完成
+export function MyObjectwo() {
+  // let completed = "fail"
+  return fetch({
+    url: api.Hallowmas + '/v2/crowdFunding/myProject?orderType=completed',
+    method: "GET",
+  })
+}
+// 我的项目已
+export function MyObjecthree() {
+  // let completed = "fail"
+  return fetch({
+    url: api.Hallowmas + '/v2/crowdFunding/myProject?orderType=fail',
+    method: "GET",
+  })
+}
+// 修改个人资料
+export function peosMS(username, self_introduction) {
+
+  return fetch({
+    url: api.Hallowmas + '/v2/member/upMember',
+    method: "PUT",
+    data: {
+      username: username,
+      self_introduction: self_introduction
+    }
+  })
+}
+// 修改手机号码
+export function peosMoble(mobile, code) {
+
+  return fetch({
+    url: api.Hallowmas + '/v2/member/replacePhone',
+    method: "PUT",
+    data: {
+      mobile: mobile,
+      code: code
+    }
+  })
+}
+
+// 修改密码
+export function peosMobless(pay_password, pay_password_confirm) {
+
+  return fetch({
+    url: api.Hallowmas + '/v2/member/upMember',
+    method: "PUT",
+    data: {
+      pay_password: pay_password,
+      pay_password_confirm: pay_password_confirm
+    }
+  })
+}
+// 银行卡l列表
+export function getBank() {
+
+  return fetch({
+    url: api.Hallowmas + '/v2/member/bankList',
+    method: "GET",
+  })
+}
+// 绑定银行卡
+export function putBank(bank_id,account,realname,opening_bank) {
+
+  return fetch({
+    url: api.Hallowmas + '/v2/member/bindingBankCard',
+    method: "POST",
+    data: {
+      bank_id: bank_id,
+      account: account,
+      realname:realname,
+      opening_bank:opening_bank
+    }
+  })
+}
+// 体现申请
+export function moreBank(bank_card_id,money) {
+
+  return fetch({
+    url: api.Hallowmas + '/v2/member/depositApply',
+    method: "POST",
+    data: {
+      bank_card_id: bank_card_id,
+      money: money
     }
   })
 }

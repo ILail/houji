@@ -1,5 +1,5 @@
 <template>
-  <div class="detailWrap" id="wrap" ref="wrappers" style="visibility:hidden;">
+  <div class="detailWrap" ref="wrappers" style="visibility:hidden;">
     <!-- 推荐 -->
     <!-- <div :class="searchBarFixed == true ? 'isFixed' :''" id="searchBar"> -->
     <!-- <home-nav></home-nav> -->
@@ -139,7 +139,6 @@ import { wishList } from "@/components/axios/api";
 import { specifications } from "@/components/axios/api";
 import { crowd_funding } from "@/components/axios/api";
 
-import { Confirtwo } from "@/components/axios/api";
 import { PullRefresh } from "vant";
 import { Toast } from "vant";
 Vue.use(PullRefresh);
@@ -147,7 +146,6 @@ Vue.use(Toast);
 export default {
   name: "Detail",
   components: {
-    // HomeNav,
     Detail,
     Travel,
     Plun,
@@ -190,14 +188,7 @@ export default {
     };
   },
   created() {
-    setTimeout(
-      function() {
-        this.$refs.wrappers.style.visibility = "visible";
-      }.bind(this),
-      800
-    );
     this.id = this.$route.query.key; //获取上个页面传递的id,在下面获取数据的时候先提交id
-    // console.log(this.id);
     specifications(this.id)
       .then(res => {
         res = res.data;
@@ -223,46 +214,30 @@ export default {
         console.log(err, "请求失败");
       });
   },
-  // computed: {
-  //   // 计算属性的 getter
-  //      // 点击图片
-  //   imgPath() {
-
-  //     // `this` 指向 vm 实例
-  //     return this.note
-
-  //   },
-
-  // },
-  mounted() {
+  mounted: function() {
     window.addEventListener("scroll", this.watchScroll);
+    setTimeout(() => {
+      this.$refs.wrappers.style.visibility = "visible";
+    }, 1300);
     // 首页图片 设置定时器加载 不然swiper 会有bug (图片的吭) bind 解决this 指向
-    setTimeout(
-      function() {
-        var mySwiperA = new Swiper(".wrapA", {
-          // 页面高度自适应
-          autoHeight: true
-        });
-        mySwiperA.on("slideChange", () => {
-          // 监控滑动后当前页面的索引，将索引发射到导航组件
-          // 左右滑动时将当前slide的索引发送到nav组件
-          this.selectedId = mySwiperA.activeIndex;
-          // this.$root.eventHub.$emit("slideTab", mySwiperA.activeIndex);
-          if (mySwiperA.activeIndex == 0) {
-            this.isshow = false;
-          } else {
-            this.isshow = true;
-          }
-        });
-        // 接收nav组件传过来的导航按钮索引值，跳转到相应内容区
-        this.$root.eventHub.$on("changeTab", index => {
-          // 点击导航键跳转相应内容区
-          mySwiperA.slideTo(index, 0, false);
-        });
-        // console.log(mySwiperA);
-      }.bind(this),
-      1000
-    );
+
+    let mySwiperA = new Swiper(".wrapA", {});
+    mySwiperA.on("slideChange", () => {
+      // 监控滑动后当前页面的索引，将索引发射到导航组件
+      // 左右滑动时将当前slide的索引发送到nav组件
+      this.selectedId = mySwiperA.activeIndex;
+      // this.$root.eventHub.$emit("slideTab", mySwiperA.activeIndex);
+      if (mySwiperA.activeIndex == 0) {
+        this.isshow = false;
+      } else {
+        this.isshow = true;
+      }
+    });
+    // 接收nav组件传过来的导航按钮索引值，跳转到相应内容区
+    this.$root.eventHub.$on("changeTab", index => {
+      // 点击导航键跳转相应内容区
+      mySwiperA.slideTo(index, 0, false);
+    });
   },
   methods: {
     onRefresh() {
@@ -347,40 +322,34 @@ export default {
     },
     // 点击下单
     ljxd() {
-      const arry = [this.$route.query.key, this.clickList.crowd_funding_return_id,this.count]
+      const arry = [
+        this.$route.query.key,
+        this.clickList.crowd_funding_return_id,
+        this.count
+      ];
       this.$router.push({
-        path: "/queren",
+        path: "/querenone",
         query: {
-          dataObjo: arry
+          dataObjo: arry[0],
+          dataObjb: arry[1],
+          dataObjc: arry[2]
         }
       });
-      // Confirtwo(
-      //   this.$route.query.key,
-      //   this.clickList.crowd_funding_return_id,
-      //   this.count,
-      //   111
-      // )
-      //   .then(res => {
-      //     alert("加入成功")
-      //     console.log(res)
-      //     // this.$router.push({
-      //     //   path: "queren",
-      //     // });
-      //   })
-      //   .catch(err => {
-      //     console.log(err, "请求失败");
-      //   });
     }
   }
 };
 </script>
 
 <style lang="stylus" type="text/stylus" rel="stylesheet/stylus" scoped>
-// body {
-// height: 100%;
-// position: fixed;
-// top: 0;
-// }
+.swiper-slide {
+  height: 0px;
+  overflow-y: hidden;
+}
+
+.swiper-slide-active {
+  height: auto;
+}
+
 .isFixed {
   position: fixed;
   top: 0;
@@ -391,6 +360,7 @@ export default {
 
 .detailWrap {
   position: relative;
+  padding-bottom: 50px;
 }
 
 .topt {
@@ -460,7 +430,7 @@ export default {
   font-size: 15px;
   font-family: PingFangSC-Light;
   font-weight: 300;
-  color: rgba(51, 51, 51, 1);
+  color: #666;
 }
 
 .joinw {
@@ -588,7 +558,7 @@ export default {
 }
 
 .numW {
-  padding: 5.5px 15px;
+  padding: 6.3px 15px;
   border-bottom: 1px solid #eeeeee;
   border-top: 1px solid #eeeeee;
   color: #666666;
@@ -597,12 +567,11 @@ export default {
 
 .layerNode {
   width: 100%;
-  height: 170px;
+  height: 184px;
   background-color: #fff;
   position: absolute;
   overflow-y: scroll;
   -webkit-overflow-scrolling: touch; /* ios 自带滚动条不平滑解决方法 */
-  // margin-top: 10px;
 }
 
 .content {

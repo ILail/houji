@@ -5,14 +5,14 @@
         <li class="line" @click="one">
           <span class="word">手机</span>
           <span class="imgsa">
-            <span style="margin-right:10px">13136184755</span>
+            <span style="margin-right:10px">{{letter.mobile}}</span>
             <img :src="img" style="width:7%;vertical-align: sub;">
           </span>
         </li>
         <li class="line" @click="two">
           <span class="word">支付密码</span>
           <span class="imgsa">
-            <img :src="img">
+            <img :src="img" style="width:33%">
           </span>
         </li>
       </ul>
@@ -20,19 +20,32 @@
   </div>
 </template>
 <script>
+import secret from "@/utils/utils";
+import { people } from "@/components/axios/api";
 export default {
   name: "Desgreo",
   data() {
     return {
-      img: require("@/assets/rr.png")
+      img: require("@/assets/rr.png"),
+      letter:""
     };
+  },
+  created(){
+     people()
+      .then(res => {
+        const num = secret.Decrypt(res.data.data);
+        this.letter = JSON.parse(num);
+      })
+      .catch(err => {
+        console.log(err, "请求失败");
+      });
   },
   methods: {
     one() {
-      this.$router.push("/zfu");
+      this.$router.push("/gengph");
     },
     two() {
-      this.$router.push("/gengph");
+      this.$router.push("/zfu");
     }
   }
 };
@@ -61,7 +74,7 @@ export default {
   align-items: center;
   justify-content: space-between;
   border-bottom: 1px solid #eee;
-  padding: 10px 0 10px 2%;
+  padding: 15px 0 15px 2%;
 }
 
 .word {
