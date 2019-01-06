@@ -12,11 +12,11 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
       '/api': {//前端路由匹配模式
-        target: 'http://csapi.nonggui8.com:80',  //后端请求服务域名和端口
-        changeOrigin: true,   //设置请求头
-        pathRewrite:{  // 路径重写，
-          '/api': '/api'  // 替换target中的请求地址，也就是说以后你在请求http://api.jisuapi.com/XXXXX这个地址的时候直接写成/api即可。
-      }
+        target: 'http://csapi.nonggui8.com',  //后端请求服务域名和端口
+        changeOrigin: true, 
+        pathRewrite: {
+          '^/apis': ''   //需要rewrite重写的,
+      } 
     }
     },
 

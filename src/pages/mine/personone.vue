@@ -4,15 +4,20 @@
       <ul>
         <li class="line">
           <span class="word">头像</span>
+          <label for="fileinp">
+            <img :src="letter.headimgurl" class="weix" id="img" ref="imgsss">
+            <!-- <span id="text">请上传Word文档</span> -->
+            <input type="file" id="fileinp" @change="change($event)">
+          </label>
 
-          <van-uploader :after-read="onRead">
-            <img :src="letter.headimgurl" alt class="weix">
-          </van-uploader>
+          <!-- <input type="file" accept="image/png, image/jpg, image/jpeg" @change="change($event)"> -->
+          <!-- <van-uploader :after-read="onRead" accept="image/png, image/jpg, image/jpeg" multiple> -->
+          <!-- </van-uploader> -->
         </li>
         <li class="line" style="height:30px">
           <span class="word">昵称</span>
           <!-- <span class="imgsa">{{letter.username}}</span> -->
-          <textarea  v-model="desca" class="wordAlla">{{letter.username}}</textarea>
+          <textarea v-model="desca" class="wordAlla">{{letter.username}}</textarea>
         </li>
         <li class="linea">
           <span class="word">个人简介</span>
@@ -41,7 +46,7 @@ export default {
       remnant: 118,
       desc: "",
       desca: "",
-      letter: "",
+      letter: {},
       imsg: ""
     };
   },
@@ -57,8 +62,15 @@ export default {
       });
   },
   methods: {
-    onRead(file) {
-      this.imsg = file.content;
+    change(file) {
+      let image = document.getElementById("img"); //预览对象
+
+      this.clip(file, {
+        resultObj: image,
+        aspectRatio: 1
+      });
+      // console.log(file.path[1].childNodes[0])
+      // console.log(this.$refs.imgsss);
     },
     descInput() {
       var txtVal = this.desc.length;
@@ -69,8 +81,8 @@ export default {
       peosMS(this.desca, this.desc)
         .then(res => {
           console.log(res);
-          alert("保存成功")
-          this.$router.go(0)
+          alert("保存成功");
+          this.$router.go(-2);
         })
         .catch(err => {
           console.log(err, "请求失败");
@@ -80,19 +92,40 @@ export default {
 };
 </script>
 <style lang="stylus" type="text/stylus" rel="stylesheet/stylus" scoped>
+label {
+  position: relative;
+}
+
+#fileinp {
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+}
+
+#btn {
+  margin-right: 5px;
+}
+
+#text {
+  color: red;
+}
+
 .wordAll {
   width: 100%;
   height: 50px;
   display: block;
   margin-top: 10px;
 }
+
 .wordAlla {
   width: 30%;
   height: 50px;
-  text-align right 
-  line-height 50px
+  text-align: right;
+  line-height: 50px;
   display: block;
 }
+
 .num {
   color: #999;
   font-size: 13px;

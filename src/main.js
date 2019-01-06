@@ -8,11 +8,11 @@ import fastClick from 'fastclick'
 import axios from 'axios';
 import LyTab from 'ly-tab';
 import store from '@/components/vuex/store'
-
+import clipper from '../static/clipper'
 import VueLazyload from 'vue-lazyload'
 
 Vue.use(VueLazyload)
-
+Vue.use(clipper)
 // or with options
 Vue.use(VueLazyload, {
   preLoad: 1.3,

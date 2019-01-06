@@ -1,73 +1,77 @@
 <template>
-
-  
-    <div class="container">
-      <div class="title">
-        <span
-          v-for="(item,index) in navList"
-          :key="item.id"
-          :class="{'active': nowIndex===index}"
-          @click="handClick(index)"
-        >{{item.name}}</span>
-      </div>
-      <div>
-        <form action="javascript:return true;">
-          <input
-            type="text"
-            placeholder="点击评论..."
-            @keypress="searchGoods"
-            class="pluna"
-            v-model="value"
-          >
-        </form>
-      </div>
-        <div v-if="shows" class="contentss">暂无数据</div>
-      <!-- 评论内容 -->
+  <div class="container">
+    <div class="title">
+      <span
+        v-for="(item,index) in navList"
+        :key="item.id"
+        :class="{'active': nowIndex===index}"
+        @click="handClick(index)"
+      >{{item.name}}</span>
+    </div>
+    <div>
+      <form action="javascript:return true;">
+        <input
+          type="text"
+          placeholder="点击评论..."
+          @keypress="searchGoods"
+          class="pluna"
+          v-model="value"
+        >
+      </form>
+    </div>
+    <!-- 评论内容 -->
+    <div
+      class="content"
+      @touchstart="touchStart($event)"
+      @touchmove="touchMove($event)"
+      @touchend="touchEnd()"
+    >
       <div
-        class="content"
-        @touchstart="touchStart($event)"
-        @touchmove="touchMove($event)"
-        @touchend="touchEnd()"
-        id="page"
-        v-if="showa"
-      >
-        <div
-          class="level has-text-centered"
-          v-show="isLoadMoreShow"
-          style="margin:10px 2px 0 2px;background-color:white;"
-        >{{loadWords}}</div>
-        <div class="peosCon" v-for="(item,index) in list" :key="index" :id="item.id">
-          <div class="left">
-            <img :src="item.headimages">
-          </div>
-          <div class="right">
-            <div class="word" style="color:#E88A25">{{item.username}}</div>
-            <div class="wordC">{{item.content}}</div>
-            <div class="childC" v-for="(pl,index) in list[index].option" :key="index">
-              <!-- 二级评论数组套数组 -->
-              <div class="childCa" v-for="(pla,index) in pl" :key="index">
-                <span class="plaW">{{pla.username}}:</span>
-                <span class="plad">{{pla.content}}</span>
-              </div>
+        class="level has-text-centered"
+        v-show="isLoadMoreShow"
+        style="margin:10px 2px 0 2px;background-color:white;"
+      >{{loadWords}}</div>
+      <div class="peosCon" v-for="(item,index) in list" :key="index" :id="item.id">
+        <div class="left">
+          <img :src="item.headimages">
+        </div>
+        <div class="right">
+          <div class="word" style="color:#E88A25">{{item.username}}</div>
+          <div class="wordC">{{item.content}}</div>
+          <div class="childC" v-for="(pl,index) in list[index].option" :key="index">
+            <!-- 二级评论数组套数组 -->
+            <div class="childCa" v-for="(pla,index) in pl" :key="index">
+              <span class="plaW">{{pla.username}}:</span>
+              <span class="plad">{{pla.content}}</span>
             </div>
-            <div class="number">
-              <div>{{item.addtime}}</div>
+          </div>
+          <div class="number">
+            <div>{{item.addtime}}</div>
 
-              <div class="pl">
-                <img :src="require('@/assets/pl.png')">
-              </div>
+            <div class="pl">
+              <img :src="require('@/assets/pl.png')" @click="imgplun(item.fid)">
             </div>
           </div>
         </div>
-        <div class="has-text-centered" v-show="loadding">正在加载中状态...</div>
       </div>
+      <div class="has-text-centered" v-show="loadding">正在加载中状态...</div>
     </div>
 
+    <input
+      type="text"
+      class="plunas"
+      placeholder="点击评论..."
+      v-model="values"
+      v-show="showss"
+      @keypress="searchGood"
+    >
+  </div>
 </template>
 
 <script type="text/ecmascript-6">
 import { plun } from "@/components/axios/api";
 import { plunPush } from "@/components/axios/api";
+import { plunPushs } from "@/components/axios/api";
 import Vue from "vue";
 export default {
   data() {
@@ -77,19 +81,24 @@ export default {
       list: [],
       istext: false,
       value: "",
-      showa: true,
-      shows:false,
+      values: "",
       top: 0,
       state: 0,
       startY: 0, //保存开始滑动时，y轴位置
       touching: false,
       isLoadMoreShow: false,
       loadWords: "松开刷新页面",
-      loadding: false
+      loadding: false,
+      showss: false,
+      fid: ""
     };
   },
   created() {
-    this.refresh();
+    this.$nextTick(() => {
+      this.refresh();
+    });
+
+    // ...
   },
   methods: {
     searchGoods(event) {
@@ -104,7 +113,8 @@ export default {
               if (res.config.headers.token == "") {
                 this.$router.push({ path: "/phone" });
               }
-              alert("评论成功");
+
+              this.$forceUpdate();
             })
             .catch(err => {
               console.log(err, "请求失败");
@@ -127,27 +137,52 @@ export default {
       plun(this.id)
         .then(res => {
           this.list = res.data.data;
-          if (this.list.length == 0) {
-            this.shows = true
-            this.showa = false;
-          }
+
+          // if (this.list.length == 0) {
+          //   this.shows = true;
+          //   this.showa = false;
+          // }
           // Vue.set(this.list);
         })
         .catch(err => {
           console.log(err, "请求失败");
         });
+    },
+    imgplun: function(data) {
+      this.showss = true;
+      this.fid = data;
+    },
+    searchGood(event) {
+      this.id = this.$route.query.key;
+      console.log(this.fid)
+      if (event.keyCode == 13) {
+        let word = this.values.replace(/[^\w\u4E00-\u9FA5]/g, "");
+        if (word) {
+          plunPushs(this.fid, this.id, this.values)
+            .then(res => {
+              console.log(res)
+              this.values = "";
+              this.refresh();
+              this.showss = false;
+            })
+            .catch(err => {
+              console.log(err, "请求失败");
+            });
+        }
+      }
     }
   }
 };
 </script>
 
 <style lang="stylus" type="text/stylus" rel="stylesheet/stylus" scoped>
-.contentss{
-  font-size 14px
-  color #666
-  margin-left 43%
-  margin-top 180px
+.ddss {
+  font-size: 14px;
+  color: #666;
+  margin-left: 43%;
+  margin-top: 180px;
 }
+
 .plaW {
   color: #0072D2;
   font-size: 13px;
@@ -213,15 +248,40 @@ export default {
   padding: 0 0 0 10px;
 }
 
-.content {
+.plunas {
+  width: 100%;
+  height: 30px;
+  line-height: 30px;
+  background: rgba(247, 247, 247, 1);
+  border: 1px solid rgba(153, 153, 153, 1);
+  border-radius: 4px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  margin-bottom: 20px;
+}
+
+.plunas::-webkit-input-placeholder {
+  font-size: 15px;
+  font-family: PingFangSC-Regular;
+  font-weight: 400;
+  color: rgba(153, 153, 153, 1);
+  padding: 0 0 0 10px;
+}
+
+.dd {
   margin-top: 20px;
 }
 
+.content {
+  margin-top: 20px;
+  padding-bottom: 45px;
+}
+
 .peosCon {
-  overflow: hidden;
   padding-bottom: 15px;
   display: flex;
-  justify-content: space-between;
+  justify-dd: space-between;
 }
 
 .left img {
@@ -234,6 +294,7 @@ export default {
 
 .right {
   width: 86%;
+  margin-left: 2%;
 }
 
 .right .word {
