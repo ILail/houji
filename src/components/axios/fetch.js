@@ -9,7 +9,7 @@ export function fetch(options) {
     const instance = axios.create({ //instance创建一个axios实例，可以自定义配置，可在 axios文档中查看详情
       //所有的请求都会带上这些配置，比如全局都要用的身份信息等。
       headers: {
-        // 'Content-Type': 'application/x-www-form-urlencoded',
+        // 'content-Type': 'application/x-www-form-urlencoded',
         // 'token_in_header': global_.token,//token从全局变量那里传过来
         'token': '',
         'did': 'dfdfdffff',

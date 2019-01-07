@@ -13,9 +13,9 @@ module.exports = {
     proxyTable: {
       '/api': {//前端路由匹配模式
         target: 'http://csapi.nonggui8.com',  //后端请求服务域名和端口
-        changeOrigin: true, 
+        changeOrigin: true, //解决跨域
         pathRewrite: {
-          '^/apis': ''   //需要rewrite重写的,
+          '^/api': '/'   //需要rewrite重写的,
       } 
     }
     },

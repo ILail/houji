@@ -8,7 +8,7 @@
         <div class="swiper-wrapper">
           <div class="swiper-slide" v-for="item of list" :key="item.id">
             <keep-alive>
-              <component :is="item.component"></component>
+              <component :is="item.component" :listAddress="listAddress"></component>
             </keep-alive>
           </div>
         </div>
@@ -19,7 +19,6 @@
 
 <script type="text/ecmascript-6">
 import { addresslist } from "@/components/axios/api";
-// import VueRouter from "vue-router";
 import one from "@/pages/home/address/one";
 import two from "@/pages/home/address/two";
 import three from "@/pages/home/address/three";
@@ -48,15 +47,15 @@ export default {
     return {
       selectedId: 0,
       items: [
-        { label: "四川" },
-        { label: "江苏" },
-        { label: "天津" },
-        { label: "海南" },
-        { label: "浙江" },
-        { label: "云南" },
-        { label: "广州" },
+        { label: "北京" },
         { label: "上海" },
-        { label: "北京" }
+        { label: "广州" },
+        { label: "浙江" },
+        { label: "海南" },
+        { label: "山西" },
+        { label: "安徽" },
+        { label: "云南" },
+        { label: "西藏" }
       ],
       options: {
         activeColor: "#D21623"
@@ -73,21 +72,49 @@ export default {
         { component: eight },
         { component: nine }
       ],
-      nowIndex: 0
+      nowIndex: 0,
+      listAddress: []
     };
   },
   created() {
     this.id = this.$route.query.key;
+    // console.log(this.id);
+    switch (this.id) {
+      case 0:
+        this.selectedId = 0;
+        break;
+      case 10:
+        this.selectedId = 0;
+        break;
+      case 11:
+        this.selectedId = 1;
+        break;
+      case 12:
+        this.selectedId = 2;
+        break;
+      case 13:
+        this.selectedId = 3;
+        break;
+      case 14:
+        this.selectedId = 4;
+        break;
+      case 15:
+        this.selectedId = 5;
+        break;
+      case 16:
+        this.selectedId = 6;
+        break;
+      case 17:
+        this.selectedId = 7;
+        break;
+      case 18:
+        this.selectedId = 8;
+        break;
+    }
     addresslist(this.id)
       .then(res => {
-        res = res.data;
-        let lenghth = res.data.geographical_list.length;
-        console.log(res.data.geographical_list);
-        this.selectedId = lenghth - this.id;
-
-        if (this.selectedId >= lenghth) {
-          this.selectedId = 0;
-        }
+        this.listAddress = res.data.data.crowd_list;
+        // console.log(res.data.data.geographical_list);
       })
       .catch(err => {
         console.log(err, "请求失败");
@@ -95,34 +122,21 @@ export default {
   },
   mounted() {
     // 首页图片 设置定时器加载 不然swiper 会有bug (图片的吭) bind 解决this 指向
-    setTimeout(
-      function() {
-        var mySwiperA = new Swiper(".wrapA", {
-          // 页面高度自适应
-          autoHeight: true
-          // initialSlide: this.$route.path === "/addressdetail" ? 0 : 0
-        });
-        this.id = this.$route.query.key;
-        let num = this.items.length - this.id;
 
-        if (num >= this.items.length) {
-          num = 0;
-        }
-        mySwiperA.slideTo(num, 0, false);
-        // 页面的跳转
-        mySwiperA.on("slideChange", () => {
-          this.selectedId = mySwiperA.activeIndex;
-          //  this.$route.query.key = mySwiperA.activeIndex;
-          this.$root.eventHub.$emit("changeTab", mySwiperA.activeIndex);
-        });
-        // 接收nav组件传过来的导航按钮索引值，跳转到相应内容区
-        this.$root.eventHub.$on("changeTab", index => {
-          mySwiperA.slideTo(index, 0, false);
-          // mySwiperA.slideTo(num, 0, false);
-        });
-      }.bind(this),
-      1000
-    );
+    var mySwiperA = new Swiper(".wrapA", {});
+
+    mySwiperA.slideTo(this.selectedId, 0, false);
+    // 页面的跳转
+    mySwiperA.on("slideChange", () => {
+      this.selectedId = mySwiperA.activeIndex;
+      //  this.$route.query.key = mySwiperA.activeIndex;
+      this.$root.eventHub.$emit("changeTab", mySwiperA.activeIndex);
+    });
+    // 接收nav组件传过来的导航按钮索引值，跳转到相应内容区
+    this.$root.eventHub.$on("changeTab", index => {
+      mySwiperA.slideTo(index, 0, false);
+      // mySwiperA.slideTo(num, 0, false);
+    });
   },
   methods: {
     handleChange(item, index) {
@@ -134,4 +148,12 @@ export default {
 </script>
 
 <style lang="stylus" type="text/stylus" rel="stylesheet/stylus" scoped>
+.swiper-slide {
+  height: 0px;
+  overflow-y: hidden;
+}
+
+.swiper-slide-active {
+  height: auto;
+}
 </style>

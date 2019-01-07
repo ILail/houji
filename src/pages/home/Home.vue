@@ -44,7 +44,6 @@ export default {
         if (res.status && res.data) {
           const data = res.data;
           this.adInfo = data.adInfo
-          // this.sowingMap = data.sowingMap;
           this.popuLarity = data.popularity;
           this.dayProduct = data.dayProduct;
         }

@@ -90,11 +90,10 @@ export default {
       reader.onload = function(e) {
         imgFile = e.target.result;
         console.log(imgFile);
-        
       };
 
       //正式读取文件
-      reader.readAsDataURL(file)
+      reader.readAsDataURL(file);
 
       // var reader = new FileReader();
       // reader.readAsDataURL(file);
@@ -122,15 +121,19 @@ export default {
     },
     enenneen() {
       // const imgs = secret.Decrypt(this.imsg);
-      peosMS(this.desca, this.desc)
-        .then(res => {
-          console.log(res);
-          alert("保存成功");
-          this.$router.go(-2);
-        })
-        .catch(err => {
-          console.log(err, "请求失败");
-        });
+      if (this.desca == "" || this.desc == "") {
+        alert("请更改");
+      } else {
+        peosMS(this.desca, this.desc)
+          .then(res => {
+            console.log(res);
+            alert("保存成功");
+            this.$router.go(-2);
+          })
+          .catch(err => {
+            console.log(err, "请求失败");
+          });
+      }
     }
   }
 };

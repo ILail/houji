@@ -115,23 +115,33 @@ export default {
 
       this.wordA = strs;
       console.log(this.idone, this.idtwo, this.idthress, this.wordA);
-      newAddress(
-        this.names,
-        this.phone,
-        this.idone,
-        this.idtwo,
-        this.idthress,
-        this.wordA
-      )
-        .then(res => {
-          console.log(res.data.data);
-          if (res.data.data.length == "0") {
-            alert("提交成功");
-          }
-        })
-        .catch(err => {
-          console.log(err, "请求失败");
-        });
+      if (
+        this.names == "" ||
+        this.idone == "" ||
+        this.idtwo == "" ||
+        this.idthress == "" ||
+        this.wordA == ""
+      ) {
+        alert("请正确输入");
+      } else {
+        newAddress(
+          this.names,
+          this.phone,
+          this.idone,
+          this.idtwo,
+          this.idthress,
+          this.wordA
+        )
+          .then(res => {
+            console.log(res.data.data);
+            if (res.data.data.length == "0") {
+              alert("提交成功");
+            }
+          })
+          .catch(err => {
+            console.log(err, "请求失败");
+          });
+      }
     }
   }
 };

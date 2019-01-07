@@ -67,7 +67,7 @@ export function address() {
 // 地理标志列表
 export function addresslist(id) {
   return fetch({
-    url: api.Hallowmas + '/v2/geographica/geographicalCrowdList?geographical_id= ' + 6 + '',
+    url: api.Hallowmas + '/v2/geographica/geographicalCrowdList',
     method: "POST",
     data: {
       id: id
