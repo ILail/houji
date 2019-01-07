@@ -35,29 +35,29 @@ export function fetch(options) {
         return Promise.reject(err);
 
       });
-    instance.interceptors.response.use(
-      response => {
-        return response;
-      },
+    // instance.interceptors.response.use(
+    //   response => {
+    //     return response;
+    //   },
 
-      error => {
-        if (error.response) {
-          // console.log(rerror.response)
-          switch (error.response.status) {
-            case 401:
-              // 返回 401 清除token信息并跳转到登录页面
-              store.commit(types.LOGOUT);
-              router.replace({
-                path: '/phone',
-                query: {
-                  redirect: router.currentRoute.fullPath
-                }
-              })
-          }
-        }
+    //   error => {
+    //     if (error.response) {
+    //       // console.log(rerror.response)
+    //       switch (error.response.status) {
+    //         case 401:
+    //           // 返回 401 清除token信息并跳转到登录页面
+    //           store.commit(types.LOGOUT);
+    //           router.replace({
+    //             path: '/phone',
+    //             query: {
+    //               redirect: router.currentRoute.fullPath
+    //             }
+    //           })
+    //       }
+    //     }
 
-        return Promise.reject(error.response.data) // 返回接口返回的错误信息
-      });
+    //     return Promise.reject(error.response.data) // 返回接口返回的错误信息
+    //   });
 
     instance(options)
       .then(response => { //then 请求成功之后进行什么操作
