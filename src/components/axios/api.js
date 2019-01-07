@@ -2,7 +2,7 @@ import {
   fetch
 } from "./fetch"; //引用fetch.js
 import api from './url'; //引用url.js
-// console.log(api.Hallowmas)
+console.log(api.Hallowmas)
 //首页
 export function lookOption() { //lookOption是你要调用接口的名字，issuer,userId是传进来的参数
   return fetch({
@@ -444,6 +444,18 @@ export function moreBank(bank_card_id, money) {
     data: {
       bank_card_id: bank_card_id,
       money: money
+    }
+  })
+}
+
+// 图片上传
+export function imgUpdat(file) {
+
+  return fetch({
+    url: api.Hallowmas + '/v2/image',
+    method: "POST",
+    data: {
+      file: file
     }
   })
 }

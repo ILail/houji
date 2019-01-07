@@ -8,11 +8,8 @@
  * */
 
 import Cropper from 'cropperjs'
-import Exif from 'exif-js'
-import {
-  peosMS
-} from "@/components/axios/api";
-import secret from "@/utils/utils";
+// import Exif from 'exif-js'
+
 export default {
   install(Vue) {
     //初始化方法
@@ -206,8 +203,8 @@ export default {
       //这边写图片的上传
       let self = this;
       self.destoried();
-      let imgpush = imageData.split(',')[1]
-      console.log(imgpush)
+      // let imgpush = imageData.split(',')[1]
+      // console.log(imgpush)
       // console.log(secret.Decrypt(imageData))
       // peosMS(imageData)
       // .then(res => {

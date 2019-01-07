@@ -13,11 +13,9 @@ import VueLazyload from 'vue-lazyload'
 
 Vue.use(VueLazyload)
 Vue.use(clipper)
-// or with options
 Vue.use(VueLazyload, {
   preLoad: 1.3,
   loading: '@/assets/err2.png',
-  // loading: 'dist/loading.gif',
 })
 Vue.use(require('vue-wechat-title'))
 Vue.use(LyTab);

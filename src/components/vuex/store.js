@@ -34,7 +34,8 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     token: null,
-    userName: ''
+    userName: '',
+    keepAlive: []
   },
   mutations: {
     [types.LOGIN]: (state, data) => {
@@ -49,5 +50,11 @@ export default new Vuex.Store({
     //     localStorage.userName = data;
     //     state.userName = data;
     // }
+    SET_KEEP_ALIVE: (state, keepAlive) => {
+      state.keepAlive = keepAlive
+    }
+  },
+  getters: {
+    keepAlive: state => state.keepAlive
   }
 })

@@ -1,51 +1,51 @@
 <template>
-  <div ref="wrappers" style="visibility:visible;">
-    <!-- 推荐 -->
-    <div :class="searchBarFixed == true ? 'isFixed' :''" id="searchBar">
-      <home-header></home-header>
-      <ly-tab v-model="selectedId" :items="items" :options="options" @change="handleChange"></ly-tab>
-    </div>
-    <van-swipe :autoplay="3000" indicator-color="#D21623" v-if="shiw">
-      <van-swipe-item v-for="item of sowingMap" :key="item.id">
-        <router-link
-          :to="{  
+
+    <div ref="wrappers" style="visibility:visible;">
+      <!-- 推荐 -->
+      <div :class="searchBarFixed == true ? 'isFixed' :''" id="searchBar">
+        <home-header></home-header>
+        <ly-tab v-model="selectedId" :items="items" :options="options" @change="handleChange"></ly-tab>
+      </div>
+      <van-swipe :autoplay="3000" indicator-color="#D21623" v-if="shiw">
+        <van-swipe-item v-for="item of sowingMap" :key="item.id">
+          <router-link
+            :to="{  
         path: 'Detail',     
         query: {   
             key: item.link, // orderNum : this.searchData.orderNo
         }
     }"
-        >
-          <img class="swiper-img" :src="item.pic" style="height:190px">
-        </router-link>
-      </van-swipe-item>
-    </van-swipe>
-    <div class="swiper-box">
-      <div class="swiper-container wrapWa">
-        <div class="swiper-wrapper">
-          <div class="swiper-slide" v-for="item of list" :key="item.id">
-            <keep-alive>
+          >
+            <img class="swiper-img" :src="item.pic" style="height:190px">
+          </router-link>
+        </van-swipe-item>
+      </van-swipe>
+      <div class="swiper-box">
+        <div class="swiper-container wrapWa">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide" v-for="item of list" :key="item.id">
               <component :is="item.component"></component>
-            </keep-alive>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    <div class="tabberWarp">
-      <div class="warp">
-        <Item
-          :txt="item.txt"
-          :page="item.page"
-          v-on:change="getVal"
-          v-for="item in tabbarDes"
-          :sel="selected"
-          :key="item.id"
-        >
-          <img :src="item.normalImg" slot="normalImg">
-          <img :src="item.activeImg" slot="activeImg">
-        </Item>
+      <div class="tabberWarp">
+        <div class="warp">
+          <Item
+            :txt="item.txt"
+            :page="item.page"
+            v-on:change="getVal"
+            v-for="item in tabbarDes"
+            :sel="selected"
+            :key="item.id"
+          >
+            <img :src="item.normalImg" slot="normalImg">
+            <img :src="item.activeImg" slot="activeImg">
+          </Item>
+        </div>
       </div>
     </div>
-  </div>
+
 </template>
 
 <script type="text/ecmascript-6">

@@ -7,7 +7,7 @@
           <label for="fileinp">
             <img :src="letter.headimgurl" class="weix" id="img" ref="imgsss">
             <!-- <span id="text">请上传Word文档</span> -->
-            <input type="file" id="fileinp" @change="change($event)">
+            <input type="file" id="fileinp" @change="change($event)" ref="wrapImg">
           </label>
 
           <!-- <input type="file" accept="image/png, image/jpg, image/jpeg" @change="change($event)"> -->
@@ -39,6 +39,8 @@ Vue.use(Uploader);
 import { peosMS } from "@/components/axios/api";
 import secret from "@/utils/utils";
 import { people } from "@/components/axios/api";
+
+import { imgUpdat } from "@/components/axios/api";
 export default {
   name: "Fit",
   data() {
@@ -58,19 +60,61 @@ export default {
       })
       .catch(err => {
         console.log(err, "请求失败");
-        this.$router.push("/phone");
+        // this.$router.push("/phone");
       });
   },
   methods: {
     change(file) {
       let image = document.getElementById("img"); //预览对象
-
       this.clip(file, {
         resultObj: image,
         aspectRatio: 1
       });
       // console.log(file.path[1].childNodes[0])
-      // console.log(this.$refs.imgsss);
+      // console.log(this.$refs.wrapImg.files[0]);
+      var file = this.$refs.wrapImg.files[0];
+      // var files = this.$refs.wrapImg.files[0].name;
+      // // 如果该文件没有后缀就新年构造一个File对象， 并指定文件名和类型
+      // // 第一个参数可以为Blob对象的数组 （第一个参数必须是数组）， File对象继承自Blob，所以可以传递File对象
+      // // 第二个参数为 要设置的文件名
+      // // 第三个参数为可选参数， 没有后缀可能获取不到该文件类型， 所以最好设置下该值
+      // let filea = new File([file], new Date().getTime() + ".png", {
+      //   type: files
+      // });
+      // console.log(filea);
+
+      var reader = new FileReader();
+
+      var imgFile;
+
+      reader.onload = function(e) {
+        imgFile = e.target.result;
+        console.log(imgFile);
+        
+      };
+
+      //正式读取文件
+      reader.readAsDataURL(file)
+
+      // var reader = new FileReader();
+      // reader.readAsDataURL(file);
+      // var URL = URL || webkitURL;
+      // var blob = URL.createObjectURL(file);
+      // let aaa = window.URL.createObjectURL(num);
+
+      // console.log(files);
+      // let aafile = new File([num], files);
+      // console.log(aafile);
+
+      // let aaa = files.split('/')[0]
+      // let bbb = aaa+'/'+num
+      // imgUpdat(filea)
+      //   .then(res => {
+      //     console.log(res);
+      //   })
+      //   .catch(err => {
+      //     console.log(err, "请求失败");
+      //   });
     },
     descInput() {
       var txtVal = this.desc.length;

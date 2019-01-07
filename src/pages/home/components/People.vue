@@ -219,7 +219,12 @@ export default {
   margin: -1px 3px 0 0;
 }
 
-
+.crowd-right span {
+  max-width: 110px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
 
 .crowdTimg {
   width: 12px;
