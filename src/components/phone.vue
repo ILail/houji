@@ -10,7 +10,9 @@
       <span class="test" v-if="!active">{{timed}}s重新发送</span>
     </div>
     <div class="line"></div>
-    <div class="enter" @click="enter">登录</div>
+    <div class="enters" v-on:click="enter" v-if="showbtn">登录</div>
+    <div class="enter" v-if="show">登录</div>
+
     <div class="bott">
       <div class="lyuan">
         <div class="yuan"></div>
@@ -41,31 +43,44 @@ export default {
       timed: 0,
       active: true,
       auth_timetimer: null,
-      code_type: "land"
+      code_type: "land",
+      showbtn: false,
+      show: true
     };
   },
   methods: {
     // 点击获取验证 post后台
     time() {
-      this.timed = 60;
-      this.active = false;
-      var auth_timetimer = setInterval(() => {
-        this.timed--;
-        if (this.timed <= 0) {
-          this.active = true;
-          clearInterval(auth_timetimer);
-        }
-      }, 1000);
-      yzm(this.tell, this.code_type)
-        .then(res => {
-          console.log(res);
-        })
-        .catch(err => {
-          console.log(err, "请求失败");
-        });
+      if (!/^1(3|4|5|7|8)\d{9}$/.test(this.tell)) {
+        alert("手机号码有误，请重填");
+        return false;
+      } else {
+        this.timed = 60;
+        this.active = false;
+        var auth_timetimer = setInterval(() => {
+          this.timed--;
+          if (this.timed <= 0) {
+            this.active = true;
+            clearInterval(auth_timetimer);
+          }
+        }, 1000);
+        yzm(this.tell, this.code_type)
+          .then(res => {
+            console.log(res);
+            this.showbtn = true;
+            this.show = false;
+          })
+          .catch(err => {
+            console.log(err, "请求失败");
+          });
+      }
     },
     // 点击登录 获得token 写入缓存
     enter() {
+      if (this.duanx == "") {
+        alert("验证码不能为空");
+        return false;
+      }
       wx(this.tell, this.duanx)
         .then(res => {
           // token
@@ -74,7 +89,7 @@ export default {
           // this.changeLogin({ Authorization: tokenmine});
 
           this.$store.commit(types.LOGIN, tokenmine);
-          this.$router.push("/");
+          this.$router.go(-1);
         })
         .catch(err => {
           console.log(err, "请求失败");
@@ -137,6 +152,18 @@ a {
   text-align: center;
   color: #fff;
   font-size: 15px;
+  opacity: 0.3;
+}
+
+.enters {
+  height: 44px;
+  background: rgba(210, 22, 35, 1);
+  border-radius: 10px;
+  margin-top: 40px;
+  line-height: 44px;
+  text-align: center;
+  color: #fff;
+  font-size: 15px;
 }
 
 .number input::-webkit-input-placeholder {
@@ -173,7 +200,7 @@ a {
 }
 
 .bott {
-  overflow hidden
+  overflow: hidden;
   margin-top: 15px;
 }
 
@@ -182,7 +209,7 @@ a {
   float: right;
   margin-top: 1px;
   margin-left: 5px;
-  font-size 12px
+  font-size: 12px;
 }
 </style>
 

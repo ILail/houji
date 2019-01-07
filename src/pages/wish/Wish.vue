@@ -12,13 +12,13 @@
             :id="index"
           >
             <!-- 商家 -->
-            <p class="list-dp">
+            <div class="list-dp">
               <span :class="[yuan1,{bg:item.select}]" @click.stop="dpSelected(index)"></span>
-              <span style="margin-left: 7%;">
+              <span class="listimg">
                 <img :src="item.headimgurl" class="listImg">
               </span>
               <span class="dp">{{item.nickname}}</span>
-            </p>
+            </div>
 
             <!-- 图片产品名称价格数量展示 -->
             <r-swiper-out-item
@@ -658,22 +658,20 @@ export default {
 
 .yuan {
   border: 1px solid #ccc;
-  width: 20px;
-  height: 20px;
+  width: 18px;
+  height: 18px;
   display: inline-block;
   border-radius: 50%;
-  position: relative;
-  top: 0.1rem;
-  left: 0.22rem;
 }
 
 .list-dp {
-  width: 100%;
-  background: #fff;
-  line-height: 0.8rem;
-  font-size: 18px;
-  margin: 0 auto;
-  margin-top: 0.2rem;
+  display: flex;
+  align-items: center;
+  padding-left: 3.2%;
+}
+
+.listimg {
+  margin: 0 2% 0 3%;
 }
 
 .dp {
@@ -690,12 +688,9 @@ export default {
   margin-bottom: 25px;
 }
 
-.item-select {
-  width: 1.2rem;
-}
-
 .item-img {
   width: 40%;
+  margin-left: 2%;
 }
 
 .item-img img {
@@ -744,8 +739,8 @@ export default {
 
 .yuan1 {
   border: 1px solid #ccc;
-  width: 20px;
-  height: 20px;
+  width: 18px;
+  height: 18px;
   display: inline-block;
   border-radius: 50%;
 }
@@ -768,7 +763,7 @@ export default {
 }
 
 .all {
-  margin-right: 24%;
+ 
   font-size: 14px;
   font-family: PingFangSC-Regular;
   font-weight: 400;
@@ -782,6 +777,8 @@ export default {
 .hj {
   color: #D21623;
   font-size: 14px;
+  width: 50%;
+  text-align: right;
 }
 
 .bj {

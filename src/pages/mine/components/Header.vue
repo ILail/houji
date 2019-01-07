@@ -1,12 +1,12 @@
 <template>
   <div>
-    <div class="heard" :style="note">
+    <div class="heard" :style="note" @click="fit">
       <!-- 微信头像 -->
       <img :src="letter.headimgurl" alt class="weix">
 
       <div class="middle">
         <div style="font-size:18px">{{letter.username}}</div>
-        <div style="font-size:12px;margin-top:12px">集选全球健康食材!</div>
+        <div style="font-size:12px;margin-top:12px">{{letter.self_introduction}}</div>
       </div>
       <!-- <div class="card">
       <img :src="banner" style="width:32px">
@@ -47,14 +47,19 @@ export default {
   created() {
     people()
       .then(res => {
+        // console.log(res.data.data);
         const num = secret.Decrypt(res.data.data);
         this.letter = JSON.parse(num);
-        console.log(this.letter);
       })
       .catch(err => {
         console.log(err, "请求失败");
         this.$router.push("/phone");
       });
+  },
+  methods:{
+    fit(){
+       this.$router.push("/personone");
+    }
   }
 };
 </script>
@@ -77,6 +82,7 @@ export default {
     width: 70px;
     height: 70px;
     border-radius: 50%;
+    border: 2px solid #fff;
   }
 
   .card {

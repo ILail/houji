@@ -43,8 +43,8 @@ Vue.use(Router)
 const routes = [{
   path: '/',
   name: '猴集',
-  component: Small
-},{
+  component: Small,
+}, {
   path: '/linjuan',
   name: '领卷中心',
   component: Centerj
@@ -173,27 +173,55 @@ const routes = [{
   path: '/yhkbd',
   name: '银行卡绑定',
   component: bankMark
-},{
+}, {
   path: '/queren',
   name: '确认订单',
   component: Confirmation
-},,{
+}, , {
   path: '/querenone',
   name: '确认',
   component: Confirmations
 }]
+//缓存页面
+const router = new Router({
+  routes
+});
+// Vue.config.productionTip = false
+// const sess = window.sessionStorage
+// Vue.mixin({
+//   beforeRouteLeave(to, from, next) {
+//     console.log(to)
+//     const toRouter = to.path
+//     const fromRouter = from.path
+//     const h = JSON.parse(sess.getItem(toRouter));
+//     if (h && h.history) {
+//       this.$destory()
+//       next()
+//     } else {
+//       next()
+//     }
+//   }
 // })
+// const beforeEach = function (to, from, next) {
+//   const toRouter = to.path
+//   const fromRouter = from.path
+//   const h = JSON.parse(sess.getItem(toRouter));
+//   console.log(h)
+//   if (h && h.history) {
+//     h.history = false
+//     sess.removeItem(toRouter)
+//   } else {
+//     sess.setItem(fromRouter || '/', JSON.stringify({
+//       history: true
+//     }))
+//   }
+//   next()
+// }
+// router.beforeEach(beforeEach)
 // 页面刷新时，重新赋值token,用户名也在界面上展示
 if (window.localStorage.getItem('token')) {
   store.commit(types.LOGIN, window.localStorage.getItem('token'));
 }
-// if(window.localStorage.getItem('userName')){
-//   store.commit(types.USERNAME, window.localStorage.getItem('userName'));
-// }
-
-const router = new Router({
-  routes
-});
 
 router.beforeEach((to, from, next) => {
   if (to.matched.some(r => r.meta.requireAuth)) {

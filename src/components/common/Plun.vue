@@ -25,7 +25,6 @@
       @touchstart="touchStart($event)"
       @touchmove="touchMove($event)"
       @touchend="touchEnd()"
-      id="page"
     >
       <div
         class="level has-text-centered"
@@ -50,19 +49,29 @@
             <div>{{item.addtime}}</div>
 
             <div class="pl">
-              <img :src="require('@/assets/pl.png')">
+              <img :src="require('@/assets/pl.png')" @click="imgplun(item.fid)">
             </div>
           </div>
         </div>
       </div>
       <div class="has-text-centered" v-show="loadding">正在加载中状态...</div>
     </div>
+
+    <input
+      type="text"
+      class="plunas"
+      placeholder="点击评论..."
+      v-model="values"
+      v-show="showss"
+      @keypress="searchGood"
+    >
   </div>
 </template>
 
 <script type="text/ecmascript-6">
 import { plun } from "@/components/axios/api";
 import { plunPush } from "@/components/axios/api";
+import { plunPushs } from "@/components/axios/api";
 import Vue from "vue";
 export default {
   data() {
@@ -72,18 +81,24 @@ export default {
       list: [],
       istext: false,
       value: "",
-
+      values: "",
       top: 0,
       state: 0,
       startY: 0, //保存开始滑动时，y轴位置
       touching: false,
       isLoadMoreShow: false,
       loadWords: "松开刷新页面",
-      loadding: false
+      loadding: false,
+      showss: false,
+      fid: ""
     };
   },
   created() {
-    this.refresh();
+    this.$nextTick(() => {
+      this.refresh();
+    });
+
+    // ...
   },
   methods: {
     searchGoods(event) {
@@ -93,13 +108,13 @@ export default {
         if (word) {
           plunPush(this.id, this.value)
             .then(res => {
-              this.value = "";212
+              this.value = "";
               this.refresh();
-
               if (res.config.headers.token == "") {
                 this.$router.push({ path: "/phone" });
               }
-              alert("评论成功");
+
+              this.$forceUpdate();
             })
             .catch(err => {
               console.log(err, "请求失败");
@@ -122,18 +137,52 @@ export default {
       plun(this.id)
         .then(res => {
           this.list = res.data.data;
-          console.log(this.list);
+
+          // if (this.list.length == 0) {
+          //   this.shows = true;
+          //   this.showa = false;
+          // }
           // Vue.set(this.list);
         })
         .catch(err => {
           console.log(err, "请求失败");
         });
+    },
+    imgplun: function(data) {
+      this.showss = true;
+      this.fid = data;
+    },
+    searchGood(event) {
+      this.id = this.$route.query.key;
+      console.log(this.fid)
+      if (event.keyCode == 13) {
+        let word = this.values.replace(/[^\w\u4E00-\u9FA5]/g, "");
+        if (word) {
+          plunPushs(this.fid, this.id, this.values)
+            .then(res => {
+              console.log(res)
+              this.values = "";
+              this.refresh();
+              this.showss = false;
+            })
+            .catch(err => {
+              console.log(err, "请求失败");
+            });
+        }
+      }
     }
   }
 };
 </script>
 
 <style lang="stylus" type="text/stylus" rel="stylesheet/stylus" scoped>
+.ddss {
+  font-size: 14px;
+  color: #666;
+  margin-left: 43%;
+  margin-top: 180px;
+}
+
 .plaW {
   color: #0072D2;
   font-size: 13px;
@@ -199,15 +248,40 @@ export default {
   padding: 0 0 0 10px;
 }
 
-.content {
+.plunas {
+  width: 100%;
+  height: 30px;
+  line-height: 30px;
+  background: rgba(247, 247, 247, 1);
+  border: 1px solid rgba(153, 153, 153, 1);
+  border-radius: 4px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  margin-bottom: 20px;
+}
+
+.plunas::-webkit-input-placeholder {
+  font-size: 15px;
+  font-family: PingFangSC-Regular;
+  font-weight: 400;
+  color: rgba(153, 153, 153, 1);
+  padding: 0 0 0 10px;
+}
+
+.dd {
   margin-top: 20px;
 }
 
+.content {
+  margin-top: 20px;
+  padding-bottom: 45px;
+}
+
 .peosCon {
-  overflow: hidden;
   padding-bottom: 15px;
   display: flex;
-  justify-content: space-between;
+  justify-dd: space-between;
 }
 
 .left img {
@@ -220,6 +294,7 @@ export default {
 
 .right {
   width: 86%;
+  margin-left: 2%;
 }
 
 .right .word {

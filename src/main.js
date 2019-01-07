@@ -8,16 +8,14 @@ import fastClick from 'fastclick'
 import axios from 'axios';
 import LyTab from 'ly-tab';
 import store from '@/components/vuex/store'
-
+import clipper from '../static/clipper'
 import VueLazyload from 'vue-lazyload'
 
 Vue.use(VueLazyload)
-
-// or with options
+Vue.use(clipper)
 Vue.use(VueLazyload, {
   preLoad: 1.3,
   loading: '@/assets/err2.png',
-  // loading: 'dist/loading.gif',
 })
 Vue.use(require('vue-wechat-title'))
 Vue.use(LyTab);
