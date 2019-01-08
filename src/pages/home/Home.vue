@@ -1,5 +1,10 @@
 <template>
   <div ref="wrapps" style="display:none;">
+    <div class="wrap">
+      <span>24小时监控</span>
+      <span>权威保障</span>
+      <span>假一赔十</span>
+    </div>
     <img :src="adInfo.ad_img" class="tImg" @click="imgJ">
     <home-people :larity="popuLarity"></home-people>
     <div style="background:#eee;height:10px"></div>
