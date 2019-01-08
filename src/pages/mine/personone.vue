@@ -107,7 +107,7 @@ export default {
 
       // let aaa = files.split('/')[0]
       // let bbb = aaa+'/'+num
-      // imgUpdat(filea)
+      // imgUpdat(image)
       //   .then(res => {
       //     console.log(res);
       //   })

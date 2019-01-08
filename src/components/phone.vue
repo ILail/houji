@@ -66,7 +66,7 @@ export default {
         }, 1000);
         yzm(this.tell, this.code_type)
           .then(res => {
-            console.log(res);
+            // console.log(res);
             this.showbtn = true;
             this.show = false;
           })
@@ -83,12 +83,15 @@ export default {
       }
       wx(this.tell, this.duanx)
         .then(res => {
-          // console.log(res.data);
-          let tokenmine = res.data.data.token;
-          // this.changeLogin({ Authorization: tokenmine});
+          if (res.data.data.length == 0) {
+            alert("请正确输入验证码");
+          } else {
+            let tokenmine = res.data.data.token;
+            // this.changeLogin({ Authorization: tokenmine});
 
-          this.$store.commit(types.LOGIN, tokenmine);
-          this.$router.go(-1);
+            this.$store.commit(types.LOGIN, tokenmine);
+            this.$router.go(-1);
+          }
         })
         .catch(err => {
           console.log(err, "请求失败");

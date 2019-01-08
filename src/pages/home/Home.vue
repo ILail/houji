@@ -1,9 +1,9 @@
 <template>
   <div ref="wrapps" style="display:none;">
-    <div class="wrap">
-      <span>24小时监控</span>
-      <span>权威保障</span>
-      <span>假一赔十</span>
+    <div class="wrapword">
+      <span><img src="@/assets/one.png">24小时监控</span>
+      <span><img src="@/assets/two.png">权威保障</span>
+      <span><img src="@/assets/three.png">假一赔十</span>
     </div>
     <img :src="adInfo.ad_img" class="tImg" @click="imgJ">
     <home-people :larity="popuLarity"></home-people>
@@ -66,7 +66,7 @@ export default {
         console.log(err, "请求失败");
       });
   },
-  mounted(){
+  mounted() {
     setTimeout(() => {
       this.$refs.wrapps.style.display = "block";
     }, 800);
@@ -84,5 +84,26 @@ export default {
 .tImg {
   width: 100%;
   margin-top: 10px;
+}
+.wrapword{
+  margin-top 10px
+  display flex
+  align-items center
+  justify-content space-between
+  padding 0 0 0 3.2%
+  width 100%
+}
+.wrapword span {
+  font-size: 12px;
+  font-family: PingFangSC-Light;
+  font-weight: 300;
+  color: rgba(178, 24, 34, 1);
+  line-height: 23px;
+  display flex
+  align-items center
+}
+.wrapword img{
+  width 10%
+  margin-right 3px
 }
 </style>
