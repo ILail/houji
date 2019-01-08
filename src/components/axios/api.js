@@ -7,7 +7,7 @@ console.log(api.Hallowmas)
 export function lookOption() { //lookOption是你要调用接口的名字，issuer,userId是传进来的参数
   return fetch({
     //api.Hallowmas 引用url.js里面的数据
-    url: api.Hallowmas + '/v2/frontPageHead',
+    url: 'http://csapi.nonggui8.com/v2/frontPageHead',
     method: 'GET', //请求方法
     // params:{}
     //   currentUserId:userId //传过去的参数
