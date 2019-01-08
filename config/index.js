@@ -12,17 +12,17 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
       '/api': {//前端路由匹配模式
-        target: 'http://csapi.nonggui8.com',  //后端请求服务域名和端口
-        changeOrigin: true, //解决跨域
-        pathRewrite: {
-          '^/api': '/'   //需要rewrite重写的,
-      } 
+        target: 'http://csapi.nonggui8.com:80',  //后端请求服务域名和端口
+        changeOrigin: true,   //跨域
+        pathRewrite:{  // 路径重写，
+          '/api': '/api'  // 替换target中的请求地址，也就是说以后你在请求http://api.jisuapi.com/XXXXX这个地址的时候直接写成/api即可。
+      }
     }
     },
 
     // Various Dev Server settings
     host: 'localhost', // can be overwritten by process.env.HOST
-    port: 8112, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined
+    port: 8100, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined
     autoOpenBrowser: false,
     errorOverlay: true,
     notifyOnErrors: true,

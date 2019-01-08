@@ -34,13 +34,14 @@
           </span>
           <span class="shuW">客服</span>
         </li>
-        <li class="shu bordershu">
+        <li class="shu bordershu" @click="wishesHit">
+          <!-- <router-link to="/wishs"> -->
           <span style="margin-bottom:5px">
             <img src="@/assets/sku.png">
           </span>
-          <router-link to="/wishs">
-            <span class="shuW">心愿单</span>
-          </router-link>
+          
+          <span class="shuW" style="margin-top:-1px">心愿单</span>
+          <!-- </router-link> -->
         </li>
         <li class="xiadan" @click="selectSort()">加入心愿单</li>
         <li class="joinw" @click="selectSorta()">下单支持</li>
@@ -240,6 +241,11 @@ export default {
     });
   },
   methods: {
+    wishesHit() {
+      this.$router.push({
+        path: "/wishs"
+      });
+    },
     onRefresh() {
       setTimeout(
         function() {
@@ -430,7 +436,7 @@ export default {
   font-size: 15px;
   font-family: PingFangSC-Light;
   font-weight: 300;
-  color: #666;
+  color: #333;
 }
 
 .joinw {
