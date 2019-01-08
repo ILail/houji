@@ -132,7 +132,7 @@ export default {
     window.addEventListener("scroll", this.watchScroll);
     setTimeout(() => {
       this.$refs.wrappers.style.visibility = "visible";
-    }, 1000);
+    }, 333);
 
     // this.$refs.wrappers.style.visibility = "visible";
 

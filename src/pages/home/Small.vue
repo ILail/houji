@@ -1,51 +1,49 @@
 <template>
-
-    <div ref="wrappers" style="visibility:visible;">
-      <!-- 推荐 -->
-      <div :class="searchBarFixed == true ? 'isFixed' :''" id="searchBar">
-        <home-header></home-header>
-        <ly-tab v-model="selectedId" :items="items" :options="options" @change="handleChange"></ly-tab>
-      </div>
-      <van-swipe :autoplay="3000" indicator-color="#D21623" v-if="shiw">
-        <van-swipe-item v-for="item of sowingMap" :key="item.id">
-          <router-link
-            :to="{  
+  <div>
+    <!-- 推荐 -->
+    <div :class="searchBarFixed == true ? 'isFixed' :''" id="searchBar">
+      <home-header></home-header>
+      <ly-tab v-model="selectedId" :items="items" :options="options" @change="handleChange"></ly-tab>
+    </div>
+    <van-swipe :autoplay="3000" indicator-color="#D21623" v-if="shiw">
+      <van-swipe-item v-for="item of sowingMap" :key="item.id">
+        <router-link
+          :to="{  
         path: 'Detail',     
         query: {   
             key: item.link, // orderNum : this.searchData.orderNo
         }
     }"
-          >
-            <img class="swiper-img" :src="item.pic" style="height:190px">
-          </router-link>
-        </van-swipe-item>
-      </van-swipe>
-      <div class="swiper-box">
-        <div class="swiper-container wrapWa">
-          <div class="swiper-wrapper">
-            <div class="swiper-slide" v-for="item of list" :key="item.id">
-              <component :is="item.component"></component>
-            </div>
+        >
+          <img :src="item.pic" style="height:190px;width:100%">
+        </router-link>
+      </van-swipe-item>
+    </van-swipe>
+    <div class="swiper-box">
+      <div class="swiper-container wrapWa">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide" v-for="item of list" :key="item.id">
+            <component :is="item.component"></component>
           </div>
         </div>
       </div>
-      <div class="tabberWarp">
-        <div class="warp">
-          <Item
-            :txt="item.txt"
-            :page="item.page"
-            v-on:change="getVal"
-            v-for="item in tabbarDes"
-            :sel="selected"
-            :key="item.id"
-          >
-            <img :src="item.normalImg" slot="normalImg">
-            <img :src="item.activeImg" slot="activeImg">
-          </Item>
-        </div>
+    </div>
+    <div class="tabberWarp">
+      <div class="warp">
+        <Item
+          :txt="item.txt"
+          :page="item.page"
+          v-on:change="getVal"
+          v-for="item in tabbarDes"
+          :sel="selected"
+          :key="item.id"
+        >
+          <img :src="item.normalImg" slot="normalImg">
+          <img :src="item.activeImg" slot="activeImg">
+        </Item>
       </div>
     </div>
-
+  </div>
 </template>
 
 <script type="text/ecmascript-6">
@@ -147,25 +145,25 @@ export default {
     };
   },
   created: function() {
-    lookOption()
-      .then(res => {
-        res = res.data;
-        if (res.status && res.data) {
-          const data = res.data;
-          this.sowingMap = data.sowingMap;
-        }
-      })
-      .catch(err => {
-        console.log(err, "请求失败");
-      });
+  
+      lookOption()
+        .then(res => {
+          res = res.data;
+          if (res.status && res.data) {
+            const data = res.data;
+            this.sowingMap = data.sowingMap;
+          }
+        })
+        .catch(err => {
+          console.log(err, "请求失败");
+        });
+   
     // 首页图片 设置定时器加载 不然swiper 会有bug (图片的吭) bind 解决this 指向
   },
   mounted() {
     window.addEventListener("scroll", this.watchScroll);
 
-    setTimeout(() => {
-      this.$refs.wrappers.style.visibility = "visible";
-    }, 1300);
+
 
     let mySwiperA = new Swiper(".wrapWa", {});
     mySwiperA.on("slideChange", () => {

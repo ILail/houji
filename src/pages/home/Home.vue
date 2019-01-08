@@ -1,13 +1,11 @@
 <template>
-  <div>
-    <!-- <home-swiper :list="sowingMap"></home-swiper> -->
-    <!-- <div style="background:#eee;height:10px"></div> -->
-    <img :src="adInfo.ad_img" class="tImg" @click="imgJ"/>
+  <div ref="wrapps" style="display:none;">
+    <img :src="adInfo.ad_img" class="tImg" @click="imgJ">
     <home-people :larity="popuLarity"></home-people>
     <div style="background:#eee;height:10px"></div>
     <home-new :product="dayProduct"></home-new>
     <div style="background:#eee;height:10px"></div>
-    <home-like></home-like>
+    <home-like :gass="gass"></home-like>
   </div>
 </template>
 
@@ -18,32 +16,31 @@ import HomeNew from "./components/New";
 import HomeLike from "./components/Like";
 import HomeSwiper from "./components/Swiper";
 import { lookOption } from "@/components/axios/api";
+import { gass } from "@/components/axios/api";
 export default {
   name: "Home",
   components: {
     HomePeople,
     HomeNew,
-    HomeLike,
-    // HomeSwiper
+    HomeLike
   },
   data() {
     return {
       selected: "",
-      // sowingMap: [],
       popuLarity: [],
       dayProduct: [],
-      adInfo:""
+      gass: [],
+      adInfo: ""
     };
   },
-  created:function() {
+  created: function() {
     lookOption()
       .then(res => {
-        // console.log(res.data);
         res = res.data;
 
         if (res.status && res.data) {
           const data = res.data;
-          this.adInfo = data.adInfo
+          this.adInfo = data.adInfo;
           this.popuLarity = data.popularity;
           this.dayProduct = data.dayProduct;
         }
@@ -51,10 +48,27 @@ export default {
       .catch(err => {
         console.log(err, "请求失败");
       });
+
+    gass()
+      .then(res => {
+        res = res.data;
+        if (res.status && res.data) {
+          const data = res.data;
+          this.gass = data.result;
+        }
+      })
+      .catch(err => {
+        console.log(err, "请求失败");
+      });
   },
-  methods:{
-    imgJ(){
-      this.$router.push({ path:'/linjuan'})
+  mounted(){
+    setTimeout(() => {
+      this.$refs.wrapps.style.display = "block";
+    }, 800);
+  },
+  methods: {
+    imgJ() {
+      this.$router.push({ path: "/linjuan" });
     }
   }
 };
@@ -62,8 +76,8 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="stylus" type="text/stylus" rel="stylesheet/stylus" scoped>
-.tImg{
-  width 100%
-  margin-top 10px
+.tImg {
+  width: 100%;
+  margin-top: 10px;
 }
 </style>

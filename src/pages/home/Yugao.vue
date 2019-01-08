@@ -1,6 +1,6 @@
 <template>
   <div class="wrapAll container">
-    <div class="hitImg" style="border:none" v-show="ispic">
+    <div class="hitImg" v-show="ispic">
       <img src="@/assets/woring.png">
       <div class="contenr">暂时无数据，静请期待！</div>
     </div>

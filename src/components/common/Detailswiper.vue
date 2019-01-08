@@ -536,7 +536,7 @@ export default {
   font-family: PingFangSC-Regular;
   font-weight: 500;
   color: rgba(51, 51, 51, 1);
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 
 .listnum li {
@@ -573,7 +573,7 @@ export default {
 
 .layerNode {
   width: 100%;
-  height: 184px;
+  height: 160px;
   background-color: #fff;
   position: absolute;
   overflow-y: scroll;
@@ -582,6 +582,7 @@ export default {
 
 .content {
   margin-bottom: 18px;
+  padding-top 1px
 }
 
 .layerNode .active {

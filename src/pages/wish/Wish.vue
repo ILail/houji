@@ -1,10 +1,15 @@
 <template>
   <div>
-    <div id="box" v-cloak>
+    <div id="box">
+      <div class="hitImg" v-show="shops">
+        <img src="@/assets/empty.png">
+        <div class="contenr">赶快添加购物吧！</div>
+      </div>
       <div class="list">
         <!-- 列表循环 -->
         <r-swiper-out slot="content" @onremove="removeHandler">
           <div
+            v-cloak
             v-for="(item,index) in json"
             @click.capture="mp(index,$event)"
             :key="item.id"
@@ -27,22 +32,23 @@
               :id="pl.wish_id"
               class="item"
               :data-id="index"
+              v-cloak
             >
               <!-- 商品图片 -->
               <div class="outAll">
-                <p class="item-select">
+                <div class="item-select">
                   <span :class="[yuan,{bg:pl.select}]" @click.capture="selected(index,$event)"></span>
-                </p>
+                </div>
                 <router-link
                   :to="{  
         path: 'Detail',     
         query: {   
             key:pl.crowd_funding_id, // orderNum : this.searchData.orderNo
         }
-    }"
+                }"
                   class="item-img"
                 >
-                  <img :src="pl.pic" alt>
+                  <img :src="pl.pic">
                 </router-link>
                 <!-- 商品名称 -->
                 <div class="item-text">
@@ -67,7 +73,7 @@
       <span :class="[yuan,{bg:allSelect}]" @click="AllSelect()"></span>
       <span class="all">全选</span>
       <span class="hj">合计: ￥{{allPrice}}</span>
-      <p class="up" @click="js()">下单支持</p>
+      <span class="up" @click="js()">下单支持</span>
     </div>
     <mine-header :hot="list"></mine-header>
     <!-- 底部栏 -->
@@ -109,6 +115,7 @@ export default {
   },
   data() {
     return {
+      shops: false,
       arry: [],
       selecteda: "wishs",
       tabbarDes: [
@@ -160,6 +167,9 @@ export default {
       .then(res => {
         this.json = res.data.data.wish_list.list;
         this.list = res.data.data.recommend;
+        if(this.json == undefined){
+          this.shops = true
+        };
       })
       .catch(err => {
         this.$router.push("/phone");
@@ -176,15 +186,16 @@ export default {
         .then(res => {
           wishPush()
             .then(res => {
+              this.json = res.data.data.wish_list.list;
               if ((this.allSelect = true)) {
                 this.allSelect = false;
                 this.allPrice = 0;
               }
+
               if (res.data.data.wish_list.list == undefined) {
                 this.allSelect = false;
+                this.shops = true
               }
-              console.log(res.data.data.wish_list.list);
-              this.json = res.data.data.wish_list.list;
             })
             .catch(err => {
               console.log(err, "请求失败");
@@ -394,6 +405,24 @@ export default {
 };
 </script>
 <style lang="stylus" scoped>
+.hitImg {
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+  background #eee
+  padding-bottom 15px
+}
+
+.hitImg img {
+  width: 20%;
+  margin-top: 7%;
+}
+
+.hitImg .contenr {
+  margin-top: 15px;
+  color: #999;
+}
+
 .boxWrap {
   border-bottom: 6px solid #eee;
 }
@@ -658,8 +687,8 @@ export default {
 
 .yuan {
   border: 1px solid #ccc;
-  width: 18px;
-  height: 18px;
+  width: 16.5px;
+  height: 16.5px;
   display: inline-block;
   border-radius: 50%;
 }
@@ -739,8 +768,8 @@ export default {
 
 .yuan1 {
   border: 1px solid #ccc;
-  width: 18px;
-  height: 18px;
+  width: 16.5px;
+  height: 16.5px;
   display: inline-block;
   border-radius: 50%;
 }
@@ -763,7 +792,6 @@ export default {
 }
 
 .all {
- 
   font-size: 14px;
   font-family: PingFangSC-Regular;
   font-weight: 400;

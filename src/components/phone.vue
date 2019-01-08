@@ -83,7 +83,6 @@ export default {
       }
       wx(this.tell, this.duanx)
         .then(res => {
-          // token
           // console.log(res.data);
           let tokenmine = res.data.data.token;
           // this.changeLogin({ Authorization: tokenmine});

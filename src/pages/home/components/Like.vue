@@ -6,62 +6,48 @@
     <div class="content container">
       <div class="wrap" v-for="items in gass" :key="items.id">
         <router-link
-        :to="{  
+          :to="{  
         path: 'Detail',     
         query: {   
             key: items.crowd_funding_id, // orderNum : this.searchData.orderNo
         }
     }"
-      >
-        <img :src="items.pic" class="wrapImg">
-        <div class="list">{{items.crowd_funding_name}}</div>
-        <div class="progressAll">
-          <div class="progress-outer">
-            <span class="progress" :style="{width:items.progress+'%'}"></span>
+        >
+          <img :src="items.pic" class="wrapImg">
+          <div class="list">{{items.crowd_funding_name}}</div>
+          <div class="progressAll">
+            <div class="progress-outer">
+              <span class="progress" :style="{width:items.progress+'%'}"></span>
+            </div>
+            <span class="progressA">{{items.progress}}%</span>
           </div>
-          <span class="progressA">{{items.progress}}%</span>
-        </div>
-        <div class="crowd-mon">
-          <span class="word">已售：</span>
-          <span class="money">¥{{items.now_money}}</span>
-        </div>
-        <div class="crowd-info">
-          <div class="crowd-money">
-            <span style="color:#666">{{items.support_num}}人支持</span>
+          <div class="crowd-mon">
+            <span class="word">已售：</span>
+            <span class="money">¥{{items.now_money}}</span>
           </div>
-          <div class="crowdT">
-            <span style="margin-right: 3px;">
-              <img src="@/assets/time.png" class="crowdTimg">
-            </span>
-            <span class="peoMuch">{{computedResidualTime(items)}}</span>
+          <div class="crowd-info">
+            <div class="crowd-money">
+              <span style="color:#666">{{items.support_num}}人支持</span>
+            </div>
+            <div class="crowdT">
+              <span style="margin-right: 3px;">
+                <img src="@/assets/time.png" class="crowdTimg">
+              </span>
+              <span class="peoMuch">{{computedResidualTime(items)}}</span>
+            </div>
           </div>
-        </div>
         </router-link>
       </div>
     </div>
   </div>
 </template>
 <script>
-import { gass } from "@/components/axios/api";
 export default {
-  data() {
-    return {
-      gass: []
-    };
+  name: "HomeLike",
+  props: {
+    gass: Array
   },
-  created() {
-    gass()
-      .then(res => {
-        res = res.data;
-        if (res.status && res.data) {
-          const data = res.data;
-          this.gass = data.result;
-        }
-      })
-      .catch(err => {
-        console.log(err, "请求失败");
-      });
-  },
+
   methods: {
     computedResidualTime: function(items) {
       let residualTime = items.left_time;
