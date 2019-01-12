@@ -5,7 +5,7 @@
       <home-header></home-header>
       <ly-tab v-model="selectedId" :items="items" :options="options" @change="handleChange"></ly-tab>
     </div>
-    <van-swipe :autoplay="3000" indicator-color="#D21623" v-if="shiw">
+    <van-swipe :autoplay="3000" indicator-color="#D21623" :touchable="false" v-if="shiw">
       <van-swipe-item v-for="item of sowingMap" :key="item.id">
         <router-link
           :to="{  

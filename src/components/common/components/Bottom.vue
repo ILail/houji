@@ -5,12 +5,14 @@
         合计金额:
         <span style="margin-left:8px;font-size:18px">¥{{moneyAll}}</span>
       </div>
-      <div class="monn">立即下单</div>
+      <div class="monn" @click="HIt">立即下单</div>
     </div>
   </div>
 </template>
 
 <script>
+import { detailM } from "@/components/axios/api";
+import secret from "@/utils/utils";
 export default {
   name: "ConfirBottom",
   props: {
@@ -19,8 +21,53 @@ export default {
   data() {
     return {
       wx: require("@/assets/right_.png"),
-      wxone: require("@/assets/mine/xu.png")
+      wxone: require("@/assets/mine/xu.png"),
+      details: "details",
+      we_chat: "alipay"
     };
+  },
+  methods: {
+    HIt() {
+      let routerParams = this.$route.query.dataObjo; //id
+      let routerParamb = this.$route.query.dataObjb; //回报id
+      let routerParamo = this.$route.query.dataObjc; //数量
+
+      detailM(
+        this.details,
+        this.we_chat,
+        routerParams,
+        routerParamb,
+        585,
+        1246,
+        1,
+        "",
+        "我是小小舒",
+        0
+      )
+        .then(res => {
+          console.log(res);
+          var pingpp = require("pingpp-js");
+          const num = secret.Decrypt(res.data.data);
+          console.log(num)
+          pingpp.createPayment(num, function(result, err) {
+            // object 需是 Charge/Order/Recharge 的 JSON 字符串
+            // 可按需使用 alert 方法弹出 log
+            console.log(result);
+            console.log(err.msg);
+            console.log(err.extra);
+            if (result == "success") {
+              // 只有微信JSAPI (wx_pub)、微信小程序（wx_lite）、QQ 公众号 (qpay_pub)、支付宝小程序（alipay_lite）支付成功的结果会在这里返回，其他的支付结果都会跳转到 extra 中对应的 URL
+            } else if (result == "fail") {
+              // Ping++ 对象 object 不正确或者微信JSAPI/微信小程序/QQ公众号支付失败时会在此处返回
+            } else if (result == "cancel") {
+              // 微信JSAPI、微信小程序、QQ 公众号、支付宝小程序支付取消支付
+            }
+          });
+        })
+        .catch(err => {
+          console.log(err, "请求失败");
+        });
+    }
   }
 };
 </script>

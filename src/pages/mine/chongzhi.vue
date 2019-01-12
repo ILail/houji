@@ -46,9 +46,9 @@ export default {
     };
   },
   mounted() {
-    // console.log(this.$refs.imgAllo);
-    // console.log(this.$refs.imgAllt);
-    // var pingpp = require("pingpp-js");
+
+    var pingpp = require("pingpp-js");
+    console.log(pingpp)
   },
   computed: {
     imgSrc() {
@@ -65,26 +65,26 @@ export default {
       this.$refs.imgAllo.src = this.bgImg[this.imgIndex];
     },
     nowWay() {
+      // 获取opdId
       var pingpp = require("pingpp-js");
-     
-
-      getChong("wx", this.moneys)
-        .then(res => {
-          const num = secret.Decrypt(res.data.data);
-          pingpp.createPayment(num, function(result, err) {
-            // if (result == "success") {
-            //   // 只有微信公众账号 (wx_pub)、微信小程序 (wx_lite)、QQ 公众号 (qpay_pub)、支付宝口碑 (alipay_qr)
-            //   // 支付成功的结果会在这里返回，其他的支付结果都会跳转到 extra 中对应的 URL。
-            // } else if (result == "fail") {
-            //   // data 不正确或者微信公众账号/微信小程序/QQ 公众号/支付宝口碑支付失败时会在此处返回
-            // } else if (result == "cancel") {
-            //   // 微信公众账号、微信小程序、QQ 公众号、支付宝口碑支付取消支付
-            // }
-          });
-        })
-        .catch(err => {
-          console.log(err, "请求失败");
-        });
+    
+      // getChong("wx_pub", this.moneys)
+      //   .then(res => {
+      //     const num = secret.Decrypt(res.data.data);
+      //     pingpp.createPayment(num, function(result, err) {
+      //       // if (result == "success") {
+      //       //   // 只有微信公众账号 (wx_pub)、微信小程序 (wx_lite)、QQ 公众号 (qpay_pub)、支付宝口碑 (alipay_qr)
+      //       //   // 支付成功的结果会在这里返回，其他的支付结果都会跳转到 extra 中对应的 URL。
+      //       // } else if (result == "fail") {
+      //       //   // data 不正确或者微信公众账号/微信小程序/QQ 公众号/支付宝口碑支付失败时会在此处返回
+      //       // } else if (result == "cancel") {
+      //       //   // 微信公众账号、微信小程序、QQ 公众号、支付宝口碑支付取消支付
+      //       // }
+      //     });
+      //   })
+      //   .catch(err => {
+      //     console.log(err, "请求失败");
+      //   });
     }
   }
 };

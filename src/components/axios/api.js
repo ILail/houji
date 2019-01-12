@@ -464,7 +464,7 @@ export function imgUpdat(file) {
 export function weal() {
 
   return fetch({
-    url:api.Hallowmas + '/v2p1/Welfare/getWelfareList',
+    url: api.Hallowmas + '/v2p1/Welfare/getWelfareList',
     method: "GET",
   })
 }
@@ -476,5 +476,27 @@ export function oppid() {
   return fetch({
     url: 'http://csapi.nguiba.com/makeCode',
     method: "GET",
+  })
+}
+
+
+// 详情页请求支付
+export function detailM(pay_style, pay_type, crowd_funding_id, crowd_funding_return_id, address_id, support_money, crowd_funding_return_num, payment_password, mark, vouchers_id) {
+
+  return fetch({
+    url: api.Hallowmas + '/v2/crowdFunding/payment',
+    method: "POST",
+    data: {
+      pay_style: pay_style,
+      pay_type:pay_type,
+      crowd_funding_id:crowd_funding_id,
+      crowd_funding_return_id:crowd_funding_return_id,
+      address_id:address_id,
+      support_money:support_money,
+      crowd_funding_return_num:crowd_funding_return_num,
+      payment_password:payment_password,
+      mark:mark,
+      vouchers_id
+    }
   })
 }

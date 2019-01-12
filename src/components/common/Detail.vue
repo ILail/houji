@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- 轮播 -->
-    <van-swipe :autoplay="time" indicator-color="#D21623" @change="onChange">
+    <van-swipe :autoplay="time" :touchable="false" indicator-color="#D21623" @change="onChange">
       <van-swipe-item v-if="shows">
         <video
           width="100%"

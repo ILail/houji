@@ -41,6 +41,7 @@ export default {
     getDIZ()
       .then(res => {
         this.letter = res.data.data;
+        console.log(this.letter);
         if (this.letter.length == 0) {
           this.show = false;
           this.shoiw = true;
@@ -61,7 +62,7 @@ export default {
     },
     addresssw() {
       this.$router.push({
-        path: "/tianjia",
+        path: "/tianjia"
       });
     }
   }

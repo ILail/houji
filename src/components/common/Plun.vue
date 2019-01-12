@@ -111,7 +111,7 @@ export default {
             .then(res => {
               this.value = "";
               this.refresh();
-              if (res.config.headers.token == "") {
+              if (res.config.headers.token == null) {
                 this.$router.push({ path: "/phone" });
               }
 
@@ -162,7 +162,7 @@ export default {
           plunPushs(this.fid, this.id, this.values)
             .then(res => {
               console.log(res);
-              if (res.config.headers.token == "") {
+              if (res.config.headers.token == null) {
                 this.$router.push({ path: "/phone" });
               }
               this.values = "";
