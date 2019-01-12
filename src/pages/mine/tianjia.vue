@@ -8,7 +8,13 @@
         <input type="text" placeholder="手机号码" class="inputaa" v-model="phone">
       </div>
       <div class="contS">
-        <input type="text" @click="hitShow" placeholder="收货地址" v-model="message">
+        <input
+          type="text"
+          @click="hitShow"
+          placeholder="收货地址"
+          v-model="message"
+          readonly
+        >
         <van-popup v-model="show" position="bottom" @click-overlay="Ooverlay">
           <van-area
             :area-list="areaList"
@@ -194,7 +200,7 @@ export default {
 .cont {
   display: flex;
   align-items: center;
-  padding: 10px 2% 10px 2%;
+  padding: 15px 2% 15px 2%;
   line-height: 25px;
   border-bottom: 1px solid #eee;
 }

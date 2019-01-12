@@ -12,8 +12,8 @@
 
 <script>
 import { detailM } from "@/components/axios/api";
-import { oppid } from "@/components/axios/api";
-
+// import { oppid } from "@/components/axios/api";
+import axios from 'axios'; 
 import secret from "@/utils/utils";
 export default {
   name: "ConfirBottom",
@@ -28,16 +28,14 @@ export default {
       we_chat: "wx_pub"
     };
   },
-  created(){
-    oppid()
-      .then(res => {
-        console.log(res);
-      })
-      .catch(err => {
-        console.log(err, "请求失败");     
-      });
+  created() {
+    var url = "http://csapi.nguiba.com/makeCode";
+    axios.get(url).then(function(result) {
+      console.log(result);
+    });
   },
   methods: {
+    axioss() {},
     HIt() {
       let routerParams = this.$route.query.dataObjo; //id
       let routerParamb = this.$route.query.dataObjb; //回报id
@@ -59,7 +57,7 @@ export default {
           console.log(res);
           var pingpp = require("pingpp-js");
           const num = secret.Decrypt(res.data.data);
-          console.log(num)
+          console.log(num);
           pingpp.createPayment(num, function(result, err) {
             // object 需是 Charge/Order/Recharge 的 JSON 字符串
             // 可按需使用 alert 方法弹出 log
