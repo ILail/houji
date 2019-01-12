@@ -12,6 +12,8 @@
 
 <script>
 import { detailM } from "@/components/axios/api";
+import { oppid } from "@/components/axios/api";
+
 import secret from "@/utils/utils";
 export default {
   name: "ConfirBottom",
@@ -23,8 +25,17 @@ export default {
       wx: require("@/assets/right_.png"),
       wxone: require("@/assets/mine/xu.png"),
       details: "details",
-      we_chat: "alipay"
+      we_chat: "wx_pub"
     };
+  },
+  created(){
+    oppid()
+      .then(res => {
+        console.log(res);
+      })
+      .catch(err => {
+        console.log(err, "请求失败");     
+      });
   },
   methods: {
     HIt() {

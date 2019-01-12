@@ -481,7 +481,7 @@ export function oppid() {
 
 
 // 详情页请求支付
-export function detailM(pay_style, pay_type, crowd_funding_id, crowd_funding_return_id, address_id, support_money, crowd_funding_return_num, payment_password, mark, vouchers_id) {
+export function detailM(pay_style, pay_type, crowd_funding_id, crowd_funding_return_id, address_id, support_money, crowd_funding_return_num, payment_password, mark, vouchers_id,open_id) {
 
   return fetch({
     url: api.Hallowmas + '/v2/crowdFunding/payment',
@@ -496,7 +496,8 @@ export function detailM(pay_style, pay_type, crowd_funding_id, crowd_funding_ret
       crowd_funding_return_num:crowd_funding_return_num,
       payment_password:payment_password,
       mark:mark,
-      vouchers_id
+      vouchers_id,
+      open_id
     }
   })
 }
