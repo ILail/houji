@@ -468,3 +468,13 @@ export function weal() {
     method: "GET",
   })
 }
+// 获取oppdid
+
+
+export function oppid() {
+
+  return fetch({
+    url: 'http://csapi.nguiba.com/makeCode',
+    method: "GET",
+  })
+}

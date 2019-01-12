@@ -20,6 +20,8 @@
 <script>
 import { peosMoble } from "@/components/axios/api";
 import { yzm } from "@/components/axios/api";
+import store from "@/components/vuex/store";
+import * as types from "@/components/vuex/types";
 export default {
   name: "Desgreo",
   data() {
@@ -53,10 +55,12 @@ export default {
         });
     },
     baocun() {
-      peosMoble(this.tell,this.duanx)
+      peosMoble(this.tell, this.duanx)
         .then(res => {
-          console.log(res)
-          alert('保存成功')
+          console.log(res);
+          alert("保存成功");
+          store.commit(types.LOGOUT);
+          this.$router.push("/phone");
         })
         .catch(err => {
           console.log(err, "请求失败");
@@ -91,7 +95,7 @@ export default {
 }
 
 .yanz {
-  width:27%
+  width: 27%;
   margin-top: 2px;
   color: rgba(210, 22, 35, 1);
 }

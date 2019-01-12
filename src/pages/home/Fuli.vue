@@ -156,7 +156,7 @@ export default {
   font-family: PingFangSC-Light;
   font-weight: 300;
   color: rgba(51, 51, 51, 1);
-  padding-bottom: 0.1rem;
+  padding-bottom: 0.2rem;
 }
 
 .listLI:nth-child(2) {

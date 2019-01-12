@@ -56,15 +56,16 @@
       </div>
       <div class="has-text-centered" v-show="loadding">正在加载中状态...</div>
     </div>
-
-    <input
-      type="text"
-      class="plunas"
-      placeholder="点击评论..."
-      v-model="values"
-      v-show="showss"
-      @keypress="searchGood"
-    >
+    <form action="javascript:return true;">
+      <input
+        type="text"
+        class="plunas"
+        placeholder="点击评论..."
+        v-model="values"
+        v-show="showss"
+        @keypress="searchGood"
+      >
+    </form>
   </div>
 </template>
 

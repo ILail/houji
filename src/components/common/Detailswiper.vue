@@ -32,7 +32,7 @@
           <span style="margin-bottom:3px">
             <img src="@/assets/kefu.png" alt>
           </span>
-          <span class="shuW">客服</span>
+          <span class="shuW" onclick="url()">客服</span>
         </li>
         <li class="shu bordershu" @click="wishesHit">
           <!-- <router-link to="/wishs"> -->
@@ -129,6 +129,18 @@
 </template>
 
 <script type="text/ecmascript-6">
+// 客服
+var isSdkReady = false;
+ysf("onready", function() {
+  isSdkReady = true;
+});
+window.url = function() {
+  if (isSdkReady) {
+    location.href = ysf("url");
+  } else {
+    alert("sdk尚未加载成功，请稍后再试");
+  }
+};
 import Vue from "vue";
 import Detail from "@/components/common/Detail";
 import Travel from "@/components/common/Travel";
@@ -139,7 +151,7 @@ import "moon/swiper.min.css";
 import { wishList } from "@/components/axios/api";
 import { specifications } from "@/components/axios/api";
 import { crowd_funding } from "@/components/axios/api";
-import store from '@/components/vuex/store'
+import store from "@/components/vuex/store";
 import { PullRefresh } from "vant";
 import { Toast } from "vant";
 Vue.use(PullRefresh);

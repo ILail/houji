@@ -12,7 +12,7 @@ export function fetch(options) {
         // 'token_in_header': global_.token,//token从全局变量那里传过来
         'token': '',
         // 'did': 'dfdfdffff',
-        'apptype': 'ios',
+        'apptype': 'wx_pub',
         'sign': '26644EBFD0C996C83B8E35005CBA0443DA20A54E0137DB73A838D3ACAA0DED1C056BCCFA6C22E5AB047E3B9695D7C4E3A960BAB8C8DFFA06548AB6E2E1A9E22832FDC6089785FA2BD96D03F1CE4015C0868AEE49080F259CCE922455E79C9954F48AC9128341E3ABB419CED937A192B0',
         // 'os': '12',
         // 'version': '1',

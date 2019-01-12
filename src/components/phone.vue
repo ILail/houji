@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="number">
-      <input type="text" placeholder="请输入手机号" v-model="tell">
+      <input type="text" placeholder="请输入手机号" maxlength="11" v-model="tell">
     </div>
     <div class="line"></div>
     <div class="mobel">

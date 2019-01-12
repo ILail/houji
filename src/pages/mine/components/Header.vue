@@ -26,8 +26,6 @@
 
 <script type="text/ecmascript-6">
 import secret from "@/utils/utils";
-import store from '@/components/vuex/store'
-import * as types from "@/components/vuex/types";
 import { people } from "@/components/axios/api";
 export default {
   name: "MineHeader",
@@ -54,9 +52,7 @@ export default {
         this.letter = JSON.parse(num);
       })
       .catch(err => {
-        store.commit(types.LOGOUT);
-        console.log(err, "请求失败");
-        this.$router.push("/phone");
+        console.log(err, "请求失败");     
       });
   },
   methods: {

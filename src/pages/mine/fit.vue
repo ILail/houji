@@ -28,7 +28,7 @@
         </li>
         <!-- <li class="line">
           <span class="word">清除缓存</span>
-        </li> -->
+        </li>-->
       </ul>
     </div>
     <div class="warpall">
@@ -39,7 +39,8 @@
 <script>
 import Vue from "vue";
 import { Switch } from "vant";
-
+import store from '@/components/vuex/store'
+import * as types from "@/components/vuex/types";
 Vue.use(Switch);
 export default {
   name: "Fit",
@@ -51,6 +52,8 @@ export default {
   },
   methods: {
     enenneen() {
+     
+      store.commit(types.LOGOUT);
       this.$router.push("/phone");
     },
     geren() {

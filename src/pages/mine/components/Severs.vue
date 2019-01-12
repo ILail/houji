@@ -7,7 +7,7 @@
       <router-link to="/moneyall">
         <div class="contentWord">
           <span>
-            <img :src="five">
+            <img :src="five" style="width:24px">
           </span>
           <span class="word">我的钱包</span>
         </div>
@@ -15,7 +15,7 @@
       <router-link to="/juan">
         <div class="contentWord">
           <span>
-            <img :src="six">
+            <img :src="six" style="width:20px">
           </span>
           <span class="word">优惠卷</span>
         </div>
@@ -23,7 +23,7 @@
       <router-link to="/liping">
         <div class="contentWord">
           <span>
-            <img :src="seven">
+            <img :src="seven" style="width:29px">
           </span>
           <span class="word">礼品卡</span>
         </div>
@@ -31,44 +31,40 @@
       <router-link to="/shouhuo">
         <div class="contentWord">
           <span>
-            <img :src="eight">
+            <img :src="eight" style="width:21px">
           </span>
           <span class="word">收货地址</span>
         </div>
       </router-link>
     </div>
 
-    <div class="content">
+    <div class="contents">
       <router-link to="/smoke">
-        <div class="contentWord" style="margin-left: .1rem;">
+        <div class="contentWord">
           <span>
-            <img :src="nine">
+            <img :src="nine" style="width:29px">
           </span>
           <span class="word">猴集卡</span>
         </div>
       </router-link>
       <router-link to="/myjob">
-        <div class="contentWord" style="margin-left: 0rem;">
+        <div class="contentWord">
           <span>
-            <img :src="ten">
+            <img :src="ten" style="width:20px">
           </span>
           <span class="word">我的项目</span>
         </div>
       </router-link>
-      <div
-        class="contentWord"
-        style="margin-right: .3rem;"
-        v-on:click="phoneCall('(0571)5671 8627')"
-      >
+      <div class="contentWord" v-on:click="phoneCall('4000 060401')" style="margin-right: 5%;">
         <span>
-          <img :src="tweve">
+          <img :src="tweve" style="width:20px">
         </span>
         <span class="word">客服</span>
       </div>
       <router-link to="/fit">
-        <div class="contentWord" style="margin-right: .2rem;">
+        <div class="contentWord">
           <span>
-            <img :src="third">
+            <img :src="third" style="width:21px">
           </span>
           <span class="word">设置</span>
         </div>
@@ -81,14 +77,14 @@
 export default {
   data() {
     return {
-      five: require("@/assets/5.png"),
-      six: require("@/assets/6.png"),
-      seven: require("@/assets/7.png"),
-      eight: require("@/assets/8.png"),
-      nine: require("@/assets/9.png"),
-      ten: require("@/assets/10.png"),
-      tweve: require("@/assets/11.png"),
-      third: require("@/assets/12.png")
+      five: require("@/assets/list/5.png"),
+      six: require("@/assets/list/6.png"),
+      seven: require("@/assets/list/7.png"),
+      eight: require("@/assets/list/8.png"),
+      nine: require("@/assets/list/9.png"),
+      ten: require("@/assets/list/10.png"),
+      tweve: require("@/assets/list/11.png"),
+      third: require("@/assets/list/12.png")
     };
   },
   methods: {
@@ -112,9 +108,9 @@ export default {
 
 .content {
   display: flex;
-  justify-content: space-between;
-  padding: 0 7% 0 7%;
-
+  align-items center
+  justify-content space-between
+  padding 0 7% 0 5.2%
   .contentWord {
     display: flex;
     align-items: center;
@@ -123,6 +119,26 @@ export default {
 
     .word {
       margin-top: 8px;
+      font-size: 12px;
+    }
+  }
+}
+
+
+.contents {
+  display: flex;
+  align-items center
+  justify-content space-between
+  padding 0 10% 0 6.5%
+  .contentWord {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 15px 0 15px 0;
+
+    .word {
+      margin-top: 8px;
+      font-size: 12px;
     }
   }
 }
