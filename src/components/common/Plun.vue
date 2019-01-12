@@ -154,13 +154,16 @@ export default {
     },
     searchGood(event) {
       this.id = this.$route.query.key;
-      console.log(this.fid)
+      console.log(this.fid);
       if (event.keyCode == 13) {
         let word = this.values.replace(/[^\w\u4E00-\u9FA5]/g, "");
         if (word) {
           plunPushs(this.fid, this.id, this.values)
             .then(res => {
-              console.log(res)
+              console.log(res);
+              if (res.config.headers.token == "") {
+                this.$router.push({ path: "/phone" });
+              }
               this.values = "";
               this.refresh();
               this.showss = false;

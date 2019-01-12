@@ -70,6 +70,7 @@ export default {
         resultObj: image,
         aspectRatio: 1
       });
+      console.log(file)
       // console.log(file.path[1].childNodes[0])
       // console.log(this.$refs.wrapImg.files[0]);
       var file = this.$refs.wrapImg.files[0];

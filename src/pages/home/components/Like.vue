@@ -47,7 +47,9 @@ export default {
   props: {
     gass: Array
   },
-
+  // mounted() {
+  //   console.log(this.gass);
+  // },
   methods: {
     computedResidualTime: function(items) {
       let residualTime = items.left_time;

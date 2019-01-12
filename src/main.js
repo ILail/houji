@@ -33,6 +33,7 @@ new Vue({
   },
   template: '<App/>',
   data: {
-    eventHub: new Vue() // 使用集中的事件处理器,在任何组件调用事件发射、接受的方法
+    eventHub: new Vue(),
+    eventHuC: new Vue()// 使用集中的事件处理器,在任何组件调用事件发射、接受的方法
   }
 })

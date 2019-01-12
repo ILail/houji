@@ -1,5 +1,5 @@
 <template>
-  <div ref="wrappers">
+  <div>
     <div class="container">
       <div class="wrap">
         <router-link to="/search">
@@ -20,7 +20,7 @@
             v-for="(item,index) in tabs"
             :key="item.id"
             :class="{active:index == num}"
-            @click="tab(index,item.crowd_funding_class_id)"
+            @click="tab(index)"
           >{{item.class_name}}</div>
         </div>
       </div>
@@ -31,7 +31,7 @@
         <div class="swiper-wrapper">
           <div class="swiper-slide" v-for="item of list" :key="item.id">
             <keep-alive>
-              <component :is="item.component" :tabs="tabs"></component>
+              <component :is="item.component"></component>
             </keep-alive>
           </div>
         </div>
@@ -63,7 +63,6 @@ import Swiper from "moon/swiper.min";
 import "moon/swiper.min.css";
 import Item from "@/components/Item.vue";
 import { fs } from "@/components/axios/api";
-import bus from "@/bus/bus";
 export default {
   name: "Feilei",
   components: {
@@ -130,12 +129,6 @@ export default {
   },
   mounted() {
     window.addEventListener("scroll", this.watchScroll);
-    setTimeout(() => {
-      this.$refs.wrappers.style.visibility = "visible";
-    }, 333);
-
-    // this.$refs.wrappers.style.visibility = "visible";
-
     let mySwiperA = new Swiper(".wrapA", {});
     mySwiperA.on("slideChange", () => {
       // 监控滑动后当前页面的索引，将索引发射到导航组件
@@ -154,14 +147,12 @@ export default {
   methods: {
     slideTab(index) {
       this.num = index;
-      bus.$emit("userDefinedEvent", this.tabs[index]);
+      // bus.$emit("userDefinedEvent", this.tabs[index]);
     },
     getVal: function(res) {
       this.selected = res;
     },
-    tab(index, id) {
-      this.id = id;
-      // console.log(this.id);
+    tab(index) {
       this.num = index;
       this.$root.eventHub.$emit("changeTab", index);
     },

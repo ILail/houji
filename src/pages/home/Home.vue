@@ -1,6 +1,6 @@
 <template>
   <div ref="wrapps" style="display:none;">
-    <div class="wrapword">
+    <div class="wrapword container">
       <span><img src="@/assets/one.png">24小时监控</span>
       <span><img src="@/assets/two.png">权威保障</span>
       <span><img src="@/assets/three.png">假一赔十</span>
@@ -90,8 +90,6 @@ export default {
   display flex
   align-items center
   justify-content space-between
-  padding 0 0 0 3.2%
-  width 100%
 }
 .wrapword span {
   font-size: 12px;
@@ -103,7 +101,7 @@ export default {
   align-items center
 }
 .wrapword img{
-  width 10%
+  width 10px
   margin-right 3px
 }
 </style>

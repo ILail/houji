@@ -5,7 +5,7 @@
     </div>
     <div class="line"></div>
     <div class="mobel">
-      <input type="text" placeholder="短信验证码" v-model="duanx" style="font-size:16px">
+      <input type="text" placeholder="短信验证码" v-model="duanx" maxlength="6" style="font-size:16px">
       <span class="test" @click="time" v-if="active">获取验证码</span>
       <span class="test" v-if="!active">{{timed}}s重新发送</span>
     </div>

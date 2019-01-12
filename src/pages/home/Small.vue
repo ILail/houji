@@ -121,7 +121,7 @@ export default {
       items: [
         { label: "推荐" },
         { label: "地理标志" },
-        { label: "福利专区" },
+        { label: "猴集卡" },
         { label: "有机产品" },
         { label: "民宿" },
         { label: "预告" },

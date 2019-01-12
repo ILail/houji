@@ -139,7 +139,7 @@ import "moon/swiper.min.css";
 import { wishList } from "@/components/axios/api";
 import { specifications } from "@/components/axios/api";
 import { crowd_funding } from "@/components/axios/api";
-
+import store from '@/components/vuex/store'
 import { PullRefresh } from "vant";
 import { Toast } from "vant";
 Vue.use(PullRefresh);
@@ -308,19 +308,19 @@ export default {
     },
     // 点击确定
     confirm() {
-      // console.log(this.count);
-      // console.log(this.clickList.crowd_funding_return_id);
-      // console.log(this.$route.query.key);
       wishList(
         this.count,
         this.clickList.crowd_funding_return_id,
         this.$route.query.key
       )
         .then(res => {
-          alert("添加心愿单成功");
-          this.istanchuan = false;
-          this.isshowa = true;
-          console.log(res);
+          if (res.data.status == "-2012") {
+            this.$router.push({ path: "/phone" });
+          } else {
+            alert("添加心愿单成功");
+            this.istanchuan = false;
+            this.isshowa = true;
+          }
         })
         .catch(err => {
           console.log(err, "请求失败");
@@ -328,19 +328,23 @@ export default {
     },
     // 点击下单
     ljxd() {
-      const arry = [
-        this.$route.query.key,
-        this.clickList.crowd_funding_return_id,
-        this.count
-      ];
-      this.$router.push({
-        path: "/querenone",
-        query: {
-          dataObjo: arry[0],
-          dataObjb: arry[1],
-          dataObjc: arry[2]
-        }
-      });
+      if (store.state.token == null) {
+        this.$router.push({ path: "/phone" });
+      } else {
+        const arry = [
+          this.$route.query.key,
+          this.clickList.crowd_funding_return_id,
+          this.count
+        ];
+        this.$router.push({
+          path: "/querenone",
+          query: {
+            dataObjo: arry[0],
+            dataObjb: arry[1],
+            dataObjc: arry[2]
+          }
+        });
+      }
     }
   }
 };
@@ -573,7 +577,7 @@ export default {
 
 .layerNode {
   width: 100%;
-  height: 160px;
+  height: 194px;
   background-color: #fff;
   position: absolute;
   overflow-y: scroll;
@@ -582,7 +586,7 @@ export default {
 
 .content {
   margin-bottom: 18px;
-  padding-top 1px
+  padding-top: 1px;
 }
 
 .layerNode .active {

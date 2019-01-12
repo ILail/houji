@@ -459,3 +459,12 @@ export function imgUpdat(file) {
     }
   })
 }
+
+// 福利专区
+export function weal() {
+
+  return fetch({
+    url:api.Hallowmas + '/v2p1/Welfare/getWelfareList',
+    method: "GET",
+  })
+}

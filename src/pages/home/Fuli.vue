@@ -1,146 +1,113 @@
 <template>
   <div>
-    <!-- <home-swiper :list="sowingMap"></home-swiper> -->
-    <div class="swiper-sale">
-      <div class="swiper-container wrapSale">
+    <div class="list">
+      <div
+        v-for="(item,index) in wordArry"
+        :key="item.id"
+        :class="{active:index == num}"
+        @click="wordActive(index)"
+        class="listLI"
+      >{{item}}</div>
+    </div>
+
+    <div class="swiper-box">
+      <div class="swiper-container wrapS">
         <div class="swiper-wrapper">
-          <div class="swiper-slide swiperTime" v-for="item of navList" :key="item.id">
-            <span class="time">{{item.time}}</span>
-            <span class="name">{{item.name}}</span>
+          <div class="swiper-slide" v-for="item of list" :key="item.id">
+            <keep-alive>
+              <component :is="item.component"></component>
+            </keep-alive>
           </div>
         </div>
       </div>
     </div>
     <div style="height:200px;width:100%"></div>
-    <div v-if="show">
-      <!-- 剩余时间 -->
-      <div class="muchTime">
-        <div class="line"></div>
-        <div class="content">
-          本场还剩余
-          <span style="color:#333333">2：30：15</span>
+    <!-- 产品 -->
+    <!-- <div class="main_a">
+      <div class="listAll container">
+        <img
+          src="http://qiniuyun.ngba.cn/Uploads/image/default/2018-11/20181112105532_76920.jpg"
+          class="crowd-img"
+        >
+        <div class="intro-area">
+          <div class="title">朱礼茶国品安吉茶一罐50克</div>
+          <div class="intro">不是所有的白茶都是安吉白茶</div>
+          <div class="middle">
+            <span class="priceNow">限时价：</span>
+            <span class="priceTrue">¥ 125</span>
+          </div>
+          <div class="bottom">
+            <span class="bottomS">仅剩286件</span>
+            <span class="bottomM">马上抢</span>
+          </div>
         </div>
-        <div class="line"></div>
       </div>
       <div style="background:#eee;height:10px"></div>
-      <!-- 产品 -->
-      <div class="main_a">
-        <div class="listAll container">
-          <img
-            src="http://qiniuyun.ngba.cn/Uploads/image/default/2018-11/20181112105532_76920.jpg"
-            class="crowd-img"
-          >
-          <div class="intro-area">
-            <div class="title">朱礼茶国品安吉茶一罐50克</div>
-            <div class="intro">不是所有的白茶都是安吉白茶</div>
-            <div class="middle">
-              <span class="priceNow">限时价：</span>
-              <span class="priceTrue">¥ 125</span>
-            </div>
-            <div class="bottom">
-              <span class="bottomS">仅剩286件</span>
-              <span class="bottomM">马上抢</span>
-            </div>
+      <div class="listAll container">
+        <img
+          src="http://qiniuyun.ngba.cn/Uploads/image/default/2018-11/20181112105532_76920.jpg"
+          class="crowd-img"
+        >
+        <div class="intro-area">
+          <div class="title">朱礼茶国品安吉茶一罐50克</div>
+          <div class="intro">不是所有的白茶都是安吉白茶</div>
+          <div class="middle">
+            <span class="priceNow">限时价：</span>
+            <span class="priceTrue">¥ 125</span>
           </div>
-        </div>
-        <div style="background:#eee;height:10px"></div>
-        <div class="listAll container">
-          <img
-            src="http://qiniuyun.ngba.cn/Uploads/image/default/2018-11/20181112105532_76920.jpg"
-            class="crowd-img"
-          >
-          <div class="intro-area">
-            <div class="title">朱礼茶国品安吉茶一罐50克</div>
-            <div class="intro">不是所有的白茶都是安吉白茶</div>
-            <div class="middle">
-              <span class="priceNow">限时价：</span>
-              <span class="priceTrue">¥ 125</span>
-            </div>
-            <div class="bottom">
-              <span class="bottomS">仅剩286件</span>
-              <span class="bottomM">马上抢</span>
-            </div>
-          </div>
-        </div>
-        <div style="background:#eee;height:10px"></div>
-        <div class="listAll container">
-          <img
-            src="http://qiniuyun.ngba.cn/Uploads/image/default/2018-11/20181112105532_76920.jpg"
-            class="crowd-img"
-          >
-          <div class="intro-area">
-            <div class="title">朱礼茶国品安吉茶一罐50克</div>
-            <div class="intro">不是所有的白茶都是安吉白茶</div>
-            <div class="middle">
-              <span class="priceNow">限时价：</span>
-              <span class="priceTrue">¥ 125</span>
-            </div>
-            <div class="bottom">
-              <span class="bottomS">仅剩286件</span>
-              <span class="bottomM">马上抢</span>
-            </div>
+          <div class="bottom">
+            <span class="bottomS">仅剩286件</span>
+            <span class="bottomM">马上抢</span>
           </div>
         </div>
       </div>
-    </div>
+      <div style="background:#eee;height:10px"></div>
+      <div class="listAll container">
+        <img
+          src="http://qiniuyun.ngba.cn/Uploads/image/default/2018-11/20181112105532_76920.jpg"
+          class="crowd-img"
+        >
+        <div class="intro-area">
+          <div class="title">朱礼茶国品安吉茶一罐50克</div>
+          <div class="intro">不是所有的白茶都是安吉白茶</div>
+          <div class="middle">
+            <span class="priceNow">限时价：</span>
+            <span class="priceTrue">¥ 125</span>
+          </div>
+          <div class="bottom">
+            <span class="bottomS">仅剩286件</span>
+            <span class="bottomM">马上抢</span>
+          </div>
+        </div>
+      </div>
+    </div>-->
   </div>
 </template>
 
 <script type="text/ecmascript-6">
 import Swiper from "moon/swiper.min";
 import "moon/swiper.min.css";
-// import HomeSwiper from "./components/Swiper";
-import { lookOption } from "@/components/axios/api";
+import one from "@/pages/home/weal/one";
+import two from "@/pages/home/weal/two";
+import three from "@/pages/home/weal/three";
+import { weal } from "@/components/axios/api";
 export default {
   name: "Fuli",
-  // components: {
-  //   HomeSwiper
-  // },
-  // 从后台获取到时间数据
   data() {
     return {
       show: false,
-      navList: [
-        {
-          name: "已经开抢",
-          time: "10:00"
-        },
-        {
-          name: "已经开抢",
-          time: "12:00"
-        },
-        {
-          name: "已经开抢",
-          time: "14:00"
-        },
-        {
-          name: "已经开抢",
-          time: "16:00"
-        },
-        {
-          name: "已经开抢",
-          time: "18:00"
-        },
-        {
-          name: "已经开抢",
-          time: "20:00"
-        }
-      ],
-      searchBarFixed: false,
-      sowingMap: []
+      wordArry: ["上半场", "下半场", "限量半价"],
+      list: [{ component: one }, { component: two }, { component: three }],
+      num: 0
     };
   },
   created() {
-    lookOption()
+    weal()
       .then(res => {
-        // console.log(res.data);
         res = res.data;
-
         if (res.status && res.data) {
           const data = res.data;
-          this.sowingMap = data.sowingMap;
-          this.popuLarity = data.popularity;
-          this.dayProduct = data.dayProduct;
+          console.log(data);
         }
       })
       .catch(err => {
@@ -148,134 +115,65 @@ export default {
       });
   },
   mounted() {
-    var mySwiperA = new Swiper(".wrapSale", {
-      autoHeight: true,
-      slidesPerView: 5,
-      spaceBetween: 10,
-      freeMode: true
+    let mySwiperS = new Swiper(".wrapS", {});
+    mySwiperS.on("slideChange", () => {
+      // 监控滑动后当前页面的索引，将索引发射到导航组件
+      // 左右滑动时将当前slide的索引发送到nav组件
+
+      this.$root.eventHuC.$emit("slideTab", mySwiperS.activeIndex);
     });
+    // 接收nav组件传过来的导航按钮索引值，跳转到相应内容区
+    this.$root.eventHuC.$on("changeTab", index => {
+      // 点击导航键跳转相应内容区
+      mySwiperS.slideTo(index, 0, false);
+    });
+    // 接收swiper组件发射的index进行导航按钮切换高亮和更新模板地址
+    this.$root.eventHuC.$on("slideTab", this.slideTab);
+  },
+  methods: {
+    slideTab(index) {
+      this.num = index;
+    },
+    wordActive(index) {
+      this.num = index;
+      this.$root.eventHuC.$emit("changeTab", index);
+    }
   }
 };
 </script>
 
 <style lang="stylus" type="text/stylus" rel="stylesheet/stylus" scoped>
-.cube-scroll-nav-bar-item {
-  display: inline-block;
-  padding: 20px 20px !important;
-}
-
-.swiperTime {
+.list {
   display: flex;
+  justify-content: center;
   align-items: center;
-  flex-direction: column;
-  padding: 10px 0 10px 0;
+  border-bottom: 1px solid #eee;
+  margin: 0.3rem 10% 0;
 }
 
-.wrapSale {
-  background: rgba(210, 22, 35, 0.1);
-}
-
-.time {
-  color: #333333;
-  margin-bottom: 3px;
+.listLI {
   font-size: 15px;
+  font-family: PingFangSC-Light;
+  font-weight: 300;
+  color: rgba(51, 51, 51, 1);
+  padding-bottom: 0.1rem;
 }
 
-.name {
-  color: #333333;
-  font-size: 10px;
-}
-
-.muchTime {
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  padding: 20px 0 20px 0;
+.listLI:nth-child(2) {
+  margin: 0 0.9rem;
 }
 
 .line {
-  width: 20%;
-  background: #cccccc;
-  height: 1px;
+  background: #C8C8C8;
+  width: 1px;
+  height: 10px;
+  margin: -0.05rem 0.5rem 0;
 }
 
-.main_a {
-  padding-bottom: 60px;
-}
-
-.content {
-  color: #333333;
-  font-size: 15px;
-}
-
-.listAll .crowd-img {
-  width: 30%;
-  border-radius: 0.1rem;
-  height: 30%;
-}
-
-.main_a .listAll {
-  box-sizing: border-box;
-  display: flex;
-  justify-content: space-between;
-  padding: 18px 0 18px 0;
-}
-
-.listAll .intro-area {
-  width: 67%;
-  position: relative;
-}
-
-.intro-area .title {
-  color: #333333;
-  font-size: 15px;
-  font-weight: bold;
-  margin-top: 10px;
-}
-
-.intro-area .intro {
-  font-size: 12px;
-  color: #666;
-  margin-top: 5px;
-}
-
-.priceNow {
-  color: #333333;
-  font-size: 10px;
-}
-
-.priceTrue {
-  color: #D21623;
-  font-size: 13px;
-}
-
-.bottom {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.middle {
-  margin-top: 10px;
-}
-
-.bottomS {
-  padding: 2px 13px 2px 13px;
-  border-radius: 15px;
-  background: rgba(210, 22, 35, 0.1);
-  color: #D21623;
-  font-size: 9px;
-}
-
-.bottomM {
-  padding: 6px 16px;
-  background: #D21623;
-  border-radius: 5px;
-  color: #fff;
-  margin-right: 15px;
+.list .active {
+  border-bottom: 2px solid #F28F18;
+  color: #F28F18;
+  font-weight: 600;
 }
 </style>
  

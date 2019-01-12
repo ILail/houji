@@ -4,7 +4,6 @@ import * as types from "@/components/vuex/types";
 import router from "@/router/index";
 export function fetch(options) {
   let a = store.state.token
-
   return new Promise((resolve, reject) => {
     const instance = axios.create({ //instance创建一个axios实例，可以自定义配置，可在 axios文档中查看详情
       //所有的请求都会带上这些配置，比如全局都要用的身份信息等。
@@ -22,47 +21,48 @@ export function fetch(options) {
     });
     instance.interceptors.request.use(
       config => {
-        if (store.state.token) { // 判断是否存在token，如果存在的话，则每个http header都加上token
-
+        if (store.state.token != null) { // 判断是否存在token，如果存在的话，则每个http header都加上token
           config.headers.token = a
         }
-        if (store.state.token == "undefined") {
-          store.commit(types.LOGOUT);
-          router.replace({
-            path: '/phone',
-            query: {
-              redirect: router.currentRoute.fullPath
-            }
-          })
-        }
+        // if (store.state.token == null) {
+        //   console.log(123)
+        //   store.commit(types.LOGOUT);
+        //   router.replace({
+        //     path: '/phone',
+        //     query: {
+        //       redirect: router.currentRoute.fullPath
+        //     }
+        //   })
+        // }
         return config;
       },
       err => {
         return Promise.reject(err);
 
-      });
-    instance.interceptors.response.use(
-      response => {
-        return response;
-      },
+      }
+    );
+    // instance.interceptors.response.use(
+    //   response => {
+    //     return response;
+    //   },
 
-      error => {
-        if (error.response) {
-          console.log(rerror.response)
-          switch (error.response.status) {
-            case 401:
-              // 返回 401 清除token信息并跳转到登录页面
-              store.commit(types.LOGOUT);
-              router.replace({
-                path: '/phone',
-                query: {
-                  redirect: router.currentRoute.fullPath
-                }
-              })
-          }
-        }
-        return Promise.reject(error.response.data) // 返回接口返回的错误信息
-      });
+    //   error => {
+    //     if (error.response) {
+    //       console.log(rerror.response)
+    //       switch (error.response.status) {
+    //         case 401:
+    //           // 返回 401 清除token信息并跳转到登录页面
+    //           store.commit(types.LOGOUT);
+    //           router.replace({
+    //             path: '/phone',
+    //             query: {
+    //               redirect: router.currentRoute.fullPath
+    //             }
+    //           })
+    //       }
+    //     }
+    //     return Promise.reject(error.response.data) // 返回接口返回的错误信息
+    //   });
 
     instance(options)
       .then(response => { //then 请求成功之后进行什么操作

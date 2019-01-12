@@ -18,9 +18,8 @@
               <span class="money">¥{{itemCon.now_money}}</span>
             </div>
             <div class="crowd-right">
+              <img :src="itemCon.headimgurl">
               
-                <img :src="itemCon.headimgurl">
-           
               <span class="peoMuch">{{itemCon.nickname}}</span>
             </div>
           </div>
@@ -52,17 +51,16 @@ import { fs } from "@/components/axios/api";
 export default {
   data() {
     return {
-      tabContents: [],
-      numa: ""
+      tabContents: []
     };
   },
   created() {
     fs()
       .then(res => {
-        // console.log(res.data);
         res = res.data;
         if (res.status && res.data) {
           const numN = res.data[0].crowd_funding_class_id; // 获取第一个的id
+          console.log(numN)
           fsDetail(numN)
             .then(res => {
               res = res.data;
@@ -206,7 +204,6 @@ export default {
   border-radius: 50%;
   margin: -1px 3px 0 0;
 }
-
 
 .crowdTimg {
   width: 12px;
