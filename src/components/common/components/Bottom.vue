@@ -13,7 +13,7 @@
 <script>
 import { detailM } from "@/components/axios/api";
 // import { oppid } from "@/components/axios/api";
-import axios from 'axios'; 
+import axios from "axios";
 import secret from "@/utils/utils";
 export default {
   name: "ConfirBottom",
@@ -30,8 +30,22 @@ export default {
   },
   created() {
     var url = "http://csapi.nguiba.com/makeCode";
-    axios.get(url).then(function(result) {
-      console.log(result);
+    axios({
+      method: "GET",
+
+      url: "http://csapi.nguiba.com/makeCode",
+
+      // data: {
+      //   param: "$params"
+      // },
+
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+
+        "Access-Control-Allow-Origin": "*"
+      }
+    }).then(function(res) {
+      console.log(res);
     });
   },
   methods: {
