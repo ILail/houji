@@ -296,7 +296,7 @@ export function Travels(crowd_funding_id) {
 export function getMove(user_address_id) {
   return fetch({
     url: api.Hallowmas + '/v2/member/memberAddressManagement',
-    method: "POST",
+    method: "DELETE",
     data: {
       user_address_id: user_address_id
     }

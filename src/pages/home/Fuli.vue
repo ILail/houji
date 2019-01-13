@@ -107,7 +107,7 @@ export default {
         res = res.data;
         if (res.status && res.data) {
           const data = res.data;
-          console.log(data);
+          // console.log(data);
         }
       })
       .catch(err => {

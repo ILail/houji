@@ -1,32 +1,54 @@
 <template>
   <div class="active">
     <!-- <div class="nonew">暂无收货地址</div> -->
-    <div class="wrap" v-for="(item , index) in list" :key="index" ref="wrap">
-      <div class="wraptitle">
-        <span>{{item.realname}}</span>
-        <span>{{item.mobile}}</span>
-      </div>
-      <div class="wrapw">{{item.address_info}} {{item.address}}</div>
-      <div class="wrapbott">
-        <div class="right">
-          <img :src="imgSrc" ref="suan" class="imgC" @click="toggleImg(index)">
-          <span class="left">默认地址</span>
+    <van-swipe-cell
+      :right-width="100"
+      :left-width="0"
+      :on-close="onClose"
+      v-for="(item , index) in list"
+      :key="index"
+    >
+      <div class="wrap" ref="wrap">
+        <div class="wraptitle">
+          <span>{{item.realname}}</span>
+          <span>{{item.mobile}}</span>
         </div>
+        <div class="wrapw">{{item.address_info}} {{item.address}}</div>
+        <div class="wrapbott">
+          <div class="right">
+            <img :src="imgSrc" ref="suan" class="imgC" @click="toggleImg(index)">
+            <span class="left">默认地址</span>
+          </div>
 
-        <div class="right_" @click="DerailL(index,item.user_address_id)">
-          <img src="@/assets/schu.png" class="imgCO">
-          <span class="leftc">删除</span>
+          <div class="right_" @click="DerailL(index,item.user_address_id)">
+            <img src="@/assets/schu.png" class="imgCO">
+            <span class="leftc">删除</span>
+          </div>
         </div>
       </div>
-    </div>
+      <span slot="right" class="btns" @click="DerailL(index,item.user_address_id)">删除</span>
+    </van-swipe-cell>
+    <!-- <van-swipe-cell :right-width="65" :left-width="0" :on-close="onClose">
+      <van-cell-group>
+        <van-cell title="单元格" value="内容"/>
+      </van-cell-group>
+      <span slot="right">删除</span>
+    </van-swipe-cell>-->
     <div class="enterH" @click="enenneen">新增收货地址</div>
   </div>
 </template>
 <script>
+import Vue from "vue";
 import { getAddress } from "@/components/axios/api";
 import { getUser } from "@/components/axios/api";
 import { getMove } from "@/components/axios/api";
+import { SwipeCell } from "vant";
+import { Cell, CellGroup } from "vant";
+import { Dialog } from "vant";
 
+Vue.use(Dialog);
+Vue.use(Cell).use(CellGroup);
+Vue.use(SwipeCell);
 export default {
   name: "Shouhuo",
   data() {
@@ -61,6 +83,22 @@ export default {
     }
   },
   methods: {
+    onClose(clickPosition, instance) {
+      switch (clickPosition) {
+        case "left":
+        case "cell":
+        case "outside":
+          instance.close();
+          break;
+        case "right":
+          Dialog.confirm({
+            message: "确定删除吗？"
+          }).then(() => {
+            instance.close();
+          });
+          break;
+      }
+    },
     enenneen() {
       this.$router.push("/tianjia");
     },
@@ -105,6 +143,23 @@ export default {
 };
 </script>
 <style lang="stylus" type="text/stylus" rel="stylesheet/stylus" scoped>
+.active >>> .van-swipe-cell__right {
+  background-color: #d21623;
+  width: 100px;
+
+}
+
+.btns {
+  font-size: 14px;
+  font-family: PingFangSC-Regular;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 1);
+  position absolute
+  left 50%
+  top 50%
+  transform: translate(-50%,-50%);
+}
+
 .active {
   position: absolute;
   width: 100%;
@@ -133,7 +188,7 @@ export default {
   border-radius: 5px;
   margin-left: 2%;
   position: fixed;
-  bottom: 0;
+  bottom: 8px;
 }
 
 // 内容

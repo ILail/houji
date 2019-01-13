@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="wrap">
     <!-- 推荐 -->
     <div :class="searchBarFixed == true ? 'isFixed' :''" id="searchBar">
       <home-header></home-header>
@@ -145,25 +145,22 @@ export default {
     };
   },
   created: function() {
-  
-      lookOption()
-        .then(res => {
-          res = res.data;
-          if (res.status && res.data) {
-            const data = res.data;
-            this.sowingMap = data.sowingMap;
-          }
-        })
-        .catch(err => {
-          console.log(err, "请求失败");
-        });
-   
+    lookOption()
+      .then(res => {
+        res = res.data;
+        if (res.status && res.data) {
+          const data = res.data;
+          this.sowingMap = data.sowingMap;
+        }
+      })
+      .catch(err => {
+        console.log(err, "请求失败");
+      });
+
     // 首页图片 设置定时器加载 不然swiper 会有bug (图片的吭) bind 解决this 指向
   },
   mounted() {
     window.addEventListener("scroll", this.watchScroll);
-
-
 
     let mySwiperA = new Swiper(".wrapWa", {});
     mySwiperA.on("slideChange", () => {
@@ -214,6 +211,12 @@ export default {
 </script>
 
 <style lang="stylus" type="text/stylus" rel="stylesheet/stylus" scoped>
+.wrap >>> .ly-tabbar {
+  box-shadow: none;
+}
+.wrap >>> .ly-tab-active-bar{
+  bottom 0
+}
 .swiper-slide {
   height: 0px;
   overflow-y: hidden;

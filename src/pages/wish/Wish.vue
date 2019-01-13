@@ -680,10 +680,6 @@ export default {
   list-style-type: none;
 }
 
-.list li {
-  width: 100%;
-}
-
 .yuan {
   border: 1px solid #ccc;
   width: 16.5px;
@@ -708,11 +704,6 @@ export default {
 }
 
 .item {
-  width: 93.6%;
-  display: flex;
-  margin: 0 auto;
-  justify-content: center;
-  align-items: center;
   margin-bottom: 25px;
 }
 

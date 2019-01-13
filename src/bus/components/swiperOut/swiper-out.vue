@@ -20,25 +20,7 @@ export default {
       this.activeItem = item;
     },
     childRemove(childNode, childNodeid) {
-      // var lit = document.getElementById(childNodeid);
-      // let litLength = lit.parentNode.getElementsByClassName(
-      //   "r-swiper-out-item item"
-      // ).length;
-      // console.log(
-      //   this.$refs.swiperOut.childNodes[lit.parentNode.id].childNodes);
-      // if (
-      //   this.$refs.swiperOut.childNodes[lit.parentNode.id].childNodes.length ==
-      //   3
-      // ) {
-        // this.$refs.swiperOut.childNodes[lit.parentNode.id].remove();
-        // this.$refs.swiperOut.childNodes[lit.parentNode.id].style.display='none';
-      // }
-      // this.$refs.swiperOut.childNodes[lit.parentNode.id].removeChild(childNode);
-      //  if (this.$refs.swiperOut.childNodes[lit.parentNode.id].length == 2) {
-      //   console.log(121);
-      // }
       this.$emit("onremove", childNode);
-      // lit.removeChild(lit.childNodes[0]);
     }
   },
   created() {

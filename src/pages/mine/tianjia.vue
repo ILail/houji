@@ -137,6 +137,7 @@ export default {
             if (res.data.data.length == "0") {
               alert("提交成功");
             }
+            this.$router.go(-1);
           })
           .catch(err => {
             console.log(err, "请求失败");
@@ -148,6 +149,12 @@ export default {
 </script>
 <style lang="stylus" type="text/stylus" rel="stylesheet/stylus" scoped>
 .van-picker-column__item--selected {
+  font-weight: 550;
+  color: #323233;
+  font-size: 17px;
+}
+
+.contS >>> .van-picker-column__item--selected {
   font-weight: 550;
   color: #323233;
   font-size: 17px;
