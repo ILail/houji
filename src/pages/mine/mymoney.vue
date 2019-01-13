@@ -2,7 +2,7 @@
   <div class="active">
     <div :style="note" class="heard">
       <div class="heardone">账户余额</div>
-      <div class="heardtwo">¥ 999.00</div>
+      <div class="heardtwo">¥ 00.00</div>
     </div>
 
     <div style="background:#fff">
