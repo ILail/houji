@@ -474,7 +474,7 @@ export function weal() {
 export function oppid() {
 
   return fetch({
-    url: api.Hallowmasa +'/makeCode',
+    url: api.Hallowmas +'/makeCode',
     method: "GET",
   })
 }
