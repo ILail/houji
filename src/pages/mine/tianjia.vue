@@ -157,7 +157,7 @@ export default {
 .contS >>> .van-picker-column__item--selected {
   font-weight: 550;
   color: #323233;
-  font-size: 17px;
+  font-size: 18px;
 }
 
 .contS input {

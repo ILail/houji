@@ -143,7 +143,14 @@ export function plun(id, page) {
     method: "GET",
   })
 }
+//众筹详情时我的讨论
 
+export function Myplun(id, page) {
+  return fetch({
+    url: api.Hallowmas + '/v2/crowdFunding/discussionMyList?crowd_funding_id=' + id + '&page=' + page + '',
+    method: "GET",
+  })
+}
 // 小众筹加入讨论
 
 export function plunPushs(comment_id, crowd_funding_id, content) {

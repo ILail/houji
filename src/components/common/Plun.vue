@@ -8,37 +8,73 @@
         @click="handClick(index)"
       >{{item.name}}</span>
     </div>
-    <div>
+    <div v-show="actives">
+      <div>
+        <form action="javascript:return true;">
+          <input
+            type="text"
+            placeholder="点击评论..."
+            @keypress="searchGoods"
+            class="pluna"
+            v-model="value"
+          >
+        </form>
+      </div>
+      <!-- 评论内容 -->
+      <div
+        class="content"
+      >
+        <!-- <div
+          class="level has-text-centered"
+          v-show="isLoadMoreShow"
+          style="margin:10px 2px 0 2px;background-color:white;"
+        >{{loadWords}}</div> -->
+        <div class="peosCon" v-for="(item,index) in list" :key="index" :id="item.id">
+          <div class="left">
+            <img :src="item.headimages">
+          </div>
+          <div class="right">
+            <div class="word" style="color:#E88A25">{{item.username}}</div>
+            <div class="wordC">{{item.content}}</div>
+            <div class="childC" v-for="(pl,index) in list[index].option" :key="index">
+              <!-- 二级评论数组套数组 -->
+              <div class="childCa" v-for="(pla,index) in pl" :key="index">
+                <span class="plaW">{{pla.username}}:</span>
+                <span class="plad">{{pla.content}}</span>
+              </div>
+            </div>
+            <div class="number">
+              <div>{{item.addtime}}</div>
+
+              <div class="pl">
+                <img :src="require('@/assets/pl.png')" @click="imgplun(item.fid)">
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- <div class="has-text-centered" v-show="loadding">正在加载中状态...</div> -->
+      </div>
       <form action="javascript:return true;">
         <input
           type="text"
+          class="plunas"
           placeholder="点击评论..."
-          @keypress="searchGoods"
-          class="pluna"
-          v-model="value"
+          v-model="values"
+          v-show="showss"
+          @keypress="searchGood"
         >
       </form>
     </div>
-    <!-- 评论内容 -->
-    <div
-      class="content"
-      @touchstart="touchStart($event)"
-      @touchmove="touchMove($event)"
-      @touchend="touchEnd()"
-    >
-      <div
-        class="level has-text-centered"
-        v-show="isLoadMoreShow"
-        style="margin:10px 2px 0 2px;background-color:white;"
-      >{{loadWords}}</div>
-      <div class="peosCon" v-for="(item,index) in list" :key="index" :id="item.id">
+    <div v-show="activesd" style="margin-top: 35px;">
+      <div v-if="news" class="wordas">暂无消息</div>
+      <div class="peosCon" v-for="(item,index) in lists" :key="index" :id="item.id">
         <div class="left">
           <img :src="item.headimages">
         </div>
         <div class="right">
           <div class="word" style="color:#E88A25">{{item.username}}</div>
           <div class="wordC">{{item.content}}</div>
-          <div class="childC" v-for="(pl,index) in list[index].option" :key="index">
+          <div class="childC" v-for="(pl,index) in lists[index].option" :key="index">
             <!-- 二级评论数组套数组 -->
             <div class="childCa" v-for="(pla,index) in pl" :key="index">
               <span class="plaW">{{pla.username}}:</span>
@@ -54,18 +90,7 @@
           </div>
         </div>
       </div>
-      <div class="has-text-centered" v-show="loadding">正在加载中状态...</div>
     </div>
-    <form action="javascript:return true;">
-      <input
-        type="text"
-        class="plunas"
-        placeholder="点击评论..."
-        v-model="values"
-        v-show="showss"
-        @keypress="searchGood"
-      >
-    </form>
   </div>
 </template>
 
@@ -73,6 +98,7 @@
 import { plun } from "@/components/axios/api";
 import { plunPush } from "@/components/axios/api";
 import { plunPushs } from "@/components/axios/api";
+import { Myplun } from "@/components/axios/api";
 import Vue from "vue";
 export default {
   data() {
@@ -80,18 +106,14 @@ export default {
       navList: [{ name: "全部消息" }, { name: "我的互动" }],
       nowIndex: 0,
       list: [],
-      istext: false,
+      lists: [],
       value: "",
       values: "",
-      top: 0,
-      state: 0,
-      startY: 0, //保存开始滑动时，y轴位置
-      touching: false,
-      isLoadMoreShow: false,
-      loadWords: "松开刷新页面",
-      loadding: false,
       showss: false,
-      fid: ""
+      fid: "",
+      activesd: false,
+      actives: true,
+      news: false
     };
   },
   created() {
@@ -125,25 +147,34 @@ export default {
     },
     handClick(index) {
       this.nowIndex = index;
+      this.id = this.$route.query.key; //获取上个页面传递的id,在下面获取数据的时候先提交id
+      if (index == 1) {
+        this.activesd = true;
+        this.actives = false;
+        Myplun(this.id)
+          .then(res => {
+            if (res.data.data.length == 0) {
+              this.news = true;
+            } else {
+              this.news = false;
+              this.lists = res.data.data;
+            }
+          })
+          .catch(err => {
+            console.log(err, "请求失败");
+          });
+      }
+      if (index == 0) {
+        this.activesd = false;
+        this.actives = true;
+      }
     },
-    // 触摸开始（手指放在触摸屏上）
-    touchStart: function(e) {},
-    // 绑定touchmove （手指拖动）
-    touchMove: function(e) {},
-    // 绑定touchend 触摸结束（手指从触摸屏上移开）
-    touchEnd: function() {},
     // 后台请求数据
     refresh: function() {
       this.id = this.$route.query.key; //获取上个页面传递的id,在下面获取数据的时候先提交id
       plun(this.id)
         .then(res => {
           this.list = res.data.data;
-
-          // if (this.list.length == 0) {
-          //   this.shows = true;
-          //   this.showa = false;
-          // }
-          // Vue.set(this.list);
         })
         .catch(err => {
           console.log(err, "请求失败");
@@ -180,6 +211,11 @@ export default {
 </script>
 
 <style lang="stylus" type="text/stylus" rel="stylesheet/stylus" scoped>
+.wordas{
+  font-size 14px
+  margin-top 20%
+  margin-left 40%
+}
 .ddss {
   font-size: 14px;
   color: #666;
