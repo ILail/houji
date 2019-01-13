@@ -201,7 +201,7 @@ export function foryou() {
 export function forDetil(wish_id) {
   return fetch({
     url: api.Hallowmas + '/v2/crowdFunding/delWishList',
-    method: "DELETE",
+    method: "POST",
     data: {
       wish_id: wish_id
     }
@@ -296,7 +296,7 @@ export function Travels(crowd_funding_id) {
 export function getMove(user_address_id) {
   return fetch({
     url: api.Hallowmas + '/v2/member/memberAddressManagement',
-    method: "DELETE",
+    method: "POST",
     data: {
       user_address_id: user_address_id
     }
@@ -474,7 +474,7 @@ export function weal() {
 export function oppid() {
 
   return fetch({
-    url: 'http://csapi.nguiba.com/makeCode',
+    url: api.Hallowmasa +'/makeCode',
     method: "GET",
   })
 }

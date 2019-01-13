@@ -12,7 +12,7 @@
 
 <script>
 import { detailM } from "@/components/axios/api";
-// import { oppid } from "@/components/axios/api";
+import { oppid } from "@/components/axios/api";
 import axios from "axios";
 import secret from "@/utils/utils";
 export default {
@@ -29,24 +29,13 @@ export default {
     };
   },
   created() {
-    var url = "http://csapi.nguiba.com/makeCode";
-    axios({
-      method: "GET",
-
-      url: "http://csapi.nguiba.com/makeCode",
-
-      // data: {
-      //   param: "$params"
-      // },
-
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-
-        "Access-Control-Allow-Origin": "*"
-      }
-    }).then(function(res) {
-      console.log(res);
-    });
+    oppid()
+      .then(res => {
+        console.log(res);
+      })
+      .catch(err => {
+        console.log(err, "请求失败");
+      });
   },
   methods: {
     axioss() {},
