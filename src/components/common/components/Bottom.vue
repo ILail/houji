@@ -13,6 +13,8 @@
 <script>
 import { detailM } from "@/components/axios/api";
 import { oppid } from "@/components/axios/api";
+
+
 import axios from "axios";
 import secret from "@/utils/utils";
 // var ajax = new XMLHttpRequest();
@@ -44,6 +46,7 @@ export default {
       .catch(err => {
         console.log(err, "请求失败");
       });
+
   },
   methods: {
     axioss() {},

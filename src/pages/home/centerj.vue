@@ -25,7 +25,7 @@
 
 <script type="text/ecmascript-6">
 import { juanYOU } from "@/components/axios/api";
-
+import { huoqu } from "@/components/axios/api";
 export default {
   filters: {
     formatDate: function(value) {
@@ -66,17 +66,24 @@ export default {
     juanYOU()
       .then(res => {
         this.list = res.data.data.data;
-        console.log(this.list)
+        console.log(this.list);
+      })
+      .catch(err => {
+        console.log(err, "请求失败");
+      });
+      console.log(window.location.href)
+    huoqu(window.location.href)
+      .then(res => {
+        console.log(res);
       })
       .catch(err => {
         console.log(err, "请求失败");
       });
   },
-  methods:{
-    hit(index){
-      this.$refs.refContent[index].innerHTML="已抢"
-      this.$refs.refContents[index].innerHTML="已领取"
-     
+  methods: {
+    hit(index) {
+      this.$refs.refContent[index].innerHTML = "已抢";
+      this.$refs.refContents[index].innerHTML = "已领取";
     }
   }
 };

@@ -516,3 +516,15 @@ export function juanYOU() {
     method: "GET",
   })
 }
+
+// 获取地址
+export function huoqu(url) {
+
+  return fetch({
+    url: api.Hallowmas +'/returnWechatUrl',
+    method: "POST",
+    data:{
+      url:url
+    }
+  })
+}
