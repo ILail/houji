@@ -1,6 +1,6 @@
 <template>
   <div class="container heards">
-    <div class="wrap" v-for="item of list" :key="item.id">
+    <div class="wrap" v-for="(item , index) in list" :key="item.id">
       <div :style="note" class="content">全场卷</div>
       <div class="left">
         <div class="youhui">全场满{{item.amount_limit}}减{{item.num}}</div>
@@ -15,8 +15,8 @@
         </div>
         <div class="bottom">
           <span class="same">{{item.alr_port}}%</span>
-          <span class="same">{{imgSrc}}</span>
-          <span class="sames" @click="hit">{{imgSrcs}}</span>
+          <span class="same" ref="refContent">未抢</span>
+          <span class="sames" @click="hit(index)" ref="refContents">立即领取</span>
         </div>
       </div>
     </div>
@@ -54,26 +54,29 @@ export default {
       index: 0
     };
   },
-  computed: {
-    imgSrc() {
-      return this.content[this.index];
-    },
-    imgSrcs() {
-      return this.words[this.index];
-    }
-  },
+  // computed: {
+  //   imgSrc() {
+  //     return this.content[this.index];
+  //   },
+  //   imgSrcs() {
+  //     return this.words[this.index];
+  //   }
+  // },
   created() {
     juanYOU()
       .then(res => {
         this.list = res.data.data.data;
+        console.log(this.list)
       })
       .catch(err => {
         console.log(err, "请求失败");
       });
   },
   methods:{
-    hit(){
-      
+    hit(index){
+      this.$refs.refContent[index].innerHTML="已抢"
+      this.$refs.refContents[index].innerHTML="已领取"
+     
     }
   }
 };
