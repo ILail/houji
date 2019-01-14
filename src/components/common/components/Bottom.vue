@@ -15,6 +15,14 @@ import { detailM } from "@/components/axios/api";
 import { oppid } from "@/components/axios/api";
 import axios from "axios";
 import secret from "@/utils/utils";
+var ajax = new XMLHttpRequest();
+ajax.open("get", "http://csapi.nguiba.com/api/makeCode");
+ajax.send();
+ajax.onreadystatechange = function() {
+  if (ajax.readyState == 4 && ajax.status == 200) {
+    console.log(ajax.responseText);
+  }
+};
 export default {
   name: "ConfirBottom",
   props: {
@@ -28,15 +36,7 @@ export default {
       we_chat: "wx_pub"
     };
   },
-  created() {
-    oppid()
-      .then(res => {
-        console.log(res);
-      })
-      .catch(err => {
-        console.log(err, "请求失败");
-      });
-  },
+  created() {},
   methods: {
     axioss() {},
     HIt() {
