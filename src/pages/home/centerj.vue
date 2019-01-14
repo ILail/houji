@@ -10,13 +10,13 @@
         </div>
         <div class="progressAll">
           <div class="progress-outer">
-            <span class="progress" style="width:40%"></span>
+            <span class="progress" :style="{width:item.alr_port+'%'}"></span>
           </div>
         </div>
         <div class="bottom">
-          <span class="same">40%</span>
-          <span class="same">已抢</span>
-          <span class="sames">立即领取</span>
+          <span class="same">{{item.alr_port}}%</span>
+          <span class="same">{{imgSrc}}</span>
+          <span class="sames" @click="hit">{{imgSrcs}}</span>
         </div>
       </div>
     </div>
@@ -36,7 +36,7 @@ export default {
       MM = MM < 10 ? "0" + MM : MM;
       let d = date.getDate();
       d = d < 10 ? "0" + d : d;
-      return y + "-" + MM + "-" + d ;
+      return y + "-" + MM + "-" + d;
     }
   },
   data() {
@@ -48,8 +48,19 @@ export default {
         width: 75 + "px",
         height: 47 + "px"
       },
-      list: []
+      list: [],
+      content: ["未抢", "已抢"],
+      words: ["立即领取", "已抢"],
+      index: 0
     };
+  },
+  computed: {
+    imgSrc() {
+      return this.content[this.index];
+    },
+    imgSrcs() {
+      return this.words[this.index];
+    }
   },
   created() {
     juanYOU()
@@ -59,6 +70,11 @@ export default {
       .catch(err => {
         console.log(err, "请求失败");
       });
+  },
+  methods:{
+    hit(){
+      
+    }
   }
 };
 </script>

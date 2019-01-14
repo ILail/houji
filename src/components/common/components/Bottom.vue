@@ -15,14 +15,14 @@ import { detailM } from "@/components/axios/api";
 import { oppid } from "@/components/axios/api";
 import axios from "axios";
 import secret from "@/utils/utils";
-var ajax = new XMLHttpRequest();
-ajax.open("get", "http://www.nguiba.com/api/makeCode");
-ajax.send();
-ajax.onreadystatechange = function() {
-  if (ajax.readyState == 4 && ajax.status == 200) {
-    console.log(ajax.responseText);
-  }
-};
+// var ajax = new XMLHttpRequest();
+// ajax.open("get", "http://www.nguiba.com/api/makeCode");
+// ajax.send();
+// ajax.onreadystatechange = function() {
+//   if (ajax.readyState == 4 && ajax.status == 200) {
+//     console.log(ajax.responseText);
+//   }
+// };
 export default {
   name: "ConfirBottom",
   props: {
