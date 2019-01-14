@@ -508,3 +508,11 @@ export function detailM(pay_style, pay_type, crowd_funding_id, crowd_funding_ret
     }
   })
 }
+//优惠卷列表
+export function juanYOU() {
+
+  return fetch({
+    url: api.Hallowmas +'/v2/receive/list?page=' + 1 + '',
+    method: "GET",
+  })
+}

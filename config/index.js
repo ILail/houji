@@ -12,7 +12,7 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
       '/api': {//前端路由匹配模式
-        target: 'http://csapi.nguiba.com:80',  //后端请求服务域名和端口
+        target: 'http://www.nguiba.com',  //后端请求服务域名和端口
         changeOrigin: true,   //跨域
         pathRewrite:{  // 路径重写，
           '/api': '/api'  // 替换target中的请求地址，也就是说以后你在请求http://api.jisuapi.com/XXXXX这个地址的时候直接写成/api即可。

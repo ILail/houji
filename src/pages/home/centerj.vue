@@ -1,28 +1,169 @@
 <template>
-  <div class="hitImg">
-    <img src="@/assets/woring.png">
-    <div class="contenr">暂时无数据，静请期待！</div>
+  <div class="container heards">
+    <div class="wrap" v-for="item of list" :key="item.id">
+      <div :style="note" class="content">全场卷</div>
+      <div class="left">
+        <div class="youhui">全场满{{item.amount_limit}}减{{item.num}}</div>
+        <div class="time">
+          <span>有效期 :</span>
+          <span>{{item.start_time | formatDate}}-{{item.end_time | formatDate}}</span>
+        </div>
+        <div class="progressAll">
+          <div class="progress-outer">
+            <span class="progress" style="width:40%"></span>
+          </div>
+        </div>
+        <div class="bottom">
+          <span class="same">40%</span>
+          <span class="same">已抢</span>
+          <span class="sames">立即领取</span>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
-export default {};
+import { juanYOU } from "@/components/axios/api";
+
+export default {
+  filters: {
+    formatDate: function(value) {
+      value *= 1000;
+      let date = new Date(value);
+      let y = date.getFullYear();
+      let MM = date.getMonth() + 1;
+      MM = MM < 10 ? "0" + MM : MM;
+      let d = date.getDate();
+      d = d < 10 ? "0" + d : d;
+      return y + "-" + MM + "-" + d ;
+    }
+  },
+  data() {
+    return {
+      note: {
+        backgroundImage: "url(" + require("@/assets/linjuan/2.png") + ")",
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "100% 100%",
+        width: 75 + "px",
+        height: 47 + "px"
+      },
+      list: []
+    };
+  },
+  created() {
+    juanYOU()
+      .then(res => {
+        this.list = res.data.data.data;
+      })
+      .catch(err => {
+        console.log(err, "请求失败");
+      });
+  }
+};
 </script>
-
 <style lang="stylus" type="text/stylus" rel="stylesheet/stylus" scoped>
-.hitImg {
-  display: table-cell;
-  vertical-align: middle;
+.heards {
+  padding: 15px 0;
+}
+
+.wrap {
+  height: 120px;
+  background: linear-gradient(90deg, rgba(218, 66, 76, 1) 0%, rgba(223, 87, 96, 1) 100%);
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  padding: 0 8.5%;
+  margin-bottom: 20px;
+}
+
+.content {
   text-align: center;
+  line-height: 47px;
+  font-size: 14px;
+  font-family: PingFangSC-Regular;
+  font-weight: bold;
+  color: rgba(161, 44, 44, 1);
 }
 
-.hitImg img {
-  width: 50%;
-  margin-top: 40%;
+.progressAll {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
-.hitImg .contenr {
-  margin-top: 5px;
-  color: #999;
+.progressA {
+  font-size: 12px;
+  color: #D21623;
+}
+
+.progress-outer {
+  width: 93%;
+  height: 0.04rem;
+  position: relative;
+  background-color: #FEBDC3;
+  border-radius: 5px;
+}
+
+.progress-outer .progress {
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 5px;
+  background: #BB040E;
+}
+
+.youhui {
+  font-size: 15px;
+  font-family: PingFangSC-Regular;
+  font-weight: bold;
+  color: rgba(255, 255, 255, 1);
+}
+
+.time {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  margin: 10px 0;
+}
+
+.time span {
+  font-family: PingFangSC-Regular;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 1);
+  opacity: 0.8;
+  font-size: 12px;
+  transform: scale(0.83);
+  transform-origin: 0% 0%;
+}
+
+.bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.same {
+  font-size: 12px;
+  font-family: ChalkboardSE-Regular;
+  font-weight: 400;
+  transform: scale(0.83);
+  display: inline-block;
+  color: rgba(255, 255, 255, 1);
+}
+
+.sames {
+  font-size: 12px;
+  font-family: PingFangSC-Regular;
+  font-weight: 400;
+  color: rgba(161, 44, 44, 1);
+  background: #fff;
+  padding: 5px 10px;
+  margin-top: 10px;
+}
+
+.left {
+  margin-left: 8.5%;
 }
 </style>

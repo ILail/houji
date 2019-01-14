@@ -35,7 +35,7 @@ export default {
     // 发送请求
     Confirtwo(routerParams, routerParamb, routerParamo, 111)
       .then(res => {
-        console.log(res)
+        // console.log(res)
         this.json = res.data.data.wish_list.list;
 
         this.moneyAll = res.data.data.wish_list.total_money;

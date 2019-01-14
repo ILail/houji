@@ -36,7 +36,15 @@ export default {
       we_chat: "wx_pub"
     };
   },
-  created() {},
+  created() {
+    oppid()
+      .then(res => {
+        console.log(res);
+      })
+      .catch(err => {
+        console.log(err, "请求失败");
+      });
+  },
   methods: {
     axioss() {},
     HIt() {
