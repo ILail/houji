@@ -66,7 +66,7 @@ export default {
     juanYOU()
       .then(res => {
         this.list = res.data.data.data;
-        console.log(this.list);
+        console.log(res);
       })
       .catch(err => {
         console.log(err, "请求失败");
@@ -74,7 +74,7 @@ export default {
       console.log(window.location.href)
     huoqu(window.location.href)
       .then(res => {
-        console.log(res);
+        window.location.href= res.data.data
       })
       .catch(err => {
         console.log(err, "请求失败");
