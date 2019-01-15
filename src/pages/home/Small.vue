@@ -168,10 +168,11 @@ export default {
         // console.log(value);
         // 只做一次跳转
         if (value == null || value == undefined) {
-          sessionStorage.setItem("shuyuhan", "18");
-          window.location.href = URL;
+          setTimeout(function() {
+            sessionStorage.setItem("shuyuhan", "18");
+            window.location.href = URL;
+          }, 800);
         }
-        // window.location.href = URL
       })
       .catch(err => {
         console.log(err, "请求失败");
@@ -186,10 +187,10 @@ export default {
       console.log(code);
       Code(code)
         .then(res => {
-          this.$router.push("/");
           const oppenID = res.data.data;
           // 获得的oppenID做缓存
           this.$store.commit(types.USERNAME, oppenID);
+          console.log(oppenID);
         })
         .catch(err => {
           console.log(err, "请求失败");
