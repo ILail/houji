@@ -38,6 +38,10 @@ import Confirmation from '@/components/common/Confirmation'
 import Confirmations from '@/components/common/Confirmations'
 import store from '@/components/vuex/store'
 import * as types from '@/components/vuex/types'
+
+
+
+
 Vue.use(Router)
 // export default new Router({
 const routes = [{

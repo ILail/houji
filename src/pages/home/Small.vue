@@ -63,7 +63,7 @@ import Finish from "@/pages/home/finish.vue";
 import Swiper from "moon/swiper.min";
 import "moon/swiper.min.css";
 import HomeHeader from "@/pages/home/components/Header.vue";
-
+import { huoqu } from "@/components/axios/api";
 export default {
   name: "Small",
   components: {
@@ -160,6 +160,15 @@ export default {
     // 首页图片 设置定时器加载 不然swiper 会有bug (图片的吭) bind 解决this 指向
   },
   mounted() {
+
+      huoqu(window.location.href)
+      .then(res => {
+        console.log(res.data.data);
+        window.location.href = res.data.data;
+      })
+      .catch(err => {
+        console.log(err, "请求失败");
+      });
     window.addEventListener("scroll", this.watchScroll);
 
     let mySwiperA = new Swiper(".wrapWa", {});

@@ -28,7 +28,7 @@
 
 <script type="text/ecmascript-6">
 import { juanYOU } from "@/components/axios/api";
-import { huoqu } from "@/components/axios/api";
+
 import { hitLq } from "@/components/axios/api";
 export default {
   filters: {
@@ -77,14 +77,6 @@ export default {
         console.log(err, "请求失败");
       });
     // console.log(window.location.href);
-    huoqu(window.location.href)
-      .then(res => {
-        console.log(res.data.data);
-        window.location.href = res.data.data;
-      })
-      .catch(err => {
-        console.log(err, "请求失败");
-      });
   },
   methods: {
     hit(index, id) {

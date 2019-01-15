@@ -7,7 +7,7 @@
           <span class="same_">暂无可用</span>
         </div>
         <div>
-          <span style="margin-right:10px" class="same_"  @click="showList = true">0张</span>
+          <span style="margin-right:10px" class="same_" @click="showList">0张</span>
           <img :src="wx" style="vertical-align: bottom;">
         </div>
       </div>
@@ -39,14 +39,13 @@
     </div>
     <div style="background:#eee;height:8px"></div>
 
-    <!-- 优惠券单元格 -->
-   
-
     <!-- 优惠券列表 -->
-    <van-popup v-model="showList" position="bottom">
-      <van-coupon-list
-  
-      />
+    <van-popup v-model="show" position="bottom">
+      <van-tabs v-model="active">
+        <van-tab title="标签 1">内容 1</van-tab>
+        <van-tab title="标签 2">内容 2</van-tab>
+        <van-tab title="标签 3">内容 3</van-tab>
+      </van-tabs>
     </van-popup>
   </div>
 </template>
@@ -54,10 +53,12 @@
 <script>
 import Vue from "vue";
 import { coupon } from "@/components/axios/api";
-import { CouponCell, CouponList } from "vant";
+import { Tab, Tabs } from "vant";
+
+Vue.use(Tab).use(Tabs);
 
 import { Popup } from "vant";
-Vue.use(CouponCell).use(CouponList);
+
 Vue.use(Popup);
 
 export default {
@@ -68,9 +69,8 @@ export default {
   data() {
     return {
       wx: require("@/assets/right_.png"),
-      chosenCoupon: -1,
-      coupons: [coupon],
-      disabledCoupons: [coupon]
+      show: false,
+      active: 2
     };
   },
   created() {
@@ -83,12 +83,8 @@ export default {
       });
   },
   methods: {
-    onChange(index) {
-      this.showList = false;
-      this.chosenCoupon = index;
-    },
-    onExchange(code) {
-      this.coupons.push(coupon);
+    showList() {
+      this.show = true;
     }
   }
 };
