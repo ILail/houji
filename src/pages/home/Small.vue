@@ -146,7 +146,7 @@ export default {
     };
   },
   created: function() {
-    console.log()
+    console.log();
     lookOption()
       .then(res => {
         res = res.data;
@@ -159,9 +159,6 @@ export default {
         console.log(err, "请求失败");
       });
 
-    // 首页图片 设置定时器加载 不然swiper 会有bug (图片的吭) bind 解决this 指向
-  },
-  mounted() {
     huoqu(window.location.href)
       .then(res => {
         let URL = res.data.data;
@@ -171,8 +168,7 @@ export default {
         if (value == null || value == undefined) {
           setTimeout(function() {
             sessionStorage.setItem("shuyuhan", "18");
-            window.location.replace =URL;
-          
+            window.location.href = URL;
           }, 2500);
         }
         // window.location.href = URL
@@ -181,7 +177,10 @@ export default {
         console.log(err, "请求失败");
       });
 
-       console.log(window.location.href)
+    // 首页图片 设置定时器加载 不然swiper 会有bug (图片的吭) bind 解决this 指向
+  },
+  mounted() {
+    console.log(window.location.href);
     window.addEventListener("scroll", this.watchScroll);
 
     let mySwiperA = new Swiper(".wrapWa", {});
