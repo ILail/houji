@@ -54,7 +54,7 @@ export default {
     enenneen() {
      
       store.commit(types.LOGOUT);
-      this.$router.push("/phone");
+      this.$router.push("/");
     },
     geren() {
       this.$router.push("/personone");

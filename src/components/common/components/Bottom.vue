@@ -39,13 +39,13 @@ export default {
     };
   },
   created() {
-    oppid()
-      .then(res => {
-        console.log(res);
-      })
-      .catch(err => {
-        console.log(err, "请求失败");
-      });
+    // oppid()
+    //   .then(res => {
+    //     console.log(res);
+    //   })
+    //   .catch(err => {
+    //     console.log(err, "请求失败");
+    //   });
 
   },
   methods: {

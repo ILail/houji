@@ -7,7 +7,7 @@
           <span class="same_">暂无可用</span>
         </div>
         <div>
-          <span style="margin-right:10px" class="same_">0张</span>
+          <span style="margin-right:10px" class="same_"  @click="showList = true">0张</span>
           <img :src="wx" style="vertical-align: bottom;">
         </div>
       </div>
@@ -38,10 +38,28 @@
       </div>
     </div>
     <div style="background:#eee;height:8px"></div>
+
+    <!-- 优惠券单元格 -->
+   
+
+    <!-- 优惠券列表 -->
+    <van-popup v-model="showList" position="bottom">
+      <van-coupon-list
+  
+      />
+    </van-popup>
   </div>
 </template>
 
 <script>
+import Vue from "vue";
+import { coupon } from "@/components/axios/api";
+import { CouponCell, CouponList } from "vant";
+
+import { Popup } from "vant";
+Vue.use(CouponCell).use(CouponList);
+Vue.use(Popup);
+
 export default {
   name: "ConfirMiddle",
   props: {
@@ -49,8 +67,29 @@ export default {
   },
   data() {
     return {
-      wx: require("@/assets/right_.png")
+      wx: require("@/assets/right_.png"),
+      chosenCoupon: -1,
+      coupons: [coupon],
+      disabledCoupons: [coupon]
     };
+  },
+  created() {
+    coupon(111)
+      .then(res => {
+        console.log(res);
+      })
+      .catch(err => {
+        console.log(err, "请求失败");
+      });
+  },
+  methods: {
+    onChange(index) {
+      this.showList = false;
+      this.chosenCoupon = index;
+    },
+    onExchange(code) {
+      this.coupons.push(coupon);
+    }
   }
 };
 </script>

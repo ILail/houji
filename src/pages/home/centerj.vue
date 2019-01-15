@@ -1,13 +1,8 @@
 <template>
-  
-    <div class="container heards">
-      <div
-        class="wrap"
-        v-for="(item , index) in list"
-        :key="item.id"
-        v-show="isShow"
-        transiton="fade"
-      >
+  <div>
+    <div v-if="show" class="wordss">暂时无优惠卷</div>
+    <div class="container heards" ref="refContentss">
+      <div class="wrap" v-for="(item , index) in list" :key="item.id" transiton="fade">
         <div :style="note" class="content">全场卷</div>
         <div class="left">
           <div class="youhui">全场满{{item.amount_limit}}减{{item.num}}</div>
@@ -23,17 +18,18 @@
           <div class="bottom">
             <span class="same">{{item.alr_port}}%</span>
             <span class="same" ref="refContent">未抢</span>
-            <span class="sames" @click="hit(index)" ref="refContents">立即领取</span>
+            <span class="sames" @click="hit(index,item.vouchers_id)" ref="refContents">立即领取</span>
           </div>
         </div>
       </div>
     </div>
-  
+  </div>
 </template>
 
 <script type="text/ecmascript-6">
 import { juanYOU } from "@/components/axios/api";
 import { huoqu } from "@/components/axios/api";
+import { hitLq } from "@/components/axios/api";
 export default {
   filters: {
     formatDate: function(value) {
@@ -57,11 +53,10 @@ export default {
         height: 47 + "px"
       },
       list: [],
-      content: ["未抢", "已抢"],
-      words: ["立即领取", "已抢"],
-      isShow: true
+      show:false
     };
   },
+
   // computed: {
   //   imgSrc() {
   //     return this.content[this.index];
@@ -74,12 +69,14 @@ export default {
     juanYOU()
       .then(res => {
         this.list = res.data.data.data;
-        console.log(this.list.length);
+        if (this.list.length == 0) {
+          this.show = true
+        }
       })
       .catch(err => {
         console.log(err, "请求失败");
       });
-    console.log(window.location.href);
+    // console.log(window.location.href);
     huoqu(window.location.href)
       .then(res => {
         // console.log(res.data.data);
@@ -90,22 +87,26 @@ export default {
       });
   },
   methods: {
-    hit(index) {
-     
+    hit(index, id) {
       this.$refs.refContent[index].innerHTML = "已抢";
-
-      this.$refs.refContent.forEach((item, index) => {
-        if(item.innerHTML == "已抢"){
-          console.log(123)
-        };
-        //1,2,3,4,5
-      });
       this.$refs.refContents[index].innerHTML = "已领取";
+      hitLq(id)
+        .then(res => {
+          console.log(res);
+        })
+        .catch(err => {
+          console.log(err, "请求失败");
+        });
     }
   }
 };
 </script>
 <style lang="stylus" type="text/stylus" rel="stylesheet/stylus" scoped>
+.wordss{
+  font-size 14px
+  margin-top 180px
+  margin-left 40%
+}
 .heards {
   padding: 15px 0;
 }

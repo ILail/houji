@@ -528,3 +528,27 @@ export function huoqu(url) {
     }
   })
 }
+
+// 领取优惠卷
+export function hitLq(vouchers_id) {
+
+  return fetch({
+    url: api.Hallowmas +'/v2/receive/coupon',
+    method: "POST",
+    data:{
+      vouchers_id:vouchers_id
+    }
+  })
+}
+
+// 领取优惠卷
+export function coupon(coupon_type) {
+
+  return fetch({
+    url: api.Hallowmas +'/v2/coupon/list',
+    method: "POST",
+    data:{
+      coupon_type:coupon_type
+    }
+  })
+}
