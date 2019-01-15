@@ -189,7 +189,7 @@ export default {
         .then(res => {
           const oppenID = res.data.data;
           // 获得的oppenID做缓存
-          this.$store.commit(types.USERNAME, oppenID);
+
           console.log(oppenID);
         })
         .catch(err => {
