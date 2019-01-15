@@ -1,26 +1,34 @@
 <template>
-  <div class="container heards">
-    <div class="wrap" v-for="(item , index) in list" :key="item.id">
-      <div :style="note" class="content">全场卷</div>
-      <div class="left">
-        <div class="youhui">全场满{{item.amount_limit}}减{{item.num}}</div>
-        <div class="time">
-          <span>有效期 :</span>
-          <span>{{item.start_time | formatDate}}-{{item.end_time | formatDate}}</span>
-        </div>
-        <div class="progressAll">
-          <div class="progress-outer">
-            <span class="progress" :style="{width:item.alr_port+'%'}"></span>
+  
+    <div class="container heards">
+      <div
+        class="wrap"
+        v-for="(item , index) in list"
+        :key="item.id"
+        v-show="isShow"
+        transiton="fade"
+      >
+        <div :style="note" class="content">全场卷</div>
+        <div class="left">
+          <div class="youhui">全场满{{item.amount_limit}}减{{item.num}}</div>
+          <div class="time">
+            <span>有效期 :</span>
+            <span>{{item.start_time | formatDate}}-{{item.end_time | formatDate}}</span>
           </div>
-        </div>
-        <div class="bottom">
-          <span class="same">{{item.alr_port}}%</span>
-          <span class="same" ref="refContent">未抢</span>
-          <span class="sames" @click="hit(index)" ref="refContents">立即领取</span>
+          <div class="progressAll">
+            <div class="progress-outer">
+              <span class="progress" :style="{width:item.alr_port+'%'}"></span>
+            </div>
+          </div>
+          <div class="bottom">
+            <span class="same">{{item.alr_port}}%</span>
+            <span class="same" ref="refContent">未抢</span>
+            <span class="sames" @click="hit(index)" ref="refContents">立即领取</span>
+          </div>
         </div>
       </div>
     </div>
-  </div>
+  
 </template>
 
 <script type="text/ecmascript-6">
@@ -51,7 +59,7 @@ export default {
       list: [],
       content: ["未抢", "已抢"],
       words: ["立即领取", "已抢"],
-      index: 0
+      isShow: true
     };
   },
   // computed: {
@@ -66,15 +74,16 @@ export default {
     juanYOU()
       .then(res => {
         this.list = res.data.data.data;
-        console.log(res);
+        console.log(this.list.length);
       })
       .catch(err => {
         console.log(err, "请求失败");
       });
-      console.log(window.location.href)
+    console.log(window.location.href);
     huoqu(window.location.href)
       .then(res => {
-        window.location.href= res.data.data
+        // console.log(res.data.data);
+        window.location.href = res.data.data;
       })
       .catch(err => {
         console.log(err, "请求失败");
@@ -82,7 +91,15 @@ export default {
   },
   methods: {
     hit(index) {
+     
       this.$refs.refContent[index].innerHTML = "已抢";
+
+      this.$refs.refContent.forEach((item, index) => {
+        if(item.innerHTML == "已抢"){
+          console.log(123)
+        };
+        //1,2,3,4,5
+      });
       this.$refs.refContents[index].innerHTML = "已领取";
     }
   }
@@ -91,6 +108,14 @@ export default {
 <style lang="stylus" type="text/stylus" rel="stylesheet/stylus" scoped>
 .heards {
   padding: 15px 0;
+}
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity 0.5s;
+}
+
+.fade-enter, .fade-leave-active {
+  opacity: 0;
 }
 
 .wrap {
