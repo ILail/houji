@@ -181,8 +181,7 @@ export default {
   },
   mounted() {
     function GetRequest() {
-      const url =
-        "http://webtest.ngba.cn/index.html?code=061wOBeD1HCJL50on9cD1aOjeD1wOBeh&state=1234#";
+      const url = window.location.href;
       const localarr = url.split("?")[1].split("&");
       let code = localarr[0].split("=")[1];
       console.log(code);
