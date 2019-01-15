@@ -65,7 +65,7 @@ import "moon/swiper.min.css";
 import HomeHeader from "@/pages/home/components/Header.vue";
 import { huoqu } from "@/components/axios/api";
 import { Code } from "@/components/axios/api";
-
+import * as types from "@/components/vuex/types";
 export default {
   name: "Small",
   components: {
@@ -159,35 +159,37 @@ export default {
         console.log(err, "请求失败");
       });
 
+    // 获取当前页面的链接给后台
     huoqu(window.location.href)
       .then(res => {
         let URL = res.data.data;
         console.log(URL);
         var value = sessionStorage.getItem("shuyuhan");
-        console.log(value);
+        // console.log(value);
+        // 只做一次跳转
         if (value == null || value == undefined) {
-          setTimeout(function() {
-            sessionStorage.setItem("shuyuhan", "18");
-            window.location.href = URL;
-          }, 1000);
+          sessionStorage.setItem("shuyuhan", "18");
+          window.location.href = URL;
         }
         // window.location.href = URL
       })
       .catch(err => {
         console.log(err, "请求失败");
       });
-
-    // 首页图片 设置定时器加载 不然swiper 会有bug (图片的吭) bind 解决this 指向
   },
   mounted() {
     function GetRequest() {
+      // 拿到跳转后的链接
       const url = window.location.href;
       const localarr = url.split("?")[1].split("&");
       let code = localarr[0].split("=")[1];
       console.log(code);
       Code(code)
         .then(res => {
-         console.log(res.data.data)
+           this.$router.push('/');
+          const oppenID = res.data.data;
+          // 获得的oppenID做缓存
+          this.$store.commit(types.USERNAME, oppenID);
         })
         .catch(err => {
           console.log(err, "请求失败");

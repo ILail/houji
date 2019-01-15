@@ -39,18 +39,17 @@ export default new Vuex.Store({
   },
   mutations: {
     [types.LOGIN]: (state, data) => {
-        localStorage.token = data;
-        state.token = data;
+      localStorage.token = data;
+      state.token = data;
     },
     [types.LOGOUT]: (state) => {
       localStorage.removeItem('token');
       state.token = null
     },
     [types.USERNAME]: (state, data) => {
-        localStorage.urlName = data;
-        state.urlName = data;
-     
-        // window.location.href = data
+      localStorage.urlName = data;
+      state.urlName = data;
+      console.log(state.urlName)
     },
     SET_KEEP_ALIVE: (state, keepAlive) => {
       state.keepAlive = keepAlive
@@ -61,4 +60,3 @@ export default new Vuex.Store({
   }
 })
 // console.log(data)
-
