@@ -79,7 +79,7 @@ export default {
     // console.log(window.location.href);
     huoqu(window.location.href)
       .then(res => {
-        // console.log(res.data.data);
+        console.log(res.data.data);
         window.location.href = res.data.data;
       })
       .catch(err => {
