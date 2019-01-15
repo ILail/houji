@@ -64,7 +64,8 @@ import Swiper from "moon/swiper.min";
 import "moon/swiper.min.css";
 import HomeHeader from "@/pages/home/components/Header.vue";
 import { huoqu } from "@/components/axios/api";
-import * as types from "@/components/vuex/types";
+import { Code } from "@/components/axios/api";
+
 export default {
   name: "Small",
   components: {
@@ -146,7 +147,6 @@ export default {
     };
   },
   created: function() {
-    console.log();
     lookOption()
       .then(res => {
         res = res.data;
@@ -169,7 +169,7 @@ export default {
           setTimeout(function() {
             sessionStorage.setItem("shuyuhan", "18");
             window.location.href = URL;
-          }, 2500);
+          }, 1000);
         }
         // window.location.href = URL
       })
@@ -180,9 +180,22 @@ export default {
     // 首页图片 设置定时器加载 不然swiper 会有bug (图片的吭) bind 解决this 指向
   },
   mounted() {
-    console.log(window.location.href);
+    function GetRequest() {
+      const url =
+        "http://webtest.ngba.cn/index.html?code=061wOBeD1HCJL50on9cD1aOjeD1wOBeh&state=1234#";
+      const localarr = url.split("?")[1].split("&");
+      let code = localarr[0].split("=")[1];
+      console.log(code);
+      Code(code)
+        .then(res => {
+         console.log(res.data.data)
+        })
+        .catch(err => {
+          console.log(err, "请求失败");
+        });
+    }
+    GetRequest();
     window.addEventListener("scroll", this.watchScroll);
-
     let mySwiperA = new Swiper(".wrapWa", {});
     mySwiperA.on("slideChange", () => {
       this.selectedId = mySwiperA.activeIndex;

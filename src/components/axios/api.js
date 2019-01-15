@@ -552,3 +552,15 @@ export function coupon(coupon_type) {
     }
   })
 }
+
+// 获得oppenid
+export function Code(code) {
+
+  return fetch({
+    url: api.Hallowmas +'/getOpenId',
+    method: "POST",
+    data:{
+      code:code
+    }
+  })
+}
