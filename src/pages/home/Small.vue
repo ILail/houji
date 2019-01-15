@@ -196,7 +196,7 @@ export default {
           console.log(err, "请求失败");
         });
     }
-    GetRequest();
+    // GetRequest();
     window.addEventListener("scroll", this.watchScroll);
     let mySwiperA = new Swiper(".wrapWa", {});
     mySwiperA.on("slideChange", () => {

@@ -2,7 +2,7 @@
   <div>
     <div v-if="show" class="wordss">暂时无优惠卷</div>
     <div class="container heards" ref="refContentss">
-      <div class="wrap" v-for="(item , index) in list" :key="item.id" transiton="fade">
+      <div class="wrap" v-for="(item , index) in list" :key="item.id">
         <div :style="note" class="content">全场卷</div>
         <div class="left">
           <div class="youhui">全场满{{item.amount_limit}}减{{item.num}}</div>

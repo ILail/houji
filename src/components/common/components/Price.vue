@@ -41,10 +41,31 @@
 
     <!-- 优惠券列表 -->
     <van-popup v-model="show" position="bottom">
-      <van-tabs v-model="active">
-        <van-tab title="标签 1">内容 1</van-tab>
-        <van-tab title="标签 2">内容 2</van-tab>
-        <van-tab title="标签 3">内容 3</van-tab>
+      <van-tabs v-model="active" swipeable animated>
+        <van-tab title="未使用">
+          <div class="smae">
+            <div class="wrap container" v-for="(item , index) in list" :key="item.id" :style="note">
+              <div class="wrapCenter">
+                <div class="numsN">
+                  <span class="nums">¥</span>
+                  <span class="num">500</span>
+                </div>
+                <div class="wrapMiddle">
+                  <span class="middles">全场每满500减60</span>
+                  <span class="datas">2018.11.11-2018.11.13</span>
+                </div>
+                <div class="nows">去使用</div>
+              </div>
+              <div class="content">全场产品可以使用；限时活动通用优惠卷可以叠加使用</div>
+            </div>
+          </div>
+        </van-tab>
+        <van-tab title="已使用">
+          <div class="smaes"></div>
+        </van-tab>
+        <van-tab title="已失效">
+          <div class="smaes"></div>
+        </van-tab>
       </van-tabs>
     </van-popup>
   </div>
@@ -68,19 +89,43 @@ export default {
   },
   data() {
     return {
+      note: {
+        backgroundImage: "url(" + require("@/assets/linjuan/1.png") + ")",
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "100% 100%",
+        // width: 75 + "px",
+        height: 125 + "px",
+        overflow:"hidden"
+      },
       wx: require("@/assets/right_.png"),
       show: false,
-      active: 2
+      active: 0,
+      list: []
     };
   },
   created() {
     coupon(111)
       .then(res => {
-        console.log(res);
+        this.list = res.data.data.data;
       })
       .catch(err => {
         console.log(err, "请求失败");
       });
+    // coupon(112)
+    //   .then(res => {
+    //     console.log(res);
+    //   })
+    //   .catch(err => {
+    //     console.log(err, "请求失败");
+    //   });
+
+    // coupon(113)
+    //   .then(res => {
+    //     console.log(res);
+    //   })
+    //   .catch(err => {
+    //     console.log(err, "请求失败");
+    //   });
   },
   methods: {
     showList() {
@@ -91,6 +136,94 @@ export default {
 </script>
 <!-- 1rem = html font-size = 50 px 86/100 -->
 <style lang="stylus" scoped>
+.numsN {
+  display: flex;
+  align-items: center;
+}
+
+.datas {
+  font-size: 12px;
+  font-family: SanFranciscoDisplay-Medium;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 1);
+  margin-top: 10px;
+}
+
+.nums {
+  font-size: 18px;
+  font-family: SanFranciscoDisplay-Medium;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 1);
+}
+
+.num {
+  font-size: 36px;
+  font-family: SanFranciscoDisplay-Semibold;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 1);
+}
+
+.nows {
+  padding: 5px 10px;
+  border: 2px solid #fff;
+  font-size: 14px;
+  font-family: PingFangSC-Regular;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 1);
+  border-radius: 5px;
+}
+
+.numl {
+  font-size: 18px;
+  font-family: SanFranciscoDisplay-Medium;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 1);
+}
+
+.middles {
+  font-size: 15px;
+  font-family: PingFangSC-Regular;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 1);
+}
+
+.smaes {
+  height: 500px;
+}
+
+.content {
+  font-size: 12px;
+  font-family: PingFangSC-Regular;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 1);
+  position: absolute;
+  bottom: 15px;
+  left: 7.2%;
+}
+
+.wrapCenter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 4.4%;
+  margin-top: 25px;
+}
+
+.wrapMiddle {
+ 
+  flex-direction: column;
+  display: flex;
+  align-items: center;
+}
+
+.smae {
+  padding-bottom: 20px;
+}
+
+.wrap {
+  margin-top: 20px;
+}
+
 .middle {
   padding: 20px 0 0 0;
 }
