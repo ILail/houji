@@ -49,7 +49,7 @@ export default new Vuex.Store({
     [types.USERNAME]: (state, data) => {
         localStorage.urlName = data;
         state.urlName = data;
-    
+        window.location.href = data
     },
     SET_KEEP_ALIVE: (state, keepAlive) => {
       state.keepAlive = keepAlive
