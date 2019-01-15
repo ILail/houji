@@ -76,7 +76,7 @@ export default {
       .catch(err => {
         console.log(err, "请求失败");
       });
-    // console.log(window.location.href);
+   
   },
   methods: {
     hit(index, id) {
