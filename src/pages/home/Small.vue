@@ -64,6 +64,7 @@ import Swiper from "moon/swiper.min";
 import "moon/swiper.min.css";
 import HomeHeader from "@/pages/home/components/Header.vue";
 import { huoqu } from "@/components/axios/api";
+import * as types from "@/components/vuex/types";
 export default {
   name: "Small",
   components: {
@@ -160,11 +161,10 @@ export default {
     // 首页图片 设置定时器加载 不然swiper 会有bug (图片的吭) bind 解决this 指向
   },
   mounted() {
-
-      huoqu(window.location.href)
+    huoqu(window.location.href)
       .then(res => {
-        console.log(res.data.data);
-        window.location.href = res.data.data;
+        let URL = res.data.data;
+        this.$store.commit(types.USERNAME, URL);
       })
       .catch(err => {
         console.log(err, "请求失败");
@@ -223,9 +223,11 @@ export default {
 .wrap >>> .ly-tabbar {
   box-shadow: none;
 }
-.wrap >>> .ly-tab-active-bar{
-  bottom 0
+
+.wrap >>> .ly-tab-active-bar {
+  bottom: 0;
 }
+
 .swiper-slide {
   height: 0px;
   overflow-y: hidden;

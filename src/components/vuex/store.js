@@ -34,7 +34,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     token: null,
-    userName: '',
+    urlName: '',
     keepAlive: []
   },
   mutations: {
@@ -46,10 +46,11 @@ export default new Vuex.Store({
       localStorage.removeItem('token');
       state.token = null
     },
-    // [types.USERNAME]: (state, data) => {
-    //     localStorage.userName = data;
-    //     state.userName = data;
-    // }
+    [types.USERNAME]: (state, data) => {
+        localStorage.urlName = data;
+        state.urlName = data;
+    
+    },
     SET_KEEP_ALIVE: (state, keepAlive) => {
       state.keepAlive = keepAlive
     }
