@@ -186,7 +186,7 @@ export default {
       console.log(code);
       Code(code)
         .then(res => {
-           this.$router.push('/');
+          this.$router.push("/");
           const oppenID = res.data.data;
           // 获得的oppenID做缓存
           this.$store.commit(types.USERNAME, oppenID);
