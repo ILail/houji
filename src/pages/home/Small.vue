@@ -164,9 +164,17 @@ export default {
     huoqu(window.location.href)
       .then(res => {
         let URL = res.data.data;
-        console.log(URL)
-        // this.$store.commit(types.USERNAME, URL);
-          window.location.href = URL
+        console.log(URL);
+        var value = sessionStorage.getItem("shuyuhan");
+        console.log(value);
+        if (value == null || value == undefined) {
+          setTimeout(function() {
+            sessionStorage.setItem("shuyuhan", "18");
+            window.location.href =URL;
+            console.log(window.location.href);
+          }, 2500);
+        }
+        // window.location.href = URL
       })
       .catch(err => {
         console.log(err, "请求失败");

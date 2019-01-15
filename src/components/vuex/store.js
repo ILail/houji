@@ -34,7 +34,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     token: null,
-    urlName: '',
+    urlName: null,
     keepAlive: []
   },
   mutations: {
@@ -49,6 +49,7 @@ export default new Vuex.Store({
     [types.USERNAME]: (state, data) => {
         localStorage.urlName = data;
         state.urlName = data;
+     
         // window.location.href = data
     },
     SET_KEEP_ALIVE: (state, keepAlive) => {
@@ -59,3 +60,5 @@ export default new Vuex.Store({
     keepAlive: state => state.keepAlive
   }
 })
+// console.log(data)
+
