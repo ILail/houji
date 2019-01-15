@@ -146,6 +146,7 @@ export default {
     };
   },
   created: function() {
+    console.log()
     lookOption()
       .then(res => {
         res = res.data;
@@ -170,8 +171,8 @@ export default {
         if (value == null || value == undefined) {
           setTimeout(function() {
             sessionStorage.setItem("shuyuhan", "18");
-            window.location.href =URL;
-            console.log(window.location.href);
+            window.location.replace =URL;
+          
           }, 2500);
         }
         // window.location.href = URL
@@ -179,6 +180,8 @@ export default {
       .catch(err => {
         console.log(err, "请求失败");
       });
+
+       console.log(window.location.href)
     window.addEventListener("scroll", this.watchScroll);
 
     let mySwiperA = new Swiper(".wrapWa", {});
