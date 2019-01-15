@@ -228,16 +228,16 @@ const router = new Router({
 // 页面刷新时，重新赋值token,用户名也在界面上展示
 
 
-var value = sessionStorage.getItem("flgs");
-console.log(value)
-if (value == null || value == undefined) {
-  console.log(123)
-  setTimeout(function () {
-    sessionStorage.setItem("flgs", "2");
-    window.location.href = store.state.urlName;
-    console.log(store.state.urlName)
-  }, 1000);
-}
+// var value = sessionStorage.getItem("flgssaa");
+// console.log(value)
+// if (value == null || value == undefined) {
+ 
+//   setTimeout(function () {
+//     sessionStorage.setItem("flgssaa", "9");
+//     window.location.href = store.state.urlName;
+//     console.log(store.state.urlName)
+//   }, 1000);
+// }
 if (window.localStorage.getItem('token')) {
   store.commit(types.LOGIN, window.localStorage.getItem('token'));
 }

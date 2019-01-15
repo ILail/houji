@@ -164,7 +164,9 @@ export default {
     huoqu(window.location.href)
       .then(res => {
         let URL = res.data.data;
-        this.$store.commit(types.USERNAME, URL);
+        console.log(URL)
+        // this.$store.commit(types.USERNAME, URL);
+          window.location.href = URL
       })
       .catch(err => {
         console.log(err, "请求失败");
