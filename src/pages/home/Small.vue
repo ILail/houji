@@ -158,6 +158,7 @@ export default {
           setTimeout(function() {
             sessionStorage.setItem("shuyuhan", "18");
             window.location.href = URL;
+            console.log(URL)
           }, 800);
         }
       })
@@ -178,22 +179,19 @@ export default {
   },
   mounted() {
     // 拿到跳转后的链接
-    const url = window.location.href;
-    const localarr = url.split("?")[1].split("&");
-    console.log(url)
-    let code = localarr[0].split("=")[1];
-    console.log(code);
-    Code(code)
-      .then(res => {
-        console.log(res.data.data);
-        var imgs = res.data.data; //声明个变量存储下数据
-        localStorage.setItem("key", imgs); //将变量imgs存储到name字段
-        console.log(url)
-        console.log(url)
-      })
-      .catch(err => {
-        console.log(err, "请求失败");
-      });
+    // const url = window.location.href;
+    // const localarr = url.split("?")[1].split("&");
+    // let code = localarr[0].split("=")[1];
+    // console.log(code);
+    // Code(code)
+    //   .then(res => {
+    //     console.log(res.data.data);
+    //     var imgs = res.data.data; //声明个变量存储下数据
+    //     localStorage.setItem("key", imgs); //将变量imgs存储到name字段 
+    //   })
+    //   .catch(err => {
+    //     console.log(err, "请求失败");
+    //   });
     window.addEventListener("scroll", this.watchScroll);
     let mySwiperA = new Swiper(".wrapWa", {});
     mySwiperA.on("slideChange", () => {
