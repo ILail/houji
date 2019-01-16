@@ -17,7 +17,7 @@
           <div class="list">{{items.crowd_funding_name}}</div>
           <div class="progressAll">
             <div class="progress-outer">
-              <span class="progress" :style="{width:computedResidualTimea(itemss)+'%'}"></span>
+              <span class="progress" :style="{width:computedResidualTimea(items)+'%'}"></span>
             </div>
             <span class="progressA">{{items.progress}}%</span>
           </div>
