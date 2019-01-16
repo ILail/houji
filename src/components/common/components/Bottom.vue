@@ -38,7 +38,7 @@ export default {
       details: "details",
       we_chat: "wx_pub",
       moneyAlls: this.moneyAll,
-      oppenID: null
+      oppenID:""
     };
   },
   created() {
@@ -71,8 +71,9 @@ export default {
       console.log(code);
       Code(code)
         .then(res => {
+          console.log(res.data.data)
           this.oppenID = res.data.data;
-          // 获得的oppenID做缓存
+          
         })
         .catch(err => {
           console.log(err, "请求失败");
@@ -85,7 +86,7 @@ export default {
       let routerParams = this.$route.query.dataObjo; //id
       let routerParamb = this.$route.query.dataObjb; //回报id
       let routerParamo = this.$route.query.dataObjc; //数量
-
+      console.log(this.oppenID)
       detailM(
         this.details,
         this.we_chat,
