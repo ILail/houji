@@ -12,9 +12,6 @@
 
 <script>
 import { detailM } from "@/components/axios/api";
-import { oppid } from "@/components/axios/api";
-import { huoqu } from "@/components/axios/api";
-import { Code } from "@/components/axios/api";
 import { getDIZ } from "@/components/axios/api";
 import bus from "@/bus/bus.js";
 import axios from "axios";
@@ -52,50 +49,19 @@ export default {
       .catch(err => {
         console.log(err, "请求失败");
       });
-    // 获取当前页面的链接给后台
-    huoqu(window.location.href)
-      .then(res => {
-        let URL = res.data.data;
-        console.log(URL);
-        var value = sessionStorage.getItem("shuyuhan");
-        // console.log(value);
-        // 只做一次跳转
-        if (value == null || value == undefined) {
-          setTimeout(function() {
-            sessionStorage.setItem("shuyuhan", "18");
-            window.location.href = URL;
-          }, 800);
-        }
-      })
-      .catch(err => {
-        console.log(err, "请求失败");
-      });
   },
   mounted() {
     bus.$on("priceChange", (price, num, id) => {
       console.log(id);
       this.vouchers_id = id;
     });
-    // 拿到跳转后的链接
-    const url = window.location.href;
-    const localarr = url.split("?")[1].split("&");
-    let code = localarr[0].split("=")[1];
-    console.log(code);
-    Code(code)
-      .then(res => {
-        console.log(res.data.data);
-        this.oppenID = res.data.data;
-      })
-      .catch(err => {
-        console.log(err, "请求失败");
-      });
   },
   methods: {
     HIt() {
       let routerParams = this.$route.query.dataObjo; //id
       let routerParamb = this.$route.query.dataObjb; //回报id
       let routerParamo = this.$route.query.dataObjc; //数量
-      console.log(this.oppenID);
+      var naid = localStorage.getItem("key");
       console.log(
         this.details,
         this.we_chat,
@@ -106,8 +72,7 @@ export default {
         routerParamo,
         "",
         "我是小小舒",
-        this.vouchers_id,
-        this.oppenID
+        naid
       );
       detailM(
         this.details,
@@ -120,7 +85,7 @@ export default {
         "",
         "我是小小舒",
         this.vouchers_id,
-        this.oppenID
+        naid
       )
         .then(res => {
           console.log(res);
@@ -130,6 +95,7 @@ export default {
           pingpp.createPayment(num, function(result, err) {
             // object 需是 Charge/Order/Recharge 的 JSON 字符串
             // 可按需使用 alert 方法弹出 log
+            console.log(123);
             console.log(result);
             console.log(err.msg);
             console.log(err.extra);

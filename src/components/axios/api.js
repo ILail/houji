@@ -475,16 +475,7 @@ export function weal() {
     method: "GET",
   })
 }
-// 获取oppdid
 
-
-export function oppid() {
-
-  return fetch({
-    url: api.Hallowmas +'/makeCode',
-    method: "GET",
-  })
-}
 
 
 // 详情页请求支付
