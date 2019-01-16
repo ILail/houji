@@ -63,7 +63,7 @@ export default {
   },
   mounted() {
     bus.$on("priceChange", (price, num) => {});
-    function GetRequest() {
+   
       // 拿到跳转后的链接
       const url = window.location.href;
       const localarr = url.split("?")[1].split("&");
@@ -78,8 +78,8 @@ export default {
         .catch(err => {
           console.log(err, "请求失败");
         });
-    }
-    GetRequest();
+    
+
   },
   methods: {
     HIt() {
