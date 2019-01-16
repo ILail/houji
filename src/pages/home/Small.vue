@@ -180,7 +180,7 @@ export default {
     // 拿到跳转后的链接
     const url = window.location.href;
     const localarr = url.split("?")[1].split("&");
-    console.log(localarr)
+    console.log(url)
     let code = localarr[0].split("=")[1];
     console.log(code);
     Code(code)
@@ -188,7 +188,7 @@ export default {
         console.log(res.data.data);
         var imgs = res.data.data; //声明个变量存储下数据
         localStorage.setItem("key", imgs); //将变量imgs存储到name字段
-        this.$router.go(-2)
+        
       })
       .catch(err => {
         console.log(err, "请求失败");
