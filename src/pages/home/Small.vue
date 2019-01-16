@@ -180,6 +180,7 @@ export default {
     // 拿到跳转后的链接
     const url = window.location.href;
     const localarr = url.split("?")[1].split("&");
+    console.log(localarr)
     let code = localarr[0].split("=")[1];
     console.log(code);
     Code(code)
