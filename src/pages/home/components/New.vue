@@ -40,7 +40,7 @@
           </div>
           <div class="progressAll">
             <div class="progress-outer">
-              <span class="progress" :style="{width:item.progress+'%'}"></span>
+              <span class="progress" :style="{width:computedResidualTimea(item)+'%'}"></span>
             </div>
             <span class="progressA">{{item.progress}}%</span>
           </div>
@@ -84,6 +84,13 @@ export default {
         day = 0;
       }
       return `${day}天`;
+    },
+    computedResidualTimea: function(item) {
+      let progress = item.progress;
+      if (progress >= 100) {
+        progress = 100;
+      }
+      return `${progress}`;
     }
   }
 };
@@ -223,10 +230,16 @@ export default {
   margin: -1px 3px 0 0;
 }
 
-
 .crowdTimg {
   width: 12px;
   vertical-align: baseline;
+}
+
+.crowd-right span {
+  max-width: 110px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 </style>
 

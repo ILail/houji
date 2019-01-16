@@ -126,7 +126,12 @@ export default {
 .people_p {
   padding: 0 0.21rem 15px 0.21rem;
 }
-
+.crowd-right span {
+  max-width: 110px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
 .list {
   font-size: 18px;
   color: #333333;

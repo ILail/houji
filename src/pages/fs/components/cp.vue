@@ -97,6 +97,12 @@ export default {
 };
 </script>
 <style lang="stylus" scoped>
+.crowd-right span {
+  max-width: 110px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
 .people {
   border-radius: 5px;
   box-shadow: #666 0px 0px 10px;

@@ -29,17 +29,15 @@
 </template>
 
 <script>
-import Bus from "@/bus/bus.js";
 export default {
   name: "Confircontent",
   props: {
     json: Array
   },
   data() {
-    return {
-     
-    };
+    return {};
   },
+  mounted() {}
 };
 </script>
 <!-- 1rem = html font-size = 50 px 86/100 -->

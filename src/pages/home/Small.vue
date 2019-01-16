@@ -63,8 +63,7 @@ import Finish from "@/pages/home/finish.vue";
 import Swiper from "moon/swiper.min";
 import "moon/swiper.min.css";
 import HomeHeader from "@/pages/home/components/Header.vue";
-import { huoqu } from "@/components/axios/api";
-import { Code } from "@/components/axios/api";
+
 import * as types from "@/components/vuex/types";
 export default {
   name: "Small",
@@ -159,44 +158,9 @@ export default {
         console.log(err, "请求失败");
       });
 
-    // 获取当前页面的链接给后台
-    huoqu(window.location.href)
-      .then(res => {
-        let URL = res.data.data;
-        console.log(URL);
-        var value = sessionStorage.getItem("shuyuhan");
-        // console.log(value);
-        // 只做一次跳转
-        if (value == null || value == undefined) {
-          setTimeout(function() {
-            sessionStorage.setItem("shuyuhan", "18");
-            window.location.href = URL;
-          }, 800);
-        }
-      })
-      .catch(err => {
-        console.log(err, "请求失败");
-      });
+
   },
   mounted() {
-    function GetRequest() {
-      // 拿到跳转后的链接
-      const url = window.location.href;
-      const localarr = url.split("?")[1].split("&");
-      let code = localarr[0].split("=")[1];
-      console.log(code);
-      Code(code)
-        .then(res => {
-          const oppenID = res.data.data;
-          // 获得的oppenID做缓存
-
-          console.log(oppenID);
-        })
-        .catch(err => {
-          console.log(err, "请求失败");
-        });
-    }
-    // GetRequest();
     window.addEventListener("scroll", this.watchScroll);
     let mySwiperA = new Swiper(".wrapWa", {});
     mySwiperA.on("slideChange", () => {

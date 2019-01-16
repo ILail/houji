@@ -176,6 +176,7 @@ export default {
 };
 </script>
 <style lang="stylus" scoped>
+
 .swiper-slide {
   height: 0px;
   overflow-y: hidden;

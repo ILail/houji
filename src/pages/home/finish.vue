@@ -93,7 +93,12 @@ export default {
 .pJext {
   padding: 18px 0 18px 0;
 }
-
+.crowd-right span {
+  max-width: 110px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
 .project {
   float: left;
   font-size: 16px;

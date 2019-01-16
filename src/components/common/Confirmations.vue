@@ -1,9 +1,9 @@
 <template>
   <div>
     <confir-header></confir-header>
-    <confir-middle :moneyAll="moneyAll"></confir-middle>
+    <confir-middle :moneyAll="moneyAll" v-if="moneyAll"></confir-middle>
     <confir-content :json="json"></confir-content>
-    <confir-bottom :moneyAll="moneyAll"></confir-bottom>
+    <confir-bottom :moneyAll="moneyAll" v-if="moneyAll"></confir-bottom>
   </div>
 </template>
 

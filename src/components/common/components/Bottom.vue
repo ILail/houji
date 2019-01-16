@@ -3,7 +3,7 @@
     <div class="bottom">
       <div class="money">
         合计金额:
-        <span style="margin-left:8px;font-size:18px">¥{{moneyAll}}</span>
+        <span style="margin-left:8px;font-size:18px">¥{{moneyAlls}}</span>
       </div>
       <div class="monn" @click="HIt">立即下单</div>
     </div>
@@ -13,8 +13,9 @@
 <script>
 import { detailM } from "@/components/axios/api";
 import { oppid } from "@/components/axios/api";
-
-
+import { huoqu } from "@/components/axios/api";
+import { Code } from "@/components/axios/api";
+import bus from "@/bus/bus.js";
 import axios from "axios";
 import secret from "@/utils/utils";
 // var ajax = new XMLHttpRequest();
@@ -35,21 +36,51 @@ export default {
       wx: require("@/assets/right_.png"),
       wxone: require("@/assets/mine/xu.png"),
       details: "details",
-      we_chat: "wx_pub"
+      we_chat: "wx_pub",
+      moneyAlls: this.moneyAll,
+      oppenID: null
     };
   },
   created() {
-    // oppid()
-    //   .then(res => {
-    //     console.log(res);
-    //   })
-    //   .catch(err => {
-    //     console.log(err, "请求失败");
-    //   });
-
+    // 获取当前页面的链接给后台
+    huoqu(window.location.href)
+      .then(res => {
+        let URL = res.data.data;
+        console.log(URL);
+        var value = sessionStorage.getItem("shuyuhan");
+        // console.log(value);
+        // 只做一次跳转
+        if (value == null || value == undefined) {
+          setTimeout(function() {
+            sessionStorage.setItem("shuyuhan", "18");
+            window.location.href = URL;
+          }, 800);
+        }
+      })
+      .catch(err => {
+        console.log(err, "请求失败");
+      });
+  },
+  mounted() {
+    bus.$on("priceChange", (price, num) => {});
+    function GetRequest() {
+      // 拿到跳转后的链接
+      const url = window.location.href;
+      const localarr = url.split("?")[1].split("&");
+      let code = localarr[0].split("=")[1];
+      console.log(code);
+      Code(code)
+        .then(res => {
+          this.oppenID = res.data.data;
+          // 获得的oppenID做缓存
+        })
+        .catch(err => {
+          console.log(err, "请求失败");
+        });
+    }
+    GetRequest();
   },
   methods: {
-    axioss() {},
     HIt() {
       let routerParams = this.$route.query.dataObjo; //id
       let routerParamb = this.$route.query.dataObjb; //回报id
@@ -61,11 +92,12 @@ export default {
         routerParams,
         routerParamb,
         585,
-        1246,
+        386,
         1,
         "",
         "我是小小舒",
-        0
+        16,
+        this.oppenID
       )
         .then(res => {
           console.log(res);

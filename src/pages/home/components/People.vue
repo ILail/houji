@@ -37,7 +37,7 @@
           </div>
           <div class="progressAll">
             <div class="progress-outer">
-              <span class="progress" :style="{width:item.progress+'%'}"></span>
+              <span class="progress" :style="{width:computedResidualTimea(item)+'%'}"></span>
             </div>
             <span class="progressA">{{item.progress}}%</span>
           </div>
@@ -81,6 +81,13 @@ export default {
         day = 0;
       }
       return `${day}天`;
+    },
+    computedResidualTimea: function(item) {
+      let progress = item.progress;
+      if (progress >= 100) {
+        progress = 100;
+      }
+      return `${progress}`;
     }
   }
 };
