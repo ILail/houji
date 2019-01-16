@@ -41,7 +41,7 @@ export default {
     getDIZ()
       .then(res => {
         this.letter = res.data.data;
-        // console.log(this.letter);
+        const addressID = res.data.data.user_address_id;
         if (this.letter.length == 0) {
           this.show = false;
           this.shoiw = true;

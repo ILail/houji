@@ -2,7 +2,7 @@
   <div>
     <confir-header></confir-header>
     <confir-middle :moneyAll="moneyAll" v-if="moneyAll"></confir-middle>
-    <confir-content :json="json"></confir-content>
+    <confir-content :json="json" v-if="json"></confir-content>
     <confir-bottom :moneyAll="moneyAll" v-if="moneyAll"></confir-bottom>
   </div>
 </template>

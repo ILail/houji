@@ -15,6 +15,7 @@ import { detailM } from "@/components/axios/api";
 import { oppid } from "@/components/axios/api";
 import { huoqu } from "@/components/axios/api";
 import { Code } from "@/components/axios/api";
+import { getDIZ } from "@/components/axios/api";
 import bus from "@/bus/bus.js";
 import axios from "axios";
 import secret from "@/utils/utils";
@@ -38,10 +39,19 @@ export default {
       details: "details",
       we_chat: "wx_pub",
       moneyAlls: this.moneyAll,
-      oppenID:""
+      oppenID: "",
+      vouchers_id: 0,
+      addressID: ""
     };
   },
   created() {
+    getDIZ()
+      .then(res => {
+        this.addressID = res.data.data.user_address_id;
+      })
+      .catch(err => {
+        console.log(err, "请求失败");
+      });
     // 获取当前页面的链接给后台
     huoqu(window.location.href)
       .then(res => {
@@ -62,42 +72,54 @@ export default {
       });
   },
   mounted() {
-    bus.$on("priceChange", (price, num) => {});
-   
-      // 拿到跳转后的链接
-      const url = window.location.href;
-      const localarr = url.split("?")[1].split("&");
-      let code = localarr[0].split("=")[1];
-      console.log(code);
-      Code(code)
-        .then(res => {
-          console.log(res.data.data)
-          this.oppenID = res.data.data;
-          
-        })
-        .catch(err => {
-          console.log(err, "请求失败");
-        });
-    
-
+    bus.$on("priceChange", (price, num, id) => {
+      console.log(id);
+      this.vouchers_id = id;
+    });
+    // 拿到跳转后的链接
+    const url = window.location.href;
+    const localarr = url.split("?")[1].split("&");
+    let code = localarr[0].split("=")[1];
+    console.log(code);
+    Code(code)
+      .then(res => {
+        console.log(res.data.data);
+        this.oppenID = res.data.data;
+      })
+      .catch(err => {
+        console.log(err, "请求失败");
+      });
   },
   methods: {
     HIt() {
       let routerParams = this.$route.query.dataObjo; //id
       let routerParamb = this.$route.query.dataObjb; //回报id
       let routerParamo = this.$route.query.dataObjc; //数量
-      console.log(this.oppenID)
+      console.log(this.oppenID);
+      console.log(
+        this.details,
+        this.we_chat,
+        routerParams,
+        routerParamb,
+        this.addressID,
+        this.moneyAlls,
+        routerParamo,
+        "",
+        "我是小小舒",
+        this.vouchers_id,
+        this.oppenID
+      );
       detailM(
         this.details,
         this.we_chat,
         routerParams,
         routerParamb,
-        585,
-        386,
-        1,
+        this.addressID,
+        this.moneyAlls,
+        routerParamo,
         "",
         "我是小小舒",
-        16,
+        this.vouchers_id,
         this.oppenID
       )
         .then(res => {

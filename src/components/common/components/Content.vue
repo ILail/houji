@@ -29,6 +29,7 @@
 </template>
 
 <script>
+import bus from "@/bus/bus";
 export default {
   name: "Confircontent",
   props: {
@@ -37,7 +38,10 @@ export default {
   data() {
     return {};
   },
-  mounted() {}
+  mounted() {
+   
+      // bus.$emit("numChange", addressID);
+  }
 };
 </script>
 <!-- 1rem = html font-size = 50 px 86/100 -->

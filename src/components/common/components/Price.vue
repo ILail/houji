@@ -227,7 +227,7 @@ export default {
       this.show = true;
     },
     prices(plice, num, id) {
-      bus.$emit("priceChange", plice, num);
+      bus.$emit("priceChange", plice, num,id);
       if (plice < this.moneyAll) {
         this.show = false;
         this.newmoney = num;
