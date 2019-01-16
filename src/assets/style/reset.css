@@ -29,3 +29,6 @@ a {color: rgba(51,51,51,1);text-decoration: none;}
     padding: 0;
     position: relative;
 }
+img[src=""],img:not([src]){
+    opacity:0;
+}

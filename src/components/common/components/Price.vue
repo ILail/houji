@@ -6,8 +6,8 @@
           优惠卷：
           <span class="same_">暂无可用</span>
         </div>
-        <div>
-          <span style="margin-right:10px" class="same_" @click="showList">{{num}}张</span>
+        <div @click="showList">
+          <span style="margin-right:10px" class="same_">{{num}}张</span>
           <img :src="wx" style="vertical-align: bottom;">
         </div>
       </div>
@@ -16,7 +16,7 @@
           猴集卡：
           <span class="same_">享受95折优惠</span>
         </div>
-        <div>
+        <div @click="showLists">
           <img :src="wx" style="vertical-align: bottom;">
         </div>
       </div>
@@ -227,7 +227,7 @@ export default {
       this.show = true;
     },
     prices(plice, num, id) {
-      bus.$emit("priceChange", plice, num,id);
+      bus.$emit("priceChange", plice, num, id);
       if (plice < this.moneyAll) {
         this.show = false;
         this.newmoney = num;
@@ -245,6 +245,9 @@ export default {
       } else {
         Toast("优惠卷不可用");
       }
+    },
+    showLists() {
+      this.$router.push("/onsale");
     },
     clickOverlay() {
       this.newmoney = 0;

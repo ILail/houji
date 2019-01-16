@@ -555,3 +555,12 @@ export function Code(code) {
     }
   })
 }
+
+// 用户领取会员
+export function Member() {
+
+  return fetch({
+    url: api.Hallowmas +'/v2/member/memberReceiveMembership',
+    method: "GET",
+  })
+}

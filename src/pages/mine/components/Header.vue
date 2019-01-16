@@ -47,9 +47,11 @@ export default {
   created() {
     people()
       .then(res => {
-        // console.log(res.data.data);
+        
         const num = secret.Decrypt(res.data.data);
+
         this.letter = JSON.parse(num);
+        console.log(this.letter);
       })
       .catch(err => {
         console.log(err, "请求失败");     

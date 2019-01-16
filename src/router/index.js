@@ -38,7 +38,7 @@ import Confirmation from '@/components/common/Confirmation'
 import Confirmations from '@/components/common/Confirmations'
 import store from '@/components/vuex/store'
 import * as types from '@/components/vuex/types'
-
+import Sale from '@/components/common/Sale'
 
 
 
@@ -184,10 +184,14 @@ const routes = [{
   path: '/queren',
   name: '确认订单',
   component: Confirmation
-}, , {
+}, {
   path: '/querenone',
   name: '确认',
   component: Confirmations
+}, {
+  path: '/onsale',
+  name: '折扣',
+  component: Sale
 }]
 //缓存页面
 const router = new Router({

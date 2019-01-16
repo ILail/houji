@@ -2,7 +2,7 @@
   <div class="active">
     <div :style="note" class="heard">
       <div class="heardone">账户余额</div>
-      <div class="heardtwo">¥ 00.00</div>
+      <div class="heardtwo">¥ {{letter.consumed_money}}</div>
     </div>
 
     <div style="background:#fff">
@@ -28,6 +28,8 @@
   </div>
 </template>
 <script>
+import secret from "@/utils/utils";
+import { people } from "@/components/axios/api";
 export default {
   data() {
     return {
@@ -37,8 +39,20 @@ export default {
         backgroundSize: "100% 100%",
         height: "150px"
       },
-      img: require("@/assets/rr.png")
+      img: require("@/assets/rr.png"),
+      letter: ""
     };
+  },
+  created() {
+    people()
+      .then(res => {
+        const num = secret.Decrypt(res.data.data);
+
+        this.letter = JSON.parse(num);
+      })
+      .catch(err => {
+        console.log(err, "请求失败");
+      });
   }
 };
 </script>
