@@ -189,8 +189,7 @@ export default {
         var imgs = res.data.data; //声明个变量存储下数据
         localStorage.setItem("key", imgs); //将变量imgs存储到name字段
         console.log(url)
-        var urling = url.split("?")[0]
-         window.location.href = urling;
+        console.log(url)
       })
       .catch(err => {
         console.log(err, "请求失败");
