@@ -479,7 +479,7 @@ export function weal() {
 
 
 // 详情页请求支付
-export function detailM(pay_style, pay_type, crowd_funding_id, crowd_funding_return_id, address_id, support_money, crowd_funding_return_num, payment_password, mark, vouchers_id, open_id) {
+export function detailM(pay_style, pay_type, crowd_funding_id, crowd_funding_return_id, address_id, support_money, crowd_funding_return_num, mark, vouchers_id, open_id) {
 
   return fetch({
     url: api.Hallowmas + '/v2/crowdFunding/payment',
@@ -492,10 +492,29 @@ export function detailM(pay_style, pay_type, crowd_funding_id, crowd_funding_ret
       address_id: address_id,
       support_money: support_money,
       crowd_funding_return_num: crowd_funding_return_num,
-      payment_password: payment_password,
+      // payment_password: payment_password,
       mark: mark,
-      vouchers_id,
-      open_id
+      vouchers_id:vouchers_id,
+      open_id: open_id
+    }
+  })
+}
+
+// 购物车页请求支付
+export function detailMshop(pay_style, pay_type, wish_id, address_id, mark, vouchers_id, open_id) {
+
+  return fetch({
+    url: api.Hallowmas + '/v2/crowdFunding/payment',
+    method: "POST",
+    data: {
+      pay_style: pay_style,
+      pay_type: pay_type,
+      wish_id: wish_id,
+      address_id: address_id,
+      // payment_password: payment_password,
+      mark: mark,
+      vouchers_id:vouchers_id,
+      open_id: open_id
     }
   })
 }

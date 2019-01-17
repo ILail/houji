@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-if="show" class="wordss">暂时无优惠卷</div>
+    <div v-if="show" class="wordss">暂无优惠卷，您已经全部领取!</div>
     <div class="container heards" ref="refContentss">
       <div class="wrap" v-for="(item , index) in list" :key="item.id">
         <div :style="note" class="content">全场卷</div>
@@ -53,7 +53,7 @@ export default {
         height: 47 + "px"
       },
       list: [],
-      show:false
+      show: false
     };
   },
 
@@ -70,13 +70,12 @@ export default {
       .then(res => {
         this.list = res.data.data.data;
         if (this.list.length == 0) {
-          this.show = true
+          this.show = true;
         }
       })
       .catch(err => {
         console.log(err, "请求失败");
       });
-   
   },
   methods: {
     hit(index, id) {
@@ -85,6 +84,10 @@ export default {
       hitLq(id)
         .then(res => {
           console.log(res);
+          this.$toast({
+            message: "已经领取",
+            duration: "500"
+          });
         })
         .catch(err => {
           console.log(err, "请求失败");
@@ -94,11 +97,12 @@ export default {
 };
 </script>
 <style lang="stylus" type="text/stylus" rel="stylesheet/stylus" scoped>
-.wordss{
-  font-size 14px
-  margin-top 180px
-  margin-left 40%
+.wordss {
+  font-size: 14px;
+  margin-top: 180px;
+  text-align: center;
 }
+
 .heards {
   padding: 15px 0;
 }

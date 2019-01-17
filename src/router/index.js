@@ -39,9 +39,9 @@ import Confirmations from '@/components/common/Confirmations'
 import store from '@/components/vuex/store'
 import * as types from '@/components/vuex/types'
 import Sale from '@/components/common/Sale'
-
-
-
+import Zhifu from '@/components/common/Paymoney'
+import Zhifuone from '@/components/common/Paymoneyone'
+import Finish from '@/components/common/Finish'
 Vue.use(Router)
 // export default new Router({
 const routes = [{
@@ -169,9 +169,21 @@ const routes = [{
   name: '充值',
   component: Czhi
 }, {
+  path: '/zhifu',
+  name: '支付页',
+  component: Zhifu
+}, {
+  path: '/zhifuone',
+  name: '支付',
+  component: Zhifuone
+}, {
   path: '/tixian',
   name: '提现',
   component: Txiana
+}, {
+  path: '/finish',
+  name: '支付完成',
+  component: Finish
 }, {
   path: '/jiaoyi',
   name: '交易记录',

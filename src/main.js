@@ -10,7 +10,8 @@ import LyTab from 'ly-tab';
 import store from '@/components/vuex/store'
 import clipper from '../static/clipper'
 import VueLazyload from 'vue-lazyload'
-
+import { Popup } from "vant";
+Vue.use(Popup);
 Vue.use(VueLazyload)
 Vue.use(clipper)
 Vue.use(VueLazyload, {

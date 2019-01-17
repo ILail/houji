@@ -42,7 +42,7 @@
     <!-- 优惠券列表 -->
     <van-popup v-model="show" position="bottom" @click-overlay="clickOverlay">
       <van-tabs v-model="active" swipeable animated>
-        <van-tab title="未使用">
+        <van-tab title="优惠卷">
           <div class="hitImg" v-show="ispic">
             <img src="@/assets/linjuan/5.png">
             <div class="contenr">暂时无优惠卷，赶快去领取吧！</div>
@@ -66,7 +66,7 @@
             </div>
           </div>
         </van-tab>
-        <van-tab title="已使用">
+        <!-- <van-tab title="已使用">
           <div class="smaes">
             <div class="hitImg" v-show="ispics">
               <img src="@/assets/linjuan/5.png">
@@ -94,8 +94,8 @@
               <div class="content">全场产品可以使用；限时活动通用优惠卷可以叠加使用</div>
             </div>
           </div>
-        </van-tab>
-        <van-tab title="已失效">
+        </van-tab> -->
+        <!-- <van-tab title="已失效">
           <div class="smaes">
             <div class="hitImg" v-show="ispicss">
               <img src="@/assets/linjuan/5.png">
@@ -123,7 +123,7 @@
               <div class="content">全场产品可以使用；限时活动通用优惠卷可以叠加使用</div>
             </div>
           </div>
-        </van-tab>
+        </van-tab> -->
       </van-tabs>
     </van-popup>
   </div>
@@ -324,9 +324,6 @@ export default {
   color: rgba(255, 255, 255, 1);
 }
 
-// .smaes {
-// height: 500px;
-// }
 .content {
   font-size: 12px;
   font-family: PingFangSC-Regular;

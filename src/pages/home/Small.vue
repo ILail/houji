@@ -43,13 +43,21 @@
         </Item>
       </div>
     </div>
+    <div ref="allIMG">
+      <van-popup v-model="shows" position="middle">
+        <img src="@/assets/linjuan/6.png" alt class="imgNew" @click="hitNew">
+      </van-popup>
+      <van-popup v-model="showsa" position="middle" @click-overlay="clickOverlay">
+        <img src="@/assets/linjuan/7.png" alt class="imgNew">
+      </van-popup>
+    </div>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
 import Vue from "vue";
 import { Swipe, SwipeItem } from "vant";
-
+import store from "@/components/vuex/store";
 Vue.use(Swipe).use(SwipeItem);
 import { lookOption } from "@/components/axios/api";
 import Item from "@/components/Item.vue";
@@ -65,6 +73,7 @@ import "moon/swiper.min.css";
 import HomeHeader from "@/pages/home/components/Header.vue";
 import { huoqu } from "@/components/axios/api";
 import { Code } from "@/components/axios/api";
+import { Member } from "@/components/axios/api";
 export default {
   name: "Small",
   components: {
@@ -80,6 +89,8 @@ export default {
   },
   data() {
     return {
+      showsa: false,
+      shows: true,
       shiw: true,
       sowingMap: [],
       meta: {
@@ -146,17 +157,24 @@ export default {
     };
   },
   created: function() {
+    if (this.getCookie("popped") == "" && store.state.token == null) {
+        console.log(123)
+      //cookie 中没有 popped 则赋给他一个值（此时弹框显示）
+      document.cookie = "popped = yes";
+    }else{
+      this.shows = false
+    }
     // 获取当前页面的链接给后台
     huoqu(window.location.href)
       .then(res => {
         let URL = res.data.data;
         console.log(URL);
-        var value = sessionStorage.getItem("shuyuhan");
+        var value = localStorage.getItem("shuyuhan");
         // console.log(value);
         // 只做一次跳转
         if (value == null || value == undefined) {
           setTimeout(function() {
-            sessionStorage.setItem("shuyuhan", "18");
+            localStorage.setItem("shuyuhan", "18");
             window.location.href = URL;
             console.log(URL);
           }, 800);
@@ -192,7 +210,7 @@ export default {
           console.log(res.data.data);
           var imgs = res.data.data; //声明个变量存储下数据
           localStorage.setItem("key", imgs); //将变量imgs存储到name字段
-          this.$router.go(-2)
+          this.$router.go(-2);
         })
         .catch(err => {
           console.log(err, "请求失败");
@@ -243,12 +261,53 @@ export default {
     },
     destroyed() {
       window.removeEventListener("scroll", this.watchScroll);
+    },
+    hitNew() {
+      Member()
+        .then(res => {
+          console.log(res.data.status);
+          this.shows = false;
+          this.showsa = true;
+        })
+        .catch(err => {
+          console.log(err, "请求失败");
+        });
+    },
+    clickOverlay() {
+      this.$refs.allIMG.style.display = "none";
+    },
+    getCookie(Name) {
+      //cookie
+      var search = Name + "=";
+      var returnValue = "";
+      if (document.cookie.length > 0) {
+        var offset = document.cookie.indexOf(search);
+        if (offset !== -1) {
+          offset += search.length;
+          var end = document.cookie.indexOf(";", offset);
+          if (end == -1) {
+            end = document.cookie.length;
+          }
+          returnValue = decodeURIComponent(
+            document.cookie.substring(offset, end)
+          );
+        }
+      }
+      return returnValue;
     }
   }
 };
 </script>
 
 <style lang="stylus" type="text/stylus" rel="stylesheet/stylus" scoped>
+.imgNew {
+  width: 100%;
+}
+
+.wrap >>> .van-popup {
+  width: 60%;
+}
+
 .wrap >>> .ly-tabbar {
   box-shadow: none;
 }

@@ -31,11 +31,8 @@ export default {
   },
   data() {
     return {
-      wx: require("@/assets/right_.png"),
-      wxone: require("@/assets/mine/xu.png"),
       details: "details",
       we_chat: "wx_pub",
-      moneyAlls: this.moneyAll,
       oppenID: "",
       vouchers_id: 0,
       addressID: ""
