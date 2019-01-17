@@ -2,8 +2,9 @@
   <div>
     <div class="heard" :style="note" @click="fit">
       <!-- 微信头像 -->
-      <img :src="letter.headimgurl" alt class="weix">
-
+      <img :src="letter.headimgurl" alt class="weix" v-if="shows">
+      <!-- 微信头像 -->
+      <img src="@/assets/abs.png" alt class="weix" v-if="show">
       <div class="middle">
         <div style="font-size:18px">{{letter.username}}</div>
         <div style="font-size:12px;margin-top:12px">{{letter.self_introduction}}</div>
@@ -34,6 +35,8 @@ export default {
   //   },
   data() {
     return {
+      shows: true,
+      show: false,
       wx: require("@/assets/right.png"),
       banner: require("@/assets/liwu.png"),
       note: {
@@ -47,14 +50,17 @@ export default {
   created() {
     people()
       .then(res => {
-        
         const num = secret.Decrypt(res.data.data);
 
         this.letter = JSON.parse(num);
-        console.log(this.letter);
+        console.log(this.letter.headimgurl)
+        if (this.letter.headimgurl == "") {
+          this.shows = false;
+          this.show = true;
+        }
       })
       .catch(err => {
-        console.log(err, "请求失败");     
+        console.log(err, "请求失败");
       });
   },
   methods: {

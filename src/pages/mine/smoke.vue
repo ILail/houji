@@ -5,7 +5,8 @@
         <div class="header">
           <div class="imgHeader">
             <!-- 头像 -->
-            <img :src="letter.headimgurl" alt>
+            <img :src="letter.headimgurl" v-if="shows">
+            <img src="@/assets/abs.png" v-if="show">
           </div>
           <div class="word">
             <!-- 用户头像 -->
@@ -177,6 +178,8 @@ import { people } from "@/components/axios/api";
 export default {
   data() {
     return {
+      shows: true,
+      show: false,
       five: require("@/assets/mine/1.png"),
       six: require("@/assets/mine/2.png"),
       seven: require("@/assets/mine/3.png"),
@@ -243,7 +246,11 @@ export default {
       .then(res => {
         const num = secret.Decrypt(res.data.data);
         this.letter = JSON.parse(num);
-        console.log(this.letter);
+        if (this.letter.headimgurl == "") {
+          // console.log(123);
+          this.shows = false;
+          this.show = true;
+        }
       })
       .catch(err => {
         console.log(err, "请求失败");
