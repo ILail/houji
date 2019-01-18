@@ -35,16 +35,27 @@
     </div>
 
     <div class="action" @click="nowWay">立即支付</div>
+    <van-dialog v-model="show" show-cancel-button :before-close="beforeClose">
+      <van-field v-model="password" type="password" label="密码" placeholder="请输入密码"/>
+    </van-dialog>
   </div>
 </template>
 
 <script>
-
 import secret from "@/utils/utils";
+import Vue from "vue";
 import { detailMshop } from "@/components/axios/api";
+import { detailM } from "@/components/axios/api";
+import { Dialog } from "vant";
+import { Field } from "vant";
+
+Vue.use(Field);
+Vue.use(Dialog);
 export default {
   data() {
     return {
+      show: false,
+      password: "",
       bgImg: [require("@/assets/xuan.png"), require("@/assets/xu.png")],
       imgIndex: 0,
       imgIndexa: 1,
@@ -93,11 +104,7 @@ export default {
         return false;
       }
       if (this.pay_type == "balance") {
-        this.$toast({
-          message: "余额支付",
-          duration: "500"
-        });
-        return false;
+        this.show = true;
       }
       if (this.pay_type == "") {
         this.$toast({
@@ -113,7 +120,8 @@ export default {
         this.address_id,
         this.mark,
         this.vouchers_id,
-        this.open_id
+        this.open_id,
+        this.password
       )
         .then(res => {
           console.log(res);
@@ -123,13 +131,13 @@ export default {
           pingpp.createPayment(num, function(result, err) {
             // object 需是 Charge/Order/Recharge 的 JSON 字符串
             // 可按需使用 alert 方法弹出 log
-            var _this = this
+            var _this = this;
             console.log(result);
             console.log(err.msg);
             console.log(err.extra);
             if (result == "success") {
               console.log(123);
-              _this.$router.push('/finish')
+              _this.$router.push("/finish");
               // 只有微信JSAPI (wx_pub)、微信小程序（wx_lite）、QQ 公众号 (qpay_pub)、支付宝小程序（alipay_lite）支付成功的结果会在这里返回，其他的支付结果都会跳转到 extra 中对应的 URL
             } else if (result == "fail") {
               // Ping++ 对象 object 不正确或者微信JSAPI/微信小程序/QQ公众号支付失败时会在此处返回

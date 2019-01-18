@@ -10,7 +10,19 @@ import LyTab from 'ly-tab';
 import store from '@/components/vuex/store'
 import clipper from '../static/clipper'
 import VueLazyload from 'vue-lazyload'
+// vant
+import { Tab, Tabs } from "vant";
+import { Toast } from "vant";
 import { Popup } from "vant";
+import { PullRefresh } from 'vant';
+import { List } from 'vant';
+import { Loading } from 'vant';
+
+Vue.use(Loading);
+Vue.use(List);
+Vue.use(PullRefresh);
+Vue.use(Toast);
+Vue.use(Tab).use(Tabs);
 Vue.use(Popup);
 Vue.use(VueLazyload)
 Vue.use(clipper)

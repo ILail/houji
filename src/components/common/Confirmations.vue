@@ -125,13 +125,6 @@
 </template>
 
 <script type="text/ecmascript-6">
-import Vue from "vue";
-import { Tab, Tabs } from "vant";
-
-import { Toast } from "vant";
-Vue.use(Toast);
-
-Vue.use(Tab).use(Tabs);
 import { Confirtwo } from "@/components/axios/api";
 import { getDIZ } from "@/components/axios/api";
 import { coupon } from "@/components/axios/api";
@@ -229,7 +222,7 @@ export default {
         this.moneyAll = res.data.data.wish_list.total_money;
         Member()
           .then(res => {
-            console.log(res.data.status);
+            // console.log(res.data.status);
             if (res.data.status == 0) {
               // console.log(this.moneyAll*0.05);
               this.newmoney = this.moneyAll * 0.05;

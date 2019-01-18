@@ -196,9 +196,9 @@ export function gass() {
 }
 
 // 为你推荐
-export function foryou() {
+export function foryou(page) {
   return fetch({
-    url: api.Hallowmas + '/v2/recommendedForYou ',
+    url: api.Hallowmas + '/v2/recommendedForYou?page=' + page + '',
     method: "GET",
 
   })
@@ -312,13 +312,14 @@ export function getMove(user_address_id) {
 
 
 // 充值
-export function getChong(channel, amount) {
+export function getChong(channel, amount, open_id) {
   return fetch({
     url: api.Hallowmas + '/v2/member/recharge',
     method: "POST",
     data: {
       channel: channel,
-      amount: amount
+      amount: amount,
+      open_id: open_id
     }
   })
 }
@@ -332,20 +333,6 @@ export function Addjia(wish_id, wish_nums) {
   }
   return fetch({
     url: api.Hallowmas + '/v2/crowdFunding/editWishList',
-    method: "POST",
-    data: data
-  })
-}
-
-// 我的订单
-export function MyOrder(order_type, page) {
-
-  var data = {
-    order_type,
-    page
-  }
-  return fetch({
-    url: api.Hallowmas + '/v2/member/getMemberOrder',
     method: "POST",
     data: data
   })
@@ -479,10 +466,10 @@ export function weal() {
 
 
 // 详情页请求支付
-export function detailM(pay_style, pay_type, crowd_funding_id, crowd_funding_return_id, address_id, support_money, crowd_funding_return_num, mark, vouchers_id, open_id) {
+export function detailM(pay_style, pay_type, crowd_funding_id, crowd_funding_return_id, address_id, support_money, crowd_funding_return_num, mark, vouchers_id, open_id,payment_password) {
 
   return fetch({
-    url: api.Hallowmas + '/v2/crowdFunding/payment',
+    url: api.Hallowmas + '/v2p1/crowdFunding/payment',
     method: "POST",
     data: {
       pay_style: pay_style,
@@ -492,16 +479,16 @@ export function detailM(pay_style, pay_type, crowd_funding_id, crowd_funding_ret
       address_id: address_id,
       support_money: support_money,
       crowd_funding_return_num: crowd_funding_return_num,
-      // payment_password: payment_password,
       mark: mark,
-      vouchers_id:vouchers_id,
-      open_id: open_id
+      vouchers_id: vouchers_id,
+      open_id: open_id,
+      payment_password: payment_password
     }
   })
 }
 
 // 购物车页请求支付
-export function detailMshop(pay_style, pay_type, wish_id, address_id, mark, vouchers_id, open_id) {
+export function detailMshop(pay_style, pay_type, wish_id, address_id, mark, vouchers_id, open_id, payment_password) {
 
   return fetch({
     url: api.Hallowmas + '/v2/crowdFunding/payment',
@@ -511,10 +498,11 @@ export function detailMshop(pay_style, pay_type, wish_id, address_id, mark, vouc
       pay_type: pay_type,
       wish_id: wish_id,
       address_id: address_id,
-      // payment_password: payment_password,
+
       mark: mark,
-      vouchers_id:vouchers_id,
-      open_id: open_id
+      vouchers_id: vouchers_id,
+      open_id: open_id,
+      payment_password: payment_password,
     }
   })
 }
@@ -522,7 +510,7 @@ export function detailMshop(pay_style, pay_type, wish_id, address_id, mark, vouc
 export function juanYOU() {
 
   return fetch({
-    url: api.Hallowmas +'/v2/receive/list?page=' + 1 + '',
+    url: api.Hallowmas + '/v2/receive/list?page=' + 1 + '',
     method: "GET",
   })
 }
@@ -531,10 +519,10 @@ export function juanYOU() {
 export function huoqu(url) {
 
   return fetch({
-    url: api.Hallowmas +'/returnWechatUrl',
+    url: api.Hallowmas + '/returnWechatUrl',
     method: "POST",
-    data:{
-      url:url
+    data: {
+      url: url
     }
   })
 }
@@ -543,10 +531,10 @@ export function huoqu(url) {
 export function hitLq(vouchers_id) {
 
   return fetch({
-    url: api.Hallowmas +'/v2/receive/coupon',
+    url: api.Hallowmas + '/v2/receive/coupon',
     method: "POST",
-    data:{
-      vouchers_id:vouchers_id
+    data: {
+      vouchers_id: vouchers_id
     }
   })
 }
@@ -555,10 +543,10 @@ export function hitLq(vouchers_id) {
 export function coupon(coupon_type) {
 
   return fetch({
-    url: api.Hallowmas +'/v2/coupon/list',
+    url: api.Hallowmas + '/v2/coupon/list',
     method: "POST",
-    data:{
-      coupon_type:coupon_type
+    data: {
+      coupon_type: coupon_type
     }
   })
 }
@@ -567,10 +555,10 @@ export function coupon(coupon_type) {
 export function Code(code) {
 
   return fetch({
-    url: api.Hallowmas +'/getOpenId',
+    url: api.Hallowmas + '/getOpenId',
     method: "POST",
-    data:{
-      code:code
+    data: {
+      code: code
     }
   })
 }
@@ -579,7 +567,29 @@ export function Code(code) {
 export function Member() {
 
   return fetch({
-    url: api.Hallowmas +'/v2/member/memberReceiveMembership',
+    url: api.Hallowmas + '/v2/member/memberReceiveMembership',
+    method: "GET",
+  })
+}
+
+// 我的订单
+export function Allorder(order_type, page) {
+
+  return fetch({
+    url: api.Hallowmas + '/v2/member/getMemberOrder',
+    method: "POST",
+    data: {
+      order_type: order_type,
+      page: page
+    }
+  })
+}
+
+// 领取会员开关
+export function peosLin() {
+
+  return fetch({
+    url: api.Hallowmas + '/v2/receivingMemberSwitch',
     method: "GET",
   })
 }

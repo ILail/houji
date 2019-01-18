@@ -28,7 +28,6 @@
 
 <script type="text/ecmascript-6">
 import { juanYOU } from "@/components/axios/api";
-
 import { hitLq } from "@/components/axios/api";
 export default {
   filters: {

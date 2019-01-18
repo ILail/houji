@@ -43,23 +43,21 @@
         </Item>
       </div>
     </div>
-    <div ref="allIMG">
-      <van-popup v-model="shows" position="middle">
-        <img src="@/assets/linjuan/6.png" alt class="imgNew" @click="hitNew">
-      </van-popup>
-      <van-popup v-model="showsa" position="middle" @click-overlay="clickOverlay">
-        <img src="@/assets/linjuan/7.png" alt class="imgNew">
-      </van-popup>
+    <!-- <div class="allIMG" v-if="shows">
+      <img src="@/assets/linjuan/6.png" alt class="imgNew" @click="hitNew">
     </div>
+
+    <div class="allIMG"  v-if="showsa">
+      <img src="@/assets/linjuan/7.png" alt class="imgNew" @click="hitNe">
+    </div> -->
   </div>
 </template>
 
 <script type="text/ecmascript-6">
 import Vue from "vue";
 import { Swipe, SwipeItem } from "vant";
-import store from "@/components/vuex/store";
 Vue.use(Swipe).use(SwipeItem);
-import { lookOption } from "@/components/axios/api";
+import { peosLin } from "@/components/axios/api";
 import Item from "@/components/Item.vue";
 import Home from "@/pages/home/Home.vue";
 import Dizhi from "@/pages/home/Dizhi.vue";
@@ -71,9 +69,12 @@ import Finish from "@/pages/home/finish.vue";
 import Swiper from "moon/swiper.min";
 import "moon/swiper.min.css";
 import HomeHeader from "@/pages/home/components/Header.vue";
+import { lookOption } from "@/components/axios/api";
 import { huoqu } from "@/components/axios/api";
 import { Code } from "@/components/axios/api";
 import { Member } from "@/components/axios/api";
+
+
 export default {
   name: "Small",
   components: {
@@ -157,18 +158,22 @@ export default {
     };
   },
   created: function() {
-    if (this.getCookie("popped") == "" && store.state.token == null) {
-        console.log(123)
-      //cookie 中没有 popped 则赋给他一个值（此时弹框显示）
-      document.cookie = "popped = yes";
-    }else{
-      this.shows = false
-    }
+    peosLin()
+      .then(res => {
+        if (res.data.data == 1) {
+          console.log(123);
+          this.shows = false;
+        }
+      })
+      .catch(err => {
+        console.log(err, "请求失败");
+      });
+
     // 获取当前页面的链接给后台
     huoqu(window.location.href)
       .then(res => {
         let URL = res.data.data;
-        console.log(URL);
+        // console.log(URL);
         var value = localStorage.getItem("shuyuhan");
         // console.log(value);
         // 只做一次跳转
@@ -272,39 +277,23 @@ export default {
         .catch(err => {
           console.log(err, "请求失败");
         });
-    },
-    clickOverlay() {
-      this.$refs.allIMG.style.display = "none";
-    },
-    getCookie(Name) {
-      //cookie
-      var search = Name + "=";
-      var returnValue = "";
-      if (document.cookie.length > 0) {
-        var offset = document.cookie.indexOf(search);
-        if (offset !== -1) {
-          offset += search.length;
-          var end = document.cookie.indexOf(";", offset);
-          if (end == -1) {
-            end = document.cookie.length;
-          }
-          returnValue = decodeURIComponent(
-            document.cookie.substring(offset, end)
-          );
-        }
-      }
-      return returnValue;
     }
   }
 };
 </script>
 
 <style lang="stylus" type="text/stylus" rel="stylesheet/stylus" scoped>
-.imgNew {
+.allIMG {
+  position: absolute;
   width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  overflow-y: auto;
+  background: rgba(0, 0, 0, 0.8);
 }
 
-.wrap >>> .van-popup {
+.imgNew {
   width: 60%;
 }
 

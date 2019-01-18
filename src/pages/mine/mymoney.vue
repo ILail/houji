@@ -2,7 +2,7 @@
   <div class="active">
     <div :style="note" class="heard">
       <div class="heardone">账户余额</div>
-      <div class="heardtwo">¥ {{letter.consumed_money}}</div>
+      <div class="heardtwo">¥ {{letter.left_money}}</div>
     </div>
 
     <div style="background:#fff">
@@ -46,9 +46,9 @@ export default {
   created() {
     people()
       .then(res => {
-        const num = secret.Decrypt(res.data.data);
-
+        const num = secret.Decrypt(res.data.data)
         this.letter = JSON.parse(num);
+        console.log(this.letter)
       })
       .catch(err => {
         console.log(err, "请求失败");

@@ -35,15 +35,32 @@
     </div>
 
     <div class="action" @click="nowWay">立即支付</div>
+
+    <van-dialog v-model="show" show-cancel-button :before-close="beforeClose">
+       <van-field
+    v-model="password"
+    type="password"
+    label="密码"
+    placeholder="请输入密码"
+  />
+    </van-dialog>
   </div>
 </template>
 
 <script>
+import Vue from "vue";
 import secret from "@/utils/utils";
 import { detailM } from "@/components/axios/api";
+import { Dialog } from "vant";
+import { Field } from 'vant';
+
+Vue.use(Field);
+Vue.use(Dialog);
 export default {
   data() {
     return {
+      show: false,
+      password: "",
       bgImg: [require("@/assets/xuan.png"), require("@/assets/xu.png")],
       imgIndex: 0,
       imgIndexa: 1,
@@ -66,6 +83,14 @@ export default {
     }
   },
   methods: {
+    beforeClose(action, done) {
+      if (action === "confirm") {
+        setTimeout(done, 1000);
+      } else {
+        done();
+      }
+    },
+
     wx() {
       this.$refs.imgAllo.src = this.bgImg[this.imgIndexa];
       this.$refs.imgAllt.src = this.bgImg[this.imgIndex];
@@ -84,6 +109,12 @@ export default {
       this.$refs.imgAllt.src = this.bgImg[this.imgIndex];
       this.pay_type = "balance";
     },
+    onInput(key) {
+      this.value = (this.value + key).slice(0, 6);
+    },
+    onDelete() {
+      this.value = this.value.slice(0, this.value.length - 1);
+    },
     nowWay() {
       console.log(this.pay_type);
       if (this.pay_type == "alipay") {
@@ -94,11 +125,7 @@ export default {
         return false;
       }
       if (this.pay_type == "balance") {
-        this.$toast({
-          message: "余额支付",
-          duration: "500"
-        });
-        return false;
+        this.show = true;
       }
       if (this.pay_type == "") {
         this.$toast({
@@ -117,7 +144,8 @@ export default {
         this.crowd_funding_return_num,
         this.mark,
         this.vouchers_id,
-        this.open_id
+        this.open_id,
+        this.password
       )
         .then(res => {
           console.log(res);

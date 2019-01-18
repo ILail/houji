@@ -60,7 +60,7 @@ export default {
         res = res.data;
         if (res.status && res.data) {
           const numN = res.data[0].crowd_funding_class_id; // 获取第一个的id
-          console.log(numN)
+          // console.log(numN)
           fsDetail(numN)
             .then(res => {
               res = res.data;

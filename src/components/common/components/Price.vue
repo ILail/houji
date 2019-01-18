@@ -131,15 +131,13 @@
 
 <script>
 import Vue from "vue";
-import { coupon } from "@/components/axios/api";
 import { Tab, Tabs } from "vant";
-
 Vue.use(Tab).use(Tabs);
-
 import { Popup } from "vant";
 import { Toast } from "vant";
 Vue.use(Toast);
 Vue.use(Popup);
+import { coupon } from "@/components/axios/api";
 import bus from "@/bus/bus";
 export default {
   name: "ConfirMiddle",

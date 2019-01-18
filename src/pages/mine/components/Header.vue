@@ -53,7 +53,7 @@ export default {
         const num = secret.Decrypt(res.data.data);
 
         this.letter = JSON.parse(num);
-        console.log(this.letter.headimgurl)
+        // console.log(this.letter.headimgurl)
         if (this.letter.headimgurl == "") {
           this.shows = false;
           this.show = true;

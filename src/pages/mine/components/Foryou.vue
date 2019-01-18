@@ -4,7 +4,8 @@
       <div style="font-size:14px">为你推荐</div>
     </div>
     <div class="content container">
-      <div class="wrap" v-for="items in like" :key="items.id">
+      <!-- <van-list v-model="loading" :finished="finished" finished-text="没有更多了" @load="onLoad"> -->
+      <div class="wrap" v-for="items in list" :key="items.id">
         <router-link
           :to="{  
         path: 'Detail',     
@@ -38,17 +39,88 @@
           </div>
         </router-link>
       </div>
+
+      <van-loading type="spinner" v-if="flag"/>
     </div>
+
+    <!-- <div class="noinfo" v-if="noinfo">已加载全部数据</div> -->
   </div>
 </template>
 
 <script type="text/ecmascript-6">
+import Vue from "vue";
+import { Loading } from "vant";
+Vue.use(Loading);
+import { foryou } from "@/components/axios/api";
 export default {
-  props: { like: Array },
   data() {
-    return {};
+    return {
+      flag: false,
+      // noinfo: false,
+      list: [],
+      num: 1,
+      lastpage: ""
+    };
+  },
+  mounted() {
+    window.addEventListener("scroll", this.watchScroll);
+  },
+  created() {
+    this.refresh();
   },
   methods: {
+    watchScroll() {
+      var scrollTop =
+        window.pageYOffset ||
+        document.documentElement.scrollTop ||
+        document.body.scrollTop;
+      // console.log(document.body.clientHeight);
+      var allHeight = document.body.clientHeight;
+      var windowHeight = document.documentElement.clientHeight;
+      var that = this;
+      if (scrollTop >= allHeight - windowHeight) {
+        this.flag = true;
+
+        this.num++;
+        console.log(this.num);
+        if (that.lastpage < that.num) {
+          //totalPage是后端返回来的总页数
+          //即使没有发起请求也要有加载的动作
+          setTimeout(function() {
+            // that.noinfo = true; //noinfo 决定是否显示“已加载全部”
+            that.flag = false;
+          }, 500);
+          // that.noinfo = false;
+          return false;
+        } else {
+          // that.temp = true;
+          that.refresh(); //后端请求的方法
+        }
+      }
+      // console.log(document.documentElement.scrollTop);
+      //  console.log(document.documentElement.clientHeight);
+    },
+    refresh: function() {
+      // console.log(this.num);
+      // if (this.num >= this.lastpage) {
+      //   this.num = 5;
+      // }
+      foryou(this.num)
+        .then(res => {
+          res = res.data;
+          if (res.status && res.data) {
+            const data = res.data;
+
+            this.list = this.list.concat(data.data);
+            // console.log(data.last_page);
+            // console.log(this.list);
+            this.lastpage = data.last_page;
+          }
+        })
+        .catch(err => {
+          console.log(err, "请求失败");
+        });
+    },
     computedResidualTime: function(items) {
       let residualTime = items.left_time;
       let day = parseInt(residualTime / (24 * 3600)); //剩余天数
@@ -69,6 +141,11 @@ export default {
 </script>
 
 <style lang="stylus" type="text/stylus" rel="stylesheet/stylus" scoped>
+.content>>>.van-loading {
+  left: 45%;
+  bottom: 55px;
+}
+
 .title {
   color: #020202;
   text-align: center;
@@ -89,6 +166,7 @@ export default {
   box-shadow: #666 0px 0px 10px;
   border-radius: 5px;
   padding-bottom: 10px;
+  position: relative;
 }
 
 .wrapImg {
@@ -172,6 +250,10 @@ export default {
       color: #666;
     }
   }
+}
+
+.moreinfo {
+  position: absolute;
 }
 </style>
 

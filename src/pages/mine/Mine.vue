@@ -5,7 +5,7 @@
     <div style="background:#eee;height:10px"></div>
     <mine-severs></mine-severs>
     <div style="background:#eee;height:10px"></div>
-    <mine-foryou :like = "list"></mine-foryou>
+    <mine-foryou></mine-foryou>
     <div class="tabberWarp">
       <div class="warp">
         <Item
@@ -30,7 +30,6 @@ import MineOrder from "./components/Order";
 import MineSevers from "./components/Severs";
 import MineForyou from "./components/Foryou";
 import Item from "@/components/Item.vue";
-import { foryou } from "@/components/axios/api";
 export default {
   name: "Mine",
   components: {
@@ -75,22 +74,21 @@ export default {
           activeImg: require("@/assets/foot/mines.png")
         }
       ],
-      list:[]
+      list: []
     };
   },
   created() {
-    foryou()
-      .then(res => {
-        res = res.data;
-
-        if (res.status && res.data) {
-          const data = res.data;
-          this.list = data.data;
-        }
-      })
-      .catch(err => {
-        console.log(err, "请求失败");
-      });
+    // foryou()
+    //   .then(res => {
+    //     res = res.data;
+    //     if (res.status && res.data) {
+    //       const data = res.data;
+    //       this.list = data.data;
+    //     }
+    //   })
+    //   .catch(err => {
+    //     console.log(err, "请求失败");
+    //   });
   },
   methods: {
     getVal: function(res) {
