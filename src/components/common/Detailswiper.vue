@@ -329,7 +329,10 @@ export default {
           if (res.data.status == "-2012") {
             this.$router.push({ path: "/phone" });
           } else {
-            alert("添加心愿单成功");
+            this.$toast({
+              message: "添加心愿单成功",
+              duration: "1000"
+            });
             this.istanchuan = false;
             this.isshowa = true;
           }

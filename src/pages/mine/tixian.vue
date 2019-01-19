@@ -17,7 +17,7 @@
       <div class="fnagshi">提现金额</div>
       <div class="midddds">
         <span class="sthf" style="  padding-left:2%">¥</span>
-        <input type="text" class="sthf">
+        <input type="tel" class="sthf">
       </div>
     </div>
 
@@ -36,7 +36,6 @@ export default {
     const arrs = this.$route.query.dataObjb;
     // arr+'(arrs)'
     if (arr == undefined && arrs == undefined) {
-      
       this.masg = "绑定银行卡";
     } else {
       this.masg = arr + "(" + arrs + ")";
@@ -44,7 +43,10 @@ export default {
   },
   methods: {
     enter() {
-      alert("请app上提现");
+      this.$toast({
+        message: "请app上提现",
+        duration: "1000"
+      });
     }
   }
 };

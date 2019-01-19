@@ -1,11 +1,11 @@
 <template>
   <div class="container">
     <div class="number">
-      <input type="text" placeholder="请输入手机号" maxlength="11" v-model="tell">
+      <input type="tel" placeholder="请输入手机号" maxlength="11" v-model="tell">
     </div>
     <div class="line"></div>
     <div class="mobel">
-      <input type="text" placeholder="短信验证码" v-model="duanx" maxlength="6" style="font-size:16px">
+      <input type="tel" placeholder="短信验证码" v-model="duanx" maxlength="6" style="font-size:16px">
       <span class="test" @click="time" v-if="active">获取验证码</span>
       <span class="test" v-if="!active">{{timed}}s重新发送</span>
     </div>
@@ -78,13 +78,19 @@ export default {
     // 点击登录 获得token 写入缓存
     enter() {
       if (this.duanx == "") {
-        alert("验证码不能为空");
+        this.$toast({
+          message: "验证码不能为空",
+          duration: "1000"
+        });
         return false;
       }
       wx(this.tell, this.duanx)
         .then(res => {
           if (res.data.data.length == 0) {
-            alert("请正确输入验证码");
+            this.$toast({
+              message: "请正确输入验证码",
+              duration: "1000"
+            });
           } else {
             let tokenmine = res.data.data.token;
             // this.changeLogin({ Authorization: tokenmine});

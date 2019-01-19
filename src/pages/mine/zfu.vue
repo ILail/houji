@@ -4,7 +4,7 @@
       <div class="cont">
         <span class="word">交易密码</span>
         <input
-          type="password"
+          type="tel"
           placeholder="输入支付密码"
           maxlength="6"
           oninput="this.value=this.value.replace(/[^0-9]/g,'');"
@@ -15,12 +15,21 @@
       <div class="cont">
         <span class="word">再次输入</span>
         <input
-          type="password"
+          maxlength="6"
+          type="tel"
           placeholder="再次输入密码"
           oninput="this.value=this.value.replace(/[^0-9]/g,'');"
           v-model="duanx"
           style="width:60%;margin-left:20px"
         >
+        <!-- <van-number-keyboard
+          :show="show"
+          extra-key="."
+          close-button-text="完成"
+          @blur="show = false"
+          @input="onInput"
+          @delete="onDelete"
+        />-->
       </div>
     </div>
     <div class="baocun" @click="baocun">保存</div>
@@ -29,6 +38,10 @@
 <script>
 import secret from "@/utils/utils";
 import { peosMobless } from "@/components/axios/api";
+// import Vue from "vue";
+// import { NumberKeyboard } from "vant";
+
+// Vue.use(NumberKeyboard);
 export default {
   name: "Desgreo",
   data() {
@@ -36,9 +49,20 @@ export default {
       img: require("@/assets/rr.png"),
       tell: "",
       duanx: ""
+      // show: false
     };
   },
   methods: {
+    // showa() {
+    //   this.show = true;
+    //   console.log(123);
+    // },
+    // onInput(value) {
+    //   this.duanx = value
+    // },
+    // onDelete() {
+    //   Toast("delete");
+    // },
     baocun() {
       if (this.tell != this.duanx) {
         return;
@@ -46,8 +70,11 @@ export default {
       console.log(this.tell, this.duanx);
       peosMobless(this.tell, this.duanx)
         .then(res => {
-          console.log(res);
-          alert("保存成功");
+          this.$toast({
+            message: "更改成功",
+            duration: "1000"
+          });
+          this.$router.go("-1");
         })
         .catch(err => {
           console.log(err, "请求失败");

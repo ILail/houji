@@ -387,7 +387,7 @@ export function peosMoble(mobile, code) {
 
   return fetch({
     url: api.Hallowmas + '/v2/member/replacePhone',
-    method: "PUT",
+    method: "POST",
     data: {
       mobile: mobile,
       code: code
@@ -590,6 +590,74 @@ export function peosLin() {
 
   return fetch({
     url: api.Hallowmas + '/v2/receivingMemberSwitch',
+    method: "GET",
+  })
+}
+
+// 判断支付密码
+
+export function zfuM() {
+
+  return fetch({
+    url: api.Hallowmas + '/v2/member/checkPassword',
+    method: "GET",
+  })
+}
+
+// 用户查询具体某一订单物流信息
+
+export function MessageWu(trade_no) {
+
+  return fetch({
+    url: api.Hallowmas + '/v2/member/getOrderTraces',
+    method: "POST",
+    data:{
+      trade_no:trade_no
+    }
+  })
+}
+
+// 确认收货
+export function CorfirWu(trade_no) {
+
+  return fetch({
+    url: api.Hallowmas + '/v2/member/memberConfirmReceipt',
+    method: "POST",
+    data:{
+      trade_no:trade_no
+    }
+  })
+}
+
+// 申请退款
+export function offerWu(trade_no) {
+
+  return fetch({
+    url: api.Hallowmas + '/v2/member/memberApplyForRefund',
+    method: "POST",
+    data:{
+      trade_no:trade_no
+    }
+  })
+}
+
+// 订单详情
+export function DEtilWu(trade_no) {
+
+  return fetch({
+    url: api.Hallowmas + '/v2/member/getMemberOrderDetail',
+    method: "POST",
+    data:{
+      trade_no:trade_no
+    }
+  })
+}
+
+// 订单为你推荐
+export function ForWu() {
+
+  return fetch({
+    url: api.Hallowmas + '/v2/v2/recommendedForYou',
     method: "GET",
   })
 }

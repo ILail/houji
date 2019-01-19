@@ -1,18 +1,20 @@
 <template>
   <div class="active">
-    <van-tabs v-model="active" swipeable animated>
+    <van-tabs v-model="active" swipeable sticky animated>
       <van-tab title="全部">
         <div class="hitImg" v-show="ispic">
           <img src="@/assets/linjuan/5.png">
           <div class="contenr">暂时无订单</div>
         </div>
-        <div class="container bottom">
+        <div class="bottom">
           <div v-for="(item,index) in json" :key="item.id" :id="index" class="allW">
             <div class="top">
-              <span class="img">
-                <img :src="item.headimgurl">
-              </span>
-              <span class="topWord">{{item.nickname}}</span>
+              <div>
+                <img :src="item.headimgurl" class="img">
+                
+                <span class="topWord">{{item.nickname}}</span>
+              </div>
+              <div class="right_word"></div>
             </div>
             <div
               class="item"
@@ -34,25 +36,28 @@
                 <div class="detailsame">{{pl.return_content}}</div>
               </div>
             </div>
+            <div class="contentW">共计{{item.return_nums}}件商品 合计：¥{{item.support_money}}</div>
           </div>
         </div>
       </van-tab>
       <van-tab title="进行中">
-        <div class="hitImg" v-show="ispic">
+        <div class="hitImg" v-show="ispics">
           <img src="@/assets/linjuan/5.png">
           <div class="contenr">暂时无订单</div>
         </div>
         <div class="container bottom">
-          <div v-for="(item,index) in json" :key="item.id" :id="index" class="allW">
+          <div v-for="(item,index) in jsons" :key="item.id" :id="index" class="allW">
             <div class="top">
-              <span class="img">
-                <img :src="item.headimgurl">
-              </span>
-              <span class="topWord">{{item.nickname}}</span>
+              <div>
+                <img :src="item.headimgurl" class="img">
+                
+                <span class="topWord">{{item.nickname}}</span>
+              </div>
+              <div class="right_word">进行中</div>
             </div>
             <div
               class="item"
-              v-for="(pl,index) in json[index].options"
+              v-for="(pl,index) in jsons[index].options"
               :key="index"
               :data-id="index"
             >
@@ -70,26 +75,29 @@
                 <div class="detailsame">{{pl.return_content}}</div>
               </div>
             </div>
+            <div class="contentW">共计{{item.return_nums}}件商品 合计：¥{{item.support_money}}</div>
           </div>
         </div>
       </van-tab>
 
       <van-tab title="待发货">
-        <div class="hitImg" v-show="ispic">
+        <div class="hitImg" v-show="ispicss">
           <img src="@/assets/linjuan/5.png">
           <div class="contenr">暂时无订单</div>
         </div>
         <div class="container bottom">
-          <div v-for="(item,index) in json" :key="item.id" :id="index" class="allW">
+          <div v-for="(item,index) in jsonss" :key="item.id" :id="index" class="allW">
             <div class="top">
-              <span class="img">
-                <img :src="item.headimgurl">
-              </span>
-              <span class="topWord">{{item.nickname}}</span>
+              <div>
+                <img :src="item.headimgurl" class="img">
+                
+                <span class="topWord">{{item.nickname}}</span>
+              </div>
+              <div class="right_word">待发货</div>
             </div>
             <div
               class="item"
-              v-for="(pl,index) in json[index].options"
+              v-for="(pl,index) in jsonss[index].options"
               :key="index"
               :data-id="index"
             >
@@ -107,26 +115,29 @@
                 <div class="detailsame">{{pl.return_content}}</div>
               </div>
             </div>
+            <div class="contentW">共计{{item.return_nums}}件商品 合计：¥{{item.support_money}}</div>
           </div>
         </div>
       </van-tab>
 
       <van-tab title="已发货">
-        <div class="hitImg" v-show="ispic">
+        <div class="hitImg" v-show="ispicsss">
           <img src="@/assets/linjuan/5.png">
           <div class="contenr">暂时无订单</div>
         </div>
         <div class="container bottom">
-          <div v-for="(item,index) in json" :key="item.id" :id="index" class="allW">
+          <div v-for="(item,index) in jsonsss" :key="item.id" :id="index" class="allW">
             <div class="top">
-              <span class="img">
-                <img :src="item.headimgurl">
-              </span>
-              <span class="topWord">{{item.nickname}}</span>
+              <div>
+                <img :src="item.headimgurl" class="img">
+                
+                <span class="topWord">{{item.nickname}}</span>
+              </div>
+              <div class="right_word">已发货</div>
             </div>
             <div
               class="item"
-              v-for="(pl,index) in json[index].options"
+              v-for="(pl,index) in jsonsss[index].options"
               :key="index"
               :data-id="index"
             >
@@ -143,27 +154,34 @@
                 </div>
                 <div class="detailsame">{{pl.return_content}}</div>
               </div>
+            </div>
+            <div class="contentW">共计{{item.return_nums}}件商品 合计：¥{{item.support_money}}</div>
+            <div class="twoWord">
+              <span class="one" @click="wuliu(jsonsss[index].trade_no)">查看物流</span>
+              <span class="two" @click="corif(jsonsss[index].trade_no)">确认收货</span>
             </div>
           </div>
         </div>
       </van-tab>
 
       <van-tab title="退换/售后">
-        <div class="hitImg" v-show="ispic">
+        <div class="hitImg" v-show="ispicssss">
           <img src="@/assets/linjuan/5.png">
           <div class="contenr">暂时无订单</div>
         </div>
         <div class="container bottom">
-          <div v-for="(item,index) in json" :key="item.id" :id="index" class="allW">
+          <div v-for="(item,index) in jsonssss" :key="item.id" :id="index" class="allW">
             <div class="top">
-              <span class="img">
-                <img :src="item.headimgurl">
-              </span>
-              <span class="topWord">{{item.nickname}}</span>
+              <div>
+                <img :src="item.headimgurl" class="img">
+                
+                <span class="topWord">{{item.nickname}}</span>
+              </div>
+              <div class="right_word">已确认收货</div>
             </div>
             <div
               class="item"
-              v-for="(pl,index) in json[index].options"
+              v-for="(pl,index) in jsonssss[index].options"
               :key="index"
               :data-id="index"
             >
@@ -180,6 +198,10 @@
                 </div>
                 <div class="detailsame">{{pl.return_content}}</div>
               </div>
+            </div>
+            <div class="contentW">共计{{item.return_nums}}件商品 合计：¥{{item.support_money}}</div>
+            <div class="contents">
+              <div @click="TUIKUANG(jsonssss[index].trade_no)">申请退款</div>
             </div>
           </div>
         </div>
@@ -190,14 +212,26 @@
 
 <script>
 import { Allorder } from "@/components/axios/api";
+import { moreBank } from "@/components/axios/api";
+import { CorfirWu } from "@/components/axios/api";
+import { MessageWu } from "@/components/axios/api";
+
 export default {
   name: "Myorders",
   data() {
     return {
-      ispic: false,
       active: 0,
       num: 1,
-      json: []
+      json: [],
+      ispic: false,
+      jsons: [],
+      ispics: false,
+      jsonss: [],
+      ispicss: false,
+      jsonsss: [],
+      ispicsss: false,
+      jsonssss: [],
+      ispicssss: false
     };
   },
   created() {
@@ -206,6 +240,7 @@ export default {
     Allorder(110, this.num)
       .then(res => {
         this.json = res.data.data.data;
+        console.log(res);
         if (res.data.data.data.length == 0) {
           this.ispic = true;
         }
@@ -216,7 +251,10 @@ export default {
     // 进行中
     Allorder(111, this.num)
       .then(res => {
-        // console.log(res);
+        this.jsons = res.data.data.data;
+        if (res.data.data.data.length == 0) {
+          this.ispics = true;
+        }
       })
       .catch(err => {
         console.log(err, "请求失败");
@@ -224,7 +262,10 @@ export default {
     // 待发货
     Allorder(112, this.num)
       .then(res => {
-        // console.log(res);
+        this.jsonss = res.data.data.data;
+        if (res.data.data.data.length == 0) {
+          this.ispicss = true;
+        }
       })
       .catch(err => {
         console.log(err, "请求失败");
@@ -232,7 +273,10 @@ export default {
     // 已发货
     Allorder(113, this.num)
       .then(res => {
-        // console.log(res);
+        this.jsonsss = res.data.data.data;
+        if (res.data.data.data.length == 0) {
+          this.ispicsss = true;
+        }
       })
       .catch(err => {
         console.log(err, "请求失败");
@@ -240,19 +284,129 @@ export default {
     // 售后
     Allorder(114, this.num)
       .then(res => {
-        // console.log(res);
+        this.jsonssss = res.data.data.data;
+        if (res.data.data.data.length == 0) {
+          this.ispicsss = true;
+        }
       })
       .catch(err => {
         console.log(err, "请求失败");
       });
   },
   mounted() {},
-  methods: {}
+  methods: {
+    TUIKUANG(index) {
+      moreBank(index)
+        .then(res => {
+          if (res.data.status != "-1008") {
+            this.$toast({
+              message: "您已经提交申请",
+              duration: "1000"
+            });
+          }
+        })
+        .catch(err => {
+          console.log(err, "请求失败");
+        });
+    },
+    corif(indexs) {
+      CorfirWu(indexs)
+        .then(res => {
+          console.log(res);
+          if (res.data.status == "1") {
+            this.$toast({
+              message: "操作成功",
+              duration: "1000"
+            });
+          }
+        })
+        .catch(err => {
+          console.log(err, "请求失败");
+        });
+    },
+    wuliu(indexss) {
+      MessageWu(indexss)
+        .then(res => {
+          console.log(res);
+          if (res.data.status == "1") {
+            this.$toast({
+              message: "操作成功",
+              duration: "1000"
+            });
+          }
+        })
+        .catch(err => {
+          console.log(err, "请求失败");
+        });
+    }
+  }
 };
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="stylus" scoped>
+.contents {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 10px;
+}
+
+.contents div {
+  border: 1px solid rgba(210, 22, 35, 1);
+  border-radius: 5px;
+  font-size: 14px;
+  font-family: PingFangSC-Regular;
+  font-weight: 400;
+  color: rgba(210, 22, 35, 1);
+  width: 85px;
+  height: 28px;
+  text-align: center;
+  line-height: 28px;
+}
+
+.twoWord {
+  text-align: right;
+  padding: 15px 0 10px 0;
+}
+
+.twoWord .one {
+  border: 1px solid rgba(0, 0, 0, 1);
+  border-radius: 5px;
+  color: #000000;
+  margin-right: 0.3rem;
+}
+
+.twoWord .two {
+  border: 1px solid rgba(210, 22, 35, 1);
+  border-radius: 5px;
+  color: #D21623;
+}
+
+.twoWord span {
+  font-size: 14px;
+  font-family: PingFangSC-Regular;
+  font-weight: 400;
+  padding: 4px 8px;
+  border: 1px solid red;
+}
+
+.contentW {
+  font-size: 14px;
+  font-family: PingFangSC-Regular;
+  font-weight: 400;
+  color: rgba(51, 51, 51, 1);
+  text-align: right;
+  padding: 5px 0;
+}
+
+.right_word {
+  font-size: 14px;
+  font-family: PingFangSC-Regular;
+  font-weight: 400;
+  color: rgba(210, 22, 35, 1);
+  text-align: right;
+}
+
 .active {
   position: absolute;
   width: 100%;
@@ -279,13 +433,10 @@ export default {
   color: #999;
 }
 
-.bottom {
-  padding: 20px 0 20px 0;
-}
-
 .top {
   display: flex;
   align-items: center;
+  justify-content: space-between;
 }
 
 .item {
@@ -293,13 +444,9 @@ export default {
   margin-top: 8px;
 }
 
-.top .img {
+.top img {
   width: 18px;
   height: 18px;
-}
-
-.top .img img {
-  width: 100%;
   border-radius: 50%;
 }
 
@@ -323,6 +470,8 @@ export default {
 
 .allW {
   margin-top: 8px;
+  background: #fff;
+  padding: 10px 3.2%;
 }
 
 .right {

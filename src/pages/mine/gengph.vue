@@ -3,12 +3,24 @@
     <div class="smal">
       <div class="cont">
         <span class="word">手机号</span>
-        <input type="text" placeholder="输入新的手机号" v-model="tell" style="width:60%;margin-left:32px">
+        <input
+          maxlength="11"
+          type="tel"
+          placeholder="输入新的手机号"
+          v-model="tell"
+          style="width:60%;margin-left:32px"
+        >
       </div>
       <div class="cont">
         <div class="conts">
-          <span class="word">再次输入</span>
-          <input type="text" placeholder="输入验证码" v-model="duanx" style="width:60%;margin-left:20px">
+          <span class="word">验证码</span>
+          <input
+            maxlength="11"
+            type="tel"
+            placeholder="输入验证码"
+            v-model="duanx"
+            style="width:60%;margin-left:20px"
+          >
         </div>
         <span class="yanz" @click="time" v-if="active">获取验证码</span>
         <span class="yanz" v-if="!active">{{timed}}s重新发送</span>
@@ -20,8 +32,8 @@
 <script>
 import { peosMoble } from "@/components/axios/api";
 import { yzm } from "@/components/axios/api";
-import store from "@/components/vuex/store";
-import * as types from "@/components/vuex/types";
+// import store from "@/components/vuex/store";
+// import * as types from "@/components/vuex/types";
 export default {
   name: "Desgreo",
   data() {
@@ -58,9 +70,8 @@ export default {
       peosMoble(this.tell, this.duanx)
         .then(res => {
           console.log(res);
-          alert("保存成功");
-          store.commit(types.LOGOUT);
-          this.$router.push("/phone");
+          this.$toast("更改成功");
+          this.$router.push("/");
         })
         .catch(err => {
           console.log(err, "请求失败");

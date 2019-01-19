@@ -17,7 +17,7 @@
 
       <div class="next">
         <span>银行卡卡号</span>
-        <input type="text" placeholder="请输入卡号" v-model="three">
+        <input type="tel" placeholder="请输入卡号" v-model="three">
       </div>
 
       <div class="next">

@@ -37,12 +37,7 @@
     <div class="action" @click="nowWay">立即支付</div>
 
     <van-dialog v-model="show" show-cancel-button :before-close="beforeClose">
-       <van-field
-    v-model="password"
-    type="password"
-    label="密码"
-    placeholder="请输入密码"
-  />
+      <van-field v-model="password" type="password" placeholder="请输入密码"/>
     </van-dialog>
   </div>
 </template>
@@ -51,8 +46,9 @@
 import Vue from "vue";
 import secret from "@/utils/utils";
 import { detailM } from "@/components/axios/api";
+import { zfuM } from "@/components/axios/api";
 import { Dialog } from "vant";
-import { Field } from 'vant';
+import { Field } from "vant";
 
 Vue.use(Field);
 Vue.use(Dialog);
@@ -73,8 +69,18 @@ export default {
       crowd_funding_return_num: this.$route.query.dataObjf,
       mark: this.$route.query.dataObjg,
       vouchers_id: this.$route.query.dataObjh,
-      open_id: this.$route.query.dataObji
+      open_id: this.$route.query.dataObji,
+      code: ""
     };
+  },
+  created() {
+    zfuM()
+      .then(res => {
+        this.code = res.data.data.code;
+      })
+      .catch(err => {
+        console.log(err, "请求失败");
+      });
   },
   mounted() {},
   computed: {
@@ -83,14 +89,6 @@ export default {
     }
   },
   methods: {
-    beforeClose(action, done) {
-      if (action === "confirm") {
-        setTimeout(done, 1000);
-      } else {
-        done();
-      }
-    },
-
     wx() {
       this.$refs.imgAllo.src = this.bgImg[this.imgIndexa];
       this.$refs.imgAllt.src = this.bgImg[this.imgIndex];
@@ -125,7 +123,22 @@ export default {
         return false;
       }
       if (this.pay_type == "balance") {
-        this.show = true;
+        switch (this.code) {
+          case 0:
+            this.show = false;
+            this.$toast({
+              message: "请先设置支付密码",
+              duration: "1000"
+            });
+            setTimeout(() => {
+              this.$router.push("/zfu");
+            }, 1500);
+            break;
+          case 1:
+            this.show = true;
+        }
+
+        return false;
       }
       if (this.pay_type == "") {
         this.$toast({
@@ -173,11 +186,62 @@ export default {
         .catch(err => {
           console.log(err, "请求失败");
         });
+    },
+    beforeClose(action, done) {
+      if (action === "confirm") {
+        detailM(
+          this.pay_style,
+          this.pay_type,
+          this.crowd_funding_id,
+          this.crowd_funding_return_id,
+          this.address_id,
+          this.moneys,
+          this.crowd_funding_return_num,
+          this.mark,
+          this.vouchers_id,
+          "",
+          this.password
+        )
+          .then(res => {
+            // console.log(res);
+            if (res.data.message == "支付密码错误") {
+              this.$toast({
+                message: "支付密码错误",
+                duration: "1000"
+              });
+            }
+            if (res.data.message == "钱包余额不足") {
+              this.$toast({
+                message: "请充值",
+                duration: "1500"
+              });
+              setTimeout(() => {
+                this.$router.push("/chongzhi");
+              }, 2000);
+            }
+
+            if (res.data.message == "操作成功") {
+              setTimeout(() => {
+                this.$router.push("/finish");
+              }, 1500);
+            }
+            setTimeout(done, 500);
+          })
+          .catch(err => {
+            console.log(err, "请求失败");
+          });
+      } else {
+        done();
+      }
     }
   }
 };
 </script>
 <style lang="stylus" type="text/stylus" rel="stylesheet/stylus" scoped>
+.active >>> .van-dialog__content {
+  padding: 5px 0;
+}
+
 .sdsword {
   padding-left: 2%;
   display: flex;

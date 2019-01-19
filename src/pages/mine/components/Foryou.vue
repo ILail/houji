@@ -77,34 +77,31 @@ export default {
       // console.log(document.body.clientHeight);
       var allHeight = document.body.clientHeight;
       var windowHeight = document.documentElement.clientHeight;
-      var that = this;
+      // var this = this;
       if (scrollTop >= allHeight - windowHeight) {
         this.flag = true;
 
         this.num++;
         console.log(this.num);
-        if (that.lastpage < that.num) {
+        if (this.lastpage < this.num) {
           //totalPage是后端返回来的总页数
-          //即使没有发起请求也要有加载的动作
-          setTimeout(function() {
-            // that.noinfo = true; //noinfo 决定是否显示“已加载全部”
-            that.flag = false;
-          }, 500);
-          // that.noinfo = false;
-          return false;
+          setTimeout(() => {
+            this.flag = false;
+          }, 800);
+          // this.noinfo = false;
+          return;
         } else {
-          // that.temp = true;
-          that.refresh(); //后端请求的方法
+          // this.temp = true;
+
+          this.refresh();
+
+          return false;
         }
       }
       // console.log(document.documentElement.scrollTop);
       //  console.log(document.documentElement.clientHeight);
     },
     refresh: function() {
-      // console.log(this.num);
-      // if (this.num >= this.lastpage) {
-      //   this.num = 5;
-      // }
       foryou(this.num)
         .then(res => {
           res = res.data;

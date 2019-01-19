@@ -45,7 +45,7 @@
 import secret from "@/utils/utils";
 import Vue from "vue";
 import { detailMshop } from "@/components/axios/api";
-import { detailM } from "@/components/axios/api";
+import { zfuM } from "@/components/axios/api";
 import { Dialog } from "vant";
 import { Field } from "vant";
 
@@ -68,6 +68,15 @@ export default {
       vouchers_id: this.$route.query.dataObjf,
       open_id: this.$route.query.dataObjg
     };
+  },
+  created() {
+    zfuM()
+      .then(res => {
+        this.code = res.data.data.code;
+      })
+      .catch(err => {
+        console.log(err, "请求失败");
+      });
   },
   mounted() {},
   computed: {
@@ -104,7 +113,22 @@ export default {
         return false;
       }
       if (this.pay_type == "balance") {
-        this.show = true;
+        switch (this.code) {
+          case 0:
+            this.show = false;
+            this.$toast({
+              message: "请先设置支付密码",
+              duration: "1000"
+            });
+            setTimeout(() => {
+              this.$router.push("/zfu");
+            }, 1500);
+            break;
+          case 1:
+            this.show = true;
+        }
+
+        return false;
       }
       if (this.pay_type == "") {
         this.$toast({
@@ -149,6 +173,49 @@ export default {
         .catch(err => {
           console.log(err, "请求失败");
         });
+    },
+    beforeClose(action, done) {
+      if (action === "confirm") {
+        detailMshop(
+          this.pay_style,
+          this.pay_type,
+          this.wish_id,
+          this.address_id,
+          this.mark,
+          this.vouchers_id,
+          this.open_id,
+          this.password
+        )
+          .then(res => {
+            if (res.data.message == "支付密码错误") {
+              this.$toast({
+                message: "支付密码错误",
+                duration: "1000"
+              });
+            }
+            if (res.data.message == "钱包余额不足") {
+              this.$toast({
+                message: "请充值",
+                duration: "1500"
+              });
+              setTimeout(() => {
+                this.$router.push("/chongzhi");
+              }, 2000);
+            }
+
+            if (res.data.message == "操作成功") {
+              setTimeout(() => {
+                this.$router.push("/finish");
+              }, 1500);
+            }
+            setTimeout(done, 500);
+          })
+          .catch(err => {
+            console.log(err, "请求失败");
+          });
+      } else {
+        done();
+      }
     }
   }
 };

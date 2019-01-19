@@ -102,8 +102,8 @@ import MineHeader from "./component/Like";
 import { wishPush } from "@/components/axios/api";
 import { forDetil } from "@/components/axios/api";
 import { Addjia } from "@/components/axios/api";
-
-// import HomeMi from "@/components/Tabber";
+import * as types from "@/components/vuex/types";
+import store from "@/components/vuex/store";
 import Item from "@/components/Item.vue";
 export default {
   name: "Wish",
@@ -167,11 +167,13 @@ export default {
       .then(res => {
         this.json = res.data.data.wish_list.list;
         this.list = res.data.data.recommend;
-        if(this.json == undefined){
-          this.shops = true
-        };
+        if (this.json == undefined) {
+          this.shops = true;
+        }
       })
       .catch(err => {
+        store.commit(types.LOGOUT);
+        this.$router.push("/");
         console.log(err, "请求失败");
       });
   },
@@ -193,7 +195,7 @@ export default {
 
               if (res.data.data.wish_list.list == undefined) {
                 this.allSelect = false;
-                this.shops = true
+                this.shops = true;
               }
             })
             .catch(err => {
@@ -388,7 +390,10 @@ export default {
     //结算支付
     js() {
       if (this.allPrice == 0) {
-        alert("请选择商品");
+        this.$toast({
+          message: "请选择商品",
+          duration: "1000"
+        });
         return;
       }
       // 获取当前选中的商品的id
@@ -408,8 +413,8 @@ export default {
   display: table-cell;
   vertical-align: middle;
   text-align: center;
-  background #eee
-  padding-bottom 15px
+  background: #eee;
+  padding-bottom: 15px;
 }
 
 .hitImg img {

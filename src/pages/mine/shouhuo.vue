@@ -109,8 +109,10 @@ export default {
       getUser(idNum)
         .then(res => {
           if (res.data.data.length == 0) {
-            alert("设置成功");
-
+            this.$toast({
+              message: "设置成功",
+              duration: "1000"
+            });
             // console.log('dataObj='+id+'')
             // this.$router.push({
             //   path: '/queren?dataObj='+id+'',
@@ -146,7 +148,6 @@ export default {
 .active >>> .van-swipe-cell__right {
   background-color: #d21623;
   width: 100px;
-
 }
 
 .btns {
@@ -154,10 +155,10 @@ export default {
   font-family: PingFangSC-Regular;
   font-weight: 400;
   color: rgba(255, 255, 255, 1);
-  position absolute
-  left 50%
-  top 50%
-  transform: translate(-50%,-50%);
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .active {

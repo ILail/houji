@@ -4,7 +4,7 @@
       <div class="fnagshi">充值金额</div>
       <div class="sdsword">
         <span class="sthf">¥</span>
-        <input type="text" class="sthf" v-model="moneys" style="margin-left:10px">
+        <input type="tel" class="sthf" v-model="moneys" style="margin-left:10px">
       </div>
     </div>
 
@@ -42,7 +42,8 @@ export default {
       bgImg: [require("@/assets/xuan.png"), require("@/assets/xu.png")],
       imgIndex: 0,
       imgIndexa: 1,
-      moneys: ""
+      moneys: "",
+      channel:""
     };
   },
   computed: {
@@ -79,20 +80,36 @@ export default {
         });
         return false;
       }
-      getChong(this.channel, this.moneys, naid)
+      if (this.channel == "") {
+        this.$toast({
+          message: "请选择方式",
+          duration: "500"
+        });
+        return false;
+      }
+      getChong(this.channel, this.moneys * 100, naid)
         .then(res => {
           const num = secret.Decrypt(res.data.data);
-          console.log(res)
+          console.log(res.data);
+          if (res.data.status == 0) {
+            this.$toast({
+              message: "输入金额不能小于1",
+              duration: "2000"
+            });
+          }
           pingpp.createPayment(num, function(result, err) {
             if (result == "success") {
-              console.log(1)
+              this.$toast({
+                message: "充值成功",
+                duration: "2000"
+              });
               // 只有微信公众账号 (wx_pub)、微信小程序 (wx_lite)、QQ 公众号 (qpay_pub)、支付宝口碑 (alipay_qr)
               // 支付成功的结果会在这里返回，其他的支付结果都会跳转到 extra 中对应的 URL。
             } else if (result == "fail") {
-              console.log(2)
+              console.log(2);
               // data 不正确或者微信公众账号/微信小程序/QQ 公众号/支付宝口碑支付失败时会在此处返回
             } else if (result == "cancel") {
-              console.log(3)
+              console.log(3);
               // 微信公众账号、微信小程序、QQ 公众号、支付宝口碑支付取消支付
             }
           });

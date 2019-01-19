@@ -5,7 +5,7 @@
         <input type="text" placeholder="姓名" class="inputaa" v-model="names">
       </div>
       <div class="cont">
-        <input type="text" placeholder="手机号码" class="inputaa" v-model="phone">
+        <input maxlength="11" type="tel" placeholder="手机号码" class="inputaa" v-model="phone">
       </div>
       <div class="contS">
         <input type="text" @click="hitShow" placeholder="收货地址" v-model="message" readonly>
@@ -122,7 +122,10 @@ export default {
         this.idthress == "" ||
         this.wordA == ""
       ) {
-        alert("请正确输入");
+        this.$toast({
+          message: "请正确输入",
+          duration: "1000"
+        });
       } else {
         newAddress(
           this.names,
@@ -135,7 +138,10 @@ export default {
           .then(res => {
             console.log(res.data.data);
             if (res.data.data.length == "0") {
-              alert("提交成功");
+              this.$toast({
+                message: "提交成功",
+                duration: "1000"
+              });
             }
             this.$router.go(-1);
           })

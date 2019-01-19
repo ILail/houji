@@ -26,6 +26,8 @@
 </template>
 
 <script type="text/ecmascript-6">
+import * as types from "@/components/vuex/types";
+import store from '@/components/vuex/store'
 import secret from "@/utils/utils";
 import { people } from "@/components/axios/api";
 export default {
@@ -60,6 +62,9 @@ export default {
         }
       })
       .catch(err => {
+          
+      store.commit(types.LOGOUT);
+      this.$router.push("/");
         console.log(err, "请求失败");
       });
   },

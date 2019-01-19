@@ -2,7 +2,15 @@
   <div class="active">
     <div :style="note" class="heard">
       <div class="heardone">账户余额</div>
-      <div class="heardtwo">¥ {{letter.left_money}}</div>
+      <div class="heardtwo">
+        <ICountUp
+          :startVal="startVal"
+          :endVal="endVal"
+          :decimals="decimals"
+          :duration="duration"
+          :options="options"
+        />
+      </div>
     </div>
 
     <div style="background:#fff">
@@ -28,11 +36,27 @@
   </div>
 </template>
 <script>
+import ICountUp from "vue-countup-v2";
 import secret from "@/utils/utils";
 import { people } from "@/components/axios/api";
 export default {
+  components: {
+    ICountUp
+  },
   data() {
     return {
+      startVal: 0,
+      endVal: "",
+      decimals: 2,
+      duration: 2.5,
+      options: {
+        useEasing: true,
+        useGrouping: true,
+        separator: ",",
+        decimal: ".",
+        prefix: "¥",
+        suffix: ""
+      },
       note: {
         backgroundImage: "url(" + require("@/assets/banner.png") + ")",
         backgroundRepeat: "no-repeat",
@@ -40,15 +64,15 @@ export default {
         height: "150px"
       },
       img: require("@/assets/rr.png"),
-      letter: ""
+      money: ""
     };
   },
   created() {
     people()
       .then(res => {
-        const num = secret.Decrypt(res.data.data)
-        this.letter = JSON.parse(num);
-        console.log(this.letter)
+        let num = secret.Decrypt(res.data.data);
+        let letter = JSON.parse(num);
+        this.endVal = letter.left_money;
       })
       .catch(err => {
         console.log(err, "请求失败");

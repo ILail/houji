@@ -70,7 +70,7 @@ export default {
         resultObj: image,
         aspectRatio: 1
       });
-      console.log(file)
+      console.log(file);
       // console.log(file.path[1].childNodes[0])
       // console.log(this.$refs.wrapImg.files[0]);
       var file = this.$refs.wrapImg.files[0];
@@ -123,12 +123,18 @@ export default {
     enenneen() {
       // const imgs = secret.Decrypt(this.imsg);
       if (this.desca == "" || this.desc == "") {
-        alert("请更改");
+        this.$toast({
+          message: "请更改",
+          duration: "1000"
+        });
       } else {
         peosMS(this.desca, this.desc)
           .then(res => {
             console.log(res);
-            alert("保存成功");
+            this.$toast({
+              message: "保存成功",
+              duration: "1000"
+            });
             this.$router.go(-2);
           })
           .catch(err => {
