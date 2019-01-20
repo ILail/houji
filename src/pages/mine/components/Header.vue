@@ -55,7 +55,8 @@ export default {
   },
   created() {
     var userID = localStorage.getItem("userID");
-    if (userID != "0") {
+    console.log(userID)
+    if (userID == "1") {
       this.showimg = false;
     }
 
