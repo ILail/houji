@@ -128,7 +128,6 @@
 import { Confirtwo } from "@/components/axios/api";
 import { getDIZ } from "@/components/axios/api";
 import { coupon } from "@/components/axios/api";
-import { Member } from "@/components/axios/api";
 import secret from "@/utils/utils";
 import bus from "@/bus/bus.js";
 
@@ -190,7 +189,7 @@ export default {
   },
   created: function() {
     // 接受详情页那边传来的商品id逗号分开
-
+    // console.log()
     getDIZ()
       .then(res => {
         this.letter = res.data.data;
@@ -218,20 +217,12 @@ export default {
     Confirtwo(this.routerParams, this.routerParamb, this.routerParamo, 111)
       .then(res => {
         this.json = res.data.data.wish_list.list;
-
         this.moneyAll = res.data.data.wish_list.total_money;
-        Member()
-          .then(res => {
-            // console.log(res.data.status);
-            if (res.data.status == 0) {
-              // console.log(this.moneyAll*0.05);
-              this.newmoney = this.moneyAll * 0.05;
-              this.totalMoney = this.moneyAll - this.newmoney;
-            }
-          })
-          .catch(err => {
-            console.log(err, "请求失败");
-          });
+        var userID = localStorage.getItem("userID");
+        if (userID == "0") {
+          this.newmoney = parseFloat(this.moneyAll * 0.05);
+          this.totalMoney = this.moneyAll - this.newmoney;
+        }
       })
       .catch(err => {
         console.log(err, "请求失败");
@@ -289,6 +280,13 @@ export default {
       this.$router.push("/linjuan");
     },
     HIt() {
+      if (this.addressID == undefined) {
+        this.$toast({
+          message: "请输入地址",
+          duration: "1000"
+        });
+        return false;
+      }
       var naid = localStorage.getItem("key");
       // console.log();
       const arry = [
@@ -314,7 +312,7 @@ export default {
           dataObjf: arry[5],
           dataObjg: arry[6],
           dataObjh: arry[7],
-          dataObji: arry[8],
+          dataObji: arry[8]
         }
       });
       // bus.$emit(

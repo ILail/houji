@@ -6,7 +6,10 @@
       <!-- 微信头像 -->
       <img src="@/assets/abs.png" alt class="weix" v-if="show">
       <div class="middle">
-        <div style="font-size:18px">{{letter.username}}</div>
+        <div class="Mress">
+          <div style="font-size:18px">{{letter.username}}</div>
+          <img src="@/assets/linjuan/8.png" alt class="headimg" v-if="showimg">
+        </div>
         <div style="font-size:12px;margin-top:12px">{{letter.self_introduction}}</div>
       </div>
       <!-- <div class="card">
@@ -27,7 +30,7 @@
 
 <script type="text/ecmascript-6">
 import * as types from "@/components/vuex/types";
-import store from '@/components/vuex/store'
+import store from "@/components/vuex/store";
 import secret from "@/utils/utils";
 import { people } from "@/components/axios/api";
 export default {
@@ -46,10 +49,16 @@ export default {
         backgroundRepeat: "no-repeat",
         backgroundSize: "100% 100%"
       },
-      letter: ""
+      letter: "",
+      showimg: true
     };
   },
   created() {
+    var userID = localStorage.getItem("userID");
+    if (userID != "0") {
+      this.showimg = false;
+    }
+
     people()
       .then(res => {
         const num = secret.Decrypt(res.data.data);
@@ -62,9 +71,8 @@ export default {
         }
       })
       .catch(err => {
-          
-      store.commit(types.LOGOUT);
-      this.$router.push("/");
+        store.commit(types.LOGOUT);
+        // this.$router.push("/");
         console.log(err, "请求失败");
       });
   },
@@ -77,6 +85,16 @@ export default {
 </script>
 
 <style lang="stylus" type="text/stylus" rel="stylesheet/stylus" scoped>
+.headimg {
+  width: 16px;
+  margin-left: 4px;
+}
+
+.Mress {
+  display: flex;
+  align-items: flex-start;
+}
+
 .heard {
   height: 160px;
   display: flex;

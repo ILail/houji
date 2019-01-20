@@ -17,7 +17,7 @@
       <div class="fnagshi">提现金额</div>
       <div class="midddds">
         <span class="sthf" style="  padding-left:2%">¥</span>
-        <input type="tel" class="sthf">
+        <input type="tel" class="sthf" v-model="money">
       </div>
     </div>
 
@@ -29,7 +29,7 @@
 import { moreBank } from "@/components/axios/api";
 export default {
   data() {
-    return { img: require("@/assets/rr.png"), masg: "" };
+    return { img: require("@/assets/rr.png"), masg: "", money: "" };
   },
   created() {
     const arr = this.$route.query.dataObjo;
@@ -43,10 +43,36 @@ export default {
   },
   methods: {
     enter() {
-      this.$toast({
-        message: "请app上提现",
-        duration: "1000"
-      });
+      // console.log(this.masg);
+      if (this.masg == "绑定银行卡" || this.money == "") {
+        this.$toast({
+          message: "请正确输入",
+          duration: "2000"
+        });
+        return false;
+      }
+      moreBank(this.masg, this.money)
+        .then(res => {
+          console.log(res.data.status);
+          if ((res.data.status = "-1008")) {
+            this.$toast({
+              message: "提现失败",
+              duration: "1500"
+            });
+          } else {
+            this.$toast({
+              message: "提现成功",
+              duration: "1500"
+            });
+          }
+          // this.$toast({
+          //   message: "提现",
+          //   duration: "2000"
+          // });
+        })
+        .catch(err => {
+          console.log(err, "请求失败");
+        });
     }
   }
 };

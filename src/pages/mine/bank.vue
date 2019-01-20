@@ -109,21 +109,38 @@ export default {
       this.show = true;
     },
     enter() {
+      // console.log(this.id, this.three, this.four, this.two);
+      if (
+        this.id == null ||
+        this.three == "" ||
+        this.four == "" ||
+        this.two == ""
+      ) {
+        this.$toast({
+          message: "请按要求输入",
+          duration: "2000"
+        });
+        return;
+      }
       putBank(this.id, this.three, this.four, this.two)
         .then(res => {
-          // alert("绑定成功");
+          if (res.data.status == "1") {
+            this.$toast({
+              message: "绑定成功",
+              duration: "2000"
+            });
+            this.$router.push({
+              path: "/tixian",
+              query: {
+                dataObjo: this.one,
+                dataObjb: this.three
+              }
+            });
+          }
         })
         .catch(err => {
-          alert("绑定失败重新填写");
           console.log(err, "请求失败");
         });
-      this.$router.push({
-        path: "/tixian",
-        query: {
-          dataObjo: this.one,
-          dataObjb: this.three
-        }
-      });
     }
   }
 };

@@ -173,7 +173,7 @@ export default {
       })
       .catch(err => {
         store.commit(types.LOGOUT);
-        this.$router.push("/");
+        // this.$router.push("/");
         console.log(err, "请求失败");
       });
   },

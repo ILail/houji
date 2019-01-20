@@ -240,7 +240,7 @@ export default {
     Allorder(110, this.num)
       .then(res => {
         this.json = res.data.data.data;
-        console.log(res);
+        // console.log(res);
         if (res.data.data.data.length == 0) {
           this.ispic = true;
         }
@@ -286,7 +286,7 @@ export default {
       .then(res => {
         this.jsonssss = res.data.data.data;
         if (res.data.data.data.length == 0) {
-          this.ispicsss = true;
+          this.ispicssss = true;
         }
       })
       .catch(err => {

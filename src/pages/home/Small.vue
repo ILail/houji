@@ -43,13 +43,20 @@
         </Item>
       </div>
     </div>
-    <!-- <div class="allIMG" v-if="shows">
+
+    <van-popup v-model="shows">
       <img src="@/assets/linjuan/6.png" alt class="imgNew" @click="hitNew">
+    </van-popup>
+    <van-popup v-model="showsa">
+      <img src="@/assets/linjuan/7.png" alt class="imgNew">
+    </van-popup>
+    <!-- <div class="allIMG" v-if="shows">
+    
     </div>
 
-    <div class="allIMG"  v-if="showsa">
+    <div class="allIMG" v-if="showsa">
       <img src="@/assets/linjuan/7.png" alt class="imgNew" @click="hitNe">
-    </div> -->
+    </div>-->
   </div>
 </template>
 
@@ -72,8 +79,7 @@ import HomeHeader from "@/pages/home/components/Header.vue";
 import { lookOption } from "@/components/axios/api";
 import { huoqu } from "@/components/axios/api";
 import { Code } from "@/components/axios/api";
-import { Member } from "@/components/axios/api";
-
+// import { Member } from "@/components/axios/api";
 
 export default {
   name: "Small",
@@ -91,7 +97,7 @@ export default {
   data() {
     return {
       showsa: false,
-      shows: true,
+      shows: false,
       shiw: true,
       sowingMap: [],
       meta: {
@@ -158,17 +164,11 @@ export default {
     };
   },
   created: function() {
-    peosLin()
-      .then(res => {
-        if (res.data.data == 1) {
-          console.log(123);
-          this.shows = false;
-        }
-      })
-      .catch(err => {
-        console.log(err, "请求失败");
-      });
-
+    var userID = localStorage.getItem("userID");
+    // console.log(userID);
+    if (userID == "1") {
+      this.shows = true;
+    }
     // 获取当前页面的链接给后台
     huoqu(window.location.href)
       .then(res => {
@@ -181,7 +181,7 @@ export default {
           setTimeout(function() {
             localStorage.setItem("shuyuhan", "18");
             window.location.href = URL;
-            console.log(URL);
+            // console.log(URL);
           }, 800);
         }
       })
@@ -204,18 +204,18 @@ export default {
     // 拿到跳转后的链接
     const url = window.location.href;
     if (url.split("?").length == 1) {
-      this.$router.push("/");
+      // this.$router.push("/");
     } else {
       const localarr = url.split("?")[1].split("&");
       let code = localarr[0].split("=")[1];
-      console.log(code);
+      // console.log(code);
       Code(code)
         .then(res => {
-          console.log(url);
-          console.log(res.data.data);
+          // console.log(url);
+          // console.log(res.data.data);
           var imgs = res.data.data; //声明个变量存储下数据
           localStorage.setItem("key", imgs); //将变量imgs存储到name字段
-          this.$router.go(-2);
+          // this.$router.go(-2);
         })
         .catch(err => {
           console.log(err, "请求失败");
@@ -268,9 +268,9 @@ export default {
       window.removeEventListener("scroll", this.watchScroll);
     },
     hitNew() {
-      Member()
+      peosLin()
         .then(res => {
-          console.log(res.data.status);
+          localStorage.setItem("userID", "0");
           this.shows = false;
           this.showsa = true;
         })
@@ -283,18 +283,12 @@ export default {
 </script>
 
 <style lang="stylus" type="text/stylus" rel="stylesheet/stylus" scoped>
-.allIMG {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  overflow-y: auto;
-  background: rgba(0, 0, 0, 0.8);
+.wrap >>>.van-popup {
+  width: 65%;
 }
 
 .imgNew {
-  width: 60%;
+  width: 100%;
 }
 
 .wrap >>> .ly-tabbar {

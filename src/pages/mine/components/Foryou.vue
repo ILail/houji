@@ -81,21 +81,17 @@ export default {
       if (scrollTop >= allHeight - windowHeight) {
         this.flag = true;
 
-        this.num++;
-        console.log(this.num);
-        if (this.lastpage < this.num) {
+        // console.log(this.lastpage);
+        // console.log(this.num);
+        if (this.lastpage >= this.num) {
           //totalPage是后端返回来的总页数
           setTimeout(() => {
             this.flag = false;
           }, 800);
-          // this.noinfo = false;
-          return;
-        } else {
-          // this.temp = true;
-
           this.refresh();
-
-          return false;
+        } else {
+          this.flag = false;
+          return;
         }
       }
       // console.log(document.documentElement.scrollTop);
@@ -105,13 +101,19 @@ export default {
       foryou(this.num)
         .then(res => {
           res = res.data;
+          // console.log(res.data.total);
           if (res.status && res.data) {
             const data = res.data;
 
             this.list = this.list.concat(data.data);
-            // console.log(data.last_page);
-            // console.log(this.list);
+            if (this.list.length >= res.data.total) {
+              this.$toast({
+                message: "已经加载完全部数据",
+                duration: "1000"
+              });
+            }
             this.lastpage = data.last_page;
+            this.num++;
           }
         })
         .catch(err => {

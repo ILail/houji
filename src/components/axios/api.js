@@ -127,7 +127,7 @@ export function yzm(mobile, code_type) {
 export function wx(phone, code) {
   //let data = [];
   return fetch({
-    url: api.Hallowmas + '/v2/login',
+    url: api.Hallowmas + '/v2p1/login',
     method: "POST",
     data: {
       phone,
@@ -585,11 +585,11 @@ export function Allorder(order_type, page) {
   })
 }
 
-// 领取会员开关
+// 2.1用户领取会员首页
 export function peosLin() {
 
   return fetch({
-    url: api.Hallowmas + '/v2/receivingMemberSwitch',
+    url: api.Hallowmas + '/v2p1/member/memberReceiveMembership?user_rank_id=' + 4 + '',
     method: "GET",
   })
 }
