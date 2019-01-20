@@ -77,6 +77,7 @@ export default {
     zfuM()
       .then(res => {
         this.code = res.data.data.code;
+        console.log(this.code);
       })
       .catch(err => {
         console.log(err, "请求失败");
@@ -189,6 +190,15 @@ export default {
     },
     beforeClose(action, done) {
       if (action === "confirm") {
+        // console.log(this.password);
+        if (this.password == "") {
+          this.$toast({
+            message: "请输入支付密码",
+            duration: "1000"
+          });
+          setTimeout(done, 500);
+          return false;
+        }
         detailM(
           this.pay_style,
           this.pay_type,
@@ -203,12 +213,17 @@ export default {
           this.password
         )
           .then(res => {
-            // console.log(res);
+            console.log(res.data);
+            // if(res.data.status == "-2012"){
+            //   console.log(123)
+            // }
             if (res.data.message == "支付密码错误") {
               this.$toast({
                 message: "支付密码错误",
                 duration: "1000"
               });
+
+          
             }
             if (res.data.message == "钱包余额不足") {
               this.$toast({
@@ -218,6 +233,7 @@ export default {
               setTimeout(() => {
                 this.$router.push("/chongzhi");
               }, 2000);
+           
             }
 
             if (res.data.message == "操作成功") {
@@ -239,7 +255,7 @@ export default {
 </script>
 <style lang="stylus" type="text/stylus" rel="stylesheet/stylus" scoped>
 .active >>> .van-dialog__content {
-  padding: 5px 0;
+  padding: 9px 0;
 }
 
 .sdsword {

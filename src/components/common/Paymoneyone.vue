@@ -176,6 +176,14 @@ export default {
     },
     beforeClose(action, done) {
       if (action === "confirm") {
+        if (this.password == "") {
+          this.$toast({
+            message: "请输入支付密码",
+            duration: "1000"
+          });
+          setTimeout(done, 500);
+          return false;
+        }
         detailMshop(
           this.pay_style,
           this.pay_type,
@@ -192,6 +200,7 @@ export default {
                 message: "支付密码错误",
                 duration: "1000"
               });
+             
             }
             if (res.data.message == "钱包余额不足") {
               this.$toast({
@@ -201,6 +210,7 @@ export default {
               setTimeout(() => {
                 this.$router.push("/chongzhi");
               }, 2000);
+           
             }
 
             if (res.data.message == "操作成功") {
@@ -221,6 +231,10 @@ export default {
 };
 </script>
 <style lang="stylus" type="text/stylus" rel="stylesheet/stylus" scoped>
+.active >>> .van-dialog__content {
+  padding: 9px 0;
+}
+
 .sdsword {
   padding-left: 2%;
   display: flex;

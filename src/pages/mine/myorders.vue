@@ -21,6 +21,7 @@
               v-for="(pl,index) in json[index].options"
               :key="index"
               :data-id="index"
+              @click="ImgDetial(item.trade_no)"
             >
               <div class="left">
                 <img :src="pl.pic">
@@ -36,7 +37,7 @@
                 <div class="detailsame">{{pl.return_content}}</div>
               </div>
             </div>
-            <div class="contentW">共计{{item.return_nums}}件商品 合计：¥{{item.support_money}}</div>
+            <div class="contentW">共计{{item.return_nums}}件商品 合计：¥{{item.reality_money}}</div>
           </div>
         </div>
       </van-tab>
@@ -75,7 +76,7 @@
                 <div class="detailsame">{{pl.return_content}}</div>
               </div>
             </div>
-            <div class="contentW">共计{{item.return_nums}}件商品 合计：¥{{item.support_money}}</div>
+            <div class="contentW">共计{{item.return_nums}}件商品 合计：¥{{item.reality_money}}</div>
           </div>
         </div>
       </van-tab>
@@ -115,7 +116,7 @@
                 <div class="detailsame">{{pl.return_content}}</div>
               </div>
             </div>
-            <div class="contentW">共计{{item.return_nums}}件商品 合计：¥{{item.support_money}}</div>
+            <div class="contentW">共计{{item.return_nums}}件商品 合计：¥{{item.reality_money}}</div>
           </div>
         </div>
       </van-tab>
@@ -155,7 +156,7 @@
                 <div class="detailsame">{{pl.return_content}}</div>
               </div>
             </div>
-            <div class="contentW">共计{{item.return_nums}}件商品 合计：¥{{item.support_money}}</div>
+            <div class="contentW">共计{{item.return_nums}}件商品 合计：¥{{item.reality_money}}</div>
             <div class="twoWord">
               <span class="one" @click="wuliu(jsonsss[index].trade_no)">查看物流</span>
               <span class="two" @click="corif(jsonsss[index].trade_no)">确认收货</span>
@@ -199,7 +200,7 @@
                 <div class="detailsame">{{pl.return_content}}</div>
               </div>
             </div>
-            <div class="contentW">共计{{item.return_nums}}件商品 合计：¥{{item.support_money}}</div>
+            <div class="contentW">共计{{item.return_nums}}件商品 合计：¥{{item.reality_money}}</div>
             <div class="contents">
               <div @click="TUIKUANG(jsonssss[index].trade_no)">申请退款</div>
             </div>
@@ -240,7 +241,7 @@ export default {
     Allorder(110, this.num)
       .then(res => {
         this.json = res.data.data.data;
-        // console.log(res);
+        console.log(res);
         if (res.data.data.data.length == 0) {
           this.ispic = true;
         }
@@ -295,6 +296,16 @@ export default {
   },
   mounted() {},
   methods: {
+    ImgDetial(trade_no) {
+      let tradeNO = trade_no;
+      this.$router.push({
+        path: "/orderdetails",
+        query: {
+          dataObjo: tradeNO
+        }
+      });
+      console.log(trade_no);
+    },
     TUIKUANG(index) {
       moreBank(index)
         .then(res => {

@@ -469,7 +469,7 @@ export function weal() {
 export function detailM(pay_style, pay_type, crowd_funding_id, crowd_funding_return_id, address_id, support_money, crowd_funding_return_num, mark, vouchers_id, open_id,payment_password) {
 
   return fetch({
-    url: api.Hallowmas + '/v2p1/crowdFunding/payment',
+    url: api.Hallowmas + '/v2/crowdFunding/payment',
     method: "POST",
     data: {
       pay_style: pay_style,
@@ -657,7 +657,7 @@ export function DEtilWu(trade_no) {
 export function ForWu() {
 
   return fetch({
-    url: api.Hallowmas + '/v2/v2/recommendedForYou',
+    url: api.Hallowmas + '/v2/recommendedForYou',
     method: "GET",
   })
 }

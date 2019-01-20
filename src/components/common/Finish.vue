@@ -12,10 +12,7 @@
 </template>
 
 <script>
-import Vue from "vue";
 import { Member } from "@/components/axios/api";
-import { Toast } from "vant";
-Vue.use(Toast);
 export default {
   name: "Finish",
 

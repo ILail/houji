@@ -28,11 +28,11 @@
     </van-pull-refresh>
     <div class="bottom" v-if="isshowa">
       <ul>
-        <li class="shu">
+        <li class="shu" onclick="url()">
           <span style="margin-bottom:3px">
             <img src="@/assets/kefu.png" alt>
           </span>
-          <span class="shuW" onclick="url()">客服</span>
+          <span class="shuW">客服</span>
         </li>
         <li class="shu bordershu" @click="wishesHit">
           <!-- <router-link to="/wishs"> -->

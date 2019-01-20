@@ -42,6 +42,9 @@ import Sale from '@/components/common/Sale'
 import Zhifu from '@/components/common/Paymoney'
 import Zhifuone from '@/components/common/Paymoneyone'
 import Finish from '@/components/common/Finish'
+
+import Orderdetails from '@/components/common/Orderdetails'
+import Wuliudetails from '@/components/common/Logistics'
 Vue.use(Router)
 // export default new Router({
 const routes = [{
@@ -204,6 +207,14 @@ const routes = [{
   path: '/onsale',
   name: '折扣',
   component: Sale
+}, {
+  path: '/orderdetails',
+  name: '订单详情',
+  component: Orderdetails
+}, {
+  path: '/wuliudetails',
+  name: '物流详情',
+  component: Wuliudetails
 }]
 //缓存页面
 const router = new Router({
