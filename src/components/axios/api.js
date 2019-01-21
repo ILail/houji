@@ -314,7 +314,7 @@ export function getMove(user_address_id) {
 // 充值
 export function getChong(channel, amount, open_id) {
   return fetch({
-    url: api.Hallowmas + '/v2/member/recharge',
+    url: api.Hallowmas + '/v2p1/member/recharge',
     method: "POST",
     data: {
       channel: channel,
@@ -608,7 +608,7 @@ export function zfuM() {
 export function jiaoY() {
 
   return fetch({
-    url: api.Hallowmas + '/v2/member/transactionRecord',
+    url: api.Hallowmas + '/v2p1/member/transactionRecord',
     method: "GET",
   })
 }

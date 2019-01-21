@@ -35,7 +35,7 @@
           <input type="text" placeholder="享受95折优惠" v-model="saleING" readonly>
         </div>
 
-        <div >
+        <div>
           <img :src="wx" style="vertical-align: bottom;">
         </div>
       </div>
@@ -224,8 +224,11 @@ export default {
         var userID = localStorage.getItem("userID");
         console.log(userID);
         if (userID != "1") {
-          this.newmoney = parseFloat(this.moneyAll * 0.05);
+          this.newmoney = (this.moneyAll * 0.05).toFixed(2);
         } else {
+          this.newmoney = 0;
+        }
+        if (this.moneyAll == "0.01") {
           this.newmoney = 0;
         }
         this.totalMoney = this.moneyAll - this.newmoney;
@@ -271,7 +274,7 @@ export default {
         this.shows = false;
         this.newmoney = num;
         this.juan = title;
-        this.saleING = "优惠卷不能和猴集卡同时使用";
+        this.saleING = "优惠卷与猴集卡不能同时使用";
         this.totalMoney = this.moneyAll - num;
         // console.log("idnum=" + this.idNum);
         // console.log("id" + id);

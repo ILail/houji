@@ -23,6 +23,7 @@
                 <img :src="item.headimgurl" class="listImg">
               </span>
               <span class="dp">{{item.nickname}}</span>
+              <div style="margin-left: 56%;color:#d21623;" @click="linjuan">领卷</div>
             </div>
 
             <!-- 图片产品名称价格数量展示 -->
@@ -179,6 +180,9 @@ export default {
   },
 
   methods: {
+    linjuan(){
+this.$router.push('/linjuan')
+    },
     removeHandler(el) {
       const delilID = el.id;
       const numL = el.getAttribute("data-id");

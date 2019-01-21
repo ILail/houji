@@ -211,7 +211,7 @@ const routes = [{
   component: Confirmations
 }, {
   path: '/onsale',
-  name: '折扣',
+  name: '猴集卡页面',
   component: Sale
 }, {
   path: '/orderdetails',

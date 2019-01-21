@@ -25,7 +25,7 @@
 
     <div class="flex">
       <div class="left">优惠金额</div>
-      <div class="right">¥{{list[4]}}</div>
+      <div class="right">-¥{{list[4]}}</div>
     </div>
 
     <div class="flex">

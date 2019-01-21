@@ -17,14 +17,14 @@
         </div>
         <img :src="imgSrc" class="zfbIMG" ref="imgAllo" @click="wx">
       </div>
-
+<!-- 
       <div class="zfb">
         <div>
           <img src="@/assets/zfb.png" class="wxIMG">
           <span class="righta">支付宝支付</span>
         </div>
         <img :src="imgSrc" class="zfbIMG" ref="imgAllt" @click="zfb">
-      </div>
+      </div> -->
     </div>
 
     <div class="action" @click="nowWay">立即充值</div>
@@ -57,11 +57,11 @@ export default {
       this.$refs.imgAllt.src = this.bgImg[this.imgIndex];
       this.channel = "wx_pub";
     },
-    zfb() {
-      this.$refs.imgAllt.src = this.bgImg[this.imgIndexa];
-      this.$refs.imgAllo.src = this.bgImg[this.imgIndex];
-      this.channel = "alipay";
-    },
+    // zfb() {
+    //   this.$refs.imgAllt.src = this.bgImg[this.imgIndexa];
+    //   this.$refs.imgAllo.src = this.bgImg[this.imgIndex];
+    //   this.channel = "alipay";
+    // },
     nowWay() {
       // 获取opdId
       var naid = localStorage.getItem("key");

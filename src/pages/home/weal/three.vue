@@ -1,6 +1,6 @@
 <template>
   <div class="one">
-   <p>暂时无</p>
+   <p></p>
   </div>
 </template>
 

@@ -221,7 +221,7 @@ export default {
         var userID = localStorage.getItem("userID");
         console.log(userID);
         if (userID != "1") {
-          this.newmoney = parseFloat(this.moneyAll * 0.05);
+          this.newmoney = (this.moneyAll * 0.05).toFixed(2);
         } else {
           this.newmoney = 0;
         }
@@ -255,7 +255,7 @@ export default {
         this.shows = false;
         this.newmoney = num;
         this.juan = title;
-        this.saleING = "优惠卷不能和猴集卡同时使用";
+        this.saleING = "优惠卷与猴集卡不能同时使用";
         this.totalMoney = this.moneyAll - num;
         // console.log("idnum=" + this.idNum);
         // console.log("id" + id);
@@ -338,8 +338,12 @@ export default {
 </script>
 
 <style lang="stylus" type="text/stylus" rel="stylesheet/stylus" scoped>
+.sameInput {
+  width:80%
+}
 .sameInput input::-webkit-input-placeholder {
   color: #999;
+  
 }
 
 .sameInput input {

@@ -25,13 +25,13 @@
         <img :src="imgSrc" class="zfbIMG" ref="imgAllo" @click="wx">
       </div>
 
-      <div class="zfb">
+      <!-- <div class="zfb">
         <div>
           <img src="@/assets/zfb.png" class="wxIMG">
           <span class="righta">支付宝支付</span>
         </div>
         <img :src="imgSrc" class="zfbIMG" ref="imgAllt" @click="zfb">
-      </div>
+      </div> -->
     </div>
 
     <div class="action" @click="nowWay">立即支付</div>
@@ -105,12 +105,12 @@ export default {
       this.$refs.imgAlls.src = this.bgImg[this.imgIndex];
       this.pay_type = "wx_pub";
     },
-    zfb() {
-      this.$refs.imgAllt.src = this.bgImg[this.imgIndexa];
-      this.$refs.imgAllo.src = this.bgImg[this.imgIndex];
-      this.$refs.imgAlls.src = this.bgImg[this.imgIndex];
-      this.pay_type = "alipay";
-    },
+    // zfb() {
+    //   this.$refs.imgAllt.src = this.bgImg[this.imgIndexa];
+    //   this.$refs.imgAllo.src = this.bgImg[this.imgIndex];
+    //   this.$refs.imgAlls.src = this.bgImg[this.imgIndex];
+    //   this.pay_type = "alipay";
+    // },
     yue() {
       this.$refs.imgAlls.src = this.bgImg[this.imgIndexa];
       this.$refs.imgAllo.src = this.bgImg[this.imgIndex];

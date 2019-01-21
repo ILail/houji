@@ -33,29 +33,46 @@ export default {
         document.documentElement.scrollTop ||
         document.body.scrollTop;
       var btn = document.getElementById("btn");
+      var userID = localStorage.getItem("userID");
+      console.log(userID);
+      var _this = this;
       if (scrollTop > 1000) {
         var _this = this;
         btn.onclick = function() {
           console.log(1213);
-          Member()
-            .then(res => {
-              console.log(res.data.status);
-              if (res.data.status == 1) {
-                Toast("领取会员成功");
-                setTimeout(function() {
-                  _this.$router.go(-1);
-                }, 3000);
-              }
-              if (res.data.status == 0) {
-                Toast("已经领取会员");
-                setTimeout(function() {
-                  _this.$router.go(-1);
-                }, 3000);
-              }
-            })
-            .catch(err => {
-              console.log(err, "请求失败");
+          if (userID == "1") {
+            _this.$toast({
+              message: "未领取会员",
+              duration: "500"
             });
+          } else {
+            _this.$toast({
+              message: "已经领取会员",
+              duration: "500"
+            });
+          }
+          setTimeout(function() {
+            _this.$router.go(-1);
+          }, 3000);
+          // Member()
+          //   .then(res => {
+          //     console.log(res.data.status);
+          //     if (res.data.status == 1) {
+          //       Toast("领取会员成功");
+          //       setTimeout(function() {
+          //         _this.$router.go(-1);
+          //       }, 3000);
+          //     }
+          //     if (res.data.status == 0) {
+          //       Toast("已经领取会员");
+          //       setTimeout(function() {
+          //         _this.$router.go(-1);
+          //       }, 3000);
+          //     }
+          //   })
+          //   .catch(err => {
+          //     console.log(err, "请求失败");
+          //   });
         };
       }
     }
