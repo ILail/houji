@@ -101,7 +101,7 @@ export default {
   methods: {
     wx() {
       this.$refs.imgAllo.src = this.bgImg[this.imgIndexa];
-      this.$refs.imgAllt.src = this.bgImg[this.imgIndex];
+      // this.$refs.imgAllt.src = this.bgImg[this.imgIndex];
       this.$refs.imgAlls.src = this.bgImg[this.imgIndex];
       this.pay_type = "wx_pub";
     },
@@ -114,7 +114,7 @@ export default {
     yue() {
       this.$refs.imgAlls.src = this.bgImg[this.imgIndexa];
       this.$refs.imgAllo.src = this.bgImg[this.imgIndex];
-      this.$refs.imgAllt.src = this.bgImg[this.imgIndex];
+      // this.$refs.imgAllt.src = this.bgImg[this.imgIndex];
       this.pay_type = "balance";
     },
     nowWay() {
