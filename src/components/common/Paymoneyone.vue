@@ -31,7 +31,7 @@
           <span class="righta">支付宝支付</span>
         </div>
         <img :src="imgSrc" class="zfbIMG" ref="imgAllt" @click="zfb">
-      </div> -->
+      </div>-->
     </div>
 
     <div class="action" @click="nowWay">立即支付</div>
@@ -179,6 +179,7 @@ export default {
               // 只有微信JSAPI (wx_pub)、微信小程序（wx_lite）、QQ 公众号 (qpay_pub)、支付宝小程序（alipay_lite）支付成功的结果会在这里返回，其他的支付结果都会跳转到 extra 中对应的 URL
             } else if (result == "fail") {
               // Ping++ 对象 object 不正确或者微信JSAPI/微信小程序/QQ公众号支付失败时会在此处返回
+              _this.$router.push("/finish");
             } else if (result == "cancel") {
               // 微信JSAPI、微信小程序、QQ 公众号、支付宝小程序支付取消支付
             }
