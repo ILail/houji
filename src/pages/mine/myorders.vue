@@ -237,7 +237,7 @@ export default {
     };
   },
   created() {
-        setTimeout(() => {
+    setTimeout(() => {
       this.$refs.wrappers.style.visibility = "visible";
     }, 1000);
     // 全部
@@ -502,6 +502,7 @@ export default {
 
 .titlew {
   margin-top: 5px;
+  margin-left: 11%;
 }
 
 .title {
@@ -520,6 +521,7 @@ export default {
   -webkit-box-orient: vertical;
   line-height: 1.2;
   margin-top: 2px;
+  width: 72%;
 }
 
 .detailsame {
