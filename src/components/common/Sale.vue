@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div ref="wrappers" style="visibility:hidden;">
     <img src="@/assets/a.jpg" style="width:100%">
     <div id="btn"></div>
   </div>
@@ -17,6 +17,11 @@ export default {
   // },
   data() {
     return {};
+  },
+  created() {
+    setTimeout(() => {
+      this.$refs.wrappers.style.visibility = "visible";
+    }, 500);
   },
   mounted() {
     window.addEventListener("scroll", this.watchScroll);

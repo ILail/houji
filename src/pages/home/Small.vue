@@ -1,4 +1,5 @@
 <template>
+<keep-alive>
   <div class="wrap">
     <!-- 推荐 -->
     <div :class="searchBarFixed == true ? 'isFixed' :''" id="searchBar">
@@ -58,6 +59,7 @@
       <img src="@/assets/linjuan/7.png" alt class="imgNew" @click="hitNe">
     </div>-->
   </div>
+  </keep-alive>
 </template>
 
 <script type="text/ecmascript-6">
@@ -229,7 +231,7 @@ export default {
       // 监控滑动后当前页面的索引，将索引发射到导航组件
       // 左右滑动时将当前slide的索引发送到nav组件
       // this.$root.eventHub.$emit("slideTab", mySwiperA.activeIndex);
-      if (mySwiperA.activeIndex >= 3) {
+      if (mySwiperA.activeIndex >= 2) {
         this.shiw = false;
       } else {
         this.shiw = true;

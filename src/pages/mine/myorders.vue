@@ -1,5 +1,5 @@
 <template>
-  <div class="active">
+  <div class="active" ref="wrappers" style="visibility:hidden;">
     <van-tabs v-model="active" swipeable sticky animated>
       <van-tab title="全部">
         <div class="hitImg" v-show="ispic">
@@ -102,7 +102,6 @@
               v-for="(pl,index) in jsonss[index].options"
               :key="index"
               :data-id="index"
-              @click="ImgDetial(item.trade_no)"
             >
               <div class="left">
                 <img :src="pl.pic">
@@ -187,7 +186,6 @@
               v-for="(pl,index) in jsonssss[index].options"
               :key="index"
               :data-id="index"
-              @click="ImgDetial(item.trade_no)"
             >
               <div class="left">
                 <img :src="pl.pic">
@@ -239,6 +237,9 @@ export default {
     };
   },
   created() {
+        setTimeout(() => {
+      this.$refs.wrappers.style.visibility = "visible";
+    }, 1000);
     // 全部
     this.active = this.$route.query.key;
     Allorder(110, this.num)

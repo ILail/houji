@@ -20,11 +20,11 @@
       <div class="content">
         我已仔细阅读并同意
         <a
-          href="http://csapi.nonggui8.com/api/v1/article/details?article_type=user_protocol"
+          href="http://csapi.nguiba.com/api/v2p2/article/details?article_type=user_protocol"
           target="_blank"
         >《用户服务协议》</a>
         <a
-          href="http://csapi.nonggui8.com/api/v1/article/details?article_type=privacy"
+          href="http://csapi.nguiba.com/api/v2p2/article/details?article_type=privacy"
           target="_blank"
         >《隐私政策》</a>
       </div>
@@ -52,7 +52,10 @@ export default {
     // 点击获取验证 post后台
     time() {
       if (!/^1(3|4|5|7|8)\d{9}$/.test(this.tell)) {
-        alert("手机号码有误，请重填");
+        this.$toast({
+          message: "手机号码有误，请重填",
+          duration: "1000"
+        });
         return false;
       } else {
         this.timed = 60;
@@ -86,9 +89,8 @@ export default {
       }
       wx(this.tell, this.duanx)
         .then(res => {
-      
-          let imgs =res.data.data.user_rank_id
-          localStorage.setItem("userID", imgs)
+          let imgs = res.data.data.user_rank_id;
+          localStorage.setItem("userID", imgs);
           if (res.data.data.length == 0) {
             this.$toast({
               message: "请正确输入验证码",
@@ -99,7 +101,7 @@ export default {
             // this.changeLogin({ Authorization: tokenmine});
 
             this.$store.commit(types.LOGIN, tokenmine);
-            this.$router.push('/');
+            this.$router.push("/");
           }
         })
         .catch(err => {

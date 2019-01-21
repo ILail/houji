@@ -1,5 +1,6 @@
 <template>
   <div>
+    <img :src="img" alt class="Himg" @click="showLists">
     <div class="list">
       <div
         v-for="(item,index) in wordArry"
@@ -98,7 +99,8 @@ export default {
       show: false,
       wordArry: ["上半场", "下半场", "限量半价"],
       list: [{ component: one }, { component: two }, { component: three }],
-      num: 0
+      num: 0,
+      img: ""
     };
   },
   created() {
@@ -107,7 +109,7 @@ export default {
         res = res.data;
         if (res.status && res.data) {
           const data = res.data;
-          // console.log(data);
+          this.img = data.sowingmap[1].pic;
         }
       })
       .catch(err => {
@@ -137,12 +139,20 @@ export default {
     wordActive(index) {
       this.num = index;
       this.$root.eventHuC.$emit("changeTab", index);
+    },
+    showLists() {
+      this.$router.push("/onsale");
     }
   }
 };
 </script>
 
 <style lang="stylus" type="text/stylus" rel="stylesheet/stylus" scoped>
+.Himg {
+  width: 100%;
+  margin-bottom: 5px;
+}
+
 .list {
   display: flex;
   justify-content: center;

@@ -29,13 +29,13 @@
           <img :src="wx" style="vertical-align: bottom;">
         </div>
       </div>
-      <div class="same houji">
+      <div class="same houji" @click="showLists">
         <div class="sameInput">
           <span>猴集卡：</span>
           <input type="text" placeholder="享受95折优惠" v-model="saleING" readonly>
         </div>
 
-        <div @click="showLists">
+        <div >
           <img :src="wx" style="vertical-align: bottom;">
         </div>
       </div>
@@ -222,11 +222,13 @@ export default {
 
         this.moneyAll = res.data.data.wish_list.total_money;
         var userID = localStorage.getItem("userID");
-        console.log(userID)
+        console.log(userID);
         if (userID != "1") {
           this.newmoney = parseFloat(this.moneyAll * 0.05);
-          this.totalMoney = this.moneyAll - this.newmoney;
+        } else {
+          this.newmoney = 0;
         }
+        this.totalMoney = this.moneyAll - this.newmoney;
       })
       .catch(err => {
         console.log(err, "请求失败");

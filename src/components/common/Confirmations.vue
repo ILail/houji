@@ -219,12 +219,13 @@ export default {
         this.json = res.data.data.wish_list.list;
         this.moneyAll = res.data.data.wish_list.total_money;
         var userID = localStorage.getItem("userID");
-         console.log(userID)
+        console.log(userID);
         if (userID != "1") {
-         
           this.newmoney = parseFloat(this.moneyAll * 0.05);
-          this.totalMoney = this.moneyAll - this.newmoney;
+        } else {
+          this.newmoney = 0;
         }
+        this.totalMoney = this.moneyAll - this.newmoney;
       })
       .catch(err => {
         console.log(err, "请求失败");

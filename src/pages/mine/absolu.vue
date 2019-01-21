@@ -6,19 +6,19 @@
     </div>
     <div class="smal">
       <ul>
-        <li class="line" @click="geren('http://csapi.nonggui8.com/api/v1/article/details?article_type=about')">
+        <li class="line" @click="geren('http://csapi.nguiba.com/api/v2p2/article/details?article_type=about')">
           <span class="word">关于我们</span>
           <span class="imgsa">
             <img :src="img">
           </span>
         </li>
-        <li class="line" @click="desgreo('http://csapi.nonggui8.com/api/v1/article/details?article_type=user_protocol')">
+        <li class="line" @click="desgreo('http://csapi.nguiba.com/api/v2p2/article/details?article_type=user_protocol')">
           <span class="word">用户协议</span>
           <span class="imgsa">
             <img :src="img">
           </span>
         </li>
-        <li class="line" @click="absolua('http://csapi.nonggui8.com/api/v1/article/details?article_type=privacy')">
+        <li class="line" @click="absolua('http://csapi.nguiba.com/api/v2p2/article/details?article_type=privacy')">
           <span class="word">隐私政策</span>
           <span class="imgsa">
             <img :src="img">

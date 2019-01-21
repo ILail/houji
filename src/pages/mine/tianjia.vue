@@ -115,6 +115,13 @@ export default {
 
       this.wordA = strs;
       console.log(this.idone, this.idtwo, this.idthress, this.wordA);
+      if (!/^1(3|4|5|7|8)\d{9}$/.test(this.phone)) {
+        this.$toast({
+          message: "手机号码有误，请重填",
+          duration: "1000"
+        });
+        return false;
+      }
       if (
         this.names == "" ||
         this.idone == "" ||

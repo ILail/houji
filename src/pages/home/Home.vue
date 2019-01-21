@@ -69,7 +69,7 @@ export default {
   mounted() {
     setTimeout(() => {
       this.$refs.wrapps.style.display = "block";
-    }, 800);
+    }, 1500);
   },
   methods: {
     imgJ() {

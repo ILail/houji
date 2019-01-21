@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div  ref="wrapps" style="display:none;">
     <mine-header></mine-header>
     <mine-order></mine-order>
     <div style="background:#eee;height:10px"></div>
@@ -77,7 +77,10 @@ export default {
       list: []
     };
   },
-  created() {
+  mounted() {
+    setTimeout(() => {
+      this.$refs.wrapps.style.display = "block";
+    }, 700);
     // foryou()
     //   .then(res => {
     //     res = res.data;
@@ -91,6 +94,7 @@ export default {
     //   });
   },
   methods: {
+    
     getVal: function(res) {
       this.selected = res;
     }

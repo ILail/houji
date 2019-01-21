@@ -4,7 +4,7 @@
       <div class="cont">
         <span class="word">交易密码</span>
         <input
-          type="tel"
+          type="password"
           placeholder="输入支付密码"
           maxlength="6"
           oninput="this.value=this.value.replace(/[^0-9]/g,'');"
@@ -16,7 +16,7 @@
         <span class="word">再次输入</span>
         <input
           maxlength="6"
-          type="tel"
+          type="password"
           placeholder="再次输入密码"
           oninput="this.value=this.value.replace(/[^0-9]/g,'');"
           v-model="duanx"
