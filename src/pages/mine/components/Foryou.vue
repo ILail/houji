@@ -80,17 +80,19 @@ export default {
       // var this = this;
       if (scrollTop >= allHeight - windowHeight) {
         this.flag = true;
-
-        // console.log(this.lastpage);
-        // console.log(this.num);
         if (this.lastpage >= this.num) {
           //totalPage是后端返回来的总页数
           setTimeout(() => {
             this.flag = false;
           }, 800);
+
           this.refresh();
         } else {
           this.flag = false;
+          // this.$toast({
+          //   message: "已经加载完全部数据",
+          //   duration: "1000"
+          // });
           return;
         }
       }
@@ -101,19 +103,14 @@ export default {
       foryou(this.num)
         .then(res => {
           res = res.data;
-          // console.log(res.data.total);
+
           if (res.status && res.data) {
             const data = res.data;
-
             this.list = this.list.concat(data.data);
-            if (this.list.length >= res.data.total) {
-              this.$toast({
-                message: "已经加载完全部数据",
-                duration: "1000"
-              });
-            }
             this.lastpage = data.last_page;
-            this.num++;
+            setTimeout(() => {
+              this.num++;
+            }, 1500);
           }
         })
         .catch(err => {

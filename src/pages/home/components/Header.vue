@@ -31,7 +31,7 @@ export default {
   },
   methods: {
     shaoshao() {
-      this.$router.push("/shao");
+      // this.$router.push("/shao");
     },
     xiaoxiao() {
       this.$router.push("/xiao");

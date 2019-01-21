@@ -88,8 +88,14 @@ export default {
           setTimeout(() => {
             this.flag = false;
           }, 800);
-          this.refresh();
+          setTimeout(() => {
+            this.refresh();
+          }, 800);
         } else {
+          // this.$toast({
+          //   message: "已经加载完全部数据",
+          //   duration: "1000"
+          // });
           this.flag = false;
           return;
         }
@@ -106,12 +112,12 @@ export default {
             const data = res.data;
 
             this.list = this.list.concat(data.data);
-            if (this.list.length >= res.data.total) {
-              this.$toast({
-                message: "已经加载完全部数据",
-                duration: "1000"
-              });
-            }
+            // if (this.list.length >= res.data.total) {
+            //   this.$toast({
+            //     message: "已经加载完全部数据",
+            //     duration: "1000"
+            //   });
+            // }
             this.lastpage = data.last_page;
             this.num++;
           }

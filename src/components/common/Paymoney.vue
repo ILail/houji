@@ -36,9 +36,18 @@
 
     <div class="action" @click="nowWay">立即支付</div>
 
-    <van-dialog v-model="show" show-cancel-button :before-close="beforeClose">
-      <van-field v-model="password" type="password" placeholder="请输入密码"/>
-    </van-dialog>
+    <van-popup v-model="show">
+      <!-- 密码输入框 -->
+      <van-password-input :value="value" info="密码为 6 位数字" @focus="showKeyboard = true"/>
+
+      <!-- 数字键盘 -->
+      <van-number-keyboard
+        :show="showKeyboard"
+        @input="onInput"
+        @delete="onDelete"
+        @blur="showKeyboard = false"
+      />
+    </van-popup>
   </div>
 </template>
 
@@ -49,12 +58,16 @@ import { detailM } from "@/components/axios/api";
 import { zfuM } from "@/components/axios/api";
 import { Dialog } from "vant";
 import { Field } from "vant";
+import { PasswordInput, NumberKeyboard } from "vant";
 
+Vue.use(PasswordInput).use(NumberKeyboard);
 Vue.use(Field);
 Vue.use(Dialog);
 export default {
   data() {
     return {
+      value: "",
+      showKeyboard: true,
       show: false,
       password: "",
       bgImg: [require("@/assets/xuan.png"), require("@/assets/xu.png")],
@@ -188,17 +201,10 @@ export default {
           console.log(err, "请求失败");
         });
     },
-    beforeClose(action, done) {
-      if (action === "confirm") {
-        // console.log(this.password);
-        if (this.password == "") {
-          this.$toast({
-            message: "请输入支付密码",
-            duration: "1000"
-          });
-          setTimeout(done, 500);
-          return false;
-        }
+    onInput(key) {
+      this.value = (this.value + key).slice(0, 6);
+      // console.log(this.value.length);
+      if (this.value.length == "6") {
         detailM(
           this.pay_style,
           this.pay_type,
@@ -210,20 +216,15 @@ export default {
           this.mark,
           this.vouchers_id,
           "",
-          this.password
+          this.value
         )
           .then(res => {
             console.log(res.data);
-            // if(res.data.status == "-2012"){
-            //   console.log(123)
-            // }
             if (res.data.message == "支付密码错误") {
               this.$toast({
                 message: "支付密码错误",
                 duration: "1000"
               });
-
-          
             }
             if (res.data.message == "钱包余额不足") {
               this.$toast({
@@ -233,29 +234,102 @@ export default {
               setTimeout(() => {
                 this.$router.push("/chongzhi");
               }, 2000);
-           
             }
 
             if (res.data.message == "操作成功") {
+              this.$toast({
+                message: "支付成功",
+                duration: "1500"
+              });
               setTimeout(() => {
                 this.$router.push("/finish");
-              }, 1500);
+              }, 2000);
             }
-            setTimeout(done, 500);
           })
           .catch(err => {
             console.log(err, "请求失败");
           });
-      } else {
-        done();
       }
-    }
+    },
+    onDelete() {
+      this.value = this.value.slice(0, this.value.length - 1);
+    },
+    // beforeClose(action, done) {
+    //   console.log(action);
+    //   console.log(done);
+    //   if (action === "confirm") {
+    //     // console.log(this.password);
+    //     if (this.password == "") {
+    //       this.$toast({
+    //         message: "请输入支付密码",
+    //         duration: "1000"
+    //       });
+    //       setTimeout(done, 500);
+    //       return false;
+    //     }
+    //     detailM(
+    //       this.pay_style,
+    //       this.pay_type,
+    //       this.crowd_funding_id,
+    //       this.crowd_funding_return_id,
+    //       this.address_id,
+    //       this.moneys,
+    //       this.crowd_funding_return_num,
+    //       this.mark,
+    //       this.vouchers_id,
+    //       "",
+    //       this.password
+    //     )
+    //       .then(res => {
+    //         console.log(res.data);
+    //         // if(res.data.status == "-2012"){
+    //         //   console.log(123)
+    //         // }
+    //         if (res.data.message == "支付密码错误") {
+    //           this.$toast({
+    //             message: "支付密码错误",
+    //             duration: "1000"
+    //           });
+    //         }
+    //         if (res.data.message == "钱包余额不足") {
+    //           this.$toast({
+    //             message: "请充值",
+    //             duration: "1500"
+    //           });
+    //           setTimeout(() => {
+    //             this.$router.push("/chongzhi");
+    //           }, 2000);
+    //         }
+
+    //         if (res.data.message == "操作成功") {
+    //           setTimeout(() => {
+    //             this.$router.push("/finish");
+    //           }, 1500);
+    //         }
+    //         this.show = true;
+    //       })
+    //       .catch(err => {
+    //         console.log(err, "请求失败");
+    //       });
+    //   } else {
+    //     done();
+    //   }
+    // }
   }
 };
 </script>
 <style lang="stylus" type="text/stylus" rel="stylesheet/stylus" scoped>
 .active >>> .van-dialog__content {
   padding: 9px 0;
+}
+
+.active >>> .van-password-input {
+  margin: 20px 15px;
+}
+
+.active >>> .van-popup {
+  width: 65%;
+  height: 327px;
 }
 
 .sdsword {

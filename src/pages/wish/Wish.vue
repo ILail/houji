@@ -131,12 +131,12 @@ export default {
           normalImg: require("@/assets/foot/fix.png"),
           activeImg: require("@/assets/foot/fixs.png")
         },
-        {
-          txt: "花果山",
-          page: "peos",
-          normalImg: require("@/assets/foot/peos.png"),
-          activeImg: require("@/assets/foot/peoss.png")
-        },
+        // {
+        //   txt: "花果山",
+        //   page: "peos",
+        //   normalImg: require("@/assets/foot/peos.png"),
+        //   activeImg: require("@/assets/foot/peoss.png")
+        // },
         {
           txt: "心愿单",
           page: "wishs",

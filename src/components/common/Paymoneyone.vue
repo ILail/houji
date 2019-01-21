@@ -35,9 +35,21 @@
     </div>
 
     <div class="action" @click="nowWay">立即支付</div>
-    <van-dialog v-model="show" show-cancel-button :before-close="beforeClose">
-      <van-field v-model="password" type="password" label="密码" placeholder="请输入密码"/>
-    </van-dialog>
+    <!-- <van-dialog v-model="show" show-cancel-button :before-close="beforeClose" >
+      <van-field v-model="password" type="password" placeholder="请输入密码" maxlength="6" input-align="center" />
+    </van-dialog>-->
+    <van-popup v-model="show">
+      <!-- 密码输入框 -->
+      <van-password-input :value="value" info="密码为 6 位数字" @focus="showKeyboard = true"/>
+
+      <!-- 数字键盘 -->
+      <van-number-keyboard
+        :show="showKeyboard"
+        @input="onInput"
+        @delete="onDelete"
+        @blur="showKeyboard = false"
+      />
+    </van-popup>
   </div>
 </template>
 
@@ -54,6 +66,8 @@ Vue.use(Dialog);
 export default {
   data() {
     return {
+      value: "",
+      showKeyboard: true,
       show: false,
       password: "",
       bgImg: [require("@/assets/xuan.png"), require("@/assets/xu.png")],
@@ -174,16 +188,9 @@ export default {
           console.log(err, "请求失败");
         });
     },
-    beforeClose(action, done) {
-      if (action === "confirm") {
-        if (this.password == "") {
-          this.$toast({
-            message: "请输入支付密码",
-            duration: "1000"
-          });
-          setTimeout(done, 500);
-          return false;
-        }
+    onInput(key) {
+      this.value = (this.value + key).slice(0, 6);
+      if (this.value.length == "6") {
         detailMshop(
           this.pay_style,
           this.pay_type,
@@ -192,7 +199,7 @@ export default {
           this.mark,
           this.vouchers_id,
           this.open_id,
-          this.password
+          this.value
         )
           .then(res => {
             if (res.data.message == "支付密码错误") {
@@ -200,7 +207,6 @@ export default {
                 message: "支付密码错误",
                 duration: "1000"
               });
-             
             }
             if (res.data.message == "钱包余额不足") {
               this.$toast({
@@ -210,22 +216,25 @@ export default {
               setTimeout(() => {
                 this.$router.push("/chongzhi");
               }, 2000);
-           
             }
 
             if (res.data.message == "操作成功") {
+              this.$toast({
+                message: "支付成功",
+                duration: "1500"
+              });
               setTimeout(() => {
                 this.$router.push("/finish");
-              }, 1500);
+              }, 2000);
             }
-            setTimeout(done, 500);
           })
           .catch(err => {
             console.log(err, "请求失败");
           });
-      } else {
-        done();
       }
+    },
+    onDelete() {
+      this.value = this.value.slice(0, this.value.length - 1);
     }
   }
 };
@@ -233,6 +242,15 @@ export default {
 <style lang="stylus" type="text/stylus" rel="stylesheet/stylus" scoped>
 .active >>> .van-dialog__content {
   padding: 9px 0;
+}
+
+.active >>> .van-password-input {
+  margin: 20px 15px;
+}
+
+.active >>> .van-popup {
+  width: 65%;
+  height: 327px;
 }
 
 .sdsword {

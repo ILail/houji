@@ -61,6 +61,7 @@
               v-for="(pl,index) in jsons[index].options"
               :key="index"
               :data-id="index"
+              @click="ImgDetial(item.trade_no)"
             >
               <div class="left">
                 <img :src="pl.pic">
@@ -101,6 +102,7 @@
               v-for="(pl,index) in jsonss[index].options"
               :key="index"
               :data-id="index"
+              @click="ImgDetial(item.trade_no)"
             >
               <div class="left">
                 <img :src="pl.pic">
@@ -185,6 +187,7 @@
               v-for="(pl,index) in jsonssss[index].options"
               :key="index"
               :data-id="index"
+              @click="ImgDetial(item.trade_no)"
             >
               <div class="left">
                 <img :src="pl.pic">
@@ -424,7 +427,7 @@ export default {
   height: 100%;
   top: 0;
   left: 0;
-  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
   background-color: #f4f4f4;
 }
 

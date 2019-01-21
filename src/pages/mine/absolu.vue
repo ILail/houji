@@ -2,7 +2,7 @@
   <div class="active">
     <div>
       <img src="@/assets/abs.png" alt class="imgaaa">
-      <div class="banben">版本 v2.0</div>
+      <div class="banben">版本 v2.0.7</div>
     </div>
     <div class="smal">
       <ul>

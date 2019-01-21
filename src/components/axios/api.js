@@ -603,7 +603,15 @@ export function zfuM() {
     method: "GET",
   })
 }
+// 交易记录
 
+export function jiaoY() {
+
+  return fetch({
+    url: api.Hallowmas + '/v2/member/transactionRecord',
+    method: "GET",
+  })
+}
 // 用户查询具体某一订单物流信息
 
 export function MessageWu(trade_no) {
@@ -628,6 +636,8 @@ export function CorfirWu(trade_no) {
     }
   })
 }
+
+
 
 // 申请退款
 export function offerWu(trade_no) {

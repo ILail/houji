@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-if="show" class="wordss">暂无优惠卷，您已经全部领取!</div>
+    <div v-if="show" class="wordss">暂无优惠卷</div>
     <div class="container heards" ref="refContentss">
       <div class="wrap" v-for="(item , index) in list" :key="item.id">
         <div :style="note" class="content">全场卷</div>

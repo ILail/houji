@@ -45,6 +45,8 @@ import Finish from '@/components/common/Finish'
 
 import Orderdetails from '@/components/common/Orderdetails'
 import Wuliudetails from '@/components/common/Logistics'
+import Jdetial from '@/components/common/Jdetial'
+
 Vue.use(Router)
 // export default new Router({
 const routes = [{
@@ -70,6 +72,10 @@ const routes = [{
   path: '/xiao',
   name: '消息中心',
   component: Xiao
+}, {
+  path: '/jioayid',
+  name: '交易详情',
+  component: Jdetial
 }, {
   path: '/wishs',
   name: '心愿单',
