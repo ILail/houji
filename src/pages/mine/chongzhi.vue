@@ -90,13 +90,13 @@ export default {
       getChong(this.channel, this.moneys * 100, naid)
         .then(res => {
           const num = secret.Decrypt(res.data.data);
-          console.log(res.data);
-          if (res.data.status == 0) {
-            this.$toast({
-              message: "输入金额不能小于1",
-              duration: "2000"
-            });
-          }
+          // console.log(res.data);
+          // if (res.data.status == 0) {
+          //   this.$toast({
+          //     message: "输入金额不能小于1",
+          //     duration: "2000"
+          //   });
+          // }
           pingpp.createPayment(num, function(result, err) {
             if (result == "success") {
               this.$toast({
