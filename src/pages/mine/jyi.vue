@@ -44,16 +44,16 @@ export default {
     jiaoY()
       .then(res => {
         this.list = res.data.data;
+        if (this.list.length == 0) {
+          this.show = true;
+          return false;
+        }
         if (this.list[0].change_type == "订单支持") {
           this.same = false;
           this.sames = true;
         } else {
           this.same = true;
           this.sames = false;
-        }
-
-        if (this.list.length == 0) {
-          this.show = true;
         }
       })
       .catch(err => {
