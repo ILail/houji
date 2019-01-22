@@ -1,6 +1,6 @@
 <template>
   <div class="active" ref="wrappers" style="display:none;">
-    <van-tabs v-model="active" swipeable sticky animated>
+    <van-tabs v-model="activea" swipeable sticky animated>
       <van-tab title="全部">
         <div class="hitImg" v-show="ispic">
           <img src="@/assets/linjuan/5.png">
@@ -222,7 +222,7 @@ export default {
   name: "Myorders",
   data() {
     return {
-      active: 0,
+      activea: "",
       num: 1,
       json: [],
       ispic: false,
@@ -238,7 +238,8 @@ export default {
   },
   created() {
     // 全部
-    this.active = this.$route.query.key;
+    this.activea = this.$route.query.key;
+    console.log(this.active);
     Allorder(110, this.num)
       .then(res => {
         this.json = res.data.data.data;
@@ -526,10 +527,9 @@ export default {
 
 .detailsame {
   max-width: 70%;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
   overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   font-size: 12px;
   font-family: PingFangSC-Regular;
   font-weight: 400;

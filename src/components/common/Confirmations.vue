@@ -1,5 +1,5 @@
 <template>
-  <div class="WrapAll">
+  <div class="WrapAll" ref="wrappers" style="visibility:hidden;">
     <img :src="wxone" style="width:100%">
     <div class="header container" @click="address" v-if="show">
       <div>
@@ -223,18 +223,23 @@ export default {
           this.newmoney = (this.moneyAll * 0.05).toFixed(2);
           this.totalMoney = this.moneyAll - this.newmoney;
         } else {
-          this.newmoney = 0.00;
+          this.newmoney = 0.0;
           this.totalMoney = this.moneyAll - this.newmoney;
         }
         if (this.moneyAll == "0.01") {
           console.log(11111);
-          this.newmoney = 0.00;
+          this.newmoney = 0.0;
           this.totalMoney = this.moneyAll - this.newmoney;
         }
       })
       .catch(err => {
         console.log(err, "请求失败");
       });
+  },
+  mounted(){
+        setTimeout(() => {
+      this.$refs.wrappers.style.visibility = "visible";
+    }, 300);
   },
   // computed() {},
   methods: {
@@ -562,7 +567,7 @@ export default {
 }
 
 .bottom {
-  padding: 20px 0 20px 0;
+  padding: 20px 0 65px 0;
 }
 
 .top {
@@ -572,7 +577,7 @@ export default {
 
 .item {
   display: flex;
-  margin-top: 8px;
+  margin-top: 16px;
 }
 
 .top img {

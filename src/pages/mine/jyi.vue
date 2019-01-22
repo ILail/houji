@@ -31,7 +31,7 @@ export default {
     jiaoY()
       .then(res => {
         this.list = res.data.data;
-        console.log(res.data)
+        console.log(res.data);
         if (this.list.length == 0) {
           this.show = true;
           return false;
@@ -62,9 +62,8 @@ export default {
   height: 100%;
   top: 0;
   left: 0;
-  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
   background-color: #f4f4f4;
-  
 }
 
 .word {
@@ -85,8 +84,9 @@ export default {
   display: flex;
   flex-direction: column;
 }
-.eeee{
-  color red
+
+.eeee {
+  color: red;
 }
 </style>
 

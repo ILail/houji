@@ -1,5 +1,5 @@
 <template>
-  <div class="wrap">
+  <div class="wrap" ref="wrapss" style="visibility:hidden;">
     <!-- 地址 -->
     <img :src="wxone" style="width:100%">
     <div class="header">
@@ -139,6 +139,11 @@ export default {
         console.log(err, "请求失败");
       });
   },
+  mounted() {
+    setTimeout(() => {
+      this.$refs.wrapss.style.visibility = "visible";
+    }, 500);
+  },
   methods: {
     beforeClose(action, done) {
       if (action === "confirm") {
@@ -187,7 +192,7 @@ export default {
   height: 100%;
   top: 0;
   left: 0;
-  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
   background-color: #f4f4f4;
 }
 

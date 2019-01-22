@@ -104,6 +104,9 @@ export default {
                 message: "充值成功",
                 duration: "2000"
               });
+              setTimeout(() => {
+               _this.$router.go(-1);
+              }, 3000);
               // 只有微信公众账号 (wx_pub)、微信小程序 (wx_lite)、QQ 公众号 (qpay_pub)、支付宝口碑 (alipay_qr)
               // 支付成功的结果会在这里返回，其他的支付结果都会跳转到 extra 中对应的 URL。
             } else if (result == "fail") {
