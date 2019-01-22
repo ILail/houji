@@ -54,7 +54,7 @@ export default {
   methods: {
     wx() {
       this.$refs.imgAllo.src = this.bgImg[this.imgIndexa];
-      this.$refs.imgAllt.src = this.bgImg[this.imgIndex];
+      // this.$refs.imgAllt.src = this.bgImg[this.imgIndex];
       this.channel = "wx_pub";
     },
     // zfb() {

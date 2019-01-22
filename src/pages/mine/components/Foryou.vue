@@ -85,8 +85,9 @@ export default {
           setTimeout(() => {
             this.flag = false;
           }, 800);
-
-          this.refresh();
+          setTimeout(() => {
+            this.refresh();
+          }, 800);
         } else {
           this.flag = false;
           // this.$toast({

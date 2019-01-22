@@ -44,7 +44,8 @@
           <!-- </router-link> -->
         </li>
         <li class="xiadan" @click="selectSort()">加入心愿单</li>
-        <li class="joinw" @click="selectSorta()">下单支持</li>
+        <li class="joinw" @click="selectSorta()" v-show="show">下单支持</li>
+        <li class="joinwa" v-show="shows">下单支持</li>
       </ul>
     </div>
 
@@ -82,7 +83,8 @@
             <li class="numW">{{ count}}</li>
             <li class="jian" v-on:click="jian">+</li>
           </ul>
-          <div class="queren" @click="confirm()">确认</div>
+          <div class="queren" @click="confirm()" v-show="show">确认</div>
+          <div class="querena" v-show="shows">确认</div>
         </div>
       </div>
     </div>
@@ -166,6 +168,8 @@ export default {
   },
   data() {
     return {
+      show: true,
+      shows: false,
       isLoading: false,
       selectedId: 0,
       items: [
@@ -218,9 +222,18 @@ export default {
     crowd_funding(this.id)
       .then(res => {
         res = res.data;
+
         if (res.status && res.data) {
           const data = res.data;
           this.img_path = data.imgs.split(",")[0];
+          let residualTime = data.left_time;
+          let day = parseInt(residualTime / (24 * 3600));
+          if (day <= 0) {
+            console.log(this.show);
+            this.show = false;
+            console.log(this.show);
+            this.shows = true;
+          }
         }
       })
       .catch(err => {
@@ -366,6 +379,19 @@ export default {
 </script>
 
 <style lang="stylus" type="text/stylus" rel="stylesheet/stylus" scoped>
+.joinwa {
+  width: 30%;
+  text-align: center;
+  font-size: 15px;
+  font-family: PingFangSC-Light;
+  font-weight: 300;
+  color: rgba(255, 255, 255, 1);
+  background: #D21623;
+  height: 42px;
+  line-height: 38px;
+  opacity: 0.1;
+}
+
 .swiper-slide {
   height: 0px;
   overflow-y: hidden;
@@ -575,7 +601,19 @@ export default {
   color: #fff;
   line-height: 44px;
 }
-
+.querena {
+  width: 100%;
+  background: rgba(210, 22, 35, 1);
+  border-radius: 2px;
+  overflow: hidden;
+  height: 44px;
+  margin-bottom: 14px;
+  text-align: center;
+  font-size: 15px;
+  color: #fff;
+  line-height: 44px;
+  opacity 0.1
+}
 .jia, .jian {
   border: 1px solid #eeeeee;
   padding: 7px 12px;

@@ -1,5 +1,5 @@
 <template>
-  <div class="active" ref="wrappers" style="visibility:hidden;">
+  <div class="active" ref="wrappers" style="display:none;">
     <van-tabs v-model="active" swipeable sticky animated>
       <van-tab title="全部">
         <div class="hitImg" v-show="ispic">
@@ -237,9 +237,6 @@ export default {
     };
   },
   created() {
-    setTimeout(() => {
-      this.$refs.wrappers.style.visibility = "visible";
-    }, 1000);
     // 全部
     this.active = this.$route.query.key;
     Allorder(110, this.num)
@@ -298,7 +295,11 @@ export default {
         console.log(err, "请求失败");
       });
   },
-  mounted() {},
+  mounted() {
+    setTimeout(() => {
+      this.$refs.wrappers.style.display = "block";
+    }, 500);
+  },
   methods: {
     ImgDetial(trade_no) {
       let tradeNO = trade_no;
@@ -514,29 +515,27 @@ export default {
   font-family: PingFangSC-Medium;
   font-weight: 550;
   color: rgba(51, 51, 51, 1);
-  overflow: hidden;
-  text-overflow: ellipsis;
+  max-width: 70%;
   display: -webkit-box;
-  -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
-  line-height: 1.2;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  line-height: 1.4;
   margin-top: 2px;
-  width: 72%;
 }
 
 .detailsame {
-  overflow: hidden;
-  text-overflow: ellipsis;
+  max-width: 70%;
   display: -webkit-box;
-  -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
   font-size: 12px;
   font-family: PingFangSC-Regular;
   font-weight: 400;
   color: rgba(102, 102, 102, 1);
-  width: 83%;
   margin-top: 8px;
-  line-height: 1.2;
+  line-height: 1.4;
 }
 
 .pricr {

@@ -18,12 +18,14 @@
           >
             <!-- 商家 -->
             <div class="list-dp">
-              <span :class="[yuan1,{bg:item.select}]" @click.stop="dpSelected(index)"></span>
-              <span class="listimg">
+              <div class="listDd">
+                <span :class="[yuan1,{bg:item.select}]" @click.stop="dpSelected(index)"></span>
+                <!-- <span class="listimg"> -->
                 <img :src="item.headimgurl" class="listImg">
-              </span>
-              <span class="dp">{{item.nickname}}</span>
-              <div style="margin-left: 56%;color:#d21623;" @click="linjuan">领卷</div>
+                <!-- </span> -->
+                <span class="dp">{{item.nickname}}</span>
+              </div>
+              <div @click="linjuan" style="color:#d21623">领卷</div>
             </div>
 
             <!-- 图片产品名称价格数量展示 -->
@@ -180,8 +182,8 @@ export default {
   },
 
   methods: {
-    linjuan(){
-this.$router.push('/linjuan')
+    linjuan() {
+      this.$router.push("/linjuan");
     },
     removeHandler(el) {
       const delilID = el.id;
@@ -463,16 +465,16 @@ this.$router.push('/linjuan')
   padding: 8px 0 15px 0;
 }
 
-.listT {
-  display: flex;
+.listDd {
   align-items: center;
-  justify-content: space-between;
+  display: flex;
 }
 
 .listImg {
   width: 18px;
   height: 18px;
   border-radius: 50%;
+  margin-left: 0.2rem;
 }
 
 .left {
@@ -700,7 +702,8 @@ this.$router.push('/linjuan')
 .list-dp {
   display: flex;
   align-items: center;
-  padding-left: 3.2%;
+  padding: 0 3.2%;
+  justify-content: space-between;
 }
 
 .listimg {
@@ -710,6 +713,11 @@ this.$router.push('/linjuan')
 .dp {
   line-height: 0.8rem;
   font-size: 14px;
+  margin-left: 0.1rem;
+  max-width: 110px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .item {
