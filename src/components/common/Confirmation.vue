@@ -170,7 +170,7 @@ export default {
       list: [],
       num: "",
       ispic: false,
-      newmoney: 0.0,
+      newmoney: 0.00,
       idNum: 0,
       // 价格
       details: "shopping",
@@ -222,16 +222,19 @@ export default {
 
         this.moneyAll = res.data.data.wish_list.total_money;
         var userID = localStorage.getItem("userID");
-        console.log(userID);
+        // console.log(userID);
         if (userID != "1") {
           this.newmoney = (this.moneyAll * 0.05).toFixed(2);
+          this.totalMoney = this.moneyAll - this.newmoney;
         } else {
-          this.newmoney = 0;
+          this.newmoney = 0.00;
+          this.totalMoney = this.moneyAll - this.newmoney;
         }
         if (this.moneyAll == "0.01") {
-          this.newmoney = 0;
+          console.log(11111)
+          this.newmoney = 0.00;
+          this.totalMoney = this.moneyAll - this.newmoney;
         }
-        this.totalMoney = this.moneyAll - this.newmoney;
       })
       .catch(err => {
         console.log(err, "请求失败");

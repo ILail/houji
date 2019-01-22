@@ -219,13 +219,18 @@ export default {
         this.json = res.data.data.wish_list.list;
         this.moneyAll = res.data.data.wish_list.total_money;
         var userID = localStorage.getItem("userID");
-        console.log(userID);
         if (userID != "1") {
           this.newmoney = (this.moneyAll * 0.05).toFixed(2);
+          this.totalMoney = this.moneyAll - this.newmoney;
         } else {
-          this.newmoney = 0;
+          this.newmoney = 0.00;
+          this.totalMoney = this.moneyAll - this.newmoney;
         }
-        this.totalMoney = this.moneyAll - this.newmoney;
+        if (this.moneyAll == "0.01") {
+          console.log(11111);
+          this.newmoney = 0.00;
+          this.totalMoney = this.moneyAll - this.newmoney;
+        }
       })
       .catch(err => {
         console.log(err, "请求失败");
@@ -339,11 +344,11 @@ export default {
 
 <style lang="stylus" type="text/stylus" rel="stylesheet/stylus" scoped>
 .sameInput {
-  width:80%
+  width: 80%;
 }
+
 .sameInput input::-webkit-input-placeholder {
   color: #999;
-  
 }
 
 .sameInput input {
