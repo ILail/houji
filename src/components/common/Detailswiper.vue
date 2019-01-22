@@ -40,12 +40,12 @@
             <img src="@/assets/sku.png">
           </span>
           
-          <span class="shuW" style="margin-top:-1px">心愿单</span>
+          <span class="shuW" style="margin-top:-1px">购物车</span>
           <!-- </router-link> -->
         </li>
-        <li class="xiadan" @click="selectSort()">加入心愿单</li>
-        <li class="joinw" @click="selectSorta()" v-show="show">下单支持</li>
-        <li class="joinwa" v-show="shows">下单支持</li>
+        <li class="xiadan" @click="selectSort()">加入购物车</li>
+        <li class="joinw" @click="selectSorta()" v-show="show">立即购买</li>
+        <li class="joinwa" v-show="shows">立即购买</li>
       </ul>
     </div>
 
@@ -123,7 +123,7 @@
             <li class="numW">{{ count}}</li>
             <li class="jian" v-on:click="jian">+</li>
           </ul>
-          <div class="queren" @click="ljxd">立即下单</div>
+          <div class="queren" @click="ljxd">立即购买</div>
         </div>
       </div>
     </div>
