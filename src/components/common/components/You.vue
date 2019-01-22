@@ -88,9 +88,8 @@ export default {
           setTimeout(() => {
             this.flag = false;
           }, 800);
-          setTimeout(() => {
-            this.refresh();
-          }, 800);
+
+          this.refresh();
         } else {
           // this.$toast({
           //   message: "已经加载完全部数据",
