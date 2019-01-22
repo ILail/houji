@@ -26,12 +26,12 @@
           <img :src="img" alt>
         </div>
       </router-link>
-      <!-- <router-link to="jiaoyi">
+      <router-link to="jiaoyi">
         <div class="wrap">
           <span>交易记录</span>
           <img :src="img" alt>
         </div>
-      </router-link> -->
+      </router-link>
     </div>
   </div>
 </template>
