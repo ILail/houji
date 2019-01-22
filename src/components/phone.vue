@@ -101,7 +101,7 @@ export default {
             // this.changeLogin({ Authorization: tokenmine});
 
             this.$store.commit(types.LOGIN, tokenmine);
-            this.$router.push("/");
+            this.$router.go(-1);
           }
         })
         .catch(err => {

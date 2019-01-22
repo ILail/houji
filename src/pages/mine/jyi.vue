@@ -1,6 +1,6 @@
 <template>
   <div class="active">
-    <van-list v-model="loading" :finished="finished" finished-text="没有更多了" @load="onLoad">
+    <!-- <van-list v-model="loading" :finished="finished" finished-text="没有更多了" @load="onLoad"> -->
       <div
         class="wrapaa"
         v-for="item in list"
@@ -14,7 +14,7 @@
         <div v-show="item.amount_out < item.amount_in" class="eeee">+ {{item.amount_in}}</div>
         <div v-show="item.amount_out > item.amount_in">- {{item.amount_out}}</div>
       </div>
-    </van-list>
+    <!-- </van-list> -->
     <div class="word" v-if="show">没有交易记录</div>
   </div>
 </template>
@@ -61,23 +61,23 @@ export default {
         }
       });
     },
-    onLoad() {
-      // 异步更新数据
-      setTimeout(() => {
-        // i为页数
-        // for (let i = 0; i < 2; i++) {
-          // this.list.push(this.list.length + 1);
-          this.num ++;
-        // }
-        // 加载状态结束
-        this.loading = false;
+    // onLoad() {
+    //   // 异步更新数据
+    //   setTimeout(() => {
+    //     // i为页数
+    //     // for (let i = 0; i < 2; i++) {
+    //       // this.list.push(this.list.length + 1);
+    //       this.num ++;
+    //     // }
+    //     // 加载状态结束
+    //     this.loading = false;
 
-        // 数据全部加载完成
-        if (this.num >= 5) {
-          this.finished = true;
-        }
-      }, 500);
-    }
+    //     // 数据全部加载完成
+    //     if (this.num >= 5) {
+    //       this.finished = true;
+    //     }
+    //   }, 500);
+    // }
   }
 };
 </script>
@@ -97,7 +97,7 @@ export default {
   margin-top: 40%;
 }
 
-.active >>> .van-list .wrapaa {
+.active .wrapaa {
   display: flex;
   align-items: center;
   justify-content: space-between;
