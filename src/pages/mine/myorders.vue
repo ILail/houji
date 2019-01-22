@@ -504,11 +504,11 @@ export default {
 
 .titlew {
   margin-top: 5px;
-  margin-left: 11%;
 }
 
 .title {
   display: flex;
+  justify-content: space-between;
 }
 
 .titleWord {
