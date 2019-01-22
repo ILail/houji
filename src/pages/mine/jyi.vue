@@ -91,6 +91,7 @@ export default {
   left: 0;
   overflow-y: auto;
   background-color: #f4f4f4;
+  display none 
 }
 
 .word {
