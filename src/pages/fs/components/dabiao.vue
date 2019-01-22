@@ -18,9 +18,8 @@
               <span class="money">¥{{itemCon.now_money}}</span>
             </div>
             <div class="crowd-right">
+              <img :src="itemCon.headimgurl">
               
-                <img :src="itemCon.headimgurl">
-            
               <span class="peoMuch">{{itemCon.nickname}}</span>
             </div>
           </div>
@@ -61,11 +60,12 @@ export default {
         // console.log(res.data);
         res = res.data;
         if (res.status && res.data) {
-          console.log(res.data)
+          console.log(res.data);
           // const numN = res.data[3].crowd_funding_class_id; // 获取第一个的id
           fsDetail(18)
             .then(res => {
               res = res.data;
+              console.log(res);
               if (res.status && res.data) {
                 this.tabContentsa = res.data.result;
               }
@@ -105,6 +105,7 @@ export default {
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+
 .people {
   border-radius: 5px;
   box-shadow: #666 0px 0px 10px;
@@ -212,7 +213,6 @@ export default {
   border-radius: 50%;
   margin: -1px 3px 0 0;
 }
-
 
 .crowdTimg {
   width: 12px;

@@ -64,6 +64,7 @@ export default {
           fsDetail(25)
             .then(res => {
               res = res.data;
+              console.log(res)
               if (res.status && res.data) {
                 this.tabContents = res.data.result;
               }

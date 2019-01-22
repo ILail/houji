@@ -46,13 +46,10 @@ export function fs() {
 }
 
 // 分类页面产品
-export function fsDetail(id,page) {
+export function fsDetail(id) {
   return fetch({
-    url: api.Hallowmas + '/v2/index?crowd_funding_class_id=' + id + '?page=' + page + '',
+    url: api.Hallowmas + '/v2/index?crowd_funding_class_id=' + id,
     method: "GET",
-    data: {
-      id: id
-    }
   })
 }
 
