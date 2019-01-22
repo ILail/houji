@@ -17,14 +17,14 @@
         </div>
         <img :src="imgSrc" class="zfbIMG" ref="imgAllo" @click="wx">
       </div>
-<!-- 
+      <!-- 
       <div class="zfb">
         <div>
           <img src="@/assets/zfb.png" class="wxIMG">
           <span class="righta">支付宝支付</span>
         </div>
         <img :src="imgSrc" class="zfbIMG" ref="imgAllt" @click="zfb">
-      </div> -->
+      </div>-->
     </div>
 
     <div class="action" @click="nowWay">立即充值</div>
@@ -43,7 +43,7 @@ export default {
       imgIndex: 0,
       imgIndexa: 1,
       moneys: "",
-      channel:""
+      channel: ""
     };
   },
   computed: {
@@ -97,9 +97,10 @@ export default {
           //     duration: "2000"
           //   });
           // }
+          var _this = this;
           pingpp.createPayment(num, function(result, err) {
             if (result == "success") {
-              this.$toast({
+              _this.$toast({
                 message: "充值成功",
                 duration: "2000"
               });

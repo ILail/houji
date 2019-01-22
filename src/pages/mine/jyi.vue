@@ -11,13 +11,14 @@
         <span>{{item.change_type}}</span>
         <span style="margin-top:3px">{{item.addtime}}</span>
       </div>
-      <div ref="wrapps">+ {{item.amount_in}}</div>
+      <div>+ {{item.amount_in}}</div>
     </div>
     <div
       class="wrap"
       v-for="item in list"
       :key="item.id"
       @click="hit(item.account_id,item.addtime,item.amount_after_pay,item.change_type)"
+      v-show="sames"
     >
       <div class="wraps">
         <span>{{item.change_type}}</span>
@@ -35,14 +36,22 @@ export default {
     return {
       list: [],
       show: false,
-      same: false
+      same: false,
+      sames: true
     };
   },
   created() {
     jiaoY()
       .then(res => {
-        console.log(res);
         this.list = res.data.data;
+        if (this.list[0].change_type == "订单支持") {
+          this.same = false;
+          this.sames = true;
+        } else {
+          this.same = true;
+          this.sames = false;
+        }
+
         if (this.list.length == 0) {
           this.show = true;
         }
@@ -55,9 +64,9 @@ export default {
     // if(this.$refs.wrapps[0].innerHTML.split('+')[1] == 0.00){
     //   console.log()
     // };
-    if (this.$refs.wrapps[0].innerHTML.split("+")[1] != 0.0) {
-      this.same = true;
-    }
+    // if (this.$refs.wrapps[0].innerHTML.split("+")[1] != 0.0) {
+    //   this.same = true;
+    // }
   },
   methods: {
     hit(one, two, three, four) {
