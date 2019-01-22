@@ -46,9 +46,9 @@ export function fs() {
 }
 
 // 分类页面产品
-export function fsDetail(id) {
+export function fsDetail(id,page) {
   return fetch({
-    url: api.Hallowmas + '/v2/index?crowd_funding_class_id=' + id + '',
+    url: api.Hallowmas + '/v2/index?crowd_funding_class_id=' + id + '?page=' + page + '',
     method: "GET",
     data: {
       id: id
@@ -605,10 +605,10 @@ export function zfuM() {
 }
 // 交易记录
 
-export function jiaoY() {
+export function jiaoY(num) {
 
   return fetch({
-    url: api.Hallowmas + '/v2p1/member/transactionRecord',
+    url: api.Hallowmas + '/v2p1/member/transactionRecord?page=' + num + '',
     method: "GET",
   })
 }
@@ -664,10 +664,10 @@ export function DEtilWu(trade_no) {
 }
 
 // 订单为你推荐
-export function ForWu() {
+export function ForWu(page) {
 
   return fetch({
-    url: api.Hallowmas + '/v2/recommendedForYou',
+    url: api.Hallowmas + '/v2/recommendedForYou?page=' + page + '',
     method: "GET",
   })
 }

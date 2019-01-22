@@ -4,46 +4,44 @@
       <div class="youword">为你推荐</div>
     </div>
     <div class="content container">
-      <!-- <van-list v-model="loading" :finished="finished" finished-text="没有更多了" @load="onLoad"> -->
-      <div class="wrap" v-for="items in list" :key="items.id">
-        <router-link
-          :to="{  
+      <van-list v-model="loading" :finished="finished" finished-text="没有更多了" @load="onLoad">
+        <div class="wrap" v-for="items in list" :key="items.id">
+          <router-link
+            :to="{  
         path: 'Detail',     
         query: {   
             key: items.crowd_funding_id, // orderNum : this.searchData.orderNo
         }
     }"
-        >
-          <img :src="items.pic" class="wrapImg">
-          <div class="list">{{items.crowd_funding_name}}</div>
-          <div class="progressAll">
-            <div class="progress-outer">
-              <span class="progress" :style="{width:computedResidualTimea(items)+'%'}"></span>
+          >
+            <img :src="items.pic" class="wrapImg">
+            <div class="list">{{items.crowd_funding_name}}</div>
+            <div class="progressAll">
+              <div class="progress-outer">
+                <span class="progress" :style="{width:computedResidualTimea(items)+'%'}"></span>
+              </div>
+              <span class="progressA">{{items.progress}}%</span>
             </div>
-            <span class="progressA">{{items.progress}}%</span>
-          </div>
-          <div class="crowd-mon">
-            <span class="word">已售：</span>
-            <span class="money">¥{{items.now_money}}</span>
-          </div>
-          <div class="crowd-info">
-            <div class="crowd-money">
-              <span style="color:#666">{{items.support_num}}人支持</span>
+            <div class="crowd-mon">
+              <span class="word">已售：</span>
+              <span class="money">¥{{items.now_money}}</span>
             </div>
-            <div class="crowdT">
-              <span style="margin-right: 3px;">
-                <img src="@/assets/time.png" class="crowdTimg">
-              </span>
-              <span class="peoMuch">{{computedResidualTime(items)}}</span>
+            <div class="crowd-info">
+              <div class="crowd-money">
+                <span style="color:#666">{{items.support_num}}人支持</span>
+              </div>
+              <div class="crowdT">
+                <span style="margin-right: 3px;">
+                  <img src="@/assets/time.png" class="crowdTimg">
+                </span>
+                <span class="peoMuch">{{computedResidualTime(items)}}</span>
+              </div>
             </div>
-          </div>
-        </router-link>
-      </div>
-
-      <van-loading type="spinner" v-if="flag"/>
+          </router-link>
+        </div>
+      </van-list>
     </div>
-
-    <!-- <div class="noinfo" v-if="noinfo">已加载全部数据</div> -->
+    <!-- <img src="@/assets/linjuan/up.png" alt class="upImg" v-show="shows"> -->
   </div>
 </template>
 
@@ -58,49 +56,35 @@ export default {
     return {
       flag: false,
       list: [],
-      num: 1,
-      lastpage: ""
+      loading: false,
+      finished: false,
+      num: 0,
+      lastpage: "",
+      // shows: false
     };
   },
   mounted() {
-    window.addEventListener("scroll", this.watchScroll);
+    // window.addEventListener("scroll", this.watchScroll);
   },
   created() {
     this.refresh();
   },
   methods: {
-    watchScroll() {
-      var scrollTop =
-        window.pageYOffset ||
-        document.documentElement.scrollTop ||
-        document.body.scrollTop;
-      // console.log(document.body.clientHeight);
-      var allHeight = document.body.clientHeight;
-      var windowHeight = document.documentElement.clientHeight;
-      // var this = this;
-      if (scrollTop >= allHeight - windowHeight) {
-        this.flag = true;
-
-        // console.log(this.lastpage);
-        // console.log(this.num);
-        if (this.lastpage >= this.num) {
-          //totalPage是后端返回来的总页数
-          setTimeout(() => {
-            this.flag = false;
-          }, 800);
-
-          this.refresh();
-        } else {
-          // this.$toast({
-          //   message: "已经加载完全部数据",
-          //   duration: "1000"
-          // });
-          this.flag = false;
-          return;
+    onLoad() {
+      this.num++;
+      // 异步更新数据
+      setTimeout(() => {
+        this.refresh();
+        // 加载状态结束
+        this.loading = false;
+        console.log(this.num);
+        console.log(this.lastpage);
+        // 数据全部加载完成
+        if (this.num >= this.lastpage) {
+          this.finished = true;
+          // this.shows = true;
         }
-      }
-      // console.log(document.documentElement.scrollTop);
-      //  console.log(document.documentElement.clientHeight);
+      }, 2500);
     },
     refresh: function() {
       ForWu(this.num)
@@ -109,16 +93,8 @@ export default {
           // console.log(res.data.total);
           if (res.status && res.data) {
             const data = res.data;
-
             this.list = this.list.concat(data.data);
-            // if (this.list.length >= res.data.total) {
-            //   this.$toast({
-            //     message: "已经加载完全部数据",
-            //     duration: "1000"
-            //   });
-            // }
             this.lastpage = data.last_page;
-            this.num++;
           }
         })
         .catch(err => {
@@ -145,6 +121,24 @@ export default {
 </script>
 
 <style lang="stylus" type="text/stylus" rel="stylesheet/stylus" scoped>
+.upImg {
+  width: 30px;
+  position: fixed;
+  right: 30px;
+  bottom: 24px;
+  overflow: visible;
+  opacity: 1;
+  z-index: 9990;
+}
+
+.content >>> .van-list__loading {
+  width: 100%;
+}
+
+.content >>> .van-list__finished-text, .van-list__loading-text {
+  display: none;
+}
+
 .WRAYOU {
   background: #fff;
   margin-top: 12px;
@@ -157,26 +151,20 @@ export default {
   color: rgba(2, 2, 2, 1);
 }
 
-.content>>>.van-loading {
-  left: 45%;
-  bottom: 55px;
-}
-
 .title {
   color: #020202;
   text-align: center;
   padding: 17.5px 0 17.5px 0;
 }
 
-.content {
+.content >>>.van-list {
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
   border-radius: 5px;
-  padding-bottom: 50px;
 }
 
-.wrap {
+.content >>>.van-list .wrap {
   width: 48.5%;
   margin-bottom: 10px;
   box-shadow: #666 0px 0px 10px;

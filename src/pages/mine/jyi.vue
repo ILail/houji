@@ -1,34 +1,43 @@
 <template>
   <div class="active">
-    <div
-      class="wrap"
-      v-for="item in list"
-      :key="item.id"
-      @click="hit(item.account_id,item.addtime,item.amount_after_pay,item.change_type)"
-    >
-      <div class="wraps">
-        <span>{{item.change_type}}</span>
-        <span style="margin-top:3px">{{item.addtime}}</span>
+    <van-list v-model="loading" :finished="finished" finished-text="没有更多了" @load="onLoad">
+      <div
+        class="wrapaa"
+        v-for="item in list"
+        :key="item.id"
+        @click="hit(item.account_id,item.addtime,item.amount_after_pay,item.change_type)"
+      >
+        <div class="wraps">
+          <span>{{item.change_type}}</span>
+          <span style="margin-top:3px">{{item.addtime}}</span>
+        </div>
+        <div v-show="item.amount_out < item.amount_in" class="eeee">+ {{item.amount_in}}</div>
+        <div v-show="item.amount_out > item.amount_in">- {{item.amount_out}}</div>
       </div>
-      <div v-show="item.amount_out < item.amount_in" class="eeee">+ {{item.amount_in}}</div>
-      <div v-show="item.amount_out > item.amount_in">- {{item.amount_out}}</div>
-    </div>
-
+    </van-list>
     <div class="word" v-if="show">没有交易记录</div>
   </div>
 </template>
 <script>
+import Vue from "vue";
 import { jiaoY } from "@/components/axios/api";
+import { List } from "vant";
+
+Vue.use(List);
 export default {
   data() {
     return {
       list: [],
       show: false,
-      same: true
+      same: true,
+      loading: false,
+      finished: false,
+      num: 1
     };
   },
   created() {
-    jiaoY()
+    console.log(this.num)
+    jiaoY(this.num)
       .then(res => {
         this.list = res.data.data;
         console.log(res.data);
@@ -51,6 +60,23 @@ export default {
           dataObjo: num
         }
       });
+    },
+    onLoad() {
+      // 异步更新数据
+      setTimeout(() => {
+        // i为页数
+        // for (let i = 0; i < 2; i++) {
+          // this.list.push(this.list.length + 1);
+          this.num ++;
+        // }
+        // 加载状态结束
+        this.loading = false;
+
+        // 数据全部加载完成
+        if (this.num >= 5) {
+          this.finished = true;
+        }
+      }, 500);
     }
   }
 };
@@ -71,7 +97,7 @@ export default {
   margin-top: 40%;
 }
 
-.wrap {
+.active >>> .van-list .wrapaa {
   display: flex;
   align-items: center;
   justify-content: space-between;

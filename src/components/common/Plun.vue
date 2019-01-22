@@ -21,14 +21,12 @@
         </form>
       </div>
       <!-- 评论内容 -->
-      <div
-        class="content"
-      >
+      <div class="content">
         <!-- <div
           class="level has-text-centered"
           v-show="isLoadMoreShow"
           style="margin:10px 2px 0 2px;background-color:white;"
-        >{{loadWords}}</div> -->
+        >{{loadWords}}</div>-->
         <div class="peosCon" v-for="(item,index) in list" :key="index" :id="item.id">
           <div class="left">
             <img :src="item.headimages">
@@ -175,6 +173,7 @@ export default {
       plun(this.id)
         .then(res => {
           this.list = res.data.data;
+          console.log(res);
         })
         .catch(err => {
           console.log(err, "请求失败");
@@ -211,11 +210,12 @@ export default {
 </script>
 
 <style lang="stylus" type="text/stylus" rel="stylesheet/stylus" scoped>
-.wordas{
-  font-size 14px
-  margin-top 20%
-  margin-left 40%
+.wordas {
+  font-size: 14px;
+  margin-top: 20%;
+  margin-left: 40%;
 }
+
 .ddss {
   font-size: 14px;
   color: #666;

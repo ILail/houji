@@ -91,7 +91,7 @@ export default {
         //   activeImg: require("@/assets/foot/peoss.png")
         // },
         {
-          txt: "心愿单",
+          txt: "购物车",
           page: "wishs",
           normalImg: require("@/assets/foot/wish.png"),
           activeImg: require("@/assets/foot/wishs.png")

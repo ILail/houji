@@ -76,7 +76,7 @@
       <span :class="[yuan,{bg:allSelect}]" @click="AllSelect()"></span>
       <span class="all">全选</span>
       <span class="hj">合计: ￥{{allPrice}}</span>
-      <span class="up" @click="js()">下单支持</span>
+      <span class="up" @click="js()">立即购买</span>
     </div>
     <mine-header :hot="list"></mine-header>
     <!-- 底部栏 -->
@@ -141,7 +141,7 @@ export default {
         //   activeImg: require("@/assets/foot/peoss.png")
         // },
         {
-          txt: "心愿单",
+          txt: "购物车",
           page: "wishs",
           normalImg: require("@/assets/foot/wish.png"),
           activeImg: require("@/assets/foot/wishs.png")

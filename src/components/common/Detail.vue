@@ -325,6 +325,9 @@ export default {
 
 .peoDela >>> p img {
   width: 100%;
+}
+
+.peoDela >>> p {
   margin-top: 20px;
   padding-bottom: 50px;
 }

@@ -109,7 +109,8 @@ export default {
         res = res.data;
         if (res.status && res.data) {
           const data = res.data;
-          this.img = data.sowingmap[1].pic;
+          console.log(data)
+          this.img = data.sowingmap[0].pic;
         }
       })
       .catch(err => {

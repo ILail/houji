@@ -239,7 +239,6 @@ export default {
   created() {
     // 全部
     this.activea = this.$route.query.key;
-    console.log(this.active);
     Allorder(110, this.num)
       .then(res => {
         this.json = res.data.data.data;
