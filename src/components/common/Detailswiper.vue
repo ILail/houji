@@ -13,19 +13,19 @@
     ></ly-tab>
 
     <!-- </div> -->
-    <van-pull-refresh v-model="isLoading" @refresh="onRefresh">
-      <div class="swiper-box">
-        <div class="swiper-container wrapA">
-          <div class="swiper-wrapper">
-            <div class="swiper-slide" v-for="item of list" :key="item.id">
-              <keep-alive>
-                <component :is="item.component"></component>
-              </keep-alive>
-            </div>
+    <!-- <van-pull-refresh v-model="isLoading" @refresh="onRefresh"> -->
+    <div class="swiper-box">
+      <div class="swiper-container wrapA">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide" v-for="item of list" :key="item.id">
+            <keep-alive>
+              <component :is="item.component"></component>
+            </keep-alive>
           </div>
         </div>
       </div>
-    </van-pull-refresh>
+    </div>
+    <!-- </van-pull-refresh> -->
     <div class="bottom" v-if="isshowa">
       <ul>
         <li class="shu" onclick="url()">
@@ -143,6 +143,7 @@ window.url = function() {
     alert("sdk尚未加载成功，请稍后再试");
   }
 };
+
 import Vue from "vue";
 import Detail from "@/components/common/Detail";
 import Travel from "@/components/common/Travel";
@@ -170,7 +171,7 @@ export default {
     return {
       show: true,
       shows: false,
-      isLoading: false,
+      // isLoading: false,
       selectedId: 0,
       items: [
         { label: "详情" },
@@ -244,7 +245,7 @@ export default {
     window.addEventListener("scroll", this.watchScroll);
     setTimeout(() => {
       this.$refs.wrappers.style.visibility = "visible";
-    }, 1500);
+    }, 2500);
     // 首页图片 设置定时器加载 不然swiper 会有bug (图片的吭) bind 解决this 指向
 
     let mySwiperA = new Swiper(".wrapA", {});
@@ -271,15 +272,15 @@ export default {
         path: "/wishs"
       });
     },
-    onRefresh() {
-      setTimeout(
-        function() {
-          this.$toast("刷新成功");
-          this.isLoading = false;
-        }.bind(this),
-        500
-      );
-    },
+    // onRefresh() {
+    //   setTimeout(
+    //     function() {
+    //       this.$toast("刷新成功");
+    //       this.isLoading = false;
+    //     }.bind(this),
+    //     500
+    //   );
+    // },
     handleChange(item, index) {
       this.nowIndex = index;
       this.$root.eventHub.$emit("changeTab", index);
@@ -412,6 +413,7 @@ export default {
 .detailWrap {
   position: relative;
   padding-bottom: 50px;
+  background: #fff;
 }
 
 .topt {
@@ -601,6 +603,7 @@ export default {
   color: #fff;
   line-height: 44px;
 }
+
 .querena {
   width: 100%;
   background: rgba(210, 22, 35, 1);
@@ -612,8 +615,9 @@ export default {
   font-size: 15px;
   color: #fff;
   line-height: 44px;
-  opacity 0.1
+  opacity: 0.1;
 }
+
 .jia, .jian {
   border: 1px solid #eeeeee;
   padding: 7px 12px;

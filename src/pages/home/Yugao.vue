@@ -53,7 +53,7 @@ export default {
     };
   },
   created() {
-    fsDetail(1001)
+    fsDetail(1001,1)
       .then(res => {
         // console.log(res.data);
         res = res.data;

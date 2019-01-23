@@ -142,7 +142,7 @@ export default {
   mounted() {
     setTimeout(() => {
       this.$refs.wrapss.style.visibility = "visible";
-    }, 500);
+    }, 1700);
   },
   methods: {
     beforeClose(action, done) {

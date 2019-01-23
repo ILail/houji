@@ -1,5 +1,5 @@
 <template>
-  <div  ref="wrapps" style="display:none;">
+  <div ref="wrapps" style="visibility:hidden">
     <mine-header></mine-header>
     <mine-order></mine-order>
     <div style="background:#eee;height:10px"></div>
@@ -79,7 +79,7 @@ export default {
   },
   mounted() {
     setTimeout(() => {
-      this.$refs.wrapps.style.display = "block";
+      this.$refs.wrapps.style.visibility = "visible";
     }, 700);
     // foryou()
     //   .then(res => {
@@ -94,7 +94,6 @@ export default {
     //   });
   },
   methods: {
-    
     getVal: function(res) {
       this.selected = res;
     }

@@ -29,35 +29,55 @@
       </van-swipe-item>
     </van-swipe>
     <!-- 内容 -->
-    <div class="container" v-cloak>
-      <div class="title top">{{list.crowd_funding_name}}</div>
-      <div class="content top">{{list.summary}}</div>
-      <div class="price top">
-        <span class="mubiao">目标金额</span>
-        <span class="Mmoney">¥{{list.goal_money}}</span>
+    <div v-cloak>
+      <div class="container" style=" box-shadow: 0px 1px 24px 0px rgba(255, 255, 255, 0.75);">
+        <div class="title top">{{list.crowd_funding_name}}</div>
+        <div class="content top">{{list.summary}}</div>
+        <div class="price top">
+          <span class="mubiao">已售金额：</span>
+          <span class="Mmoney">{{computedmoey(list)}}</span>
+        </div>
       </div>
       <!-- 人员 -->
       <div class="people top">
-        <ul>
-          <li>
-            <span class="peopleT">{{list.now_money}}</span>
-            <span class="peopleC">预售金额/元</span>
-          </li>
-          <li>
-            <span class="peopleT">{{computedResidualTime(list)}}</span>
-            <span class="peopleC">剩余时间/天</span>
-          </li>
-          <li>
-            <span class="peopleT">{{list.support_num}}</span>
-            <span class="peopleC">支持人数</span>
-          </li>
-        </ul>
         <div class="progressAll">
           <div class="progress-outer">
             <span class="progress" :style="{width:computedWidth(list)+'%'}"></span>
           </div>
-          <span class="progressA">{{list.progress}}%</span>
+          <span class="progressA" :style="{right:computedR(list)+'%'}">{{list.progress}}%</span>
         </div>
+        <ul>
+          <li>
+            <span class="peopleT">{{computedmoeys(list)}}</span>
+            <span class="peopleC">目标金额</span>
+          </li>
+          <li class="linesss"></li>
+          <li>
+            <span class="peopleT">{{list.support_num}}</span>
+            <span class="peopleC">支持人数</span>
+          </li>
+          <li class="linesss"></li>
+          <li>
+            <span class="peopleT">{{computedResidualTime(list)}}</span>
+            <span class="peopleC">剩余时间</span>
+          </li>
+        </ul>
+        <div class="lines"></div>
+        <!-- 价格 -->
+        <div class="middCon container">
+          <div class="flexa">
+            <span class="flexl">¥{{list.support_money}}</span>
+            <!-- <span class="wordess">125</span> -->
+          </div>
+          <div class="flexa">
+            <span class="flexr">立即支持</span>
+            <img :src="img" style="width:8px">
+          </div>
+        </div>
+        <div class="line container"></div>
+        <!-- 查看全部档位 -->
+        <div class="allName">查看全部档位</div>
+        <div class="lines"></div>
       </div>
       <!-- 人员信息 -->
       <div class="Originator">
@@ -91,6 +111,7 @@ export default {
       pic: "",
       video: "",
       imgs: require("@/assets/bof.png"),
+      img: require("@/assets/rr.png"),
       num: "",
       show: true,
       time: 3000,
@@ -105,6 +126,7 @@ export default {
         if (res.status && res.data) {
           const data = res.data;
           this.list = data;
+          console.log(this.list);
           this.picList = data.imgs.split(",");
           this.pic = res.data.video_pic;
           this.video = res.data.video_data;
@@ -141,6 +163,13 @@ export default {
       //视频结束
       this.show = true;
     },
+    computedR: function(list) {
+      let width = 100 - list.progress - 5;
+      if (width <= 0) {
+        width = 2
+      }
+      return `${width}`;
+    },
     computedResidualTime: function(list) {
       let residualTime = list.left_time;
       let day = parseInt(residualTime / (24 * 3600));
@@ -155,11 +184,73 @@ export default {
         width = 100;
       }
       return `${width}`;
+    },
+    computedmoey: function(list) {
+      let money = list.now_money;
+      let moneys = parseInt(money);
+
+      return `${moneys}元`;
+    },
+    computedmoeys: function(list) {
+      let money = list.goal_money;
+      let moneys = parseInt(money);
+
+      return `${moneys}元`;
     }
   }
 };
 </script>
 <style lang="stylus" type="text/stylus" rel="stylesheet/stylus" scoped>
+.line {
+  margin-top: 10px;
+  height: 1px;
+  background: rgba(229, 229, 229, 1);
+}
+
+.flexl {
+  font-size: 19px;
+  font-family: SanFranciscoDisplay-Medium;
+  font-weight: 500;
+  color: rgba(210, 22, 35, 1);
+}
+
+.middCon {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 0;
+}
+
+.middCon .flexa {
+  display: flex;
+  align-items: center;
+}
+
+.allName {
+  font-size: 14px;
+  font-family: PingFangSC-Light;
+  font-weight: 300;
+  color: rgba(102, 102, 102, 1);
+  text-align: center;
+  width: 100%;
+  padding-top: 20px;
+  padding-bottom: 10px;
+}
+
+.linesss {
+  width: 1px;
+  height: 42px;
+  background: rgba(212, 212, 212, 1);
+}
+
+.flexr {
+  font-size: 14px;
+  font-family: PingFangSC-Light;
+  font-weight: 300;
+  color: rgba(51, 51, 51, 1);
+  margin-right: 0.2rem;
+}
+
 .imgsaa {
   position: absolute;
   left: 45%;
@@ -173,6 +264,10 @@ export default {
 
 .swiper-img {
   height: 375px;
+}
+
+.wordess {
+  text-decoration: line-through;
 }
 
 .top {
@@ -207,7 +302,6 @@ export default {
   font-family: SanFranciscoDisplay-Medium;
   font-weight: 500;
   color: rgba(210, 22, 35, 1);
-  margin-left: 10px;
 }
 
 .price {
@@ -216,18 +310,15 @@ export default {
 }
 
 .people {
-  background: rgba(255, 255, 255, 1);
-  box-shadow: 0px 1px 24px 0px rgba(224, 224, 224, 0.75);
-  border-radius: 5px;
-  overflow: hidden;
+  box-shadow: 0px 1px 24px 0px rgba(255, 255, 255, 0.75);
 }
 
 .people ul {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 0.6rem 0 0.6rem;
-  margin: 20px 0 20px 0;
+  margin: 0 20px;
+  padding-bottom: 10px;
 }
 
 .people ul li {
@@ -240,19 +331,23 @@ export default {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 0.6rem 20px 0.6rem;
+  padding: 10px 0.2rem 20px 0.2rem;
 }
 
 .progressA {
   font-size: 12px;
-  color: rgba(255, 113, 55, 1);
-  border: 1px solid rgba(255, 150, 102, 1);
+  color: #fff;
+  background: #FBA23E;
   border-radius: 10px;
-  padding: 0.01rem 0.02rem;
+  width: 50px;
+  height: 20px;
+  line-height: 20px;
+  text-align: center;
+  position: absolute;
 }
 
 .progress-outer {
-  width: 87%;
+  width: 100%;
   height: 0.1rem;
   position: relative;
   background-color: #EEEEEE;
@@ -264,7 +359,7 @@ export default {
   position: absolute;
   top: 0;
   left: 0;
-  background: linear-gradient(90deg, rgba(255, 41, 48, 1), rgba(255, 117, 55, 1));
+  background: #FBA23E;
   border-radius: 5px;
 }
 
@@ -286,7 +381,7 @@ export default {
 .Originator {
   display: flex;
   align-items: center;
-  box-shadow: 0px 1px 24px 0px rgba(224, 224, 224, 0.75);
+  box-shadow: 0px 1px 24px 0px rgba(255, 255, 255, 0.75);
   border-radius: 5px;
   padding: 15px 0.6rem;
   overflow: hidden;
@@ -321,6 +416,13 @@ export default {
 
 .middleB {
   margin-top: 5px;
+}
+
+.lines {
+  width: 100%;
+  height: 10px;
+  background: rgba(244, 244, 244, 1);
+  margin: 10px 0;
 }
 
 .peoDela >>> p img {

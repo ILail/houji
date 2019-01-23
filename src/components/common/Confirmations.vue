@@ -239,7 +239,7 @@ export default {
   mounted(){
         setTimeout(() => {
       this.$refs.wrappers.style.visibility = "visible";
-    }, 300);
+    }, 800);
   },
   // computed() {},
   methods: {

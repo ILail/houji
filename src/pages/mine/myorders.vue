@@ -1,5 +1,5 @@
 <template>
-  <div class="active" ref="wrappers" style="display:none;">
+  <div class="active" ref="wrappers" style="visibility:hidden;">
     <van-tabs v-model="activea" swipeable sticky animated>
       <van-tab title="全部">
         <div class="hitImg" v-show="ispic">
@@ -222,7 +222,7 @@ export default {
   name: "Myorders",
   data() {
     return {
-      activea: "",
+      activea: 1,
       num: 1,
       json: [],
       ispic: false,
@@ -297,7 +297,7 @@ export default {
   },
   mounted() {
     setTimeout(() => {
-      this.$refs.wrappers.style.display = "block";
+      this.$refs.wrappers.style.visibility = "visible";
     }, 500);
   },
   methods: {

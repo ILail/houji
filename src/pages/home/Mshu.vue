@@ -56,7 +56,7 @@ export default {
     };
   },
   created() {
-    fsDetail(20)
+    fsDetail(20,1)
       .then(res => {
         // console.log(res.data);
         res = res.data;

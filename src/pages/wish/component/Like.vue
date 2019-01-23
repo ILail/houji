@@ -44,12 +44,14 @@
 
 <script type="text/ecmascript-6">
 export default {
+  name:"MineHeader",
   props: {
     hot: Array
   },
   data() {
     return {};
   },
+
   methods: {
     computedResidualTime: function(items) {
       let residualTime = items.left_time;

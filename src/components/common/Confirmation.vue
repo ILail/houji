@@ -256,7 +256,7 @@ export default {
   mounted() {
     setTimeout(() => {
       this.$refs.wrappers.style.visibility = "visible";
-    }, 300);
+    }, 1200);
   },
   methods: {
     address() {

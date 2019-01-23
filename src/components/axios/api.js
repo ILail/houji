@@ -46,9 +46,9 @@ export function fs() {
 }
 
 // 分类页面产品
-export function fsDetail(id) {
+export function fsDetail(id,page) {
   return fetch({
-    url: api.Hallowmas + '/v2/index?crowd_funding_class_id=' + id,
+    url: api.Hallowmas + '/v2/index?crowd_funding_class_id=' + id + '&page=' + page+'',
     method: "GET",
   })
 }

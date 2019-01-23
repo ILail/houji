@@ -78,7 +78,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-// import HomeSwiper from "./components/Swiper";
+
 import { address } from "@/components/axios/api";
 export default {
   name: "Dizhi",

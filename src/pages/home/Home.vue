@@ -1,9 +1,15 @@
 <template>
-  <div ref="wrapps" style="display:none;">
+  <div ref="wrapps" style="visibility:hidden;">
     <div class="wrapword container">
-      <span><img src="@/assets/one.png">24小时监控</span>
-      <span><img src="@/assets/two.png">权威保障</span>
-      <span><img src="@/assets/three.png">假一赔十</span>
+      <span>
+        <img src="@/assets/one.png">24小时监控
+      </span>
+      <span>
+        <img src="@/assets/two.png">权威保障
+      </span>
+      <span>
+        <img src="@/assets/three.png">假一赔十
+      </span>
     </div>
     <img :src="adInfo.ad_img" class="tImg" @click="imgJ">
     <home-people :larity="popuLarity"></home-people>
@@ -15,7 +21,6 @@
 </template>
 
 <script>
-import Vue from "vue";
 import HomePeople from "./components/People";
 import HomeNew from "./components/New";
 import HomeLike from "./components/Like";
@@ -68,8 +73,8 @@ export default {
   },
   mounted() {
     setTimeout(() => {
-      this.$refs.wrapps.style.display = "block";
-    }, 1500);
+      this.$refs.wrapps.style.visibility = "visible";
+    }, 2500);
   },
   methods: {
     imgJ() {
@@ -85,23 +90,26 @@ export default {
   width: 100%;
   margin-top: 10px;
 }
-.wrapword{
-  margin-top 10px
-  display flex
-  align-items center
-  justify-content space-between
+
+.wrapword {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
+
 .wrapword span {
   font-size: 12px;
   font-family: PingFangSC-Light;
   font-weight: 300;
   color: rgba(178, 24, 34, 1);
   line-height: 23px;
-  display flex
-  align-items center
+  display: flex;
+  align-items: center;
 }
-.wrapword img{
-  width 10px
-  margin-right 3px
+
+.wrapword img {
+  width: 10px;
+  margin-right: 3px;
 }
 </style>

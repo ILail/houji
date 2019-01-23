@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div ref="wrappers" style="visibility:hidden;">
     <div id="box">
       <div class="hitImg" v-show="shops">
         <img src="@/assets/empty.png">
@@ -98,8 +98,6 @@
   </div>
 </template>
 <script defer=true>
-// import store from '@/components/vuex/store'
-// import * as types from "@/components/vuex/types";
 import { rSwiperOut, rSwiperOutItem } from "@/bus/components/swiperOut";
 import MineHeader from "./component/Like";
 import { wishPush } from "@/components/axios/api";
@@ -180,7 +178,11 @@ export default {
         console.log(err, "请求失败");
       });
   },
-
+  mounted() {
+    setTimeout(() => {
+      this.$refs.wrappers.style.visibility = "visible";
+    }, 2250);
+  },
   methods: {
     linjuan() {
       this.$router.push("/linjuan");

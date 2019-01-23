@@ -1,65 +1,58 @@
 <template>
-<keep-alive>
-  <div class="wrap">
-    <!-- 推荐 -->
-    <div :class="searchBarFixed == true ? 'isFixed' :''" id="searchBar">
-      <home-header></home-header>
-      <ly-tab v-model="selectedId" :items="items" :options="options" @change="handleChange"></ly-tab>
-    </div>
-    <van-swipe :autoplay="3000" indicator-color="#D21623" :touchable="false" v-if="shiw">
-      <van-swipe-item v-for="item of sowingMap" :key="item.id">
-        <router-link
-          :to="{  
+    <div class="wrap">
+      <!-- 推荐 -->
+      <div :class="searchBarFixed == true ? 'isFixed' :''" id="searchBar">
+        <home-header></home-header>
+        <ly-tab v-model="selectedId" :items="items" :options="options" @change="handleChange"></ly-tab>
+      </div>
+      <van-swipe :autoplay="3000" indicator-color="#D21623" :touchable="false" v-if="shiw">
+        <van-swipe-item v-for="item of sowingMap" :key="item.id">
+          <router-link
+            :to="{  
         path: 'Detail',     
         query: {   
             key: item.link, // orderNum : this.searchData.orderNo
         }
     }"
-        >
-          <img :src="item.pic" style="height:190px;width:100%">
-        </router-link>
-      </van-swipe-item>
-    </van-swipe>
-    <div class="swiper-box">
-      <div class="swiper-container wrapWa">
-        <div class="swiper-wrapper">
-          <div class="swiper-slide" v-for="item of list" :key="item.id">
-            <component :is="item.component"></component>
+          >
+            <img :src="item.pic" style="height:190px;width:100%">
+          </router-link>
+        </van-swipe-item>
+      </van-swipe>
+      <div class="swiper-box">
+        <div class="swiper-container wrapWa">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide" v-for="item of list" :key="item.id">
+              <keep-alive>
+                <component :is="item.component"></component>
+              </keep-alive>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    <div class="tabberWarp">
-      <div class="warp">
-        <Item
-          :txt="item.txt"
-          :page="item.page"
-          v-on:change="getVal"
-          v-for="item in tabbarDes"
-          :sel="selected"
-          :key="item.id"
-        >
-          <img :src="item.normalImg" slot="normalImg">
-          <img :src="item.activeImg" slot="activeImg">
-        </Item>
+      <div class="tabberWarp">
+        <div class="warp">
+          <Item
+            :txt="item.txt"
+            :page="item.page"
+            v-on:change="getVal"
+            v-for="item in tabbarDes"
+            :sel="selected"
+            :key="item.id"
+          >
+            <img :src="item.normalImg" slot="normalImg">
+            <img :src="item.activeImg" slot="activeImg">
+          </Item>
+        </div>
       </div>
-    </div>
 
-    <van-popup v-model="shows">
-      <img src="@/assets/linjuan/6.png" alt class="imgNew" @click="hitNew">
-    </van-popup>
-    <van-popup v-model="showsa">
-      <img src="@/assets/linjuan/7.png" alt class="imgNew">
-    </van-popup>
-    <!-- <div class="allIMG" v-if="shows">
-    
+      <van-popup v-model="shows">
+        <img src="@/assets/linjuan/6.png" alt class="imgNew" @click="hitNew">
+      </van-popup>
+      <van-popup v-model="showsa">
+        <img src="@/assets/linjuan/7.png" alt class="imgNew">
+      </van-popup>
     </div>
-
-    <div class="allIMG" v-if="showsa">
-      <img src="@/assets/linjuan/7.png" alt class="imgNew" @click="hitNe">
-    </div>-->
-  </div>
-  </keep-alive>
 </template>
 
 <script type="text/ecmascript-6">
@@ -81,8 +74,6 @@ import HomeHeader from "@/pages/home/components/Header.vue";
 import { lookOption } from "@/components/axios/api";
 import { huoqu } from "@/components/axios/api";
 import { Code } from "@/components/axios/api";
-// import { Member } from "@/components/axios/api";
-
 export default {
   name: "Small",
   components: {

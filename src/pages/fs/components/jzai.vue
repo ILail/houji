@@ -4,81 +4,81 @@
       <img src="@/assets/woring.png">
       <div class="contenr">暂时无数据，静请期待！</div>
     </div>
+
     <div v-for="(itemCon) in tabContentsa" :key="itemCon.id" class="people">
-      <img :src="itemCon.pic" class="peoImg">
-      <div class="people_p">
-        <div class="list">{{itemCon.crowd_funding_name}}</div>
-        <div class="crowd-info">
-          <div class="crowd-money">
-            <span class="word">已售：</span>
-            <span class="money">¥{{itemCon.now_money}}</span>
-          </div>
-          <div class="crowd-right">
-        
+      <router-link
+        :to="{  
+        path: 'Detail',     
+        query: {   
+            key: itemCon.crowd_funding_id, // orderNum : this.searchData.orderNo
+        }
+    }"
+      >
+        <img :src="itemCon.pic" class="peoImg">
+        <div class="people_p">
+          <div class="list">{{itemCon.crowd_funding_name}}</div>
+          <div class="crowd-info">
+            <div class="crowd-money">
+              <span class="word">已售：</span>
+              <span class="money">¥{{itemCon.now_money}}</span>
+            </div>
+            <div class="crowd-right">
               <img :src="itemCon.headimgurl">
-            
-            <span class="peoMuch">{{itemCon.nickname}}</span>
+              
+              <span class="peoMuch">{{itemCon.nickname}}</span>
+            </div>
+          </div>
+          <div class="progressAll">
+            <div class="progress-outer">
+              <span class="progress" :style="{width:computedResidualTimea(itemCon)+'%'}"></span>
+            </div>
+            <span class="progressA">{{itemCon.progress}}%</span>
+          </div>
+          <div class="crowd-info_a">
+            <div class="crowd-money">
+              <span class="peoHow">{{itemCon.support_num}}人支持</span>
+            </div>
+            <div class="crowd-day">
+              <span style="margin-right: 3px;">
+                <img src="@/assets/time.png" class="crowdTimg">
+              </span>
+              <span class="money">{{computedResidualTime(itemCon)}}</span>
+            </div>
           </div>
         </div>
-        <div class="progressAll">
-          <div class="progress-outer">
-            <span class="progress" :style="{width:computedResidualTimea(itemCon)+'%'}"></span>
-          </div>
-          <span class="progressA">{{itemCon.progress}}%</span>
-        </div>
-        <div class="crowd-info_a">
-          <div class="crowd-money">
-            <span class="peoHow">{{itemCon.support_num}}人支持</span>
-          </div>
-          <div class="crowd-day">
-            <span style="margin-right: 3px;">
-              <img src="@/assets/time.png" class="crowdTimg">
-            </span>
-            <span class="money">{{computedResidualTime(itemCon)}}</span>
-          </div>
-        </div>
-      </div>
+      </router-link>
     </div>
   </div>
 </template>
 <script>
 import { fsDetail } from "@/components/axios/api";
-import { fs } from "@/components/axios/api";
+// import { fs } from "@/components/axios/api";
 export default {
   data() {
     return {
       tabContentsa: [],
-      ispic: false
+      ispic: false,
+      num: 1
     };
   },
   created() {
-    fs()
+    fsDetail(20, this.num)
       .then(res => {
-        // console.log(res.data);
         res = res.data;
         if (res.status && res.data) {
-          const numN = res.data[2].crowd_funding_class_id; // 获取第一个的id
-          fsDetail(20)
-            .then(res => {
-              res = res.data;
-              if (res.status && res.data) {
-                console.log(res)
-                this.tabContentsa = res.data.result;
-              }
-              // console.log(this.tabContentsa.length)
-              if( this.tabContentsa.length == 0 ){
-                this.ispic = true
-              }
-            })
-            .catch(err => {
-              console.log(err, "请求失败");
-            });
+          console.log(res);
+          this.tabContentsa = res.data.result;
+        }
+        // console.log(this.tabContentsa.length)
+        if (this.tabContentsa.length == 0) {
+          this.ispic = true;
         }
       })
       .catch(err => {
         console.log(err, "请求失败");
       });
   },
+
   methods: {
     computedResidualTime: function(itemCon) {
       let residualTime = itemCon.left_time;
@@ -105,6 +105,7 @@ export default {
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+
 .people {
   border-radius: 5px;
   box-shadow: #666 0px 0px 10px;
@@ -212,7 +213,6 @@ export default {
   border-radius: 50%;
   margin: -1px 3px 0 0;
 }
-
 
 .crowdTimg {
   width: 12px;

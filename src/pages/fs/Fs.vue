@@ -143,9 +143,9 @@ export default {
     tab(index, id) {
       this.id = id;
       this.num = index;
-      this.created();
+      this.createda();
     },
-    created() {
+    createda:function() {
       fsDetail(this.id)
         .then(res => {
           res = res.data;
