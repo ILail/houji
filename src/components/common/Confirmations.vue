@@ -22,9 +22,14 @@
       <div class="same">
         <div class="sameInput">
           <span>优惠卷：</span>
-          <input type="text" placeholder="暂无使用" v-model="juan" readonly>
+          <input type="text" placeholder="暂无使用" v-model="juan" readonly v-show="aa">
+          <input type="text" placeholder="暂不可用" readonly v-show="aas">
         </div>
-        <div @click="showList">
+        <div @click="showList" v-show="aa">
+          <span style="margin-right:10px" class="same_">{{num}}张</span>
+          <img :src="wx" style="vertical-align: bottom;">
+        </div>
+        <div v-show="aas">
           <span style="margin-right:10px" class="same_">{{num}}张</span>
           <img :src="wx" style="vertical-align: bottom;">
         </div>
@@ -32,10 +37,14 @@
       <div class="same houji">
         <div class="sameInput">
           <span>猴集卡：</span>
-          <input type="text" placeholder="享受95折优惠" v-model="saleING" readonly>
+          <input type="text" placeholder="享受95折优惠" v-model="saleING" readonly v-show="aa">
+          <input type="text" placeholder="暂不可用" readonly v-show="aas">
         </div>
 
-        <div @click="showLists">
+        <div @click="showLists" v-show="aa">
+          <img :src="wx" style="vertical-align: bottom;">
+        </div>
+        <div v-show="aas">
           <img :src="wx" style="vertical-align: bottom;">
         </div>
       </div>
@@ -147,9 +156,12 @@ export default {
   },
   data() {
     return {
+      aa: true,
+      aas: false,
       routerParams: this.$route.query.dataObjo,
       routerParamb: this.$route.query.dataObjb,
       routerParamo: this.$route.query.dataObjc,
+      routerParama: this.$route.query.dataObjd,
       wx: require("@/assets/right_.png"),
       wxone: require("@/assets/mine/xu.png"),
       shoiw: false,
@@ -227,17 +239,26 @@ export default {
           this.totalMoney = this.moneyAll - this.newmoney;
         }
         if (this.moneyAll == "0.01") {
-          console.log(11111);
+          // console.log(11111);
           this.newmoney = 0.0;
           this.totalMoney = this.moneyAll - this.newmoney;
+        }
+        if (this.routerParams == 275) {
+          this.aa = false;
+          this.aas = true;
+          let nums = this.routerParama * 0.5;
+          let numss = this.routerParamo * nums;
+          this.newmoney = this.moneyAll - numss.toFixed(2);
+
+          this.totalMoney = numss;
         }
       })
       .catch(err => {
         console.log(err, "请求失败");
       });
   },
-  mounted(){
-        setTimeout(() => {
+  mounted() {
+    setTimeout(() => {
       this.$refs.wrappers.style.visibility = "visible";
     }, 800);
   },

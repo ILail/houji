@@ -668,3 +668,12 @@ export function ForWu(page) {
     method: "GET",
   })
 }
+
+
+export function ForList() {
+
+  return fetch({
+    url: api.Hallowmas + '/v2p1/Welfare/getLimitList',
+    method: "GET",
+  })
+}

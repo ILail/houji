@@ -75,7 +75,7 @@ export default {
       input.setAttribute("value", number);
       input.select();
       if (document.execCommand("copy")) {
-         this.$toast("复制成功");
+        this.$toast("长按复制单号");
         document.execCommand("copy");
       }
       document.body.removeChild(input);

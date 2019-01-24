@@ -5,7 +5,7 @@
         <div class="wrapc">
           <span>银行名称</span>
           
-          <input type="text" placeholder="选择银行" class="sames" v-model="one">
+          <input type="text" placeholder="选择银行" class="sames" v-model="one" readonly>
         </div>
         <img :src="img" alt>
       </div>

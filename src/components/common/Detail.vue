@@ -70,7 +70,7 @@
             <!-- <span class="wordess">125</span> -->
           </div>
           <div class="flexa">
-            <span class="flexr">立即支持</span>
+            <span class="flexr" @click="flexr">立即支持</span>
             <img :src="img" style="width:8px">
           </div>
         </div>
@@ -140,6 +140,7 @@ export default {
       });
   },
   methods: {
+    flexr() {},
     onChange(index) {
       this.num = index;
     },
@@ -150,7 +151,7 @@ export default {
       //暂停\播放
       this.time = 0;
       let video = document.querySelector("video");
-      console.log(this.num);
+      // console.log(this.num);
       if (this.num != 0) {
         video.pause();
       }
@@ -166,7 +167,7 @@ export default {
     computedR: function(list) {
       let width = 100 - list.progress - 5;
       if (width <= 0) {
-        width = 2
+        width = 2;
       }
       return `${width}`;
     },

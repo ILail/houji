@@ -76,7 +76,7 @@ export default {
         // }
         // 加载状态结束
         this.loading = false;
-        console.log(this.num);
+        // console.log(this.num);
         // 数据全部加载完成
         if (this.num >= 6) {
           this.finished = true;
@@ -87,7 +87,7 @@ export default {
       fsDetail(18, this.num)
         .then(res => {
           res = res.data;
-          console.log(res);
+          // console.log(res);
           if (res.status && res.data) {
             this.tabContents = this.tabContents.concat(res.data.result);
             // this.tabContentsa = res.data.result;
@@ -156,7 +156,7 @@ export default {
 
 .people {
   border-radius: 5px;
-  box-shadow: #666 0px 0px 10px;
+  box-shadow: #eee 0px 0px 10px;
   margin-top: 15px;
 }
 

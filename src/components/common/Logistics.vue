@@ -18,15 +18,15 @@ export default {
   data() {
     return {
       orderdetails: this.$route.query.dataObjo,
-      show:false
+      show: false
     };
   },
   created() {
     MessageWu(this.orderdetails)
       .then(res => {
-        if(res.data.status == "0"){
-          this.show = true
-        };
+        if (res.data.status == "0") {
+          this.show = true;
+        }
       })
       .catch(err => {
         console.log(err, "请求失败");
@@ -42,7 +42,7 @@ export default {
   height: 100%;
   top: 0;
   left: 0;
-  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
   background-color: #f4f4f4;
 }
 

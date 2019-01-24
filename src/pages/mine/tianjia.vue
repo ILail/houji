@@ -146,7 +146,7 @@ export default {
             console.log(res.data.data);
             if (res.data.data.length == "0") {
               this.$toast({
-                message: "提交成功",
+                message: "添加成功",
                 duration: "1000"
               });
             }

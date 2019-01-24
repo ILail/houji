@@ -47,6 +47,7 @@ import Orderdetails from '@/components/common/Orderdetails'
 import Wuliudetails from '@/components/common/Logistics'
 import Jdetial from '@/components/common/Jdetial'
 
+import Hdetial from '@/components/common/Hdetial'
 Vue.use(Router)
 // export default new Router({
 const routes = [{
@@ -76,6 +77,10 @@ const routes = [{
   path: '/jioayid',
   name: '交易详情',
   component: Jdetial
+}, {
+  path: '/hdetial',
+  name: '活动专区',
+  component: Hdetial
 }, {
   path: '/wishs',
   name: '心愿单',

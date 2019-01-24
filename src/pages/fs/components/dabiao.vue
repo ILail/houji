@@ -135,7 +135,7 @@ export default {
 
 .people {
   border-radius: 5px;
-  box-shadow: #666 0px 0px 10px;
+  box-shadow: #eee 0px 0px 10px;
   margin-bottom: 20px;
 }
 

@@ -5,7 +5,7 @@
     </div>
     <div class="hitImg"  v-show="ispic">
       <img src="@/assets/woring.png">
-      <div class="contenr">游记正在更新，静请期待！</div>
+      <div class="contenr">敬请期待</div>
     </div>
   </div>
 </template>

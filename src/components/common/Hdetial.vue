@@ -1,31 +1,32 @@
 <template>
-  <div class="detailWrap" ref="wrappers" style="visibility:hidden;">
-    <!-- 推荐 -->
-    <!-- <div :class="searchBarFixed == true ? 'isFixed' :''" id="searchBar"> -->
-    <!-- <home-nav></home-nav> -->
-    <ly-tab
-      v-model="selectedId"
-      :items="items"
-      :options="options"
-      @change="handleChange"
-      v-show="isshow"
-      class="isFixed"
-    ></ly-tab>
+  <div ref="wrappers" style="visibility:hidden;">
+    <!-- 轮播 -->
+    <van-swipe :autoplay="2500" :touchable="false" indicator-color="#D21623">
+      <van-swipe-item v-for="item of picList" :key="item.id">
+        <img class="swiper-img" :src="item" @click="imghir" style="width:100%;height:376px">
+      </van-swipe-item>
+    </van-swipe>
 
-    <!-- </div> -->
-    <!-- <van-pull-refresh v-model="isLoading" @refresh="onRefresh"> -->
-    <div class="swiper-box">
-      <div class="swiper-container wrapA">
-        <div class="swiper-wrapper">
-          <div class="swiper-slide" v-for="item of list" :key="item.id">
-            <keep-alive>
-              <component :is="item.component"></component>
-            </keep-alive>
-          </div>
-        </div>
+    <div class="middle">
+      <div>
+        <span>限量购</span>
+        <span>抢购中</span>
+      </div>
+      <div class="wrapss">
+        <span>仅剩{{list.left_nums}}件</span>
+        <img :src="img" style="width:8px">
       </div>
     </div>
-    <!-- </van-pull-refresh> -->
+    <div class="container">
+      <div class="name top">{{list.crowd_funding_name}}</div>
+      <div class="detail top">{{list.summary}}</div>
+      <div class="all top">
+        <span class="Lmoney">¥ {{money}}0</span>
+        <span class="Smoney">¥ {{moneys}}</span>
+      </div>
+    </div>
+    <div class="peoDela" v-html="list.content"></div>
+    <!-- 底部 -->
     <div class="bottom" v-if="isshowa">
       <ul>
         <li class="shu" onclick="url()">
@@ -35,58 +36,15 @@
           <span class="shuW">客服</span>
         </li>
         <li class="shu bordershu" @click="wishesHit">
-          <!-- <router-link to="/wishs"> -->
           <span style="margin-bottom:5px">
             <img src="@/assets/sku.png">
           </span>
           
           <span class="shuW" style="margin-top:-1px">购物车</span>
-          <!-- </router-link> -->
         </li>
         <li class="xiadan" @click="selectSort()">加入购物车</li>
-        <li class="joinw" @click="selectSorta()" v-show="show">立即购买</li>
-        <li class="joinwa" v-show="shows">立即购买</li>
+        <li class="joinw" @click="selectSorta()">立即购买</li>
       </ul>
-    </div>
-
-    <!-- 弹窗 -->
-    <div class="tanBottom" v-show="istanchuan">
-      <div class="topt"></div>
-      <div class="topone container" @click="chaClik()">
-        <img :src="img_path" class="topImg">
-        <div class="middle">
-          <span class="price">价格: ¥{{clickList.support_money}}</span>
-          <span class="typen">{{clickList.return_name}}</span>
-        </div>
-        <div>
-          <img src="@/assets/cha.png" class="cha">
-        </div>
-      </div>
-      <div class="container">
-        <div class="guige">规格</div>
-        <div class="layerNode">
-          <div
-            class="content"
-            v-for=" (item,index) in listP "
-            :key="item.id"
-            @click="tab(index)"
-            :class="{active:index == num}"
-          >
-            <div class="contentF">{{item.return_name}}：</div>
-            <div class="contentC">{{item.return_content}}</div>
-          </div>
-        </div>
-        <div class="numB" id="tan">
-          <div class="numBa">数量</div>
-          <ul class="listnum">
-            <li class="jia" v-on:click="jia">-</li>
-            <li class="numW">{{ count}}</li>
-            <li class="jian" v-on:click="jian">+</li>
-          </ul>
-          <div class="queren" @click="confirm()" v-show="show">确认</div>
-          <div class="querena" v-show="shows">确认</div>
-        </div>
-      </div>
     </div>
 
     <!-- 弹窗2-->
@@ -94,7 +52,7 @@
       <div class="topt"></div>
       <div class="topone container" @click="chaClik()">
         <img :src="img_path" class="topImg">
-        <div class="middle">
+        <div class="middles">
           <span class="price">价格: ¥{{clickList.support_money}}</span>
           <span class="typen">{{clickList.return_name}}</span>
         </div>
@@ -143,70 +101,36 @@ window.url = function() {
     alert("sdk尚未加载成功，请稍后再试");
   }
 };
-
-import Vue from "vue";
-import Detail from "@/components/common/Detail";
-import Travel from "@/components/common/Travel";
-import Plun from "@/components/common/Plun";
-import Suyuan from "@/components/common/Suyuan";
-import Swiper from "moon/swiper.min";
-import "moon/swiper.min.css";
-import { wishList } from "@/components/axios/api";
-import { specifications } from "@/components/axios/api";
-import { crowd_funding } from "@/components/axios/api";
 import store from "@/components/vuex/store";
-import { PullRefresh } from "vant";
-import { Toast } from "vant";
-Vue.use(PullRefresh);
-Vue.use(Toast);
+import { crowd_funding } from "@/components/axios/api";
+import { specifications } from "@/components/axios/api";
+import { ForList } from "@/components/axios/api";
+import Vue from "vue";
+import { Swipe, SwipeItem } from "vant";
+import { ImagePreview } from "vant";
+import { Sku } from "vant";
+
+Vue.use(Sku);
+Vue.use(Swipe).use(SwipeItem);
 export default {
-  name: "Detail",
-  components: {
-    Detail,
-    Travel,
-    Plun,
-    Suyuan
-  },
   data() {
     return {
-      show: true,
-      shows: false,
-      // isLoading: false,
-      selectedId: 0,
-      items: [
-        { label: "详情" },
-        { label: "游记" },
-        { label: "评论" },
-        { label: "溯源" }
-      ],
-      options: {
-        activeColor: "#D21623"
-        // 可在这里指定labelKey为你数据里文字对应的字段名
-      },
-      handler: function(e) {
-        e.preventDefault();
-      },
-      // searchBarFixed: false,
-      list: [
-        { component: Detail },
-        { component: Travel },
-        { component: Plun },
-        { component: Suyuan }
-      ],
-      isshow: false,
       isshowa: true,
-      scrollTop: "",
-      istanchuan: false,
+      count: 2,
       istanchuana: false,
-      count: 1,
+      id: this.$route.query.key,
+      money: this.$route.query.money,
+      moneys: this.$route.query.moneys,
+      picList: [],
       listP: [],
+      img: require("@/assets/rrs.png"),
+      list: {},
       img_path: "",
       clickList: "",
       num: 0
     };
   },
   created() {
-    this.id = this.$route.query.key; //获取上个页面传递的id,在下面获取数据的时候先提交id
     specifications(this.id)
       .then(res => {
         res = res.data;
@@ -219,7 +143,6 @@ export default {
       .catch(err => {
         console.log(err, "请求失败");
       });
-
     crowd_funding(this.id)
       .then(res => {
         res = res.data;
@@ -227,66 +150,22 @@ export default {
         if (res.status && res.data) {
           const data = res.data;
           this.img_path = data.imgs.split(",")[0];
-          let residualTime = data.left_time;
-          let day = parseInt(residualTime / (24 * 3600));
-          if (day <= 0) {
-            console.log(this.show);
-            this.show = false;
-            console.log(this.show);
-            this.shows = true;
-          }
+          this.list = data;
+          this.picList = data.imgs.split(",");
         }
       })
       .catch(err => {
         console.log(err, "请求失败");
       });
   },
-  mounted: function() {
-    window.addEventListener("scroll", this.watchScroll);
+  mounted() {
     setTimeout(() => {
       this.$refs.wrappers.style.visibility = "visible";
-    }, 2500);
-    // 首页图片 设置定时器加载 不然swiper 会有bug (图片的吭) bind 解决this 指向
-
-    let mySwiperA = new Swiper(".wrapA", {});
-    mySwiperA.on("slideChange", () => {
-      // 监控滑动后当前页面的索引，将索引发射到导航组件
-      // 左右滑动时将当前slide的索引发送到nav组件
-      this.selectedId = mySwiperA.activeIndex;
-      // this.$root.eventHub.$emit("slideTab", mySwiperA.activeIndex);
-      if (mySwiperA.activeIndex == 0) {
-        this.isshow = false;
-      } else {
-        this.isshow = true;
-      }
-    });
-    // 接收nav组件传过来的导航按钮索引值，跳转到相应内容区
-    this.$root.eventHub.$on("changeTab", index => {
-      // 点击导航键跳转相应内容区
-      mySwiperA.slideTo(index, 0, false);
-    });
+    }, 1500);
   },
   methods: {
-    wishesHit() {
-      this.$router.push({
-        path: "/wishs"
-      });
-    },
-    // onRefresh() {
-    //   setTimeout(
-    //     function() {
-    //       this.$toast("刷新成功");
-    //       this.isLoading = false;
-    //     }.bind(this),
-    //     500
-    //   );
-    // },
-    handleChange(item, index) {
-      this.nowIndex = index;
-      this.$root.eventHub.$emit("changeTab", index);
-    },
     jia: function() {
-      if (this.count == 1) {
+      if (this.count == 2) {
         return;
       }
       this.count--;
@@ -297,22 +176,24 @@ export default {
       }
       this.count++;
     },
+    imghir() {
+      ImagePreview(this.picList);
+    },
+    wishesHit() {
+      this.$router.push({
+        path: "/wishs"
+      });
+    },
     closeTouch: function() {
       document
         .getElementById("tan")
         .addEventListener("touchmove", this.handler, { passive: false }); //阻止默认事件
     },
-    // openTouch: function() {
-    //   document
-    //     .getElementsByTagName("body")[0]
-    //     .removeEventListener("touchmove", this.handler, { passive: false }); //打开默认事件
-    // },
-
-    // 点击弹窗
     selectSort() {
-      this.closeTouch(); //关闭默认事件
-      this.istanchuan = true;
-      this.isshowa = false;
+      this.$toast({
+        message: "不能添加购物车",
+        duration: "1000"
+      });
     },
     selectSorta() {
       this.closeTouch(); //关闭默认事件
@@ -322,7 +203,7 @@ export default {
     // 点击关闭
     chaClik() {
       // this.openTouch(); //打开默认事件
-      this.istanchuan = false;
+
       this.istanchuana = false;
       this.isshowa = true;
     },
@@ -332,29 +213,6 @@ export default {
       this.num = index;
       this.clickList = this.listP[index];
     },
-    // 点击确定
-    confirm() {
-      wishList(
-        this.count,
-        this.clickList.crowd_funding_return_id,
-        this.$route.query.key
-      )
-        .then(res => {
-          if (res.data.status == "-2012") {
-            this.$router.push({ path: "/phone" });
-          } else {
-            this.$toast({
-              message: "添加购物车成功",
-              duration: "1000"
-            });
-            this.istanchuan = false;
-            this.isshowa = true;
-          }
-        })
-        .catch(err => {
-          console.log(err, "请求失败");
-        });
-    },
     // 点击下单
     ljxd() {
       if (store.state.token == null) {
@@ -363,14 +221,16 @@ export default {
         const arry = [
           this.$route.query.key,
           this.clickList.crowd_funding_return_id,
-          this.count
+          this.count,
+          this.$route.query.money
         ];
         this.$router.push({
           path: "/querenone",
           query: {
             dataObjo: arry[0],
             dataObjb: arry[1],
-            dataObjc: arry[2]
+            dataObjc: arry[2],
+            dataObjd: arry[3]
           }
         });
       }
@@ -380,58 +240,77 @@ export default {
 </script>
 
 <style lang="stylus" type="text/stylus" rel="stylesheet/stylus" scoped>
-.joinwa {
-  width: 30%;
-  text-align: center;
-  font-size: 15px;
-  font-family: PingFangSC-Light;
-  font-weight: 300;
-  color: rgba(255, 255, 255, 1);
+.top {
+  margin-top: 20px;
+}
+
+.middle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 3.6%;
   background: #D21623;
-  height: 42px;
-  line-height: 38px;
-  opacity: 0.1;
+  color: #fff;
 }
 
-.swiper-slide {
-  height: 0px;
-  overflow-y: hidden;
+.middle span {
+  font-size: 13px;
+  font-family: PingFangSC-Regular;
+  font-weight: bold;
+  color: rgba(255, 255, 255, 1);
 }
 
-.swiper-slide-active {
-  height: auto;
-}
-
-.isFixed {
-  position: fixed;
-  top: 0;
-  z-index: 99;
+.peoDela >>> p img {
   width: 100%;
-  background: #fff;
 }
 
-.detailWrap {
-  position: relative;
+.peoDela >>> p {
+  margin-top: 20px;
   padding-bottom: 50px;
-  background: #fff;
 }
 
-.topt {
-  position: fixed;
-  width: 100%;
-  height: 20%;
-  background: rgba(0, 0, 0, 0.6);
-  top: 0;
+.name {
+  font-size: 18px;
+  font-family: PingFangSC-Semibold;
+  font-weight: 600;
+  color: rgba(51, 51, 51, 1);
 }
 
-.tanBottom {
-  background: #fff;
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 80%;
-  z-index: 999;
+.detail {
+  font-size: 14px;
+  font-family: PingFangSC-Regular;
+  font-weight: 400;
+  color: rgba(102, 102, 102, 1);
+}
+
+.wrapss {
+  display: flex;
+  align-items: center;
+}
+
+.wrapss span {
+  margin-right: 0.2rem;
+}
+
+.Lmoney {
+  font-size: 23px;
+  font-family: SanFranciscoDisplay-Medium;
+  font-weight: 500;
+  color: rgba(210, 22, 35, 1);
+}
+
+.all {
+  display: flex;
+  align-items: baseline;
+}
+
+.Smoney {
+  text-decoration: line-through;
+  font-size: 16px;
+  font-family: SanFranciscoDisplay-Light;
+  font-weight: 300;
+  color: rgba(153, 153, 153, 1);
+  margin-left: 0.3rem;
 }
 
 .bottom ul {
@@ -498,7 +377,6 @@ export default {
   line-height: 38px;
 }
 
-// 弹窗
 .topImg {
   width: 89px;
   height: 89px;
@@ -515,7 +393,7 @@ export default {
   justify-content: space-between;
 }
 
-.topone .middle {
+.topone .middles {
   display: flex;
   flex-direction: column;
   flex: 1;
@@ -527,11 +405,11 @@ export default {
   margin-right: -10px;
 }
 
-.middle {
+.middles {
   margin-left: 10px;
 }
 
-.middle .price {
+.middles .price {
   font-size: 13px;
   font-family: PingFangSC-Light;
   font-weight: 300;
@@ -649,4 +527,15 @@ export default {
 .layerNode .active {
   color: #D21623;
 }
+
+.tanBottom {
+  background: #fff;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 80%;
+  z-index: 999;
+}
 </style>
+

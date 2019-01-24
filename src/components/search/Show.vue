@@ -26,7 +26,7 @@
               <span>
                 <img src="@/assets/logo.png">
               </span>
-              <span class="peoMuch">农归吧</span>
+              <span class="peoMuch">{{item.nickname}}</span>
             </div>
           </div>
           <div class="progressAll">
@@ -73,6 +73,7 @@ export default {
     search(this.keyword)
       .then(res => {
         res = res.data;
+        console.log(res)
         if (res.status && res.data) {
           const data = res.data;
           this.sowingMap = data.result;

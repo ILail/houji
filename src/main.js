@@ -10,9 +10,12 @@ import LyTab from 'ly-tab';
 import store from '@/components/vuex/store'
 import clipper from '../static/clipper'
 import VueLazyload from 'vue-lazyload'
-import clipboard from 'clipboard';
+// import clipboard from 'clipboard';
+
+import VueBus from '@/bus/bus';
+Vue.use(VueBus); //
 //注册到vue原型上
-Vue.prototype.clipboard = clipboard;
+// Vue.prototype.clipboard = clipboard;
 // vant
 import { Tab, Tabs } from "vant";
 import { Toast } from "vant";

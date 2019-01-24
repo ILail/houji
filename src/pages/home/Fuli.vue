@@ -92,6 +92,7 @@ import one from "@/pages/home/weal/one";
 import two from "@/pages/home/weal/two";
 import three from "@/pages/home/weal/three";
 import { weal } from "@/components/axios/api";
+
 export default {
   name: "Fuli",
   data() {
@@ -109,7 +110,7 @@ export default {
         res = res.data;
         if (res.status && res.data) {
           const data = res.data;
-          console.log(data)
+
           this.img = data.sowingmap[0].pic;
         }
       })

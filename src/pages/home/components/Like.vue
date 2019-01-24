@@ -89,7 +89,7 @@ export default {
 .wrap {
   width: 48.5%;
   margin-bottom: 10px;
-  box-shadow: #666 0px 0px 10px;
+  box-shadow: #eee 0px 0px 10px;
   border-radius: 5px;
   padding-bottom: 10px;
 }

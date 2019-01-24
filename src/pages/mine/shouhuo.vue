@@ -44,9 +44,9 @@ import { getUser } from "@/components/axios/api";
 import { getMove } from "@/components/axios/api";
 import { SwipeCell } from "vant";
 import { Cell, CellGroup } from "vant";
-import { Dialog } from "vant";
+// import { Dialog } from "vant";
 
-Vue.use(Dialog);
+// Vue.use(Dialog);
 Vue.use(Cell).use(CellGroup);
 Vue.use(SwipeCell);
 export default {
@@ -91,11 +91,8 @@ export default {
           instance.close();
           break;
         case "right":
-          Dialog.confirm({
-            message: "确定删除吗？"
-          }).then(() => {
-            instance.close();
-          });
+          instance.close();
+
           break;
       }
     },

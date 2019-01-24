@@ -2,7 +2,7 @@
   <div class="wrapAll container">
     <div class="hitImg" v-show="ispic">
       <img src="@/assets/woring.png">
-      <div class="contenr">暂时无数据，静请期待！</div>
+      <div class="contenr">敬请期待</div>
     </div>
     <div v-for="(itemCon) in tabContents" :key="itemCon.id" class="people">
       <img :src="itemCon.pic" class="peoImg">
@@ -117,7 +117,7 @@ export default {
 
 .people {
   border-radius: 5px;
-  box-shadow: #666 0px 0px 10px;
+  box-shadow: #eee 0px 0px 10px;
   margin-top: 15px;
 }
 
