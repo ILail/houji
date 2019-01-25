@@ -121,7 +121,8 @@
             <li class="numW">{{ count}}</li>
             <li class="jian" v-on:click="jian">+</li>
           </ul>
-          <div class="queren" @click="ljxd">立即购买</div>
+          <div class="queren" @click="ljxd" v-show="showlj">立即购买</div>
+          <div class="querens" v-show="showljs">立即购买</div>
         </div>
       </div>
     </div>
@@ -167,9 +168,11 @@ export default {
   },
   data() {
     return {
+      daytime: "",
       show: true,
       shows: false,
-      // isLoading: false,
+      showlj: true,
+      showljs: false,
       selectedId: 0,
       items: [
         { label: "详情" },
@@ -227,10 +230,11 @@ export default {
           this.img_path = data.imgs.split(",")[0];
           let residualTime = data.left_time;
           let day = parseInt(residualTime / (24 * 3600));
+          this.daytime = day;
           if (day <= 0) {
-            console.log(this.show);
+            // console.log(this.show);
             this.show = false;
-            console.log(this.show);
+            // console.log(this.show);
             this.shows = true;
           }
         }
@@ -241,6 +245,11 @@ export default {
   },
   mounted: function() {
     this.$bus.$on("msg", msg => {
+      if (this.daytime <= 0) {
+        this.showlj = false;
+
+        this.showljs = true;
+      }
       this.istanchuana = msg;
       this.isshowa = !msg;
     });
@@ -605,7 +614,19 @@ export default {
   color: #fff;
   line-height: 44px;
 }
-
+.querens{
+  width: 100%;
+  background: rgba(210, 22, 35, 1);
+  border-radius: 2px;
+  overflow: hidden;
+  height: 44px;
+  margin-bottom: 14px;
+  text-align: center;
+  font-size: 15px;
+  color: #fff;
+  line-height: 44px;
+  opacity 0.2
+}
 .querena {
   width: 100%;
   background: rgba(210, 22, 35, 1);
