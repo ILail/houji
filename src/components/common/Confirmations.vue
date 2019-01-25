@@ -138,8 +138,8 @@ import { Confirtwo } from "@/components/axios/api";
 import { getDIZ } from "@/components/axios/api";
 import { coupon } from "@/components/axios/api";
 import secret from "@/utils/utils";
-import bus from "@/bus/bus.js";
-
+// import bus from "@/bus/bus.js";
+import store from "@/components/vuex/store";
 export default {
   name: "Confirmations",
   filters: {
@@ -321,8 +321,8 @@ export default {
         });
         return false;
       }
-      var naid = localStorage.getItem("key");
-      // console.log();
+      let naid = store.state.oppenId;
+      console.log(naid);
       const arry = [
         this.details,
         // this.we_chat,

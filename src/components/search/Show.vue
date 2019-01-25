@@ -5,49 +5,54 @@
       <div class="contenr">空空如也，换个关键词试试吧！</div>
     </div>
     <!-- 跳转 -->
-    <div class="people" v-for="item of sowingMap" :key="item.id">
-      <router-link
+    <div
+      class="people"
+      v-for="item of sowingMap"
+      :key="item.id"
+      @click="hitS(item.crowd_funding_id)"
+    >
+      <!-- <router-link 
         :to="{  
         path: 'Detail',     
         query: {   
             key: item.crowd_funding_id, // orderNum : this.searchData.orderNo
         }
     }"
-      >
-        <img :src="item.pic" class="peoImg">
-        <div class="people_p">
-          <div class="list">{{item.crowd_funding_name}}</div>
-          <div class="crowd-info">
-            <div class="crowd-money">
-              <span class="word">已售：</span>
-              <span class="money">¥{{item.now_money}}</span>
-            </div>
-            <div class="crowd-right">
-              <span>
-                <img src="@/assets/logo.png">
-              </span>
-              <span class="peoMuch">{{item.nickname}}</span>
-            </div>
+      >-->
+      <img :src="item.pic" class="peoImg">
+      <div class="people_p">
+        <div class="list">{{item.crowd_funding_name}}</div>
+        <div class="crowd-info">
+          <div class="crowd-money">
+            <span class="word">已售：</span>
+            <span class="money">¥{{item.now_money}}</span>
           </div>
-          <div class="progressAll">
-            <div class="progress-outer">
-              <span class="progress" :style="{width:computedWidth(item)+'%'}"></span>
-            </div>
-            <span class="progressA">{{item.progress}}%</span>
-          </div>
-          <div class="crowd-info_a">
-            <div class="crowd-money">
-              <span class="peoHow">{{item.support_num}}人支持</span>
-            </div>
-            <div class="crowd-day">
-              <span style="margin-right: 3px;">
-                <img src="@/assets/time.png" class="crowdTimg">
-              </span>
-              <span class="money">{{computedResidualTime(item)}}</span>
-            </div>
+          <div class="crowd-right">
+            <!-- <span style=" margin-top:-2px"> -->
+            <img :src="item.headimgurl" style="border-radius:50%">
+            <!-- </span> -->
+            <span class="peoMuch">{{item.nickname}}</span>
           </div>
         </div>
-      </router-link>
+        <div class="progressAll">
+          <div class="progress-outer">
+            <span class="progress" :style="{width:computedWidth(item)+'%'}"></span>
+          </div>
+          <span class="progressA">{{item.progress}}%</span>
+        </div>
+        <div class="crowd-info_a">
+          <div class="crowd-money">
+            <span class="peoHow">{{item.support_num}}人支持</span>
+          </div>
+          <div class="crowd-day">
+            <span style="margin-right: 3px;">
+              <img src="@/assets/time.png" class="crowdTimg">
+            </span>
+            <span class="money">{{computedResidualTime(item)}}</span>
+          </div>
+        </div>
+      </div>
+      <!-- </router-link> -->
     </div>
   </div>
 </template>
@@ -73,13 +78,13 @@ export default {
     search(this.keyword)
       .then(res => {
         res = res.data;
-        console.log(res)
+        console.log(res);
         if (res.status && res.data) {
           const data = res.data;
           this.sowingMap = data.result;
-          if(data.result.length == 0){
-              this.ispic = true
-          } 
+          if (data.result.length == 0) {
+            this.ispic = true;
+          }
         }
       })
       .catch(err => {
@@ -87,6 +92,25 @@ export default {
       });
   },
   methods: {
+    hitS(INDE) {
+      if (INDE == 275) {
+        this.$router.push({
+          path: "/hdetial",
+          query: {
+            key: INDE,
+            money: "59.4",
+            moneys: "180"
+          }
+        });
+      } else {
+        this.$router.push({
+          path: "/Detail",
+          query: {
+            key: INDE
+          }
+        });
+      }
+    },
     computedResidualTime: function(item) {
       let residualTime = item.left_time;
       let day = parseInt(residualTime / (24 * 3600)); //剩余天数
@@ -171,9 +195,13 @@ export default {
   color: #D21623;
 }
 
-.crowd-money .peoMuch {
+.peoMuch {
   color: #999999;
   font-size: 12px;
+  max-width: 110px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .crowd-info_a {
@@ -223,7 +251,7 @@ export default {
 
 .crowd-right {
   display: flex;
-  align-self: center;
+  align-items: center;
   color: #999;
 }
 

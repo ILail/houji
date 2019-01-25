@@ -80,18 +80,7 @@ export default {
   mounted() {
     setTimeout(() => {
       this.$refs.wrapps.style.visibility = "visible";
-    }, 700);
-    // foryou()
-    //   .then(res => {
-    //     res = res.data;
-    //     if (res.status && res.data) {
-    //       const data = res.data;
-    //       this.list = data.data;
-    //     }
-    //   })
-    //   .catch(err => {
-    //     console.log(err, "请求失败");
-    //   });
+    }, 1000);
   },
   methods: {
     getVal: function(res) {

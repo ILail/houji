@@ -83,8 +83,8 @@ export default {
         // }
         // 加载状态结束
         this.loading = false;
-        console.log(this.num);
-        console.log(this.lastpage);
+        // console.log(this.num);
+        // console.log(this.lastpage);
         // 数据全部加载完成
         if (this.num >= this.lastpage) {
           this.finished = true;

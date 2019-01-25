@@ -45,15 +45,19 @@ export default {
               message: "未领取会员",
               duration: "500"
             });
+            setTimeout(function() {
+              _this.$router.push('/');
+            }, 1000);
           } else {
             _this.$toast({
               message: "已经领取会员",
               duration: "500"
             });
+            setTimeout(function() {
+              _this.$router.go(-1);
+            }, 1500);
           }
-          setTimeout(function() {
-            _this.$router.go(-1);
-          }, 3000);
+
           // Member()
           //   .then(res => {
           //     console.log(res.data.status);

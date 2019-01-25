@@ -18,11 +18,8 @@
           @click="pauseVideo"
           @ended="onPlayerEnded($event)"
         ></video>
-        <!-- <div class="imgsaaa" @click="pauseVideo" v-show="show">
-          <img :src="imgs">
-        </div>-->
+        
         <img :src="imgs" class="imgsaa" @click="pauseVideo" v-show="show">
-        <!-- <img :src="pic" style="width:100%"> -->
       </van-swipe-item>
       <van-swipe-item v-for="item of picList" :key="item.id">
         <img class="swiper-img" :src="item" @click="imghir" style="width:100%">
@@ -76,7 +73,7 @@
         </div>
         <div class="line container"></div>
         <!-- 查看全部档位 -->
-        <div class="allName">查看全部档位</div>
+        <div class="allName" @click="flexr">查看全部档位</div>
         <div class="lines"></div>
       </div>
       <!-- 人员信息 -->
@@ -103,6 +100,7 @@ import Vue from "vue";
 import { Swipe, SwipeItem } from "vant";
 import { ImagePreview } from "vant";
 Vue.use(Swipe).use(SwipeItem);
+// import this.$bus from "@/bus/Bus.vue";
 export default {
   data() {
     return {
@@ -115,7 +113,8 @@ export default {
       num: "",
       show: true,
       time: 3000,
-      shows: true
+      shows: true,
+      istanchuana: true,
     };
   },
   created() {
@@ -140,7 +139,9 @@ export default {
       });
   },
   methods: {
-    flexr() {},
+    flexr() {
+      this.$bus.$emit("msg", this.istanchuana);
+    },
     onChange(index) {
       this.num = index;
     },

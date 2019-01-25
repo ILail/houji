@@ -55,7 +55,7 @@ export default {
   created() {
     coupon(113)
       .then(res => {
-        console.log(res.data.data.data);
+        // console.log(res.data.data.data);
         this.list = res.data.data.data;
         this.num = res.data.data.total;
         if (this.num == 0) {

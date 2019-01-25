@@ -147,7 +147,6 @@ export default {
   methods: {
     slideTab(index) {
       this.num = index;
-      // bus.$emit("userDefinedEvent", this.tabs[index]);
     },
     getVal: function(res) {
       this.selected = res;

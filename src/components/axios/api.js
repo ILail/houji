@@ -368,14 +368,15 @@ export function MyObjecthree() {
   })
 }
 // 修改个人资料
-export function peosMS(username, self_introduction) {
+export function peosMS(username, self_introduction,headimgurl) {
 
   return fetch({
     url: api.Hallowmas + '/v2/member/upMember',
     method: "PUT",
     data: {
       username: username,
-      self_introduction: self_introduction
+      self_introduction: self_introduction,
+      headimgurl:headimgurl
     }
   })
 }

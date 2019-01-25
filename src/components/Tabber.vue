@@ -23,6 +23,7 @@ export default {
   },
   data: function() {
     return {
+      selected:'',
       tabbarDes: [
         {
           txt: "首页",
@@ -32,16 +33,16 @@ export default {
         },
         {
           txt: "分类",
-          page: "fs",
+          page: "feilei",
           normalImg: require("@/assets/foot/fix.png"),
           activeImg: require("@/assets/foot/fixs.png")
         },
-        {
-          txt: "家长会",
-          page: "peos",
-          normalImg: require("@/assets/foot/peos.png"),
-          activeImg: require("@/assets/foot/peoss.png")
-        },
+        // {
+        //   txt: "家长会",
+        //   page: "peos",
+        //   normalImg: require("@/assets/foot/peos.png"),
+        //   activeImg: require("@/assets/foot/peoss.png")
+        // },
         {
           txt: "心愿单",
           page: "wishs",

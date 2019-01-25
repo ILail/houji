@@ -65,7 +65,6 @@ export default {
         const num = secret.Decrypt(res.data.data);
 
         this.letter = JSON.parse(num);
-        // console.log(this.letter.headimgurl)
         if (this.letter.headimgurl == "") {
           this.shows = false;
           this.show = true;
@@ -73,7 +72,7 @@ export default {
       })
       .catch(err => {
         store.commit(types.LOGOUT);
-        // this.$router.push("/");
+        this.$router.push('/phone')
         console.log(err, "请求失败");
       });
   },

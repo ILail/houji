@@ -35,13 +35,11 @@
           <span class="shuW">客服</span>
         </li>
         <li class="shu bordershu" @click="wishesHit">
-          <!-- <router-link to="/wishs"> -->
           <span style="margin-bottom:5px">
             <img src="@/assets/sku.png">
           </span>
           
           <span class="shuW" style="margin-top:-1px">购物车</span>
-          <!-- </router-link> -->
         </li>
         <li class="xiadan" @click="selectSort()">加入购物车</li>
         <li class="joinw" @click="selectSorta()" v-show="show">立即购买</li>
@@ -143,7 +141,7 @@ window.url = function() {
     alert("sdk尚未加载成功，请稍后再试");
   }
 };
-
+// import MsgBus from "@/bus/Bus.vue";
 import Vue from "vue";
 import Detail from "@/components/common/Detail";
 import Travel from "@/components/common/Travel";
@@ -242,6 +240,10 @@ export default {
       });
   },
   mounted: function() {
+    this.$bus.$on("msg", msg => {
+      this.istanchuana = msg;
+      this.isshowa = !msg;
+    });
     window.addEventListener("scroll", this.watchScroll);
     setTimeout(() => {
       this.$refs.wrappers.style.visibility = "visible";

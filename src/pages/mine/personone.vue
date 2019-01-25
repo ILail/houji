@@ -1,14 +1,14 @@
 <template>
   <div class="active">
-    <div class="smal">
+    <div class="smal" style="width:100%">
       <ul>
         <li class="line">
           <span class="word">头像</span>
-          <label for="fileinp">
+          <!-- <label for="fileinp"> -->
             <img :src="letter.headimgurl" class="weix" id="img" ref="imgsss">
             <!-- <span id="text">请上传Word文档</span> -->
-            <input type="file" id="fileinp" @change="change($event)" ref="wrapImg">
-          </label>
+            <!-- <input type="file" name="file" id="fileinp" @change="change($event)" ref="wrapImg"> -->
+          <!-- </label> -->
 
           <!-- <input type="file" accept="image/png, image/jpg, image/jpeg" @change="change($event)"> -->
           <!-- <van-uploader :after-read="onRead" accept="image/png, image/jpg, image/jpeg" multiple> -->
@@ -32,10 +32,12 @@
   </div>
 </template>
 <script>
-import Vue from "vue";
-import { Uploader } from "vant";
+// import Vue from "vue";
+// import { Uploader } from "vant";
+// import { Icon } from "vant";
 
-Vue.use(Uploader);
+// Vue.use(Icon);
+// Vue.use(Uploader);
 import { peosMS } from "@/components/axios/api";
 import secret from "@/utils/utils";
 import { people } from "@/components/axios/api";
@@ -64,16 +66,25 @@ export default {
       });
   },
   methods: {
-    change(file) {
-      let image = document.getElementById("img"); //预览对象
-      this.clip(file, {
-        resultObj: image,
-        aspectRatio: 1
-      });
-      console.log(file);
+    // change(file) {
+    //   let image = document.getElementById("img"); //预览对象
+    //   this.clip(file, {
+    //     resultObj: image,
+    //     aspectRatio: 1
+    //   });
+    //   // console.log(file);
+    //   console.log(this.$refs.wrapImg.files[0]);
+    //   let num = this.$refs.wrapImg.files[0];
+      // imgUpdat(num)
+      //   .then(res => {
+      //     this.imsg = res.data.data;
+      //   })
+      //   .catch(err => {
+      //     console.log(err, "请求失败");
+      //   });
       // console.log(file.path[1].childNodes[0])
       // console.log(this.$refs.wrapImg.files[0]);
-      var file = this.$refs.wrapImg.files[0];
+      // var file = this.$refs.wrapImg.files[0];
       // var files = this.$refs.wrapImg.files[0].name;
       // // 如果该文件没有后缀就新年构造一个File对象， 并指定文件名和类型
       // // 第一个参数可以为Blob对象的数组 （第一个参数必须是数组）， File对象继承自Blob，所以可以传递File对象
@@ -84,17 +95,17 @@ export default {
       // });
       // console.log(filea);
 
-      var reader = new FileReader();
+      // var reader = new FileReader();
 
-      var imgFile;
+      // var imgFile;
 
-      reader.onload = function(e) {
-        imgFile = e.target.result;
-        console.log(imgFile);
-      };
+      // reader.onload = function(e) {
+      //   imgFile = e.target.result;
+      //   console.log(imgFile);
+      // };
 
       //正式读取文件
-      reader.readAsDataURL(file);
+      // reader.readAsDataURL(file);
 
       // var reader = new FileReader();
       // reader.readAsDataURL(file);
@@ -108,14 +119,7 @@ export default {
 
       // let aaa = files.split('/')[0]
       // let bbb = aaa+'/'+num
-      // imgUpdat(image)
-      //   .then(res => {
-      //     console.log(res);
-      //   })
-      //   .catch(err => {
-      //     console.log(err, "请求失败");
-      //   });
-    },
+    // },
     descInput() {
       var txtVal = this.desc.length;
       this.remnant = 118 - txtVal;
@@ -128,14 +132,14 @@ export default {
           duration: "1000"
         });
       } else {
-        peosMS(this.desca, this.desc)
+        peosMS(this.desca, this.desc, this.imsg)
           .then(res => {
             console.log(res);
             this.$toast({
               message: "保存成功",
               duration: "1000"
             });
-            this.$router.go(-2);
+            this.$router.go(-1);
           })
           .catch(err => {
             console.log(err, "请求失败");
@@ -205,7 +209,7 @@ label {
   height: 100%;
   top: 0;
   left: 0;
-  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
   background-color: #f4f4f4;
 }
 
@@ -245,7 +249,7 @@ label {
 
 .warpall {
   background: #F4F4F4;
-  hieght: 500px;
+  width 100%
 }
 
 .smal {

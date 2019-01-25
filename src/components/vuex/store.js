@@ -9,8 +9,8 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     token: null,
-    urlName: null,
-    keepAlive: []
+    oppenId: null,
+
   },
   mutations: {
     [types.LOGIN]: (state, data) => {
@@ -21,16 +21,16 @@ export default new Vuex.Store({
       localStorage.removeItem('token');
       state.token = null
     },
-    [types.USERNAME]: (state, data) => {
-      localStorage.urlName = data;
-      state.urlName = data;
+    [types.OPPENDID]: (state, data) => {
+      localStorage.oppenId = data;
+      console.log(data)
+      state.oppenId = data;
     },
-    SET_KEEP_ALIVE: (state, keepAlive) => {
-      state.keepAlive = keepAlive
-    }
+    // SET_KEEP_ALIVE: (state, keepAlive) => {
+    //   state.keepAlive = keepAlive
+    // }
   },
-  getters: {
-    keepAlive: state => state.keepAlive
-  }
+  // getters: {
+  //   keepAlive: state => state.keepAlive
+  // }
 })
-

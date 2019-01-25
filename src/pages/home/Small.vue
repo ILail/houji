@@ -1,64 +1,68 @@
 <template>
-    <div class="wrap">
-      <!-- 推荐 -->
-      <div :class="searchBarFixed == true ? 'isFixed' :''" id="searchBar">
-        <home-header></home-header>
-        <ly-tab v-model="selectedId" :items="items" :options="options" @change="handleChange"></ly-tab>
-      </div>
-      <van-swipe :autoplay="3000" indicator-color="#D21623" :touchable="false" v-if="shiw">
-        <van-swipe-item v-for="item of sowingMap" :key="item.id">
-          <router-link
-            :to="{  
+  <div class="wrap">
+    <!-- 推荐 -->
+    <div :class="searchBarFixed == true ? 'isFixed' :''" id="searchBar">
+      <home-header></home-header>
+      <ly-tab v-model="selectedId" :items="items" :options="options" @change="handleChange"></ly-tab>
+    </div>
+    <van-swipe :autoplay="3000" indicator-color="#D21623" :touchable="false" v-if="shiw">
+      <van-swipe-item v-for="item of sowingMap" :key="item.id">
+        <router-link
+          :to="{  
         path: 'Detail',     
         query: {   
             key: item.link, // orderNum : this.searchData.orderNo
         }
     }"
-          >
-            <img :src="item.pic" style="height:190px;width:100%">
-          </router-link>
-        </van-swipe-item>
-      </van-swipe>
-      <div class="swiper-box">
-        <div class="swiper-container wrapWa">
-          <div class="swiper-wrapper">
-            <div class="swiper-slide" v-for="item of list" :key="item.id">
-              <keep-alive>
-                <component :is="item.component"></component>
-              </keep-alive>
-            </div>
+        >
+          <img :src="item.pic" style="height:190px;width:100%">
+        </router-link>
+      </van-swipe-item>
+    </van-swipe>
+    <div class="swiper-box">
+      <div class="swiper-container wrapWa">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide" v-for="item of list" :key="item.id">
+            <keep-alive>
+              <component :is="item.component"></component>
+            </keep-alive>
           </div>
         </div>
       </div>
-      <div class="tabberWarp">
-        <div class="warp">
-          <Item
-            :txt="item.txt"
-            :page="item.page"
-            v-on:change="getVal"
-            v-for="item in tabbarDes"
-            :sel="selected"
-            :key="item.id"
-          >
-            <img :src="item.normalImg" slot="normalImg">
-            <img :src="item.activeImg" slot="activeImg">
-          </Item>
-        </div>
-      </div>
-
-      <van-popup v-model="shows">
-        <img src="@/assets/linjuan/6.png" alt class="imgNew" @click="hitNew">
-      </van-popup>
-      <van-popup v-model="showsa">
-        <img src="@/assets/linjuan/7.png" alt class="imgNew">
-      </van-popup>
     </div>
+    <!-- 底部 -->
+    <div class="tabberWarp">
+      <div class="warp">
+       
+        <Item
+          :txt="item.txt"
+          :page="item.page"
+          v-on:change="getVal"
+          v-for="item in tabbarDes"
+          :sel="selected"
+          :key="item.id"
+        >
+          <img :src="item.normalImg" slot="normalImg">
+          <img :src="item.activeImg" slot="activeImg">
+        </Item>
+      
+      </div>
+    </div>
+
+    <van-popup v-model="shows">
+      <img src="@/assets/linjuan/6.png" alt class="imgNew" @click="hitNew">
+    </van-popup>
+    <van-popup v-model="showsa">
+      <img src="@/assets/linjuan/7.png" alt class="imgNew">
+    </van-popup>
+  </div>
 </template>
 
 <script type="text/ecmascript-6">
 import Vue from "vue";
 import { Swipe, SwipeItem } from "vant";
 Vue.use(Swipe).use(SwipeItem);
+import * as types from "@/components/vuex/types";
 import { peosLin } from "@/components/axios/api";
 import Item from "@/components/Item.vue";
 import Home from "@/pages/home/Home.vue";
@@ -168,7 +172,7 @@ export default {
         let URL = res.data.data;
         // console.log(URL);
         var value = localStorage.getItem("shuyuhan");
-        // console.log(value);
+        console.log(value);
         // 只做一次跳转
         if (value == null || value == undefined) {
           setTimeout(function() {
@@ -196,18 +200,21 @@ export default {
   mounted() {
     // 拿到跳转后的链接
     const url = window.location.href;
+    console.log(url);
     if (url.split("?").length == 1) {
       // this.$router.push("/");
     } else {
       const localarr = url.split("?")[1].split("&");
       let code = localarr[0].split("=")[1];
-      // console.log(code);
+      // console.log(1111);
       Code(code)
         .then(res => {
           // console.log(url);
           // console.log(res.data.data);
           var imgs = res.data.data; //声明个变量存储下数据
-          localStorage.setItem("key", imgs); //将变量imgs存储到name字段
+          console.log(imgs);
+          this.$store.commit(types.OPPENDID, imgs);
+          // localStorage.setItem("key", imgs); //将变量imgs存储到name字段
           // this.$router.go(-2);
         })
         .catch(err => {
@@ -251,7 +258,8 @@ export default {
         document.documentElement.scrollTop ||
         document.body.scrollTop;
       var _this = this;
-      if (scrollTop > 0) {
+      // console.log(scrollTop)
+      if (scrollTop > 32) {
         _this.searchBarFixed = true;
       } else {
         _this.searchBarFixed = false;

@@ -128,9 +128,9 @@
 import { Confirone } from "@/components/axios/api";
 import { getDIZ } from "@/components/axios/api";
 import { coupon } from "@/components/axios/api";
-// import { Member } from "@/components/axios/api";
+import store from "@/components/vuex/store";
 import secret from "@/utils/utils";
-import bus from "@/bus/bus.js";
+// import bus from "@/bus/bus.js";
 
 export default {
   name: "Confirmation",
@@ -316,7 +316,9 @@ export default {
         });
         return false;
       }
-      var naid = localStorage.getItem("key");
+
+      let naid = store.state.oppenId;
+      console.log(naid);
       const arry = [
         this.details,
         this.wishid,

@@ -51,8 +51,8 @@ export default {
         if (res.status && res.data) {
           const data = res.data;
           this.adInfo = data.adInfo;
-          this.popuLarity = data.popularity;
-          this.dayProduct = data.dayProduct;
+          this.popuLarity = data.popularity.slice(0,2);
+          this.dayProduct = data.dayProduct.slice(0,2);
         }
       })
       .catch(err => {
@@ -74,7 +74,7 @@ export default {
   mounted() {
     setTimeout(() => {
       this.$refs.wrapps.style.visibility = "visible";
-    }, 2500);
+    }, 1500);
   },
   methods: {
     imgJ() {

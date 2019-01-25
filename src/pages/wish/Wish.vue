@@ -46,7 +46,7 @@
                   :to="{  
         path: 'Detail',     
         query: {   
-            key:pl.crowd_funding_id, // orderNum : this.searchData.orderNo
+            key:pl.crowd_funding_id, 
         }
                 }"
                   class="item-img"
@@ -174,14 +174,14 @@ export default {
       })
       .catch(err => {
         store.commit(types.LOGOUT);
-        // this.$router.push("/");
+        this.$router.push('/phone')
         console.log(err, "请求失败");
       });
   },
   mounted() {
     setTimeout(() => {
       this.$refs.wrappers.style.visibility = "visible";
-    }, 2250);
+    }, 1500);
   },
   methods: {
     linjuan() {
@@ -656,7 +656,6 @@ export default {
   color: #d21623;
 }
 
-// 删除
 
 // 文档
 .header {

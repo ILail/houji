@@ -161,7 +161,7 @@ export default {
   mounted() {
     setTimeout(() => {
       this.$refs.wrappers.style.visibility = "visible";
-    }, 1500);
+    }, 1700);
   },
   methods: {
     jia: function() {
