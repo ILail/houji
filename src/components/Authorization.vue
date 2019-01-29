@@ -10,15 +10,15 @@ export default {
       .then(res => {
         let URL = res.data.data;
         // console.log(URL);
-        var value = localStorage.getItem("ngb");
+        var value = localStorage.getItem("ngba");
         console.log(value);
         // 只做一次跳转
         if (value == null || value == undefined) {
-          setTimeout(function() {
-            localStorage.setItem("ngb", "18");
+          // setTimeout(function() {
+            localStorage.setItem("ngba", "18");
             window.location.href = URL;
             // console.log(URL);
-          }, 800);
+          // }, 800);
         }
       })
       .catch(err => {
