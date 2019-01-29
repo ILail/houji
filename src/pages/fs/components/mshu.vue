@@ -129,7 +129,11 @@ export default {
   padding-bottom: 12px;
   margin-top: -20px;
 }
-
+.wrapAll >>> .van-list .people {
+  border-radius: 5px;
+  box-shadow: #eee 0px 0px 10px;
+  margin-bottom: 20px;
+}
 .crowd-right span {
   max-width: 110px;
   overflow: hidden;
@@ -137,11 +141,6 @@ export default {
   white-space: nowrap;
 }
 
-.people {
-  border-radius: 5px;
-  box-shadow: #eee 0px 0px 10px;
-  margin-bottom: 20px;
-}
 
 .people .peoImg {
   width: 100%;

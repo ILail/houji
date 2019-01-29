@@ -1,6 +1,6 @@
 <template>
   <div class="wrapAll container">
-    <van-list v-model="loading" :finished="finished" finished-text="" @load="onLoad">
+    <van-list v-model="loading" :finished="finished" finished-text @load="onLoad">
       <div v-for="(itemCon) in tabContents" :key="itemCon.id" class="people">
         <router-link
           :to="{  
@@ -126,17 +126,17 @@ export default {
   margin-top: -20px;
 }
 
+.wrapAll >>> .van-list .people {
+  border-radius: 5px;
+  box-shadow: #eee 0px 0px 10px;
+  margin-bottom: 20px;
+}
+
 .crowd-right span {
   max-width: 110px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-}
-
-.people {
-  border-radius: 5px;
-  box-shadow: #eee 0px 0px 10px;
-  margin-bottom: 20px;
 }
 
 .people .peoImg {

@@ -126,6 +126,11 @@ export default {
   padding-bottom: 12px;
   margin-top: -20px;
 }
+.wrapAll >>> .van-list .people {
+  border-radius: 5px;
+  box-shadow: #eee 0px 0px 10px;
+  margin-bottom: 20px;
+}
 .pJext {
   padding: 18px 0 18px 0;
 }
@@ -154,11 +159,6 @@ export default {
   line-height: 16px;
 }
 
-.people {
-  border-radius: 5px;
-  box-shadow: #eee 0px 0px 10px;
-  margin-top: 15px;
-}
 
 .people .peoImg {
   width: 100%;
