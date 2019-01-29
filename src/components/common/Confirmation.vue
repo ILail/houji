@@ -10,7 +10,7 @@
         <div class="wordea">{{letter.address_info}}{{letter.address}}</div>
       </div>
       <div>
-        <img :src="wx">
+        <img :src="wx" style="width:7px">
       </div>
     </div>
     <div class="middles" v-if="shoiw" @click="addresssw">
