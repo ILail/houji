@@ -27,11 +27,11 @@
         </div>
         <div @click="showList" v-show="aa">
           <span style="margin-right:10px" class="same_">{{num}}张</span>
-          <img :src="wx" style="vertical-align: bottom;">
+          <img :src="wx" style="vertical-align: bottom; width:7px">
         </div>
         <div v-show="aas">
           <span style="margin-right:10px" class="same_">{{num}}张</span>
-          <img :src="wx" style="vertical-align: bottom;">
+          <img :src="wx" style="vertical-align: bottom; width:7px">
         </div>
       </div>
       <div class="same houji">
@@ -42,10 +42,10 @@
         </div>
 
         <div @click="showLists" v-show="aa">
-          <img :src="wx" style="vertical-align: bottom;">
+          <img :src="wx" style="vertical-align: bottom; width:7px">
         </div>
         <div v-show="aas">
-          <img :src="wx" style="vertical-align: bottom;">
+          <img :src="wx" style="vertical-align: bottom; width:7px">
         </div>
       </div>
       <div class="same zhic">
@@ -162,7 +162,7 @@ export default {
       routerParamb: this.$route.query.dataObjb,
       routerParamo: this.$route.query.dataObjc,
       routerParama: this.$route.query.dataObjd,
-      wx: require("@/assets/right_.png"),
+      wx: require("@/assets/rr.png"),
       wxone: require("@/assets/mine/xu.png"),
       shoiw: false,
       show: true,
@@ -178,7 +178,7 @@ export default {
         height: 125 + "px",
         overflow: "hidden"
       },
-      wx: require("@/assets/right_.png"),
+     
       shows: false,
       active: 0,
       list: [],
@@ -321,7 +321,7 @@ export default {
         });
         return false;
       }
-      let naid = store.state.oppenId;
+     let naid = localStorage.getItem('Oppenid')
       console.log(naid);
       const arry = [
         this.details,

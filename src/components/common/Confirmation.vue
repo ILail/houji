@@ -26,7 +26,7 @@
         </div>
         <div @click="showList">
           <span style="margin-right:10px" class="same_">{{num}}张</span>
-          <img :src="wx" style="vertical-align: bottom;">
+          <img :src="wx" style="vertical-align: bottom; width:7px">
         </div>
       </div>
       <div class="same houji" @click="showLists">
@@ -36,7 +36,7 @@
         </div>
 
         <div>
-          <img :src="wx" style="vertical-align: bottom;">
+          <img :src="wx" style="vertical-align: bottom;  width:7px">
         </div>
       </div>
       <div class="same zhic">
@@ -148,7 +148,7 @@ export default {
   },
   data() {
     return {
-      wx: require("@/assets/right_.png"),
+      wx: require("@/assets/rr.png"),
       wxone: require("@/assets/mine/xu.png"),
       shoiw: false,
       show: true,
@@ -164,7 +164,6 @@ export default {
         height: 125 + "px",
         overflow: "hidden"
       },
-      wx: require("@/assets/right_.png"),
       shows: false,
       active: 0,
       list: [],
@@ -317,7 +316,7 @@ export default {
         return false;
       }
 
-      let naid = store.state.oppenId;
+      let naid = localStorage.getItem('Oppenid')
       console.log(naid);
       const arry = [
         this.details,

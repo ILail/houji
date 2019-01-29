@@ -10,13 +10,10 @@ import LyTab from 'ly-tab';
 import store from '@/components/vuex/store'
 import clipper from '../static/clipper'
 import VueLazyload from 'vue-lazyload'
-
+// bus
 import VueBus from 'vue-bus';
- 
 Vue.use(VueBus);
-// import clipboard from 'clipboard';
-//注册到vue原型上
-// Vue.prototype.clipboard = clipboard;
+
 // vant
 import { Tab, Tabs } from "vant";
 import { Toast } from "vant";
@@ -24,7 +21,8 @@ import { Popup } from "vant";
 import { PullRefresh } from 'vant';
 import { List } from 'vant';
 import { Loading } from 'vant';
-
+import { Swipe, SwipeItem } from "vant";
+Vue.use(Swipe).use(SwipeItem);
 Vue.use(Loading);
 Vue.use(List);
 Vue.use(PullRefresh);

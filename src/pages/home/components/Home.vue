@@ -24,7 +24,6 @@
 import HomePeople from "./components/People";
 import HomeNew from "./components/New";
 import HomeLike from "./components/Like";
-import HomeSwiper from "./components/Swiper";
 import { lookOption } from "@/components/axios/api";
 import { gass } from "@/components/axios/api";
 export default {
@@ -36,7 +35,6 @@ export default {
   },
   data() {
     return {
-      selected: "",
       popuLarity: [],
       dayProduct: [],
       gass: [],
@@ -72,9 +70,10 @@ export default {
       });
   },
   mounted() {
+
     setTimeout(() => {
       this.$refs.wrapps.style.visibility = "visible";
-    }, 1500);
+    }, 2500);
   },
   methods: {
     imgJ() {

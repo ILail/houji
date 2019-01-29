@@ -67,7 +67,7 @@ export default {
   name: "Show",
   data() {
     return {
-      imgAS: require("@/assets/right_.png"),
+      // imgAS: require("@/assets/right_.png"),
       sowingMap: [],
       // 错误图片
       ispic: false

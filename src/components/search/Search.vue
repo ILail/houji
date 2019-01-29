@@ -34,7 +34,7 @@
             key: item.crowd_funding_name, // orderNum : this.searchData.orderNo
         }
     }"
-          style="line-height: 1.5;">{{item.crowd_funding_name}}</router-link>
+          style="line-height: 2.5;">{{item.crowd_funding_name}}</router-link>
         </li>
       </ul>
     </div>

@@ -19,15 +19,15 @@
 
 <script type="text/ecmascript-6">
 import { addresslist } from "@/components/axios/api";
-import one from "@/pages/home/address/one";
-import two from "@/pages/home/address/two";
-import three from "@/pages/home/address/three";
-import four from "@/pages/home/address/four";
-import five from "@/pages/home/address/five";
-import six from "@/pages/home/address/six";
-import seven from "@/pages/home/address/seven";
-import eight from "@/pages/home/address/eight";
-import nine from "@/pages/home/address/nine";
+import one from "./address/one";
+import two from "./address/two";
+import three from "./address/three";
+import four from "./address/four";
+import five from "./address/five";
+import six from "./address/six";
+import seven from "./address/seven";
+import eight from "./address/eight";
+import nine from "./address/nine";
 import Swiper from "moon/swiper.min";
 import "moon/swiper.min.css";
 export default {

@@ -75,7 +75,7 @@ export default {
         // }
         // 加载状态结束
         this.loading = false;
-        console.log(this.num);
+        // console.log(this.num);
         // 数据全部加载完成
         if (this.num >= 6) {
           this.finished = true;

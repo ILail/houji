@@ -52,21 +52,24 @@
         </Item>
       </div>
     </div>
+    <Tabbar></Tabbar>
   </div>
 </template>
 <script>
+import Item from "@/components/Item.vue";
+import Tabbar from "@/components/common/Tan";
 import one from "@/pages/fs/components/cp";
 import two from "@/pages/fs/components/mshu";
 import three from "@/pages/fs/components/jzai";
 import four from "@/pages/fs/components/dabiao";
 import Swiper from "moon/swiper.min";
 import "moon/swiper.min.css";
-import Item from "@/components/Item.vue";
 import { fs } from "@/components/axios/api";
 export default {
   name: "Feilei",
   components: {
-    Item
+    Item,
+    Tabbar
   },
   data() {
     return {
@@ -167,15 +170,14 @@ export default {
       } else {
         _this.searchBarFixed = false;
       }
-    },
-    destroyed() {
-      window.removeEventListener("scroll", this.watchScroll);
     }
+  },
+  destroyed() {
+    window.removeEventListener("scroll", this.watchScroll);
   }
 };
 </script>
 <style lang="stylus" scoped>
-
 .swiper-slide {
   height: 0px;
   overflow-y: hidden;

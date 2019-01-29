@@ -452,14 +452,7 @@ export function imgUpdat(file) {
   })
 }
 
-// 福利专区
-export function weal() {
 
-  return fetch({
-    url: api.Hallowmas + '/v2p1/Welfare/getWelfareList',
-    method: "GET",
-  })
-}
 
 
 
@@ -675,6 +668,23 @@ export function ForList() {
 
   return fetch({
     url: api.Hallowmas + '/v2p1/Welfare/getLimitList',
+    method: "GET",
+  })
+}
+// 2.0 福利专区
+export function ForLists() {
+
+  return fetch({
+    url: api.Hallowmas + '/v2/Welfare/getWelfareList',
+    method: "GET",
+  })
+}
+
+// 福利专区
+export function weal() {
+
+  return fetch({
+    url: api.Hallowmas + '/v2p1/Welfare/getWelfareList',
     method: "GET",
   })
 }

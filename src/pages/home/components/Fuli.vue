@@ -86,13 +86,14 @@
 </template>
 
 <script type="text/ecmascript-6">
+
+import one from "./weal/one";
+import two from "./weal/two";
+import three from "./weal/three";
+
 import Swiper from "moon/swiper.min";
 import "moon/swiper.min.css";
-import one from "@/pages/home/weal/one";
-import two from "@/pages/home/weal/two";
-import three from "@/pages/home/weal/three";
 import { weal } from "@/components/axios/api";
-
 export default {
   name: "Fuli",
   data() {

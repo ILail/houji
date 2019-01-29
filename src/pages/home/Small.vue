@@ -1,10 +1,29 @@
 <template>
   <div class="wrap">
-    <!-- 推荐 -->
     <div :class="searchBarFixed == true ? 'isFixed' :''" id="searchBar">
-      <home-header></home-header>
+      <!-- 头部 -->
+      <div class="header">
+        <div class="header-left" @click="shaoshao">
+          <img src="@/assets/shousuo.png">
+        </div>
+        <router-link to="/search" style="width:75%">
+          <div class="header-input">
+            <span>
+              <img
+                src="@/assets/search.png"
+                style="vertical-align: sub;margin-right:4px;width:.28rem"
+              >
+            </span>请输入您想支持的项目
+          </div>
+        </router-link>
+        <div class="header-right" @click="xiaoxiao">
+          <img src="@/assets/new.png">
+        </div>
+      </div>
+      <!-- 导航 -->
       <ly-tab v-model="selectedId" :items="items" :options="options" @change="handleChange"></ly-tab>
     </div>
+    <!-- 轮播 -->
     <van-swipe :autoplay="3000" indicator-color="#D21623" :touchable="false" v-if="shiw">
       <van-swipe-item v-for="item of sowingMap" :key="item.id">
         <router-link
@@ -19,6 +38,7 @@
         </router-link>
       </van-swipe-item>
     </van-swipe>
+    <!-- 导航内容 -->
     <div class="swiper-box">
       <div class="swiper-container wrapWa">
         <div class="swiper-wrapper">
@@ -33,7 +53,6 @@
     <!-- 底部 -->
     <div class="tabberWarp">
       <div class="warp">
-       
         <Item
           :txt="item.txt"
           :page="item.page"
@@ -45,62 +64,48 @@
           <img :src="item.normalImg" slot="normalImg">
           <img :src="item.activeImg" slot="activeImg">
         </Item>
-      
       </div>
     </div>
-
-    <van-popup v-model="shows">
-      <img src="@/assets/linjuan/6.png" alt class="imgNew" @click="hitNew">
-    </van-popup>
-    <van-popup v-model="showsa">
-      <img src="@/assets/linjuan/7.png" alt class="imgNew">
-    </van-popup>
+    <Tabbar></Tabbar>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
-import Vue from "vue";
-import { Swipe, SwipeItem } from "vant";
-Vue.use(Swipe).use(SwipeItem);
-import * as types from "@/components/vuex/types";
-import { peosLin } from "@/components/axios/api";
-import Item from "@/components/Item.vue";
-import Home from "@/pages/home/Home.vue";
-import Dizhi from "@/pages/home/Dizhi.vue";
-import Fuli from "@/pages/home/Fuli.vue";
-import Youji from "@/pages/home/Youji.vue";
-import Mshu from "@/pages/home/Mshu.vue";
-import Yugao from "@/pages/home/Yugao.vue";
-import Finish from "@/pages/home/finish.vue";
+import Tabbar from "@/components/common/Tan";
+import Item from "@/components/Item";
+import Home from "./components/Home";
+import Dizhi from "./components/Dizhi";
+import Fuli from "./components/Fuli";
+import Youji from "./components/Youji";
+import Mshu from "./components/Mshu";
+import Yugao from "./components/Yugao";
+import Finish from "./components/finish";
+// import Welfare from "./components/Welfare";
 import Swiper from "moon/swiper.min";
 import "moon/swiper.min.css";
-import HomeHeader from "@/pages/home/components/Header.vue";
 import { lookOption } from "@/components/axios/api";
-import { huoqu } from "@/components/axios/api";
-import { Code } from "@/components/axios/api";
+
 export default {
   name: "Small",
   components: {
-    HomeHeader,
+    Tabbar,
+    Item,
     Home,
     Dizhi,
     Fuli,
     Youji,
     Mshu,
     Yugao,
-    Item,
-    Finish
+    Finish,
+    // Welfare
   },
   data() {
     return {
-      showsa: false,
-      shows: false,
       shiw: true,
       sowingMap: [],
-      meta: {
-        keepAlive: true // true 表示需要使用缓存 false表示不需要被缓存
-      },
+      // 导航
       selectedId: 0,
+      // 底部
       selected: "",
       tabbarDes: [
         {
@@ -141,7 +146,8 @@ export default {
         { label: "有机产品" },
         { label: "民宿" },
         { label: "预告" },
-        { label: "已完成" }
+        { label: "已完成" },
+        // { label: "福利" }
       ],
       options: {
         activeColor: "#D21623"
@@ -155,36 +161,13 @@ export default {
         { component: Youji },
         { component: Mshu },
         { component: Yugao },
-        { component: Finish }
+        { component: Finish },
+        // { component: Welfare }
       ],
       nowIndex: 0
     };
   },
-  created: function() {
-    var userID = localStorage.getItem("userID");
-    // console.log(userID);
-    if (userID == "1") {
-      this.shows = true;
-    }
-    // 获取当前页面的链接给后台
-    huoqu(window.location.href)
-      .then(res => {
-        let URL = res.data.data;
-        // console.log(URL);
-        var value = localStorage.getItem("shuyuhan");
-        console.log(value);
-        // 只做一次跳转
-        if (value == null || value == undefined) {
-          setTimeout(function() {
-            localStorage.setItem("shuyuhan", "18");
-            window.location.href = URL;
-            // console.log(URL);
-          }, 800);
-        }
-      })
-      .catch(err => {
-        console.log(err, "请求失败");
-      });
+  created() {
     lookOption()
       .then(res => {
         res = res.data;
@@ -198,30 +181,6 @@ export default {
       });
   },
   mounted() {
-    // 拿到跳转后的链接
-    const url = window.location.href;
-    console.log(url);
-    if (url.split("?").length == 1) {
-      // this.$router.push("/");
-    } else {
-      const localarr = url.split("?")[1].split("&");
-      let code = localarr[0].split("=")[1];
-      // console.log(1111);
-      Code(code)
-        .then(res => {
-          // console.log(url);
-          // console.log(res.data.data);
-          var imgs = res.data.data; //声明个变量存储下数据
-          console.log(imgs);
-          this.$store.commit(types.OPPENDID, imgs);
-          // localStorage.setItem("key", imgs); //将变量imgs存储到name字段
-          // this.$router.go(-2);
-        })
-        .catch(err => {
-          console.log(err, "请求失败");
-        });
-    }
-
     window.addEventListener("scroll", this.watchScroll);
     let mySwiperA = new Swiper(".wrapWa", {});
     mySwiperA.on("slideChange", () => {
@@ -258,38 +217,52 @@ export default {
         document.documentElement.scrollTop ||
         document.body.scrollTop;
       var _this = this;
-      // console.log(scrollTop)
       if (scrollTop > 32) {
         _this.searchBarFixed = true;
       } else {
         _this.searchBarFixed = false;
       }
     },
-    destroyed() {
-      window.removeEventListener("scroll", this.watchScroll);
+    shaoshao() {
+      // this.$router.push("/shao");
     },
-    hitNew() {
-      peosLin()
-        .then(res => {
-          localStorage.setItem("userID", "0");
-          this.shows = false;
-          this.showsa = true;
-        })
-        .catch(err => {
-          console.log(err, "请求失败");
-        });
+    xiaoxiao() {
+      this.$router.push("/xiao");
     }
+  },
+  destroyed() {
+    window.removeEventListener("scroll", this.watchScroll);
   }
 };
 </script>
 
 <style lang="stylus" type="text/stylus" rel="stylesheet/stylus" scoped>
-.wrap >>>.van-popup {
-  width: 65%;
-}
+.header {
+  display: flex;
+  line-height: 0.64rem;
+  align-items: center;
+  justify-content: space-between;
+  width: 93%;
+  margin: 0 auto;
+  padding: 0;
+  position: relative;
 
-.imgNew {
-  width: 100%;
+  .header-left img {
+    width: 0.64rem;
+  }
+
+  .header-input {
+    height: 0.64rem;
+    line-height: 0.64rem;
+    background: #EDEDED;
+    border-radius: 0.1rem;
+    color: #999;
+    text-align: center;
+  }
+
+  .header-right img {
+    width: 0.64rem;
+  }
 }
 
 .wrap >>> .ly-tabbar {

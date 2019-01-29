@@ -21,10 +21,12 @@
         </Item>
       </div>
     </div>
+    <Tabbar></Tabbar>
   </div>
 </template>
 
 <script>
+import Tabbar from "@/components/common/Tan";
 import MineHeader from "./components/Header";
 import MineOrder from "./components/Order";
 import MineSevers from "./components/Severs";
@@ -37,7 +39,8 @@ export default {
     MineOrder,
     MineSevers,
     MineForyou,
-    Item
+    Item,
+    Tabbar
   },
   data() {
     return {

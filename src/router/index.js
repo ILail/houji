@@ -1,16 +1,22 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+// 首页
 import Small from '@/pages/home/Small'
-import Addressdetail from '@/pages/home/Addressdetail'
-// import Fs from '@/pages/fs/Fs'
-import Centerj from '@/pages/home/centerj'
-import Feilei from '@/pages/fs/Feilei'
-import Shao from '@/pages/home/Shao'
-import Xiao from '@/pages/home/Xiao'
+import Addressdetail from '@/pages/home/components/Addressdetail'
+import Centerj from '@/pages/home/components/centerj'
+import Shao from '@/pages/home/components/Shao'
+import Xiao from '@/pages/home/components/Xiao'
+// 首页
 
+// 分类
+import Feilei from '@/pages/fs/Feilei'
+// 分类
+
+// 购物车
 import Wish from '@/pages/wish/Wish'
+// 购物车
+
 import Mine from '@/pages/mine/Mine'
-import Peos from '@/pages/peos/Peos'
 import Show from '@/components/search/Show'
 import Search from '@/components/search/Search'
 import Detail from '@/components/common/Detailswiper'
@@ -18,7 +24,6 @@ import Phone from '@/components/phone'
 import Smoke from '@/pages/mine/smoke'
 import Myjob from '@/pages/mine/Myjob'
 import Fit from '@/pages/mine/fit'
-
 import Personone from '@/pages/mine/personone'
 import Desgreo from '@/pages/mine/desgreo'
 import Absolu from '@/pages/mine/absolu'
@@ -37,17 +42,15 @@ import bankMark from '@/pages/mine/bank'
 import Confirmation from '@/components/common/Confirmation'
 import Confirmations from '@/components/common/Confirmations'
 import store from '@/components/vuex/store'
-import * as types from '@/components/vuex/types'
 import Sale from '@/components/common/Sale'
 import Zhifu from '@/components/common/Paymoney'
 import Zhifuone from '@/components/common/Paymoneyone'
 import Finish from '@/components/common/Finish'
-
 import Orderdetails from '@/components/common/Orderdetails'
 import Wuliudetails from '@/components/common/Logistics'
 import Jdetial from '@/components/common/Jdetial'
-
 import Hdetial from '@/components/common/Hdetial'
+import * as types from '@/components/vuex/types'
 Vue.use(Router)
 // export default new Router({
 const routes = [{
@@ -92,13 +95,6 @@ const routes = [{
   path: '/mines',
   name: '个人中心',
   component: Mine,
-  meta: {
-    requireAuth: true, // 添加该字段，表示进入这个路由是需要登录的
-  },
-}, {
-  path: '/peos',
-  name: '花果山',
-  component: Peos,
   meta: {
     requireAuth: true, // 添加该字段，表示进入这个路由是需要登录的
   },

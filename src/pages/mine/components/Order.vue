@@ -10,7 +10,7 @@
     >
       <div class="title">
         <div style="font-size:14px">我的订单</div>
-        <img :src="wx">
+        <img :src="wx" style="width:7px">
       </div>
     </router-link>
     <div class="content">
@@ -83,7 +83,7 @@
 export default {
   data() {
     return {
-      wx: require("@/assets/right_.png"),
+      wx: require("@/assets/rr.png"),
       one: require("@/assets/list/1.png"),
       two: require("@/assets/list/2.png"),
       three: require("@/assets/list/3.png"),

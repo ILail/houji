@@ -1,15 +1,15 @@
 <template>
   <div class="container pJext">
     <!-- 跳转 -->
-    <div class="people" v-for="item of listA" :key="item.id">
-      <router-link
+    <div class="people" v-for="item of listA" :key="item.id"  @click="hitS(item.crowd_funding_id)">
+      <!-- <router-link
         :to="{  
         path: 'Detail',     
         query: {   
             key: item.crowd_funding_id, // orderNum : this.searchData.orderNo
         }
     }"
-      >
+      > -->
         <img :src="item.pic" class="peoImg">
         <div class="people_p">
           <div class="list">{{item.crowd_funding_name}}</div>
@@ -19,10 +19,9 @@
               <span class="money">¥{{item.now_money}}</span>
             </div>
             <div class="crowd-right">
-              <span>
-                <img src="@/assets/logo.png">
-              </span>
-              <span class="peoMuch">农归吧</span>
+              <img :src="item.headimgurl" style="border-radius:50%">
+              
+              <span class="peoMuch">{{item.nickname}}</span>
             </div>
           </div>
           <div class="progressAll">
@@ -43,7 +42,7 @@
             </div>
           </div>
         </div>
-      </router-link>
+      <!-- </router-link> -->
     </div>
   </div>
 </template>
@@ -60,10 +59,29 @@ export default {
   },
   data() {
     return {
-      imgAS: require("@/assets/right_.png")
+      // imgAS: require("@/assets/right_.png")
     };
   },
   methods: {
+    hitS(INDE) {
+      if (INDE == 275) {
+        this.$router.push({
+          path: "/hdetial",
+          query: {
+            key: INDE,
+            money: "59.4",
+            moneys: "180"
+          }
+        });
+      } else {
+        this.$router.push({
+          path: "/Detail",
+          query: {
+            key: INDE
+          }
+        });
+      }
+    },
     computedResidualTime: function(item) {
       let residualTime = item.left_time;
       let day = parseInt(residualTime / (24 * 3600)); //剩余天数
@@ -72,10 +90,10 @@ export default {
       }
       return `${day}天`;
     },
-    computedWidth:function(item){
+    computedWidth: function(item) {
       let width = item.progress;
-      if(width>=100){
-        width = 100
+      if (width >= 100) {
+        width = 100;
       }
       return `${width}`;
     }
@@ -200,7 +218,7 @@ export default {
 
 .crowd-right {
   display: flex;
-  align-self: center;
+  align-items: center;
   color: #999;
 }
 

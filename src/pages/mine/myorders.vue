@@ -1,44 +1,43 @@
 <template>
   <div class="active" ref="wrappers" style="visibility:hidden;">
-    <van-tabs v-model="activea" swipeable sticky animated>
+    <van-tabs v-model="activea" swipeable sticky animated @click="onClick">
       <van-tab title="全部">
         <div class="hitImg" v-show="ispic">
           <img src="@/assets/linjuan/5.png">
           <div class="contenr">暂时无订单</div>
         </div>
-        <div class="bottom">
-          <div v-for="(item,index) in json" :key="item.id" :id="index" class="allW">
-            <div class="top">
-              <div>
-                <img :src="item.headimgurl" class="img">
-                
-                <span class="topWord">{{item.nickname}}</span>
-              </div>
-              <div class="right_word"></div>
+
+        <div v-for="(item,index) in json" :key="item.id" :id="index" class="allW">
+          <div class="top">
+            <div>
+              <img :src="item.headimgurl" class="img">
+              
+              <span class="topWord">{{item.nickname}}</span>
             </div>
-            <div
-              class="item"
-              v-for="(pl,index) in json[index].options"
-              :key="index"
-              :data-id="index"
-              @click="ImgDetial(item.trade_no)"
-            >
-              <div class="left">
-                <img :src="pl.pic">
-              </div>
-              <div class="right">
-                <div class="title">
-                  <div class="titleWord">{{pl.crowd_funding_name}}</div>
-                  <div class="titlew">
-                    <div class="pricr">￥{{pl.support_money}}</div>
-                    <div class="pNUM">x{{pl.wish_nums}}</div>
-                  </div>
-                </div>
-                <div class="detailsame">{{pl.return_content}}</div>
-              </div>
-            </div>
-            <div class="contentW">共计{{item.return_nums}}件商品 合计：¥{{item.reality_money}}</div>
+            <div class="right_word"></div>
           </div>
+          <div
+            class="item"
+            v-for="(pl,index) in json[index].options"
+            :key="index"
+            :data-id="index"
+            @click="ImgDetial(item.trade_no)"
+          >
+            <div class="left">
+              <img :src="pl.pic">
+            </div>
+            <div class="right">
+              <div class="title">
+                <div class="titleWord">{{pl.crowd_funding_name}}</div>
+                <div class="titlew">
+                  <div class="pricr">￥{{pl.support_money}}</div>
+                  <div class="pNUM">x{{pl.wish_nums}}</div>
+                </div>
+              </div>
+              <div class="detailsame">{{pl.return_content}}</div>
+            </div>
+          </div>
+          <div class="contentW">共计{{item.return_nums}}件商品 合计：¥{{item.reality_money}}</div>
         </div>
       </van-tab>
       <van-tab title="进行中">
@@ -46,39 +45,38 @@
           <img src="@/assets/linjuan/5.png">
           <div class="contenr">暂时无订单</div>
         </div>
-        <div class="container bottom">
-          <div v-for="(item,index) in jsons" :key="item.id" :id="index" class="allW">
-            <div class="top">
-              <div>
-                <img :src="item.headimgurl" class="img">
-                
-                <span class="topWord">{{item.nickname}}</span>
-              </div>
-              <div class="right_word">进行中</div>
+
+        <div v-for="(item,index) in jsons" :key="item.id" :id="index" class="allW">
+          <div class="top">
+            <div>
+              <img :src="item.headimgurl" class="img">
+              
+              <span class="topWord">{{item.nickname}}</span>
             </div>
-            <div
-              class="item"
-              v-for="(pl,index) in jsons[index].options"
-              :key="index"
-              :data-id="index"
-              @click="ImgDetial(item.trade_no)"
-            >
-              <div class="left">
-                <img :src="pl.pic">
-              </div>
-              <div class="right">
-                <div class="title">
-                  <div class="titleWord">{{pl.crowd_funding_name}}</div>
-                  <div class="titlew">
-                    <div class="pricr">￥{{pl.support_money}}</div>
-                    <div class="pNUM">x{{pl.wish_nums}}</div>
-                  </div>
-                </div>
-                <div class="detailsame">{{pl.return_content}}</div>
-              </div>
-            </div>
-            <div class="contentW">共计{{item.return_nums}}件商品 合计：¥{{item.reality_money}}</div>
+            <div class="right_word">进行中</div>
           </div>
+          <div
+            class="item"
+            v-for="(pl,index) in jsons[index].options"
+            :key="index"
+            :data-id="index"
+            @click="ImgDetial(item.trade_no)"
+          >
+            <div class="left">
+              <img :src="pl.pic">
+            </div>
+            <div class="right">
+              <div class="title">
+                <div class="titleWord">{{pl.crowd_funding_name}}</div>
+                <div class="titlew">
+                  <div class="pricr">￥{{pl.support_money}}</div>
+                  <div class="pNUM">x{{pl.wish_nums}}</div>
+                </div>
+              </div>
+              <div class="detailsame">{{pl.return_content}}</div>
+            </div>
+          </div>
+          <div class="contentW">共计{{item.return_nums}}件商品 合计：¥{{item.reality_money}}</div>
         </div>
       </van-tab>
 
@@ -87,38 +85,37 @@
           <img src="@/assets/linjuan/5.png">
           <div class="contenr">暂时无订单</div>
         </div>
-        <div class="container bottom">
-          <div v-for="(item,index) in jsonss" :key="item.id" :id="index" class="allW">
-            <div class="top">
-              <div>
-                <img :src="item.headimgurl" class="img">
-                
-                <span class="topWord">{{item.nickname}}</span>
-              </div>
-              <div class="right_word">待发货</div>
+
+        <div v-for="(item,index) in jsonss" :key="item.id" :id="index" class="allW">
+          <div class="top">
+            <div>
+              <img :src="item.headimgurl" class="img">
+              
+              <span class="topWord">{{item.nickname}}</span>
             </div>
-            <div
-              class="item"
-              v-for="(pl,index) in jsonss[index].options"
-              :key="index"
-              :data-id="index"
-            >
-              <div class="left">
-                <img :src="pl.pic">
-              </div>
-              <div class="right">
-                <div class="title">
-                  <div class="titleWord">{{pl.crowd_funding_name}}</div>
-                  <div class="titlew">
-                    <div class="pricr">￥{{pl.support_money}}</div>
-                    <div class="pNUM">x{{pl.wish_nums}}</div>
-                  </div>
-                </div>
-                <div class="detailsame">{{pl.return_content}}</div>
-              </div>
-            </div>
-            <div class="contentW">共计{{item.return_nums}}件商品 合计：¥{{item.reality_money}}</div>
+            <div class="right_word">待发货</div>
           </div>
+          <div
+            class="item"
+            v-for="(pl,index) in jsonss[index].options"
+            :key="index"
+            :data-id="index"
+          >
+            <div class="left">
+              <img :src="pl.pic">
+            </div>
+            <div class="right">
+              <div class="title">
+                <div class="titleWord">{{pl.crowd_funding_name}}</div>
+                <div class="titlew">
+                  <div class="pricr">￥{{pl.support_money}}</div>
+                  <div class="pNUM">x{{pl.wish_nums}}</div>
+                </div>
+              </div>
+              <div class="detailsame">{{pl.return_content}}</div>
+            </div>
+          </div>
+          <div class="contentW">共计{{item.return_nums}}件商品 合计：¥{{item.reality_money}}</div>
         </div>
       </van-tab>
 
@@ -127,7 +124,7 @@
           <img src="@/assets/linjuan/5.png">
           <div class="contenr">暂时无订单</div>
         </div>
-        <div class="container bottom">
+        <div class="bottom">
           <div v-for="(item,index) in jsonsss" :key="item.id" :id="index" class="allW">
             <div class="top">
               <div>
@@ -171,40 +168,39 @@
           <img src="@/assets/linjuan/5.png">
           <div class="contenr">暂时无订单</div>
         </div>
-        <div class="container bottom">
-          <div v-for="(item,index) in jsonssss" :key="item.id" :id="index" class="allW">
-            <div class="top">
-              <div>
-                <img :src="item.headimgurl" class="img">
-                
-                <span class="topWord">{{item.nickname}}</span>
-              </div>
-              <div class="right_word">已确认收货</div>
+
+        <div v-for="(item,index) in jsonssss" :key="item.id" :id="index" class="allW">
+          <div class="top">
+            <div>
+              <img :src="item.headimgurl" class="img">
+              
+              <span class="topWord">{{item.nickname}}</span>
             </div>
-            <div
-              class="item"
-              v-for="(pl,index) in jsonssss[index].options"
-              :key="index"
-              :data-id="index"
-            >
-              <div class="left">
-                <img :src="pl.pic">
-              </div>
-              <div class="right">
-                <div class="title">
-                  <div class="titleWord">{{pl.crowd_funding_name}}</div>
-                  <div class="titlew">
-                    <div class="pricr">￥{{pl.support_money}}</div>
-                    <div class="pNUM">x{{pl.wish_nums}}</div>
-                  </div>
+            <div class="right_word">已确认收货</div>
+          </div>
+          <div
+            class="item"
+            v-for="(pl,index) in jsonssss[index].options"
+            :key="index"
+            :data-id="index"
+          >
+            <div class="left">
+              <img :src="pl.pic">
+            </div>
+            <div class="right">
+              <div class="title">
+                <div class="titleWord">{{pl.crowd_funding_name}}</div>
+                <div class="titlew">
+                  <div class="pricr">￥{{pl.support_money}}</div>
+                  <div class="pNUM">x{{pl.wish_nums}}</div>
                 </div>
-                <div class="detailsame">{{pl.return_content}}</div>
               </div>
+              <div class="detailsame">{{pl.return_content}}</div>
             </div>
-            <div class="contentW">共计{{item.return_nums}}件商品 合计：¥{{item.reality_money}}</div>
-            <div class="contents">
-              <div @click="TUIKUANG(jsonssss[index].trade_no)">申请退款</div>
-            </div>
+          </div>
+          <div class="contentW">共计{{item.return_nums}}件商品 合计：¥{{item.reality_money}}</div>
+          <div class="contents">
+            <div @click="TUIKUANG(jsonssss[index].trade_no)">申请退款</div>
           </div>
         </div>
       </van-tab>
@@ -301,6 +297,9 @@ export default {
     }, 500);
   },
   methods: {
+    onClick(index) {
+      console.log(index);
+    },
     ImgDetial(trade_no) {
       let tradeNO = trade_no;
       this.$router.push({
@@ -367,6 +366,16 @@ export default {
   margin-top: 10px;
 }
 
+.active >>> .van-tabs__content,.van-tabs__content--animated{
+  height: 100%
+ 
+}
+
+.active >>> .van-tabs .van-tab__pane {
+  height: 100%;
+  background-color: #f4f4f4;
+}
+
 .contents div {
   border: 1px solid rgba(210, 22, 35, 1);
   border-radius: 5px;
@@ -423,25 +432,16 @@ export default {
   text-align: right;
 }
 
-.active {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  -webkit-overflow-scrolling: touch;
-  background-color: #f4f4f4;
-}
-
 .hitImg {
   display: table-cell;
   vertical-align: middle;
   text-align: center;
+  background: #fff;
 }
 
 .hitImg img {
   width: 50%;
-  margin-top: 20%;
+  margin-top: 8%;
 }
 
 .hitImg .contenr {

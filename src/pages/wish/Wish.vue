@@ -95,24 +95,27 @@
         </Item>
       </div>
     </div>
+    <Tabbar></Tabbar>
   </div>
 </template>
-<script defer=true>
+<script type="text/ecmascript-6" defer=true>
 import { rSwiperOut, rSwiperOutItem } from "@/bus/components/swiperOut";
-import MineHeader from "./component/Like";
+import MineHeader from "./components/Like";
 import { wishPush } from "@/components/axios/api";
 import { forDetil } from "@/components/axios/api";
 import { Addjia } from "@/components/axios/api";
+import Item from "@/components/Item.vue";
+import Tabbar from "@/components/common/Tan";
 import * as types from "@/components/vuex/types";
 import store from "@/components/vuex/store";
-import Item from "@/components/Item.vue";
 export default {
   name: "Wish",
   components: {
-    MineHeader,
     Item,
+    MineHeader,
     rSwiperOut,
-    rSwiperOutItem
+    rSwiperOutItem,
+    Tabbar
   },
   data() {
     return {
@@ -174,7 +177,7 @@ export default {
       })
       .catch(err => {
         store.commit(types.LOGOUT);
-        this.$router.push('/phone')
+        this.$router.push("/phone");
         console.log(err, "请求失败");
       });
   },
@@ -655,7 +658,6 @@ export default {
 .active span {
   color: #d21623;
 }
-
 
 // 文档
 .header {

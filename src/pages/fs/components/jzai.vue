@@ -66,7 +66,7 @@ export default {
       .then(res => {
         res = res.data;
         if (res.status && res.data) {
-          console.log(res);
+          // console.log(res);
           this.tabContentsa = res.data.result;
         }
         // console.log(this.tabContentsa.length)

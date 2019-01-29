@@ -73,7 +73,7 @@ export default {
   },
   data() {
     return {
-      imgAS: require("@/assets/right_.png")
+      imgAS: require("@/assets/rr.png")
     };
   },
   methods: {

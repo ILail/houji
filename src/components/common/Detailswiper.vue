@@ -126,6 +126,7 @@
         </div>
       </div>
     </div>
+    <Tabbar></Tabbar>
   </div>
 </template>
 
@@ -156,6 +157,7 @@ import { crowd_funding } from "@/components/axios/api";
 import store from "@/components/vuex/store";
 import { PullRefresh } from "vant";
 import { Toast } from "vant";
+import Tabbar from "@/components/common/Tan";
 Vue.use(PullRefresh);
 Vue.use(Toast);
 export default {
@@ -164,7 +166,8 @@ export default {
     Detail,
     Travel,
     Plun,
-    Suyuan
+    Suyuan,
+    Tabbar
   },
   data() {
     return {

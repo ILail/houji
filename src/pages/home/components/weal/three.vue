@@ -46,7 +46,7 @@ export default {
       .then(res => {
         res = res.data;
         this.list = res.data;
-        console.log(this.list);
+        // console.log(this.list);
       })
       .catch(err => {
         console.log(err, "请求失败");

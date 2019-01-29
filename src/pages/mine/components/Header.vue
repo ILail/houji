@@ -42,8 +42,8 @@ export default {
     return {
       shows: true,
       show: false,
-      wx: require("@/assets/right.png"),
-      banner: require("@/assets/liwu.png"),
+      // wx: require("@/assets/rr.png"),
+      // banner: require("@/assets/liwu.png"),
       note: {
         backgroundImage: "url(" + require("@/assets/banner.png") + ")",
         backgroundRepeat: "no-repeat",
@@ -55,7 +55,7 @@ export default {
   },
   created() {
     var userID = localStorage.getItem("userID");
-    console.log(userID)
+    // console.log(userID)
     if (userID == "1") {
       this.showimg = false;
     }

@@ -22,8 +22,8 @@ export default new Vuex.Store({
       state.token = null
     },
     [types.OPPENDID]: (state, data) => {
-      localStorage.oppenId = data;
       console.log(data)
+      localStorage.setItem("Oppenid",data)
       state.oppenId = data;
     },
     // SET_KEEP_ALIVE: (state, keepAlive) => {
