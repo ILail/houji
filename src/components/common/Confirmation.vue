@@ -316,7 +316,7 @@ export default {
         return false;
       }
 
-      let naid = localStorage.getItem('Oppenid')
+      let naid = localStorage.getItem('key')
       console.log(naid);
       const arry = [
         this.details,
