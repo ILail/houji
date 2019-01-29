@@ -86,7 +86,7 @@ const routes = [{
   component: Hdetial
 }, {
   path: '/wishs',
-  name: '心愿单',
+  name: '购物车',
   component: Wish,
   meta: {
     requireAuth: true, // 添加该字段，表示进入这个路由是需要登录的

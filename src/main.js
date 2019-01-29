@@ -22,6 +22,7 @@ import { PullRefresh } from 'vant';
 import { List } from 'vant';
 import { Loading } from 'vant';
 import { Swipe, SwipeItem } from "vant";
+
 Vue.use(Swipe).use(SwipeItem);
 Vue.use(Loading);
 Vue.use(List);
