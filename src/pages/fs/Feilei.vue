@@ -14,7 +14,7 @@
           </div>
         </router-link>
       </div>
-       <div :class="searchBarFixed == true ? 'isFixed' :''" id="searchBar">
+      <div :class="searchBarFixed == true ? 'isFixed' :''" id="searchBar">
         <!-- <div class="title">
           <div
             v-for="(item,index) in tabs"
@@ -22,13 +22,13 @@
             :class="{active:index == num}"
             @click="tab(index)"
           >{{item.class_name}}</div>
-        </div> -->
-            <van-tabs v-model="active" animated sticky>
-      <van-tab v-for="(item,index) in tabs" :key="item.id">
-        <div slot="title" @click="onClick(item.crowd_funding_class_id)">{{item.class_name}}</div>
-        <!-- 内容 {{ index }} -->
-      </van-tab>
-    </van-tabs>
+        </div>-->
+        <van-tabs v-model="active" animated sticky>
+          <van-tab v-for="(item,index) in tabs" :key="item.id">
+            <div slot="title" @click="onClick(item.crowd_funding_class_id)">{{item.class_name}}</div>
+            <!-- 内容 {{ index }} -->
+          </van-tab>
+        </van-tabs>
       </div>
     </div>
 
@@ -96,7 +96,7 @@
         </div>
       </div>
     </div>-->
-    <div class="swiper-container  wrapAll">
+    <div class="swiper-container wrapAll">
       <div class="swiper-wrapper">
         <div class="swiper-slide">
           <van-list>
@@ -187,7 +187,7 @@ export default {
   },
   data() {
     return {
-      ids: "25",
+      ids: "",
       numlength: "",
       tabContentsa: [],
       ispic: false,
@@ -247,6 +247,7 @@ export default {
         res = res.data;
         if (res.status && res.data) {
           this.tabs = res.data;
+          this.ids = this.tabs[0].crowd_funding_class_id;
           this.numlength = this.tabs.length;
         }
       })
@@ -284,7 +285,7 @@ export default {
           if (res.status && res.data) {
             // console.log(res);
             this.tabContentsa = res.data.result;
-            console.log(this.tabContentsa);
+            // console.log(this.tabContentsa);
           }
           // console.log(this.tabContentsa.length)
           if (this.tabContentsa.length == 0) {
@@ -345,6 +346,7 @@ export default {
   box-shadow: #eee 0px 0px 10px;
   margin-bottom: 25px;
 }
+
 .wrapAll >>> .van-list__loading {
   text-align: center;
   padding-bottom: 12px;
@@ -355,6 +357,7 @@ export default {
   padding-bottom: 12px;
   margin-top: -20px;
 }
+
 .swiper-slide {
   height: 0px;
   overflow-y: hidden;
