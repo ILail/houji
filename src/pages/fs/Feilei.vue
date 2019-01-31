@@ -23,7 +23,7 @@
             @click="tab(index)"
           >{{item.class_name}}</div>
         </div>-->
-        <van-tabs v-model="active" animated sticky>
+        <van-tabs v-model="active" animated sticky v-if="shoss">
           <van-tab v-for="(item,index) in tabs" :key="item.id">
             <div slot="title" @click="onClick(item.crowd_funding_class_id)">{{item.class_name}}</div>
             <!-- 内容 {{ index }} -->
@@ -187,6 +187,7 @@ export default {
   },
   data() {
     return {
+      shoss:false,
       ids: "34",
       numlength: "",
       tabContentsa: [],
@@ -247,6 +248,7 @@ export default {
         res = res.data;
         if (res.status && res.data) {
           this.tabs = res.data;
+          this.shoss = true
           // this.ids = this.tabs[0].crowd_funding_class_id;
           // console.log(this.ids)
           this.numlength = this.tabs.length;
