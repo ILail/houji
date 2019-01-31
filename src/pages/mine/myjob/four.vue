@@ -3,7 +3,7 @@
     <p v-if="shows">暂无项目</p>
     <div v-for="item of list" :key="item.id" v-show="showsa">
       <div style="height:100%;height:8px;background:#eee"></div>
-      <div class="content">
+      <div class="content" @click="localsa(item.crowd_funding_id)">
         <div class="first">
           <div class="time">{{item.start_date | formatDate}}</div>
           <div>进行中</div>
@@ -78,6 +78,14 @@ export default {
       let residualTime = item.start_date;
 
       return `${residualTime}`;
+    },
+    localsa(INDE) {
+      this.$router.push({
+        path: "/Detail",
+        query: {
+          key: INDE
+        }
+      });
     }
   }
 };

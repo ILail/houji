@@ -86,7 +86,6 @@
 </template>
 
 <script type="text/ecmascript-6">
-
 import one from "./weal/one";
 import two from "./weal/two";
 import three from "./weal/three";
@@ -154,6 +153,7 @@ export default {
 .Himg {
   width: 100%;
   margin-bottom: 5px;
+  border-top: 0.5px solid #eee;
 }
 
 .list {

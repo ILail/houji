@@ -31,6 +31,7 @@ export default {
     console.log(url);
     if (url.split("?").length == 1) {
       // this.$router.push("/");
+      console.log(123)
     } else {
       const localarr = url.split("?")[1].split("&");
       let code = localarr[0].split("=")[1];

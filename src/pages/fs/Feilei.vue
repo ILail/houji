@@ -14,27 +14,140 @@
           </div>
         </router-link>
       </div>
-      <div :class="searchBarFixed == true ? 'isFixed' :''" id="searchBar">
-        <div class="title">
+       <div :class="searchBarFixed == true ? 'isFixed' :''" id="searchBar">
+        <!-- <div class="title">
           <div
             v-for="(item,index) in tabs"
             :key="item.id"
             :class="{active:index == num}"
             @click="tab(index)"
           >{{item.class_name}}</div>
-        </div>
+        </div> -->
+            <van-tabs v-model="active" animated sticky>
+      <van-tab v-for="(item,index) in tabs" :key="item.id">
+        <div slot="title" @click="onClick(item.crowd_funding_class_id)">{{item.class_name}}</div>
+        <!-- 内容 {{ index }} -->
+      </van-tab>
+    </van-tabs>
       </div>
     </div>
+
     <!-- 下面内容 -->
-    <div class="swiper-box">
+    <!-- <div class="swiper-box">
       <div class="swiper-container wrapA">
         <div class="swiper-wrapper">
-          <div class="swiper-slide" v-for="item of list" :key="item.id">
+          <div class="swiper-slide">
             <keep-alive>
-              <component :is="item.component"></component>
+              <div class="wrapAll container">
+                <div class="hitImg" style="border:none" v-show="ispic">
+                  <img src="@/assets/woring.png">
+                  <div class="contenr">暂时无数据，静请期待！</div>
+                </div>
+
+                <div v-for="(itemCon) in tabContentsa" :key="itemCon.id" class="people">
+                  <router-link
+                    :to="{  
+        path: 'Detail',     
+        query: {   
+            key: itemCon.crowd_funding_id, // orderNum : this.searchData.orderNo
+        }
+    }"
+                  >
+                    <img :src="itemCon.pic" class="peoImg">
+                    <div class="people_p">
+                      <div class="list">{{itemCon.crowd_funding_name}}</div>
+                      <div class="crowd-info">
+                        <div class="crowd-money">
+                          <span class="word">已售：</span>
+                          <span class="money">¥{{itemCon.now_money}}</span>
+                        </div>
+                        <div class="crowd-right">
+                          <img :src="itemCon.headimgurl">
+                          
+                          <span class="peoMuch">{{itemCon.nickname}}</span>
+                        </div>
+                      </div>
+                      <div class="progressAll">
+                        <div class="progress-outer">
+                          <span
+                            class="progress"
+                            :style="{width:computedResidualTimea(itemCon)+'%'}"
+                          ></span>
+                        </div>
+                        <span class="progressA">{{itemCon.progress}}%</span>
+                      </div>
+                      <div class="crowd-info_a">
+                        <div class="crowd-money">
+                          <span class="peoHow">{{itemCon.support_num}}人支持</span>
+                        </div>
+                        <div class="crowd-day">
+                          <span style="margin-right: 3px;">
+                            <img src="@/assets/time.png" class="crowdTimg">
+                          </span>
+                          <span class="money">{{computedResidualTime(itemCon)}}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </router-link>
+                </div>
+              </div>
             </keep-alive>
           </div>
         </div>
+      </div>
+    </div>-->
+    <div class="swiper-container  wrapAll">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide">
+          <van-list>
+            <div v-for="(itemCon) in tabContentsa" :key="itemCon.id" class="people container">
+              <router-link
+                :to="{  
+        path: 'Detail',     
+        query: {   
+            key: itemCon.crowd_funding_id, // orderNum : this.searchData.orderNo
+        }
+    }"
+              >
+                <img :src="itemCon.pic" class="peoImg">
+                <div class="people_p">
+                  <div class="list">{{itemCon.crowd_funding_name}}</div>
+                  <div class="crowd-info">
+                    <div class="crowd-money">
+                      <span class="word">已售：</span>
+                      <span class="money">¥{{itemCon.now_money}}</span>
+                    </div>
+                    <div class="crowd-right">
+                      <img :src="itemCon.headimgurl">
+                      
+                      <span class="peoMuch">{{itemCon.nickname}}</span>
+                    </div>
+                  </div>
+                  <div class="progressAll">
+                    <div class="progress-outer">
+                      <span class="progress" :style="{width:computedResidualTimea(itemCon)+'%'}"></span>
+                    </div>
+                    <span class="progressA">{{itemCon.progress}}%</span>
+                  </div>
+                  <div class="crowd-info_a">
+                    <div class="crowd-money">
+                      <span class="peoHow">{{itemCon.support_num}}人支持</span>
+                    </div>
+                    <div class="crowd-day">
+                      <span style="margin-right: 3px;">
+                        <img src="@/assets/time.png" class="crowdTimg">
+                      </span>
+                      <span class="money">{{computedResidualTime(itemCon)}}</span>
+                    </div>
+                  </div>
+                </div>
+              </router-link>
+            </div>
+          </van-list>
+        </div>
+        <!-- <div class="swiper-slide">Slide 1</div>
+        <div class="swiper-slide">Slide 1</div>
+        <div class="swiper-slide">Slide 1</div>-->
       </div>
     </div>
     <div class="tabberWarp">
@@ -56,6 +169,7 @@
   </div>
 </template>
 <script>
+import { fsDetail } from "@/components/axios/api";
 import Item from "@/components/Item.vue";
 import Tabbar from "@/components/common/Tan";
 import one from "@/pages/fs/components/cp";
@@ -73,6 +187,12 @@ export default {
   },
   data() {
     return {
+      ids: "25",
+      numlength: "",
+      tabContentsa: [],
+      ispic: false,
+      num: 1,
+      active: 0,
       selected: "feilei",
       tabbarDes: [
         {
@@ -114,16 +234,20 @@ export default {
       ],
       tabs: [],
       searchBarFixed: false,
-      num: ""
+      num: "",
+      loading: false,
+      finished: false
     };
   },
 
   created: function() {
+    this.refecd();
     fs()
       .then(res => {
         res = res.data;
         if (res.status && res.data) {
           this.tabs = res.data;
+          this.numlength = this.tabs.length;
         }
       })
       .catch(err => {
@@ -132,32 +256,70 @@ export default {
   },
   mounted() {
     window.addEventListener("scroll", this.watchScroll);
-    let mySwiperA = new Swiper(".wrapA", {});
+    let mySwiperA = new Swiper(".swiper-container");
     mySwiperA.on("slideChange", () => {
       // 监控滑动后当前页面的索引，将索引发射到导航组件
       // 左右滑动时将当前slide的索引发送到nav组件
-
-      this.$root.eventHub.$emit("slideTab", mySwiperA.activeIndex);
+      console.log(mySwiperA.activeIndex);
+      // this.$root.eventHub.$emit("slideTab", mySwiperA.activeIndex);
     });
     // 接收nav组件传过来的导航按钮索引值，跳转到相应内容区
-    this.$root.eventHub.$on("changeTab", index => {
-      // 点击导航键跳转相应内容区
-      mySwiperA.slideTo(index, 0, false);
-    });
+    // this.$root.eventHub.$on("changeTab", index => {
+    //   // 点击导航键跳转相应内容区
+    //   mySwiperA.slideTo(index, 0, false);
+    // });
     // 接收swiper组件发射的index进行导航按钮切换高亮和更新模板地址
-    this.$root.eventHub.$on("slideTab", this.slideTab);
+    // this.$root.eventHub.$on("slideTab", this.slideTab);
   },
   methods: {
-    slideTab(index) {
-      this.num = index;
+    onClick(names) {
+      this.ids = names;
+      this.refecd();
+      console.log(this.ids);
     },
+    refecd() {
+      fsDetail(this.ids, this.num)
+        .then(res => {
+          res = res.data;
+          if (res.status && res.data) {
+            // console.log(res);
+            this.tabContentsa = res.data.result;
+            console.log(this.tabContentsa);
+          }
+          // console.log(this.tabContentsa.length)
+          if (this.tabContentsa.length == 0) {
+            this.ispic = true;
+          }
+        })
+        .catch(err => {
+          console.log(err, "请求失败");
+        });
+    },
+    computedResidualTime: function(itemCon) {
+      let residualTime = itemCon.left_time;
+      let day = parseInt(residualTime / (24 * 3600)); //剩余天数
+      if (day <= 0) {
+        day = 0;
+      }
+      return `${day}天`;
+    },
+    computedResidualTimea: function(itemCon) {
+      let progress = itemCon.progress;
+      if (progress >= 100) {
+        progress = 100;
+      }
+      return `${progress}`;
+    },
+    // slideTab(index) {
+    //   this.num = index;
+    // },
     getVal: function(res) {
       this.selected = res;
     },
-    tab(index) {
-      this.num = index;
-      this.$root.eventHub.$emit("changeTab", index);
-    },
+    // tab(index) {
+    //   this.num = index;
+    //   this.$root.eventHub.$emit("changeTab", index);
+    // },
 
     watchScroll() {
       var scrollTop =
@@ -178,6 +340,21 @@ export default {
 };
 </script>
 <style lang="stylus" scoped>
+.wrapAll >>> .van-list .people {
+  border-radius: 5px;
+  box-shadow: #eee 0px 0px 10px;
+  margin-bottom: 25px;
+}
+.wrapAll >>> .van-list__loading {
+  text-align: center;
+  padding-bottom: 12px;
+  margin-top: -20px;
+}
+
+.wrapAll >>> .van-list__finished-text {
+  padding-bottom: 12px;
+  margin-top: -20px;
+}
 .swiper-slide {
   height: 0px;
   overflow-y: hidden;
@@ -272,6 +449,146 @@ export default {
 
 .active span {
   color: #d21623;
+}
+
+.crowd-right span {
+  max-width: 110px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.people {
+  border-radius: 5px;
+  box-shadow: #eee 0px 0px 10px;
+  margin-bottom: 20px;
+}
+
+.people .peoImg {
+  width: 100%;
+  margin-bottom: 18px;
+  border-radius: 5px;
+}
+
+.people_p {
+  padding: 0 0.21rem 15px 0.21rem;
+}
+
+.list {
+  font-size: 18px;
+  color: #333333;
+  font-weight: bold;
+  line-height: 1.4;
+}
+
+.crowd-info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 15px 0 16px 0;
+}
+
+.crowd-money .word {
+  font-size: 12px;
+  color: #666666;
+}
+
+.crowd-money .money {
+  font-size: 16px;
+  color: #D21623;
+}
+
+.crowd-money .peoMuch {
+  color: #999999;
+  font-size: 12px;
+}
+
+.crowd-info_a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 15px 0 0 0;
+}
+
+.progressAll {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.progressA {
+  font-size: 12px;
+  color: #D21623;
+}
+
+.progress-outer {
+  width: 93%;
+  height: 0.08rem;
+  position: relative;
+  background-color: #EEEEEE;
+  border-radius: 5px;
+}
+
+.progress-outer .progress {
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 5px;
+  background: #D21623;
+}
+
+.peoHow {
+  font-size: 10px;
+}
+
+.crowd-day {
+  display: flex;
+  align-items: center;
+  color: #666;
+}
+
+.crowd-money {
+  display: flex;
+  align-items: center;
+}
+
+.crowd-right {
+  display: flex;
+  align-items: center;
+  color: #999;
+}
+
+.crowd-right img {
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  margin: -1px 3px 0 0;
+}
+
+.crowdTimg {
+  width: 12px;
+  vertical-align: baseline;
+}
+
+.wrapAll {
+  padding: 18px 0 35px 0;
+}
+
+.hitImg {
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+}
+
+.hitImg img {
+  width: 50%;
+  margin-top: 20%;
+}
+
+.hitImg .contenr {
+  margin-top: 5px;
+  color: #999;
 }
 </style>
 

@@ -2,7 +2,7 @@
   <div class="one">
     <div class="hitImg" v-show="ispic">
       <img src="@/assets/linjuan/5.png" @click="hitImg">
-      <div class="contenr">暂时无优惠卷，赶快去领取吧！</div>
+      <div class="contenr">暂无优惠卷，点我领取吧！</div>
     </div>
     <div class="smae">
       <div class="wrap container" v-for="item in list" :key="item.id" :style="note">

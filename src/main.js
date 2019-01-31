@@ -13,7 +13,9 @@ import VueLazyload from 'vue-lazyload'
 // bus
 import VueBus from 'vue-bus';
 Vue.use(VueBus);
-
+import clipboard from 'clipboard';
+//注册到vue原型上
+Vue.prototype.clipboard = clipboard;
 // vant
 import { Tab, Tabs } from "vant";
 import { Toast } from "vant";

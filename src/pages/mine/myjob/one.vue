@@ -3,7 +3,7 @@
     <p v-show="shows">暂无项目</p>
     <div v-for="item of list" :key="item.id" v-show="showa">
       <div style="height:100%;height:8px;background:#eee"></div>
-      <div class="content">
+      <div class="content" @click="localsa(item.crowd_funding_id)">
         <div class="first">
           <div class="time">{{item.start_date | formatDate}}</div>
           <div>已发起</div>
@@ -57,16 +57,16 @@ export default {
     return {
       shows: false,
       list: [],
-      showa:true
+      showa: true
     };
   },
   created: function() {
     MyObject()
       .then(res => {
-        if(res.data.data.length==0){
-          this.shows = true
-          this.showa =false
-        };
+        if (res.data.data.length == 0) {
+          this.shows = true;
+          this.showa = false;
+        }
         this.list = res.data.data;
       })
       .catch(err => {
@@ -78,6 +78,14 @@ export default {
       let residualTime = item.start_date;
 
       return `${residualTime}`;
+    },
+    localsa(INDE) {
+      this.$router.push({
+        path: "/Detail",
+        query: {
+          key: INDE
+        }
+      });
     }
   }
 };
@@ -123,7 +131,7 @@ export default {
 .progressA {
   position: absolute;
   top: 0.03rem;
-  right: 36%;
+  right: 26%;
   font-size: 12px;
   color: #F44A28;
 }

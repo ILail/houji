@@ -100,6 +100,7 @@
             v-for="(pl,index) in jsonss[index].options"
             :key="index"
             :data-id="index"
+            @click="ImgDetial(item.trade_no)"
           >
             <div class="left">
               <img :src="pl.pic">
@@ -139,6 +140,7 @@
               v-for="(pl,index) in jsonsss[index].options"
               :key="index"
               :data-id="index"
+              @click="ImgDetial(item.trade_no)"
             >
               <div class="left">
                 <img :src="pl.pic">
@@ -183,6 +185,7 @@
             v-for="(pl,index) in jsonssss[index].options"
             :key="index"
             :data-id="index"
+            @click="ImgDetial(item.trade_no)"
           >
             <div class="left">
               <img :src="pl.pic">
@@ -366,9 +369,8 @@ export default {
   margin-top: 10px;
 }
 
-.active >>> .van-tabs__content,.van-tabs__content--animated{
-  height: 100%
- 
+.active >>> .van-tabs__content, .van-tabs__content--animated {
+  height: 100%;
 }
 
 .active >>> .van-tabs .van-tab__pane {

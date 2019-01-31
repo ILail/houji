@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <router-view></router-view>
-    <Guan></Guan>
+    <Guan  v-if="$route.meta.oppendid"></Guan>
     <div v-wechat-title="$route.name"></div>
   </div>
 </template>

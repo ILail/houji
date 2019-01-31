@@ -57,6 +57,9 @@ const routes = [{
   path: '/',
   name: '猴集',
   component: Small,
+  meta: {
+    oppendid: true, 
+  },
 }, {
   path: '/linjuan',
   name: '领卷中心',
@@ -67,7 +70,10 @@ const routes = [{
 }, {
   path: '/feilei',
   name: '分类',
-  component: Feilei
+  component: Feilei,
+  meta: {
+    oppendid: true, 
+  },
 }, {
   path: '/shao',
   name: '扫一扫',
@@ -90,6 +96,7 @@ const routes = [{
   component: Wish,
   meta: {
     requireAuth: true, // 添加该字段，表示进入这个路由是需要登录的
+    oppendid: true, 
   },
 }, {
   path: '/mines',
@@ -97,6 +104,7 @@ const routes = [{
   component: Mine,
   meta: {
     requireAuth: true, // 添加该字段，表示进入这个路由是需要登录的
+    oppendid: true, 
   },
 }, {
   path: '/search',
@@ -105,7 +113,8 @@ const routes = [{
 }, {
   path: '/detail',
   name: '详情页',
-  component: Detail
+  component: Detail,
+  oppendid: true, 
 }, {
   path: '/addressdetail',
   name: '地址',

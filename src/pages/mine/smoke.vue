@@ -1,6 +1,5 @@
 <template>
   <div :class="{add_bg : active}">
-    <div class="container">
       <div class="wrap">
         <div class="header">
           <div class="imgHeader">
@@ -169,7 +168,6 @@
         </div>
         <div class="cofr" @click="Qall">确认</div>
       </div>
-    </div>
   </div>
 </template>
 <script>

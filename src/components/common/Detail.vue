@@ -41,7 +41,7 @@
           <div class="progress-outer">
             <span class="progress" :style="{width:computedWidth(list)+'%'}"></span>
           </div>
-          <span class="progressA" :style="{right:computedR(list)+'%'}">{{list.progress}}%</span>
+          <span class="progressA" :style="{left:computedR(list)+'%'}">{{list.progress}}%</span>
         </div>
         <ul>
           <li>
@@ -166,9 +166,9 @@ export default {
       this.show = true;
     },
     computedR: function(list) {
-      let width = 100 - list.progress - 15;
-      if (width <= 0) {
-        width = 2;
+      let width = list.progress;
+      if(width>=100){
+        width = 85
       }
       return `${width}`;
     },
