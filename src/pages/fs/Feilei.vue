@@ -187,7 +187,7 @@ export default {
   },
   data() {
     return {
-      ids: "",
+      ids: "34",
       numlength: "",
       tabContentsa: [],
       ispic: false,
@@ -247,7 +247,8 @@ export default {
         res = res.data;
         if (res.status && res.data) {
           this.tabs = res.data;
-          this.ids = this.tabs[0].crowd_funding_class_id;
+          // this.ids = this.tabs[0].crowd_funding_class_id;
+          // console.log(this.ids)
           this.numlength = this.tabs.length;
         }
       })
