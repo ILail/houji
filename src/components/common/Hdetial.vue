@@ -116,7 +116,7 @@ export default {
   data() {
     return {
       isshowa: true,
-      count: 2,
+      count: 1,
       istanchuana: false,
       id: this.$route.query.key,
       money: this.$route.query.money,
@@ -165,7 +165,7 @@ export default {
   },
   methods: {
     jia: function() {
-      if (this.count == 2) {
+      if (this.count == 1) {
         return;
       }
       this.count--;

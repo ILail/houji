@@ -178,7 +178,7 @@ export default {
         height: 125 + "px",
         overflow: "hidden"
       },
-     
+
       shows: false,
       active: 0,
       list: [],
@@ -243,6 +243,7 @@ export default {
           this.newmoney = 0.0;
           this.totalMoney = this.moneyAll - this.newmoney;
         }
+        console.log(this.routerParams);
         // 活动接口呀呀…………
         // if (this.routerParams == 275) {
         //   this.aa = false;
@@ -253,6 +254,43 @@ export default {
 
         //   this.totalMoney = numss;
         // }
+        // 蜂蜜
+        if (this.routerParams == 283) {
+          this.aa = false;
+          this.aas = true;
+          let moeysA = this.json[0].options[0].support_money;
+          let nums = moeysA - this.routerParama;
+          // let numss = this.routerParamo * nums;
+          // let newmoneys = (this.moneyAll - nums).toFixed(2);
+          // console.log(newmoneys)
+          this.newmoney = nums.toFixed(2) * this.routerParamo;
+          this.totalMoney = this.moneyAll - this.newmoney;
+        }
+        // 盘锦米
+        if (this.routerParams == 284) {
+          this.aa = false;
+          this.aas = true;
+          let moeysA = this.json[0].options[0].support_money;
+          let nums = moeysA - this.routerParama;
+          // let numss = this.routerParamo * nums;
+          // let newmoneys = (this.moneyAll - nums).toFixed(2);
+          // console.log(newmoneys)
+          this.newmoney = nums.toFixed(2) * this.routerParamo;
+          this.totalMoney = this.moneyAll - this.newmoney;
+        }
+
+        // 香皂
+        if (this.routerParams == 252) {
+          this.aa = false;
+          this.aas = true;
+          let moeysA = this.json[0].options[0].support_money;
+          let nums = moeysA - this.routerParama;
+          // let numss = this.routerParamo * nums;
+          // let newmoneys = (this.moneyAll - nums).toFixed(2);
+          // console.log(newmoneys)
+          this.newmoney = nums.toFixed(2) * this.routerParamo;
+          this.totalMoney = this.moneyAll - this.newmoney;
+        }
       })
       .catch(err => {
         console.log(err, "请求失败");
@@ -322,7 +360,7 @@ export default {
         });
         return false;
       }
-     let naid = localStorage.getItem('key')
+      let naid = localStorage.getItem("key");
       console.log(naid);
       const arry = [
         this.details,
