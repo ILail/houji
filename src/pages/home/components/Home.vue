@@ -73,7 +73,7 @@ export default {
 
     setTimeout(() => {
       this.$refs.wrapps.style.visibility = "visible";
-    }, 1000);
+    }, 1500);
   },
   methods: {
     imgJ() {
