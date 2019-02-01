@@ -67,6 +67,7 @@ export default {
   created() {
     juanYOU()
       .then(res => {
+        console.log( this.list )
         this.list = res.data.data.data;
         if (this.list.length == 0) {
           this.show = true;

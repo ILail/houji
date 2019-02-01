@@ -39,14 +39,17 @@
     </div>
 
     <div class="contents">
-      <router-link to="/smoke">
-        <div class="contentWord">
-          <span>
-            <img :src="nine" style="width:29px">
-          </span>
-          <span class="word">猴集卡</span>
-        </div>
-      </router-link>
+      <!-- <router-link to="/smoke"> -->
+      <div
+        class="contentWord"
+        @click="See('https://api.ngba.cn/api/v2p2/article/details?article_type=quan_yi&uid=' + value + '')"
+      >
+        <span>
+          <img :src="nine" style="width:29px">
+        </span>
+        <span class="word">猴集卡</span>
+      </div>
+      <!-- </router-link> -->
       <router-link to="/myjob">
         <div class="contentWord">
           <span>
@@ -74,9 +77,12 @@
 </template>
 
 <script type="text/ecmascript-6">
+import secret from "@/utils/utils";
+import { people } from "@/components/axios/api";
 export default {
   data() {
     return {
+      value: "",
       five: require("@/assets/list/5.png"),
       six: require("@/assets/list/6.png"),
       seven: require("@/assets/list/7.png"),
@@ -87,10 +93,25 @@ export default {
       third: require("@/assets/list/12.png")
     };
   },
+  created() {
+    people()
+      .then(res => {
+        const num = secret.Decrypt(res.data.data);
+        const letter = JSON.parse(num);
+        this.value = letter.user_id;
+      })
+      .catch(err => {
+        console.log(err, "请求失败");
+      });
+  },
   methods: {
     phoneCall: function(msg) {
       //   点击div弹出打电话
       window.location.href = "tel://" + msg;
+    },
+    See(e) {
+      console.log(e);
+      window.location.href = e;
     }
   }
 };
@@ -108,9 +129,10 @@ export default {
 
 .content {
   display: flex;
-  align-items center
-  justify-content space-between
-  padding 0 7% 0 5.2%
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 7% 0 5.2%;
+
   .contentWord {
     display: flex;
     align-items: center;
@@ -124,12 +146,12 @@ export default {
   }
 }
 
-
 .contents {
   display: flex;
-  align-items center
-  justify-content space-between
-  padding 0 10% 0 6.5%
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 10% 0 6.5%;
+
   .contentWord {
     display: flex;
     align-items: center;

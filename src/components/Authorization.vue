@@ -11,7 +11,7 @@ export default {
         let URL = res.data.data;
         // console.log(URL);
         var value = localStorage.getItem("ngba");
-        console.log(value);
+        // console.log(value);
         // 只做一次跳转
         if (value == null || value == undefined) {
           // setTimeout(function() {

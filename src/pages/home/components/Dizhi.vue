@@ -3,12 +3,12 @@
     <!-- <home-swiper :list="sowingMap"></home-swiper> -->
     <div class="contentNav">
       <ul>
-        <li v-for=" item in picList" :key="item.id">
+        <li v-for=" (item,index) in picList" :key="item.id">
           <router-link
             :to="{  
         path: 'addressdetail',     
         query: {   
-            key: item.geographical_id, // orderNum : this.searchData.orderNo
+            num:index,// orderNum : this.searchData.orderNo
         }
     }"
           >
@@ -21,7 +21,7 @@
             :to="{  
         path: 'addressdetail',     
         query: {   
-            key: 0, // orderNum : this.searchData.orderNo
+            num: 0, // orderNum : this.searchData.orderNo
         }
     }"
           >
@@ -78,7 +78,6 @@
 </template>
 
 <script type="text/ecmascript-6">
-
 import { address } from "@/components/axios/api";
 export default {
   name: "Dizhi",
@@ -133,7 +132,7 @@ export default {
       // toggleShow: false,
       // isLoad: false,
       searchBarFixed: false,
-      sowingMap: [],
+      // sowingMap: [],
       picList: [],
       intro: []
     };
@@ -145,7 +144,7 @@ export default {
         res = res.data;
         if (res.status && res.data) {
           const data = res.data;
-          this.sowingMap = data.sowingMap;
+          // this.sowingMap = data.sowingMap;
           this.picList = data.geographicalList;
           this.intro = data.geographicalCrowdList;
         }

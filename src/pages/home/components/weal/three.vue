@@ -45,7 +45,7 @@ export default {
     ForList()
       .then(res => {
         res = res.data;
-        this.list = res.data;
+        this.list = res.data.slice(0,3);
         // console.log(this.list);
       })
       .catch(err => {

@@ -11,14 +11,12 @@
       >{{item}}</div>
     </div>
 
-    <div class="swiper-box">
-      <div class="swiper-container wrapS">
-        <div class="swiper-wrapper">
-          <div class="swiper-slide" v-for="item of list" :key="item.id">
-            <keep-alive>
-              <component :is="item.component"></component>
-            </keep-alive>
-          </div>
+    <div class="swiper-container">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide" v-for="index of 3" :key="index">
+          <keep-alive>
+            <component :is="curren"></component>
+          </keep-alive>
         </div>
       </div>
     </div>
@@ -95,11 +93,17 @@ import "moon/swiper.min.css";
 import { weal } from "@/components/axios/api";
 export default {
   name: "Fuli",
+    components: {
+    one,
+    two,
+    three
+  },
   data() {
     return {
+      curren: "one",
       show: false,
       wordArry: ["上半场", "下半场", "限量半价"],
-      list: [{ component: one }, { component: two }, { component: three }],
+      // list: [{ component: one }, { component: two }, { component: three }],
       num: 0,
       img: ""
     };
@@ -110,7 +114,6 @@ export default {
         res = res.data;
         if (res.status && res.data) {
           const data = res.data;
-
           this.img = data.sowingmap[0].pic;
         }
       })
@@ -119,20 +122,19 @@ export default {
       });
   },
   mounted() {
-    let mySwiperS = new Swiper(".wrapS", {});
-    mySwiperS.on("slideChange", () => {
-      // 监控滑动后当前页面的索引，将索引发射到导航组件
-      // 左右滑动时将当前slide的索引发送到nav组件
-
-      this.$root.eventHuC.$emit("slideTab", mySwiperS.activeIndex);
-    });
-    // 接收nav组件传过来的导航按钮索引值，跳转到相应内容区
-    this.$root.eventHuC.$on("changeTab", index => {
-      // 点击导航键跳转相应内容区
-      mySwiperS.slideTo(index, 0, false);
-    });
-    // 接收swiper组件发射的index进行导航按钮切换高亮和更新模板地址
-    this.$root.eventHuC.$on("slideTab", this.slideTab);
+    // let mySwiperS = new Swiper(".wrapS", {});
+    // mySwiperS.on("slideChange", () => {
+    //   // 监控滑动后当前页面的索引，将索引发射到导航组件
+    //   // 左右滑动时将当前slide的索引发送到nav组件
+    //   this.$root.eventHuC.$emit("slideTab", mySwiperS.activeIndex);
+    // });
+    // // 接收nav组件传过来的导航按钮索引值，跳转到相应内容区
+    // this.$root.eventHuC.$on("changeTab", index => {
+    //   // 点击导航键跳转相应内容区
+    //   mySwiperS.slideTo(index, 0, false);
+    // });
+    // // 接收swiper组件发射的index进行导航按钮切换高亮和更新模板地址
+    // this.$root.eventHuC.$on("slideTab", this.slideTab);
   },
   methods: {
     slideTab(index) {
@@ -140,7 +142,30 @@ export default {
     },
     wordActive(index) {
       this.num = index;
-      this.$root.eventHuC.$emit("changeTab", index);
+      switch (index) {
+        case 0:
+          this.$toast({
+            message: "加载中...",
+            duration: "500"
+          });
+          this.curren = "one";
+          break;
+        case 1:
+          this.$toast({
+            message: "加载中...",
+            duration: "500"
+          });
+          this.curren = "two";
+          break;
+        case 2:
+          this.$toast({
+            message: "加载中...",
+            duration: "500"
+          });
+          this.curren = "three";
+          break;
+      }
+      // this.$root.eventHuC.$emit("changeTab", index);
     },
     showLists() {
       this.$router.push("/onsale");

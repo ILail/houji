@@ -39,17 +39,16 @@
       </van-swipe-item>
     </van-swipe>
     <!-- 导航内容 -->
-    <div class="swiper-box">
-      <div class="swiper-container wrapWa">
-        <div class="swiper-wrapper">
-          <div class="swiper-slide" v-for="item of list" :key="item.id">
-            <keep-alive>
-              <component :is="item.component"></component>
-            </keep-alive>
-          </div>
+    <div class="swiper-container wrapWa">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide" v-for="index of 7" :key="index">
+          <!-- <keep-alive> -->
+          <component :is="currentView"></component>
+          <!-- </keep-alive> -->
         </div>
       </div>
     </div>
+
     <!-- 底部 -->
     <div class="tabberWarp">
       <div class="warp">
@@ -96,12 +95,26 @@ export default {
     Youji,
     Mshu,
     Yugao,
-    Finish,
+    Finish
     // Welfare
   },
   data() {
     return {
+      currentView: "Home",
       shiw: true,
+      items: [
+        { label: "推荐" },
+        { label: "地理标志" },
+        { label: "猴集卡" },
+        { label: "有机产品" },
+        { label: "民宿" },
+        { label: "预告" },
+        { label: "已完成" }
+      ],
+      options: {
+        activeColor: "#D21623"
+        // 可在这里指定labelKey为你数据里文字对应的字段名
+      },
       sowingMap: [],
       // 导航
       selectedId: 0,
@@ -120,12 +133,6 @@ export default {
           normalImg: require("@/assets/foot/fix.png"),
           activeImg: require("@/assets/foot/fixs.png")
         },
-        // {
-        //   txt: "花果山",
-        //   page: "peos",
-        //   normalImg: require("@/assets/foot/peos.png"),
-        //   activeImg: require("@/assets/foot/peoss.png")
-        // },
         {
           txt: "购物车",
           page: "wishs",
@@ -139,32 +146,19 @@ export default {
           activeImg: require("@/assets/foot/mines.png")
         }
       ],
-      items: [
-        { label: "推荐" },
-        { label: "地理标志" },
-        { label: "猴集卡" },
-        { label: "有机产品" },
-        { label: "民宿" },
-        { label: "预告" },
-        { label: "已完成" },
-        // { label: "福利" }
-      ],
-      options: {
-        activeColor: "#D21623"
-        // 可在这里指定labelKey为你数据里文字对应的字段名
-      },
-      searchBarFixed: false,
-      list: [
-        { component: Home },
-        { component: Dizhi },
-        { component: Fuli },
-        { component: Youji },
-        { component: Mshu },
-        { component: Yugao },
-        { component: Finish },
-        // { component: Welfare }
-      ],
-      nowIndex: 0
+      // 置顶
+      searchBarFixed: false
+      // list: [
+      //   { component: Home },
+      //   { component: Dizhi },
+      //   { component: Fuli },
+      //   { component: Youji },
+      //   { component: Mshu },
+      //   { component: Yugao },
+      //   { component: Finish },
+      //   // { component: Welfare }
+      // ],
+      // nowIndex: 0
     };
   },
   created() {
@@ -182,34 +176,144 @@ export default {
   },
   mounted() {
     window.addEventListener("scroll", this.watchScroll);
-    let mySwiperA = new Swiper(".wrapWa", {});
+    var mySwiperA = new Swiper(".wrapWa", {
+      // preventClicks : true,//默认true
+      // preventLinksPropagation : true,
+      touchMoveStopPropagation: false,
+      observer: true
+    });
+    this.$root.eventHub.$on("changeTab", index => {
+      // 点击导航键跳转相应内容区
+      mySwiperA.slideTo(index, 0, false);
+    });
     mySwiperA.on("slideChange", () => {
       this.selectedId = mySwiperA.activeIndex;
-      // 监控滑动后当前页面的索引，将索引发射到导航组件
-      // 左右滑动时将当前slide的索引发送到nav组件
-      // this.$root.eventHub.$emit("slideTab", mySwiperA.activeIndex);
+      // console.log(mySwiperA.activeIndex);
+      switch (mySwiperA.activeIndex) {
+        case 0:
+          this.$toast({
+            message: "加载中...",
+            duration: "500"
+          });
+          this.currentView = "Home";
+          break;
+        case 1:
+          this.$toast({
+            message: "加载中...",
+            duration: "500"
+          });
+          this.currentView = "Dizhi";
+          break;
+        case 2:
+          this.$toast({
+            message: "加载中...",
+            duration: "500"
+          });
+          this.currentView = "Fuli";
+          break;
+        case 3:
+          this.$toast({
+            message: "加载中...",
+            duration: "500"
+          });
+          this.currentView = "Youji";
+          break;
+        case 4:
+          this.$toast({
+            message: "加载中...",
+            duration: "500"
+          });
+          this.currentView = "Mshu";
+          break;
+
+        case 5:
+          this.$toast({
+            message: "加载中...",
+            duration: "500"
+          });
+          this.currentView = "Yugao";
+          break;
+
+        case 6:
+          this.$toast({
+            message: "加载中...",
+            duration: "500"
+          });
+          this.currentView = "Finish";
+          break;
+      }
+
       if (mySwiperA.activeIndex >= 2) {
         this.shiw = false;
       } else {
         this.shiw = true;
       }
     });
-    // 接收nav组件传过来的导航按钮索引值，跳转到相应内容区
-    this.$root.eventHub.$on("changeTab", index => {
-      // 点击导航键跳转相应内容区
-      mySwiperA.slideTo(index, 0, false);
-    });
-
-    // 接收swiper组件发射的index进行导航按钮切换高亮和更新模板地址---如果是自己定义写nav
-    // this.$root.eventHub.$on("slideTab", this.slideTab);
   },
   methods: {
     getVal: function(res) {
       this.selected = res;
     },
     handleChange(item, index) {
-      this.nowIndex = index;
       this.$root.eventHub.$emit("changeTab", index);
+      switch (index) {
+        case 0:
+          this.$toast({
+            message: "加载中...",
+            duration: "500"
+          });
+          this.currentView = "Home";
+          break;
+        case 1:
+          this.$toast({
+            message: "加载中...",
+            duration: "500"
+          });
+          this.currentView = "Dizhi";
+          break;
+        case 2:
+          this.$toast({
+            message: "加载中...",
+            duration: "500"
+          });
+          this.currentView = "Fuli";
+          break;
+        case 3:
+          this.$toast({
+            message: "加载中...",
+            duration: "500"
+          });
+          this.currentView = "Youji";
+          break;
+        case 4:
+          this.$toast({
+            message: "加载中...",
+            duration: "500"
+          });
+          this.currentView = "Mshu";
+          break;
+
+        case 5:
+          this.$toast({
+            message: "加载中...",
+            duration: "500"
+          });
+          this.currentView = "Yugao";
+          break;
+
+        case 6:
+          this.$toast({
+            message: "加载中...",
+            duration: "500"
+          });
+          this.currentView = "Finish";
+          break;
+      }
+      if (index >= 2) {
+        this.shiw = false;
+      } else {
+        this.shiw = true;
+      }
     },
     watchScroll() {
       var scrollTop =

@@ -1,48 +1,57 @@
 <template>
   <div class="wrapAll container">
+    <div class="hitImg" v-show="ispic">
+      <img src="@/assets/woring.png">
+      <div class="contenr">敬请期待</div>
+    </div>
     <van-list v-model="loading" :finished="finished" finished-text @load="onLoad">
-      <div v-for="(itemCon) in tabContents" :key="itemCon.id" class="people">
-        <router-link
+      <div
+        v-for="(itemCon) in tabContents"
+        :key="itemCon.id"
+        class="people"
+        @click="DEtails(itemCon.crowd_funding_id)"
+      >
+        <!-- <router-link
           :to="{  
         path: 'Detail',     
         query: {   
             key: itemCon.crowd_funding_id, // orderNum : this.searchData.orderNo
         }
     }"
-        >
-          <img :src="itemCon.pic" class="peoImg">
-          <div class="people_p">
-            <div class="list">{{itemCon.crowd_funding_name}}</div>
-            <div class="crowd-info">
-              <div class="crowd-money">
-                <span class="word">已售：</span>
-                <span class="money">¥{{itemCon.now_money}}</span>
-              </div>
-              <div class="crowd-right">
-                <img :src="itemCon.headimgurl">
-                
-                <span class="peoMuch">{{itemCon.nickname}}</span>
-              </div>
+        >-->
+        <img :src="itemCon.pic" class="peoImg">
+        <div class="people_p">
+          <div class="list">{{itemCon.crowd_funding_name}}</div>
+          <div class="crowd-info">
+            <div class="crowd-money">
+              <span class="word">已售：</span>
+              <span class="money">¥{{itemCon.now_money}}</span>
             </div>
-            <div class="progressAll">
-              <div class="progress-outer">
-                <span class="progress" :style="{width:computedResidualTimea(itemCon)+'%'}"></span>
-              </div>
-              <span class="progressA">{{itemCon.progress}}%</span>
-            </div>
-            <div class="crowd-info_a">
-              <div class="crowd-money">
-                <span class="peoHow">{{itemCon.support_num}}人支持</span>
-              </div>
-              <div class="crowd-day">
-                <span style="margin-right: 3px;">
-                  <img src="@/assets/time.png" class="crowdTimg">
-                </span>
-                <span class="money">{{computedResidualTime(itemCon)}}</span>
-              </div>
+            <div class="crowd-right">
+              <img :src="itemCon.headimgurl">
+              
+              <span class="peoMuch">{{itemCon.nickname}}</span>
             </div>
           </div>
-        </router-link>
+          <div class="progressAll">
+            <div class="progress-outer">
+              <span class="progress" :style="{width:computedResidualTimea(itemCon)+'%'}"></span>
+            </div>
+            <span class="progressA">{{itemCon.progress}}%</span>
+          </div>
+          <div class="crowd-info_a">
+            <div class="crowd-money">
+              <span class="peoHow">{{itemCon.support_num}}人支持</span>
+            </div>
+            <div class="crowd-day">
+              <span style="margin-right: 3px;">
+                <img src="@/assets/time.png" class="crowdTimg">
+              </span>
+              <span class="money">{{computedResidualTime(itemCon)}}</span>
+            </div>
+          </div>
+        </div>
+        <!-- </router-link> -->
       </div>
     </van-list>
   </div>
@@ -57,7 +66,8 @@ export default {
       tabContents: [],
       loading: false,
       finished: false,
-      num: 0
+      num: 0,
+      ispic: false
     };
   },
   created() {
@@ -92,6 +102,10 @@ export default {
             this.tabContents = this.tabContents.concat(res.data.result);
             // this.tabContentsa = res.data.result;
           }
+          if (this.tabContents.length == 0) {
+            // console.log(123455);
+            this.ispic = true;
+          }
         })
         .catch(err => {
           console.log(err, "请求失败");
@@ -111,6 +125,14 @@ export default {
         progress = 100;
       }
       return `${progress}`;
+    },
+    DEtails(id) {
+      this.$router.push({
+        path: "/Detail",
+        query: {
+          key: id
+        }
+      });
     }
   }
 };
@@ -126,11 +148,15 @@ export default {
   padding-bottom: 12px;
   margin-top: -20px;
 }
+.wrapAll >>> .van-list{
+  margin-top 15px
+}
 .wrapAll >>> .van-list .people {
   border-radius: 5px;
   box-shadow: #eee 0px 0px 10px;
   margin-bottom: 20px;
 }
+
 .pJext {
   padding: 18px 0 18px 0;
 }
@@ -158,7 +184,6 @@ export default {
   font-size: 12px;
   line-height: 16px;
 }
-
 
 .people .peoImg {
   width: 100%;

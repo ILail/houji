@@ -62,12 +62,13 @@ export function address() {
 }
 
 // 地理标志列表
-export function addresslist(id) {
+export function addresslist(id,type) {
   return fetch({
-    url: api.Hallowmas + '/v2/geographica/geographicalCrowdList',
+    url: api.Hallowmas + '/v2p2/geographica/geographicalCrowdList',
     method: "POST",
     data: {
-      id: id
+      id: id,
+      type:type
     }
   })
 }
@@ -667,7 +668,7 @@ export function ForWu(page) {
 export function ForList() {
 
   return fetch({
-    url: api.Hallowmas + '/v2p1/Welfare/getLimitList',
+    url: api.Hallowmas + '/v2p2/Welfare/getLimitList',
     method: "GET",
   })
 }

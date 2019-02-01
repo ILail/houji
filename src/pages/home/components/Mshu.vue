@@ -1,47 +1,56 @@
 <template>
   <div class="wrapAll container">
-    <div v-for="(itemCon) in tabContents" :key="itemCon.id" class="people">
-      <router-link
+    <div class="hitImg" v-show="ispic">
+      <img src="@/assets/woring.png">
+      <div class="contenr">敬请期待</div>
+    </div>
+    <div
+      v-for="(itemCon) in tabContents"
+      :key="itemCon.id"
+      class="people"
+      @click="DEtails(itemCon.crowd_funding_id)"
+    >
+      <!-- <router-link
         :to="{  
         path: 'Detail',     
         query: {   
             key: itemCon.crowd_funding_id, // orderNum : this.searchData.orderNo
         }
     }"
-      >
-        <img :src="itemCon.pic" class="peoImg">
-        <div class="people_p">
-          <div class="list">{{itemCon.crowd_funding_name}}</div>
-          <div class="crowd-info">
-            <div class="crowd-money">
-              <span class="word">已售：</span>
-              <span class="money">¥{{itemCon.now_money}}</span>
-            </div>
-            <div class="crowd-right">
-              <img :src="itemCon.headimgurl">
-              
-              <span class="peoMuch">{{itemCon.nickname}}</span>
-            </div>
+      >-->
+      <img :src="itemCon.pic" class="peoImg">
+      <div class="people_p">
+        <div class="list">{{itemCon.crowd_funding_name}}</div>
+        <div class="crowd-info">
+          <div class="crowd-money">
+            <span class="word">已售：</span>
+            <span class="money">¥{{itemCon.now_money}}</span>
           </div>
-          <div class="progressAll">
-            <div class="progress-outer">
-              <span class="progress" :style="{width:computedResidualTimea(itemCon)+'%'}"></span>
-            </div>
-            <span class="progressA">{{itemCon.progress}}%</span>
-          </div>
-          <div class="crowd-info_a">
-            <div class="crowd-money">
-              <span class="peoHow">{{itemCon.support_num}}人支持</span>
-            </div>
-            <div class="crowd-day">
-              <span style="margin-right: 3px;">
-                <img src="@/assets/time.png" class="crowdTimg">
-              </span>
-              <span class="money">{{computedResidualTime(itemCon)}}</span>
-            </div>
+          <div class="crowd-right">
+            <img :src="itemCon.headimgurl">
+            
+            <span class="peoMuch">{{itemCon.nickname}}</span>
           </div>
         </div>
-      </router-link>
+        <div class="progressAll">
+          <div class="progress-outer">
+            <span class="progress" :style="{width:computedResidualTimea(itemCon)+'%'}"></span>
+          </div>
+          <span class="progressA">{{itemCon.progress}}%</span>
+        </div>
+        <div class="crowd-info_a">
+          <div class="crowd-money">
+            <span class="peoHow">{{itemCon.support_num}}人支持</span>
+          </div>
+          <div class="crowd-day">
+            <span style="margin-right: 3px;">
+              <img src="@/assets/time.png" class="crowdTimg">
+            </span>
+            <span class="money">{{computedResidualTime(itemCon)}}</span>
+          </div>
+        </div>
+      </div>
+      <!-- </router-link> -->
     </div>
   </div>
 </template>
@@ -52,16 +61,21 @@ export default {
   name: "Youji",
   data() {
     return {
-      tabContents: []
+      tabContents: [],
+      ispic: false
     };
   },
   created() {
-    fsDetail(20,1)
+    fsDetail(20, 1)
       .then(res => {
         // console.log(res.data);
         res = res.data;
         if (res.status && res.data) {
           this.tabContents = res.data.result;
+        }
+        if (this.tabContents.length == 0) {
+          // console.log(123455);
+          this.ispic = true;
         }
       })
       .catch(err => {
@@ -69,6 +83,14 @@ export default {
       });
   },
   methods: {
+    DEtails(id) {
+      this.$router.push({
+        path: "/Detail",
+        query: {
+          key: id
+        }
+      });
+    },
     computedResidualTime: function(itemCon) {
       let residualTime = itemCon.left_time;
       let day = parseInt(residualTime / (24 * 3600)); //剩余天数
@@ -92,12 +114,14 @@ export default {
 .pJext {
   padding: 18px 0 18px 0;
 }
+
 .crowd-right span {
   max-width: 110px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+
 .project {
   float: left;
   font-size: 16px;
@@ -230,5 +254,21 @@ export default {
 
 .wrapAll {
   padding-bottom: 60px;
+}
+
+.hitImg {
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+}
+
+.hitImg img {
+  width: 50%;
+  margin-top: 20%;
+}
+
+.hitImg .contenr {
+  margin-top: 5px;
+  color: #999;
 }
 </style>
