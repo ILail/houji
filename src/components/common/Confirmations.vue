@@ -243,15 +243,16 @@ export default {
           this.newmoney = 0.0;
           this.totalMoney = this.moneyAll - this.newmoney;
         }
-        if (this.routerParams == 275) {
-          this.aa = false;
-          this.aas = true;
-          let nums = this.routerParama * 0.5;
-          let numss = this.routerParamo * nums;
-          this.newmoney = this.moneyAll - numss.toFixed(2);
+        // 活动接口呀呀…………
+        // if (this.routerParams == 275) {
+        //   this.aa = false;
+        //   this.aas = true;
+        //   let nums = this.routerParama * 0.5;
+        //   let numss = this.routerParamo * nums;
+        //   this.newmoney = this.moneyAll - numss.toFixed(2);
 
-          this.totalMoney = numss;
-        }
+        //   this.totalMoney = numss;
+        // }
       })
       .catch(err => {
         console.log(err, "请求失败");

@@ -93,23 +93,24 @@ export default {
   },
   methods: {
     hitS(INDE) {
-      if (INDE == 275) {
-        this.$router.push({
-          path: "/hdetial",
-          query: {
-            key: INDE,
-            money: "59.4",
-            moneys: "180"
-          }
-        });
-      } else {
+      // 梨的接口
+      // if (INDE == 275) {
+      //   this.$router.push({
+      //     path: "/hdetial",
+      //     query: {
+      //       key: INDE,
+      //       money: "59.4",
+      //       moneys: "180"
+      //     }
+      //   });
+      // } else {
         this.$router.push({
           path: "/Detail",
           query: {
             key: INDE
           }
         });
-      }
+      // }
     },
     computedResidualTime: function(item) {
       let residualTime = item.left_time;
