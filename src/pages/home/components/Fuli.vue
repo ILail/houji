@@ -102,7 +102,7 @@ export default {
     return {
       curren: "one",
       show: false,
-      wordArry: ["上半场", "下半场", "限量半价"],
+      wordArry: ["上半场", "下半场", "限量折扣"],
       // list: [{ component: one }, { component: two }, { component: three }],
       num: 0,
       img: ""
