@@ -192,44 +192,44 @@ export default {
       switch (mySwiperA.activeIndex) {
         case 0:
           this.$toast({
-            message: "",
-            duration: "800"
+            message: "加载中...",
+            duration: "500"
           });
           this.currentView = "Home";
           break;
         case 1:
           this.$toast({
-            message: "",
-            duration: "800"
+            message: "加载中...",
+            duration: "500"
           });
           this.currentView = "Dizhi";
           break;
         case 2:
           this.$toast({
-            message: "",
-            duration: "800"
+            message: "加载中...",
+            duration: "500"
           });
           this.currentView = "Fuli";
           break;
         case 3:
           this.$toast({
-            message: "",
-            duration: "800"
+            message: "加载中...",
+            duration: "500"
           });
           this.currentView = "Youji";
           break;
         case 4:
           this.$toast({
-            message: "",
-            duration: "800"
+            message: "加载中...",
+            duration: "500"
           });
           this.currentView = "Mshu";
           break;
 
         case 5:
           this.$toast({
-            message: "",
-            duration: "800"
+            message: "加载中...",
+            duration: "500"
           });
           this.currentView = "Yugao";
           break;
@@ -237,7 +237,7 @@ export default {
         case 6:
           this.$toast({
             message: "加载中...",
-            duration: "800"
+            duration: "500"
           });
           this.currentView = "Finish";
           break;
@@ -259,52 +259,52 @@ export default {
       switch (index) {
         case 0:
           this.$toast({
-            message: "",
-            duration: "800"
+            message: "加载中...",
+            duration: "500"
           });
           this.currentView = "Home";
           break;
         case 1:
           this.$toast({
-            message: "",
-            duration: "800"
+            message: "加载中...",
+            duration: "500"
           });
           this.currentView = "Dizhi";
           break;
         case 2:
           this.$toast({
-            message: "",
-            duration: "800"
+            message: "加载中...",
+            duration: "500"
           });
           this.currentView = "Fuli";
           break;
         case 3:
           this.$toast({
-            message: "",
-            duration: "800"
+            message: "加载中...",
+            duration: "500"
           });
           this.currentView = "Youji";
           break;
         case 4:
           this.$toast({
-            message: "",
-            duration: "800"
+            message: "加载中...",
+            duration: "500"
           });
           this.currentView = "Mshu";
           break;
 
         case 5:
           this.$toast({
-            message: "",
-            duration: "800"
+            message: "加载中...",
+            duration: "500"
           });
           this.currentView = "Yugao";
           break;
 
         case 6:
           this.$toast({
-            message: "",
-            duration: "800"
+            message: "加载中...",
+            duration: "500"
           });
           this.currentView = "Finish";
           break;
