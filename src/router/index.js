@@ -58,7 +58,7 @@ const routes = [{
   name: '猴集',
   component: Small,
   meta: {
-    oppendid: true, 
+    oppendid: true,
   },
 }, {
   path: '/linjuan',
@@ -68,11 +68,27 @@ const routes = [{
     requireAuth: true, // 添加该字段，表示进入这个路由是需要登录的
   },
 }, {
+  path: '/wishs',
+  name: '购物车',
+  component: Wish,
+  meta: {
+    requireAuth: true, // 添加该字段，表示进入这个路由是需要登录的
+    oppendid: true,
+  },
+}, {
+  path: '/mines',
+  name: '个人中心',
+  component: Mine,
+  meta: {
+    requireAuth: true, // 添加该字段，表示进入这个路由是需要登录的
+    oppendid: true,
+  },
+}, {
   path: '/feilei',
   name: '分类',
   component: Feilei,
   meta: {
-    oppendid: true, 
+    oppendid: true,
   },
 }, {
   path: '/shao',
@@ -91,22 +107,6 @@ const routes = [{
   name: '活动专区',
   component: Hdetial
 }, {
-  path: '/wishs',
-  name: '购物车',
-  component: Wish,
-  meta: {
-    requireAuth: true, // 添加该字段，表示进入这个路由是需要登录的
-    oppendid: true, 
-  },
-}, {
-  path: '/mines',
-  name: '个人中心',
-  component: Mine,
-  meta: {
-    requireAuth: true, // 添加该字段，表示进入这个路由是需要登录的
-    oppendid: true, 
-  },
-}, {
   path: '/search',
   name: '搜索',
   component: Search
@@ -114,7 +114,9 @@ const routes = [{
   path: '/detail',
   name: '详情页',
   component: Detail,
-  oppendid: true, 
+  // meta: {
+  //   oppendid: true,
+  // },
 }, {
   path: '/addressdetail',
   name: '地址',

@@ -28,8 +28,8 @@ export default {
   mounted() {
     // 拿到跳转后的链接
     const url = window.location.href;
-    console.log(url);
-    if (url.split("?").length == 1) {
+    const urlLength = url.split("?").length
+    if ( urlLength == 1) {
       // this.$router.push("/");
       console.log(123)
     } else {

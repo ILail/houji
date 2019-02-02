@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="wrapps">
     <van-tabs v-model="active" animated sticky v-if="showcon">
       <van-tab v-for="(item,index) in picList" :key="item.id">
         <div slot="title" @click="onClick(item.geographical_id,index)">{{item.geographical_name}}</div>
@@ -79,7 +79,7 @@ export default {
       numlength: 9,
       ids: "",
       index: this.$route.query.num,
-      active: 0,
+      active: this.$route.query.num,
       showcon: false,
       // items: [
       //   { label: "北京" },
@@ -102,11 +102,12 @@ export default {
     };
   },
   created() {
+    this.active = this.index;
     address()
       .then(res => {
-        this.showcon = true;
         res = res.data;
         if (res.status && res.data) {
+          this.showcon = true;
           const data = res.data;
           this.picList = data.geographicalList;
           this.ids = this.picList[this.index].geographical_id;
@@ -130,7 +131,7 @@ export default {
       this.ids = this.picList[mySwiperA.activeIndex].geographical_id;
       this.$toast({
         message: "加载中...",
-        duration: "1000"
+        duration: "500"
       });
       this.refecd();
     });
@@ -156,7 +157,7 @@ export default {
       this.ids = names;
       this.$toast({
         message: "加载中...",
-        duration: "1000"
+        duration: "500"
       });
       this.refecd();
     },
@@ -193,6 +194,17 @@ export default {
 </script>
 
 <style lang="stylus" type="text/stylus" rel="stylesheet/stylus" scoped>
+.wrapps >>> .van-tab {
+  color: #333;
+}
+
+.wrapps >>> .van-tab--active {
+  color: #D21623;
+}
+
+.wrapps >>> .van-tabs__line {
+  background-color: #D21623;
+}
 .swiper-slide {
   height: 0px;
   overflow-y: hidden;
