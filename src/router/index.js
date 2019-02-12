@@ -53,187 +53,224 @@ import Hdetial from '@/components/common/Hdetial'
 import * as types from '@/components/vuex/types'
 Vue.use(Router)
 // export default new Router({
-const routes = [{
-  path: '/',
-  name: '猴集',
-  component: Small,
-  meta: {
-    oppendid: true,
+const routes = [
+  {
+    path: '/',
+    name: '猴集',
+    component: Small,
+    meta: {
+      oppendid: true,
+    },
   },
-}, {
-  path: '/linjuan',
-  name: '领卷中心',
-  component: Centerj,
-  meta: {
-    requireAuth: true, // 添加该字段，表示进入这个路由是需要登录的
+  {
+    path: '/linjuan',
+    name: '领卷中心',
+    component: Centerj,
+    meta: {
+      requireAuth: true, // 添加该字段，表示进入这个路由是需要登录的
+    },
   },
-}, {
-  path: '/wishs',
-  name: '购物车',
-  component: Wish,
-  meta: {
-    requireAuth: true, // 添加该字段，表示进入这个路由是需要登录的
-    oppendid: true,
+  {
+    path: '/wishs',
+    name: '购物车',
+    component: Wish,
+    meta: {
+      requireAuth: true, // 添加该字段，表示进入这个路由是需要登录的
+      oppendid: true,
+    },
   },
-}, {
-  path: '/mines',
-  name: '个人中心',
-  component: Mine,
-  meta: {
-    requireAuth: true, // 添加该字段，表示进入这个路由是需要登录的
-    oppendid: true,
+  {
+    path: '/mines',
+    name: '个人中心',
+    component: Mine,
+    meta: {
+      requireAuth: true, // 添加该字段，表示进入这个路由是需要登录的
+      oppendid: true,
+    },
   },
-}, {
-  path: '/feilei',
-  name: '分类',
-  component: Feilei,
-  meta: {
-    oppendid: true,
+  {
+    path: '/feilei',
+    name: '分类',
+    component: Feilei,
+    meta: {
+      oppendid: true,
+    },
   },
-}, {
-  path: '/shao',
-  name: '扫一扫',
-  component: Shao
-}, {
-  path: '/xiao',
-  name: '消息中心',
-  component: Xiao
-}, {
-  path: '/jioayid',
-  name: '交易详情',
-  component: Jdetial
-}, {
-  path: '/hdetial',
-  name: '活动专区',
-  component: Hdetial
-}, {
-  path: '/search',
-  name: '搜索',
-  component: Search
-}, {
-  path: '/detail',
-  name: '详情页',
-  component: Detail,
-  // meta: {
-  //   oppendid: true,
-  // },
-}, {
-  path: '/addressdetail',
-  name: '地址',
-  component: Addressdetail
-}, {
-  path: '/show',
-  name: '产品展示',
-  component: Show
-}, {
-  path: '/phone',
-  name: '绑定手机号',
-  component: Phone
-}, {
-  path: '/smoke',
-  name: '猴集卡',
-  component: Smoke
-}, {
-  path: '/myjob',
-  name: '我的项目',
-  component: Myjob
-}, {
-  path: '/fit',
-  name: '设置',
-  component: Fit
-}, {
-  path: '/personone',
-  name: '个人资料',
-  component: Personone
-}, {
-  path: '/desgreo',
-  name: '账号与安全',
-  component: Desgreo
-}, {
-  path: '/absolu',
-  name: '关于我们',
-  component: Absolu
-}, {
-  path: '/zfu',
-  name: '支付密码',
-  component: Zfu
-}, {
-  path: '/gengph',
-  name: '更改手机号',
-  component: Gengph
-}, {
-  path: '/shouhuo',
-  name: '收货地址',
-  component: Shouhuo
-}, {
-  path: '/tianjia',
-  name: '添加地址',
-  component: Tianjia
-}, {
-  path: '/liping',
-  name: '礼品卡',
-  component: Liping
-}, {
-  path: '/juan',
-  name: '优惠卷',
-  component: Juan
-}, {
-  path: '/myorders',
-  name: '我的订单',
-  component: Myorders
-}, {
-  path: '/moneyall',
-  name: '我的钱包',
-  component: Mym
-}, {
-  path: '/chongzhi',
-  name: '充值',
-  component: Czhi
-}, {
-  path: '/zhifu',
-  name: '支付页',
-  component: Zhifu
-}, {
-  path: '/zhifuone',
-  name: '支付',
-  component: Zhifuone
-}, {
-  path: '/tixian',
-  name: '提现',
-  component: Txiana
-}, {
-  path: '/finish',
-  name: '支付完成',
-  component: Finish
-}, {
-  path: '/jiaoyi',
-  name: '交易记录',
-  component: Jiaoyi
-}, {
-  path: '/yhkbd',
-  name: '银行卡绑定',
-  component: bankMark
-}, {
-  path: '/queren',
-  name: '确认订单',
-  component: Confirmation
-}, {
-  path: '/querenone',
-  name: '确认',
-  component: Confirmations
-}, {
-  path: '/onsale',
-  name: '猴集卡页面',
-  component: Sale
-}, {
-  path: '/orderdetails',
-  name: '订单详情',
-  component: Orderdetails
-}, {
-  path: '/wuliudetails',
-  name: '物流详情',
-  component: Wuliudetails
-}]
+  {
+    path: '/shao',
+    name: '扫一扫',
+    component: Shao
+  },
+  {
+    path: '/xiao',
+    name: '消息中心',
+    component: Xiao
+  },
+  {
+    path: '/jioayid',
+    name: '交易详情',
+    component: Jdetial
+  },
+  {
+    path: '/hdetial',
+    name: '活动专区',
+    component: Hdetial
+  },
+  {
+    path: '/search',
+    name: '搜索',
+    component: Search
+  },
+  {
+    path: '/detail',
+    name: '详情页',
+    component: Detail,
+    // meta: {
+    //   oppendid: true,
+    // },
+  },
+  {
+    path: '/addressdetail',
+    name: '地址',
+    component: Addressdetail
+  },
+  {
+    path: '/show',
+    name: '产品展示',
+    component: Show
+  },
+  {
+    path: '/phone',
+    name: '绑定手机号',
+    component: Phone
+  }, {
+    path: '/smoke',
+    name: '猴集卡',
+    component: Smoke
+  },
+  {
+    path: '/myjob',
+    name: '我的项目',
+    component: Myjob
+  },
+  {
+    path: '/fit',
+    name: '设置',
+    component: Fit
+  }, {
+    path: '/personone',
+    name: '个人资料',
+    component: Personone
+  },
+  {
+    path: '/desgreo',
+    name: '账号与安全',
+    component: Desgreo
+  },
+  {
+    path: '/absolu',
+    name: '关于我们',
+    component: Absolu
+  },
+  {
+    path: '/zfu',
+    name: '支付密码',
+    component: Zfu
+  },
+  {
+    path: '/gengph',
+    name: '更改手机号',
+    component: Gengph
+  },
+  {
+    path: '/shouhuo',
+    name: '收货地址',
+    component: Shouhuo
+  },
+  {
+    path: '/tianjia',
+    name: '添加地址',
+    component: Tianjia
+  },
+  {
+    path: '/liping',
+    name: '礼品卡',
+    component: Liping
+  },
+  {
+    path: '/juan',
+    name: '优惠卷',
+    component: Juan
+  },
+  {
+    path: '/myorders',
+    name: '我的订单',
+    component: Myorders
+  },
+  {
+    path: '/moneyall',
+    name: '我的钱包',
+    component: Mym
+  },
+  {
+    path: '/chongzhi',
+    name: '充值',
+    component: Czhi
+  }, {
+    path: '/zhifu',
+    name: '支付页',
+    component: Zhifu
+  },
+  {
+    path: '/zhifuone',
+    name: '支付',
+    component: Zhifuone
+  },
+  {
+    path: '/tixian',
+    name: '提现',
+    component: Txiana
+  }, {
+    path: '/finish',
+    name: '支付完成',
+    component: Finish
+  },
+  {
+    path: '/jiaoyi',
+    name: '交易记录',
+    component: Jiaoyi
+  },
+  {
+    path: '/yhkbd',
+    name: '银行卡绑定',
+    component: bankMark
+  },
+  {
+    path: '/queren',
+    name: '确认订单',
+    component: Confirmation
+  },
+  {
+    path: '/querenone',
+    name: '确认',
+    component: Confirmations
+  },
+  {
+    path: '/onsale',
+    name: '猴集卡页面',
+    component: Sale
+  },
+  {
+    path: '/orderdetails',
+    name: '订单详情',
+    component: Orderdetails
+  },
+  {
+    path: '/wuliudetails',
+    name: '物流详情',
+    component: Wuliudetails
+  }
+]
 //缓存页面
 const router = new Router({
   routes

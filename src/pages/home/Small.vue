@@ -24,7 +24,7 @@
       <ly-tab v-model="selectedId" :items="items" :options="options" @change="handleChange"></ly-tab>
     </div>
     <!-- 轮播 -->
-    <van-swipe :autoplay="3000" indicator-color="#D21623" :touchable="false" v-if="shiw">
+    <!-- <van-swipe :autoplay="3000" indicator-color="#D21623" :touchable="false" v-if="showSwiper">
       <van-swipe-item v-for="item of sowingMap" :key="item.id">
         <router-link
           :to="{  
@@ -37,7 +37,24 @@
           <img :src="item.pic" style="height:190px;width:100%">
         </router-link>
       </van-swipe-item>
-    </van-swipe>
+    </van-swipe>-->
+    <div class="wrapper">
+      <swiper :options="swiperOption" v-if="showSwiper">
+        <swiper-slide v-for="item of sowingMap" :key="item.id">
+          <router-link
+            :to="{  
+        path: 'Detail',     
+        query: {   
+            key: item.link, // orderNum : this.searchData.orderNo
+        }
+    }"
+          >
+            <img class="swiper-img" :src="item.pic">
+          </router-link>
+        </swiper-slide>
+        <div class="swiper-pagination" slot="pagination"></div>
+      </swiper>
+    </div>
     <!-- 导航内容 -->
     <div class="swiper-container wrapWa">
       <div class="swiper-wrapper">
@@ -100,8 +117,21 @@ export default {
   },
   data() {
     return {
+      swiperOption: {
+        pagination: {
+          el: ".swiper-pagination"
+        },
+        loop: true,
+        autoplay: {
+          delay: 3000,
+          disableOnInteraction: false
+          //stopOnLastSlide: false
+        },
+        observeParents: true,
+        observer: true
+      },
       currentView: "Home",
-      shiw: true,
+      showSwiper: true,
       items: [
         { label: "推荐" },
         { label: "地理标志" },
@@ -160,6 +190,11 @@ export default {
       // ],
       // nowIndex: 0
     };
+  },
+   computed: {
+    showSwiper() {
+      return this.sowingMap.length;
+    }
   },
   created() {
     lookOption()
@@ -244,9 +279,9 @@ export default {
       }
 
       if (mySwiperA.activeIndex >= 2) {
-        this.shiw = false;
+        this.showSwiper = false;
       } else {
-        this.shiw = true;
+        this.showSwiper = true;
       }
     });
   },
@@ -310,9 +345,9 @@ export default {
           break;
       }
       if (index >= 2) {
-        this.shiw = false;
+        this.showSwiper = false;
       } else {
-        this.shiw = true;
+        this.showSwiper = true;
       }
     },
     watchScroll() {
@@ -337,6 +372,7 @@ export default {
   destroyed() {
     window.removeEventListener("scroll", this.watchScroll);
   }
+ 
 };
 </script>
 
@@ -426,5 +462,14 @@ export default {
 
 .active span {
   color: #d21623;
+}
+.wrapper >>> .swiper-pagination-bullet{
+  background: #fff;
+}
+.wrapper >>> .swiper-pagination-bullet-active {
+  background: #b21822;
+}
+.swiper-img {
+  width: 100%;
 }
 </style>

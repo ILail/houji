@@ -10,6 +10,7 @@ import LyTab from 'ly-tab';
 import store from '@/components/vuex/store'
 import clipper from '../static/clipper'
 import VueLazyload from 'vue-lazyload'
+import VueAwesomeSwiper from 'vue-awesome-swiper'
 // bus
 import VueBus from 'vue-bus';
 Vue.use(VueBus);
@@ -24,7 +25,7 @@ import { PullRefresh } from 'vant';
 import { List } from 'vant';
 import { Loading } from 'vant';
 import { Swipe, SwipeItem } from "vant";
-
+Vue.use(VueAwesomeSwiper)
 Vue.use(Swipe).use(SwipeItem);
 Vue.use(Loading);
 Vue.use(List);

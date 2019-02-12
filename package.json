@@ -19,6 +19,7 @@
     "cube-ui": "^1.12.5",
     "exif-js": "^2.3.0",
     "fastclick": "^1.0.6",
+    "good-storage": "^1.1.0",
     "http-proxy-middleware": "^0.19.1",
     "js-base64": "^2.5.0",
     "ly-tab": "^2.1.2",
