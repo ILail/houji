@@ -280,6 +280,8 @@ export default {
 
       if (mySwiperA.activeIndex >= 2) {
         this.wrapImg = false;
+      }else{
+         this.wrapImg = true;
       }
     });
   },
@@ -344,6 +346,8 @@ export default {
       }
       if (index >= 2) {
         this.wrapImg = false;
+      }else{
+         this.wrapImg = true;
       }
     },
     watchScroll() {
