@@ -38,7 +38,7 @@
         </router-link>
       </van-swipe-item>
     </van-swipe>-->
-    <div class="wrapper">
+    <div class="wrapper" v-if="wrapImg">
       <swiper :options="swiperOption" v-if="showSwiper">
         <swiper-slide v-for="item of sowingMap" :key="item.id">
           <router-link
@@ -131,7 +131,7 @@ export default {
         observer: true
       },
       currentView: "Home",
-      showSwiper: true,
+      wrapImg: true,
       items: [
         { label: "推荐" },
         { label: "地理标志" },
@@ -191,7 +191,7 @@ export default {
       // nowIndex: 0
     };
   },
-   computed: {
+  computed: {
     showSwiper() {
       return this.sowingMap.length;
     }
@@ -279,9 +279,7 @@ export default {
       }
 
       if (mySwiperA.activeIndex >= 2) {
-        this.showSwiper = false;
-      } else {
-        this.showSwiper = true;
+        this.wrapImg = false;
       }
     });
   },
@@ -345,9 +343,7 @@ export default {
           break;
       }
       if (index >= 2) {
-        this.showSwiper = false;
-      } else {
-        this.showSwiper = true;
+        this.wrapImg = false;
       }
     },
     watchScroll() {
@@ -372,7 +368,6 @@ export default {
   destroyed() {
     window.removeEventListener("scroll", this.watchScroll);
   }
- 
 };
 </script>
 
@@ -463,12 +458,15 @@ export default {
 .active span {
   color: #d21623;
 }
-.wrapper >>> .swiper-pagination-bullet{
+
+.wrapper >>> .swiper-pagination-bullet {
   background: #fff;
 }
+
 .wrapper >>> .swiper-pagination-bullet-active {
   background: #b21822;
 }
+
 .swiper-img {
   width: 100%;
 }

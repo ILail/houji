@@ -1,5 +1,5 @@
 <template>
-  <div ref="wrapps" style="visibility:hidden;">
+  <div>
     <div class="wrapword container">
       <span>
         <img src="@/assets/one.png">24小时监控
@@ -71,9 +71,9 @@ export default {
   },
   mounted() {
 
-    setTimeout(() => {
-      this.$refs.wrapps.style.visibility = "visible";
-    }, 500);
+    // setTimeout(() => {
+    //   this.$refs.wrapps.style.visibility = "visible";
+    // }, 500);
   },
   methods: {
     imgJ() {
