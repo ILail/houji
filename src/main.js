@@ -36,8 +36,10 @@ Vue.use(Popup);
 Vue.use(VueLazyload)
 Vue.use(clipper)
 Vue.use(VueLazyload, {
-  preLoad: 1.3,
+  preLoad: 1,
+  error: require('@/assets/err2.png'),
   loading: '@/assets/err2.png',
+  attempt: 2,
 })
 Vue.use(require('vue-wechat-title'))
 Vue.use(LyTab);

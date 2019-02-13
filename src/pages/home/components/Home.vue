@@ -1,5 +1,5 @@
 <template>
-  <div ref="wrapps" style="visibility:hidden;">
+  <div>
     <div class="wrapword container">
       <span>
         <img src="@/assets/one.png">24小时监控
@@ -11,7 +11,7 @@
         <img src="@/assets/three.png">假一赔十
       </span>
     </div>
-    <img :src="adInfo.ad_img" class="tImg" @click="imgJ">
+    <img v-lazy="adInfo.ad_img" class="tImg" @click="imgJ">
     <home-people :larity="popuLarity"></home-people>
     <div style="background:#eee;height:10px"></div>
     <home-new :product="dayProduct"></home-new>
@@ -71,9 +71,9 @@ export default {
   },
   mounted() {
 
-    setTimeout(() => {
-      this.$refs.wrapps.style.visibility = "visible";
-    }, 1000);
+    // setTimeout(() => {
+    //   this.$refs.wrapps.style.visibility = "visible";
+    // }, 100);
   },
   methods: {
     imgJ() {

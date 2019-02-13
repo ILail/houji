@@ -19,7 +19,7 @@
         }
     }"
         >-->
-        <img :src="itemCon.pic" class="peoImg">
+        <img v-lazy="itemCon.pic" class="peoImg">
         <div class="people_p">
           <div class="list">{{itemCon.crowd_funding_name}}</div>
           <div class="crowd-info">

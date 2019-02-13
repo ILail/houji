@@ -21,7 +21,7 @@
         }
     }"
       >
-        <img :src="item.pic" class="peoImg">
+        <img v-lazy="item.pic" class="peoImg">
         <div class="people_p">
           <div class="list">{{item.crowd_funding_name}}</div>
           <div class="crowd-info">

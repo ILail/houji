@@ -11,7 +11,7 @@
     }"
       >
         <div class="left">
-          <img :src="item.pic" alt>
+          <img v-lazy="item.pic" alt>
         </div>
         <div class="right">
           <div class="name">{{item.crowd_funding_name}}</div>

@@ -12,7 +12,7 @@
         }
     }"
           >
-            <img :src="item.pic">
+            <img v-lazy="item.pic">
             <span>{{item.geographical_name}}</span>
           </router-link>
         </li>
@@ -47,7 +47,7 @@
         }
     }"
           >
-            <img :src="items.pic" class="wrapImg">
+            <img v-lazy="items.pic" class="wrapImg">
             <div class="list">{{items.crowd_funding_name}}</div>
             <div class="progressAll">
               <div class="progress-outer">

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <img :src="img" alt class="Himg" @click="showLists">
+    <img v-lazy="img" alt class="Himg" @click="showLists">
     <div class="list">
       <div
         v-for="(item,index) in wordArry"

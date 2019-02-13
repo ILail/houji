@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <!-- <keep-alive> -->
+    <!-- <keep-alive include="Small"> -->
     <router-view></router-view>
     <!-- </keep-alive> -->
     <Guan  v-if="$route.meta.oppendid"></Guan>

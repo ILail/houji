@@ -49,7 +49,7 @@
         }
     }"
           >
-            <img class="swiper-img" :src="item.pic">
+            <img class="swiper-img" v-lazy="item.pic">
           </router-link>
         </swiper-slide>
         <div class="swiper-pagination" slot="pagination"></div>
