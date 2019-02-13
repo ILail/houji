@@ -24,10 +24,9 @@ export default {
     returnf() {
       this.$router.push("/");
     },
-        returnOrder() {
+    returnOrder() {
       this.$router.push("/myorders?key=0");
     }
-    
   }
 };
 </script>

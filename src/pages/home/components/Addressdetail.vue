@@ -76,9 +76,9 @@ export default {
   data() {
     return {
       ispic: false,
-      numlength: 9,
+      numlength:9,
       ids: "",
-      index: this.$route.query.num,
+      // index: this.$route.query.num,
       active: this.$route.query.num,
       showcon: false,
       // items: [
@@ -102,7 +102,7 @@ export default {
     };
   },
   created() {
-    this.active = this.index;
+    // this.active = this.index;
     address()
       .then(res => {
         res = res.data;
@@ -110,7 +110,7 @@ export default {
           this.showcon = true;
           const data = res.data;
           this.picList = data.geographicalList;
-          this.ids = this.picList[this.index].geographical_id;
+          this.ids = this.picList[this.active].geographical_id;
           this.refecd();
         }
       })
@@ -122,8 +122,8 @@ export default {
     // 首页图片 设置定时器加载 不然swiper 会有bug (图片的吭) bind 解决this 指向
 
     let mySwiperA = new Swiper(".swiper-container");
-    this.active = this.index;
-    mySwiperA.slideTo(this.index, 0, false);
+    // this.active = this.index;
+    mySwiperA.slideTo(this.active, 0, false);
 
     mySwiperA.on("slideChange", () => {
       this.active = mySwiperA.activeIndex;
@@ -162,10 +162,11 @@ export default {
       this.refecd();
     },
     refecd() {
-      console.log(this.ids);
+      // console.log(this.ids);
       addresslist(this.ids, 0)
         .then(res => {
           this.listAddress = res.data.data.crowd_list;
+          // this.numlength = this.picList.length
           if (this.listAddress.length == 0) {
             this.ispic = true;
           }

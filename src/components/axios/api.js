@@ -20,9 +20,7 @@ export function search(name) {
   return fetch({
     url: api.Hallowmas + '/v2/index?keyword=' + name + '',
     method: "GET",
-    data: {
-      keyword: name
-    }
+
   })
 }
 
@@ -31,9 +29,7 @@ export function crowd_funding(id) {
   return fetch({
     url: api.Hallowmas + '/v2/crowdFunding/crowdFundingDetails?crowd_funding_id=' + id + '',
     method: "GET",
-    data: {
-      id: id
-    }
+
   })
 }
 
@@ -46,9 +42,9 @@ export function fs() {
 }
 
 // 分类页面产品
-export function fsDetail(id,page) {
+export function fsDetail(id, page) {
   return fetch({
-    url: api.Hallowmas + '/v2/index?crowd_funding_class_id=' + id + '&page=' + page+'',
+    url: api.Hallowmas + '/v2/index?crowd_funding_class_id=' + id + '&page=' + page + '',
     method: "GET",
   })
 }
@@ -62,13 +58,13 @@ export function address() {
 }
 
 // 地理标志列表
-export function addresslist(id,type) {
+export function addresslist(id, type) {
   return fetch({
     url: api.Hallowmas + '/v2p2/geographica/geographicalCrowdList',
     method: "POST",
     data: {
       id: id,
-      type:type
+      type: type
     }
   })
 }
@@ -101,9 +97,6 @@ export function specifications(id) {
   return fetch({
     url: api.Hallowmas + '/v2/crowdFunding/specifications?crowd_funding_id=' + id + '',
     method: "GET",
-    data: {
-      id: id
-    }
   })
 }
 //获取验证码
@@ -369,7 +362,7 @@ export function MyObjecthree() {
   })
 }
 // 修改个人资料
-export function peosMS(username, self_introduction,headimgurl) {
+export function peosMS(username, self_introduction, headimgurl) {
 
   return fetch({
     url: api.Hallowmas + '/v2/member/upMember',
@@ -377,7 +370,7 @@ export function peosMS(username, self_introduction,headimgurl) {
     data: {
       username: username,
       self_introduction: self_introduction,
-      headimgurl:headimgurl
+      headimgurl: headimgurl
     }
   })
 }
@@ -458,7 +451,7 @@ export function imgUpdat(file) {
 
 
 // 详情页请求支付
-export function detailM(pay_style, pay_type, crowd_funding_id, crowd_funding_return_id, address_id, support_money, crowd_funding_return_num, mark, vouchers_id, open_id,payment_password) {
+export function detailM(pay_style, pay_type, crowd_funding_id, crowd_funding_return_id, address_id, support_money, crowd_funding_return_num, mark, vouchers_id, open_id, payment_password) {
 
   return fetch({
     url: api.Hallowmas + '/v2p1/crowdFunding/payment',
@@ -611,8 +604,8 @@ export function MessageWu(trade_no) {
   return fetch({
     url: api.Hallowmas + '/v2/member/getOrderTraces',
     method: "POST",
-    data:{
-      trade_no:trade_no
+    data: {
+      trade_no: trade_no
     }
   })
 }
@@ -623,8 +616,8 @@ export function CorfirWu(trade_no) {
   return fetch({
     url: api.Hallowmas + '/v2/member/memberConfirmReceipt',
     method: "POST",
-    data:{
-      trade_no:trade_no
+    data: {
+      trade_no: trade_no
     }
   })
 }
@@ -637,8 +630,8 @@ export function offerWu(trade_no) {
   return fetch({
     url: api.Hallowmas + '/v2/member/memberApplyForRefund',
     method: "POST",
-    data:{
-      trade_no:trade_no
+    data: {
+      trade_no: trade_no
     }
   })
 }
@@ -649,8 +642,8 @@ export function DEtilWu(trade_no) {
   return fetch({
     url: api.Hallowmas + '/v2/member/getMemberOrderDetail',
     method: "POST",
-    data:{
-      trade_no:trade_no
+    data: {
+      trade_no: trade_no
     }
   })
 }

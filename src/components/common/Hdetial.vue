@@ -119,8 +119,8 @@ export default {
       count: 1,
       istanchuana: false,
       id: this.$route.query.key,
-      money: this.$route.query.money,
-      moneys: this.$route.query.moneys,
+      money: "",
+      moneys: "",
       picList: [],
       listP: [],
       img: require("@/assets/rrs.png"),
@@ -149,6 +149,9 @@ export default {
 
         if (res.status && res.data) {
           const data = res.data;
+          console.log(data);
+          this.money = data.reality_money
+          this.moneys = data.support_money
           this.img_path = data.imgs.split(",")[0];
           this.list = data;
           this.picList = data.imgs.split(",");
@@ -222,7 +225,7 @@ export default {
           this.$route.query.key,
           this.clickList.crowd_funding_return_id,
           this.count,
-          this.$route.query.money
+          // this.$route.query.money
         ];
         this.$router.push({
           path: "/querenone",
@@ -230,7 +233,7 @@ export default {
             dataObjo: arry[0],
             dataObjb: arry[1],
             dataObjc: arry[2],
-            dataObjd: arry[3]
+            // dataObjd: arry[3]
           }
         });
       }

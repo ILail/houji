@@ -1,60 +1,76 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+
 // 首页
 import Small from '@/pages/home/Small'
 import Addressdetail from '@/pages/home/components/Addressdetail'
 import Centerj from '@/pages/home/components/centerj'
 import Shao from '@/pages/home/components/Shao'
 import Xiao from '@/pages/home/components/Xiao'
-// 首页
 
 // 分类
 import Feilei from '@/pages/fs/Feilei'
-// 分类
 
 // 购物车
 import Wish from '@/pages/wish/Wish'
-// 购物车
 
+// 我的中心
 import Mine from '@/pages/mine/Mine'
+
+// 我的中心点击的页面
+import Absolu from '@/pages/mine/components/components/absolu'
+import bankMark from '@/pages/mine/components/components/bank'
+import Czhi from '@/pages/mine/components/components/chongzhi'
+import Desgreo from '@/pages/mine/components/components/desgreo'
+import Fit from '@/pages/mine/components/components/fit'
+import Gengph from '@/pages/mine/components/components/gengph'
+import Juan from '@/pages/mine/components/components/juan'
+import Jiaoyi from '@/pages/mine/components/components/jyi'
+import Liping from '@/pages/mine/components/components/liping'
+import Myjob from '@/pages/mine/components/components/Myjob'
+import Mym from '@/pages/mine/components/components/mymoney'
+import Myorders from '@/pages/mine/components/components/myorders'
+import Personone from '@/pages/mine/components/components/personone'
+import Shouhuo from '@/pages/mine/components/components/shouhuo'
+import Tianjia from '@/pages/mine/components/components/tianjia'
+import Txiana from '@/pages/mine/components/components/tixian'
+import Zfu from '@/pages/mine/components/components/zfu'
+
+// 手机登录
+import Phone from '@/components/phone'
+
+//商品详情页
+import Detail from '@/components/common/Detailswiper'
+
+// 领取会员
+import Sale from '@/components/common/Sale'
+// 支付完成跳转
+import Finish from '@/components/common/Finish'
+
+// 订单详情页
+import Orderdetails from '@/components/common/Orderdetails'
+// 物流页面
+import Wuliudetails from '@/components/common/Logistics'
+
+import Jdetial from '@/components/common/Jdetial'
+// 活动详情页
+import Hdetial from '@/components/common/Hdetial'
+
+// 支付页面
+import Zhifu from '@/components/common/Paymoney'
+import Zhifuone from '@/components/common/Paymoneyone'
+// 搜索页 及其 展示
 import Show from '@/components/search/Show'
 import Search from '@/components/search/Search'
-import Detail from '@/components/common/Detailswiper'
-import Phone from '@/components/phone'
-import Smoke from '@/pages/mine/smoke'
-import Myjob from '@/pages/mine/Myjob'
-import Fit from '@/pages/mine/fit'
-import Personone from '@/pages/mine/personone'
-import Desgreo from '@/pages/mine/desgreo'
-import Absolu from '@/pages/mine/absolu'
-import Zfu from '@/pages/mine/zfu'
-import Gengph from '@/pages/mine/gengph'
-import Shouhuo from '@/pages/mine/shouhuo'
-import Tianjia from '@/pages/mine/tianjia'
-import Liping from '@/pages/mine/liping'
-import Juan from '@/pages/mine/juan'
-import Myorders from '@/pages/mine/myorders'
-import Mym from '@/pages/mine/mymoney'
-import Czhi from '@/pages/mine/chongzhi'
-import Txiana from '@/pages/mine/tixian'
-import Jiaoyi from '@/pages/mine/jyi'
-import bankMark from '@/pages/mine/bank'
+
+// 支付详情页
 import Confirmation from '@/components/common/Confirmation'
 import Confirmations from '@/components/common/Confirmations'
 import store from '@/components/vuex/store'
-import Sale from '@/components/common/Sale'
-import Zhifu from '@/components/common/Paymoney'
-import Zhifuone from '@/components/common/Paymoneyone'
-import Finish from '@/components/common/Finish'
-import Orderdetails from '@/components/common/Orderdetails'
-import Wuliudetails from '@/components/common/Logistics'
-import Jdetial from '@/components/common/Jdetial'
-import Hdetial from '@/components/common/Hdetial'
 import * as types from '@/components/vuex/types'
 Vue.use(Router)
 // export default new Router({
-const routes = [
-  {
+const routes = [{
     path: '/',
     name: '猴集',
     component: Small,
@@ -125,9 +141,6 @@ const routes = [
     path: '/detail',
     name: '详情页',
     component: Detail,
-    // meta: {
-    //   oppendid: true,
-    // },
   },
   {
     path: '/addressdetail',
@@ -143,10 +156,6 @@ const routes = [
     path: '/phone',
     name: '绑定手机号',
     component: Phone
-  }, {
-    path: '/smoke',
-    name: '猴集卡',
-    component: Smoke
   },
   {
     path: '/myjob',
@@ -218,7 +227,7 @@ const routes = [
     component: Czhi
   }, {
     path: '/zhifu',
-    name: '支付页',
+    name: '支付',
     component: Zhifu
   },
   {
@@ -252,12 +261,12 @@ const routes = [
   },
   {
     path: '/querenone',
-    name: '确认',
+    name: '确认订单',
     component: Confirmations
   },
   {
     path: '/onsale',
-    name: '猴集卡页面',
+    name: '猴集卡',
     component: Sale
   },
   {
@@ -271,10 +280,13 @@ const routes = [
     component: Wuliudetails
   }
 ]
-//缓存页面
+
 const router = new Router({
   routes
 });
+
+
+// 缓存页面
 // Vue.config.productionTip = false
 // const sess = window.sessionStorage
 // Vue.mixin({

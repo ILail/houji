@@ -145,10 +145,10 @@ window.url = function() {
 };
 // import MsgBus from "@/bus/Bus.vue";
 import Vue from "vue";
-import Detail from "@/components/common/Detail";
-import Travel from "@/components/common/Travel";
-import Plun from "@/components/common/Plun";
-import Suyuan from "@/components/common/Suyuan";
+import Detail from "@/components/common/component/Detail";
+import Travel from "@/components/common/component/Travel";
+import Plun from "@/components/common/component/Plun";
+import Suyuan from "@/components/common/component/Suyuan";
 import Swiper from "moon/swiper.min";
 import "moon/swiper.min.css";
 import { wishList } from "@/components/axios/api";

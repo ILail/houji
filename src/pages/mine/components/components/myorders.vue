@@ -554,4 +554,16 @@ export default {
   text-align: right;
   margin-top: 5px;
 }
+
+.active >>> .van-tab {
+  color: #333;
+}
+
+.active >>> .van-tab--active {
+  color: #D21623;
+}
+
+.active >>> .van-tabs__line {
+  background-color: #D21623;
+}
 </style>

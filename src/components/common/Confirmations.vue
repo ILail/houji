@@ -137,6 +137,7 @@
 import { Confirtwo } from "@/components/axios/api";
 import { getDIZ } from "@/components/axios/api";
 import { coupon } from "@/components/axios/api";
+import { crowd_funding } from "@/components/axios/api";
 import secret from "@/utils/utils";
 // import bus from "@/bus/bus.js";
 import store from "@/components/vuex/store";
@@ -161,7 +162,6 @@ export default {
       routerParams: this.$route.query.dataObjo,
       routerParamb: this.$route.query.dataObjb,
       routerParamo: this.$route.query.dataObjc,
-      routerParama: this.$route.query.dataObjd,
       wx: require("@/assets/rr.png"),
       wxone: require("@/assets/mine/xu.png"),
       shoiw: false,
@@ -201,7 +201,7 @@ export default {
   },
   created: function() {
     // 接受详情页那边传来的商品id逗号分开
-    // console.log()
+
     getDIZ()
       .then(res => {
         this.letter = res.data.data;
@@ -254,49 +254,52 @@ export default {
 
         //   this.totalMoney = numss;
         // }
-        // 蜂蜜
-        if (this.routerParams == 283) {
-          this.aa = false;
-          this.aas = true;
-          let moeysA = this.json[0].options[0].support_money;
-          let nums = moeysA - this.routerParama;
-          // let numss = this.routerParamo * nums;
-          // let newmoneys = (this.moneyAll - nums).toFixed(2);
-          // console.log(newmoneys)
-          this.newmoney = nums.toFixed(2) * this.routerParamo;
-          this.totalMoney = this.moneyAll - this.newmoney;
-        }
-        // 盘锦米
-        if (this.routerParams == 284) {
-          this.aa = false;
-          this.aas = true;
-          let moeysA = this.json[0].options[0].support_money;
-          let nums = moeysA - this.routerParama;
-          // let numss = this.routerParamo * nums;
-          // let newmoneys = (this.moneyAll - nums).toFixed(2);
-          // console.log(newmoneys)
-          this.newmoney = nums.toFixed(2) * this.routerParamo;
-          this.totalMoney = this.moneyAll - this.newmoney;
-        }
-
-        // 香皂
-        if (this.routerParams == 252) {
-          this.aa = false;
-          this.aas = true;
-          let moeysA = this.json[0].options[0].support_money;
-          let nums = moeysA - this.routerParama;
-          // let numss = this.routerParamo * nums;
-          // let newmoneys = (this.moneyAll - nums).toFixed(2);
-          // console.log(newmoneys)
-          this.newmoney = nums.toFixed(2) * this.routerParamo;
-          this.totalMoney = this.moneyAll - this.newmoney;
-        }
       })
       .catch(err => {
         console.log(err, "请求失败");
       });
   },
   mounted() {
+    crowd_funding(this.routerParams)
+      .then(res => {
+        res = res.data;
+        if (res.status && res.data) {
+          const data = res.data;
+          const routerParama = data.reality_money;
+          if (this.routerParams == 283) {
+            this.aa = false;
+            this.aas = true;
+            let moeysA = this.json[0].options[0].support_money;
+            let nums = moeysA - routerParama;
+            const newmoneyS = nums * this.routerParamo;
+            this.newmoney = newmoneyS.toFixed(2);
+            this.totalMoney = this.moneyAll - this.newmoney;
+          }
+
+          if (this.routerParams == 285) {
+            this.aa = false;
+            this.aas = true;
+            let moeysA = this.json[0].options[0].support_money;
+            let nums = moeysA - routerParama;
+            const newmoneyS = nums * this.routerParamo;
+            this.newmoney = newmoneyS.toFixed(2);
+            this.totalMoney = this.moneyAll - this.newmoney;
+          }
+
+          if (this.routerParams == 284) {
+            this.aa = false;
+            this.aas = true;
+            let moeysA = this.json[0].options[0].support_money;
+            let nums = moeysA - routerParama;
+            const newmoneyS = nums * this.routerParamo;
+            this.newmoney = newmoneyS.toFixed(2);
+            this.totalMoney = this.moneyAll - this.newmoney;
+          }
+        }
+      })
+      .catch(err => {
+        console.log(err, "请求失败");
+      });
     setTimeout(() => {
       this.$refs.wrappers.style.visibility = "visible";
     }, 800);

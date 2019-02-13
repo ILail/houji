@@ -7,8 +7,6 @@
         path: 'hdetial',     
         query: {   
             key: item.crowd_funding_id, // orderNum : this.searchData.orderNo
-            money:item.reality_money,
-            moneys:item.support_money
         }
     }"
       >
