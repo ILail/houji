@@ -27,7 +27,7 @@
     </div>
     <div class="peoDela" v-html="list.content"></div>
     <!-- 底部 -->
-    <div class="bottom" v-if="isshowa">
+    <div class="bottom">
       <ul>
         <li class="shu" onclick="url()">
           <span style="margin-bottom:3px">
@@ -43,12 +43,12 @@
           <span class="shuW" style="margin-top:-1px">购物车</span>
         </li>
         <li class="xiadan" @click="selectSort()">加入购物车</li>
-        <li class="joinw" @click="selectSorta()">立即购买</li>
+        <li class="joinw" @click="ljxd()">立即购买</li>
       </ul>
     </div>
 
     <!-- 弹窗2-->
-    <div class="tanBottom" v-show="istanchuana">
+    <!-- <div class="tanBottom" v-show="istanchuana">
       <div class="topt"></div>
       <div class="topone container" @click="chaClik()">
         <img :src="img_path" class="topImg">
@@ -84,7 +84,7 @@
           <div class="queren" @click="ljxd">立即购买</div>
         </div>
       </div>
-    </div>
+    </div>-->
   </div>
 </template>
 
@@ -115,9 +115,9 @@ Vue.use(Swipe).use(SwipeItem);
 export default {
   data() {
     return {
-      isshowa: true,
+      // isshowa: true,
       count: 1,
-      istanchuana: false,
+      // istanchuana: false,
       id: this.$route.query.key,
       money: "",
       moneys: "",
@@ -150,8 +150,8 @@ export default {
         if (res.status && res.data) {
           const data = res.data;
           console.log(data);
-          this.money = data.reality_money
-          this.moneys = data.support_money
+          this.money = data.reality_money;
+          this.moneys = data.support_money;
           this.img_path = data.imgs.split(",")[0];
           this.list = data;
           this.picList = data.imgs.split(",");
@@ -198,18 +198,18 @@ export default {
         duration: "1000"
       });
     },
-    selectSorta() {
-      this.closeTouch(); //关闭默认事件
-      this.istanchuana = true;
-      this.isshowa = false;
-    },
-    // 点击关闭
-    chaClik() {
-      // this.openTouch(); //打开默认事件
+    // selectSorta() {
+    //   this.closeTouch(); //关闭默认事件
+    //   this.istanchuana = true;
+    //   this.isshowa = false;
+    // },
+    // // 点击关闭
+    // chaClik() {
+    //   // this.openTouch(); //打开默认事件
 
-      this.istanchuana = false;
-      this.isshowa = true;
-    },
+    //   this.istanchuana = false;
+    //   this.isshowa = true;
+    // },
     // 点击规格变化
     tab(index) {
       // 颜色
@@ -224,7 +224,7 @@ export default {
         const arry = [
           this.$route.query.key,
           this.clickList.crowd_funding_return_id,
-          this.count,
+          this.count
           // this.$route.query.money
         ];
         this.$router.push({
@@ -232,7 +232,7 @@ export default {
           query: {
             dataObjo: arry[0],
             dataObjb: arry[1],
-            dataObjc: arry[2],
+            dataObjc: arry[2]
             // dataObjd: arry[3]
           }
         });
