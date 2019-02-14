@@ -167,8 +167,8 @@ export default {
       this.show = true;
     },
     computedR: function(list) {
-      let width = list.progress-1.1;
-      if(width>=98.9){
+      let width = list.progress-1.6;
+      if(width>=98.4){
         width = 85
       }
       return `${width}`;

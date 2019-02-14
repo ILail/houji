@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 // 首页
-// import Small from '@/pages/home/Small'
+import Small from '@/pages/home/Small'
 import Addressdetail from '@/pages/home/components/Addressdetail'
 import Centerj from '@/pages/home/components/centerj'
 import Shao from '@/pages/home/components/Shao'
@@ -74,7 +74,8 @@ Vue.use(Router)
 const routes = [{
     path: '/',
     name: '猴集',
-    component: resolve => require(['@/pages/home/Small'],resolve),
+    // component: resolve => require(['@/pages/home/Small'], resolve),
+    component: Small,
     meta: {
       oppendid: true,
     },
@@ -282,8 +283,15 @@ const routes = [{
   }
 ]
 
+
 const router = new Router({
-  routes
+  routes,
+  scrollBehavior(to, from, savedPosition) {
+    return {
+      x: 0,
+      y: 0
+    }
+  }
 });
 
 
