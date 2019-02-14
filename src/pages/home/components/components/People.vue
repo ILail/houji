@@ -21,7 +21,7 @@
         }
     }"
       >
-        <img v-lazy="item.pic" class="peoImg">
+        <img v-lazy="item.pic" class="peoImg" style="height:187px">
         <div class="people_p">
           <div class="list">{{item.crowd_funding_name}}</div>
           <div class="crowd-info">

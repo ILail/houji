@@ -38,7 +38,7 @@
         </router-link>
       </van-swipe-item>
     </van-swipe>-->
-    <div class="wrapper" v-if="wrapImg">
+    <!-- <div class="wrapper" v-if="wrapImg">
       <swiper :options="swiperOption" v-if="showSwiper">
         <swiper-slide v-for="item of sowingMap" :key="item.id">
           <router-link
@@ -49,12 +49,26 @@
         }
     }"
           >
-            <img class="swiper-img" v-lazy="item.pic">
-          </router-link>
+            <img class="swiper-img" :src="item.pic">
+         
         </swiper-slide>
         <div class="swiper-pagination" slot="pagination"></div>
       </swiper>
-    </div>
+    </div>-->
+    <mt-swipe :auto="3500" style="height:185.5px" v-if="wrapImg">
+      <mt-swipe-item v-for="item of sowingMap" :key="item.id">
+        <router-link
+          :to="{  
+        path: 'Detail',     
+        query: {   
+            key: item.link, // orderNum : this.searchData.orderNo
+        }
+    }"
+        >
+          <img class="swiper-img" v-lazy="item.pic">
+        </router-link>
+      </mt-swipe-item>
+    </mt-swipe>
     <!-- 导航内容 -->
     <div class="swiper-container wrapWa">
       <div class="swiper-wrapper">
@@ -87,6 +101,11 @@
 </template>
 
 <script type="text/ecmascript-6">
+import Vue from "vue";
+import { Swipe, SwipeItem } from "mint-ui";
+
+Vue.component(Swipe.name, Swipe);
+Vue.component(SwipeItem.name, SwipeItem);
 import Tabbar from "@/components/common/Tan";
 import Item from "@/components/Item";
 import Home from "./components/Home";
@@ -117,19 +136,6 @@ export default {
   },
   data() {
     return {
-      swiperOption: {
-        pagination: {
-          el: ".swiper-pagination"
-        },
-        loop: true,
-        autoplay: {
-          delay: 3000,
-          disableOnInteraction: false
-          //stopOnLastSlide: false
-        },
-        observeParents: true,
-        observer: true
-      },
       currentView: "Home",
       wrapImg: true,
       items: [
@@ -191,11 +197,11 @@ export default {
       // nowIndex: 0
     };
   },
-  computed: {
-    showSwiper() {
-      return this.sowingMap.length;
-    }
-  },
+  // computed: {
+  //   showSwiper() {
+  //     return this.sowingMap.length;
+  //   }
+  // },
   created() {
     lookOption()
       .then(res => {
@@ -280,8 +286,8 @@ export default {
 
       if (mySwiperA.activeIndex >= 2) {
         this.wrapImg = false;
-      }else{
-         this.wrapImg = true;
+      } else {
+        this.wrapImg = true;
       }
     });
   },
@@ -346,8 +352,8 @@ export default {
       }
       if (index >= 2) {
         this.wrapImg = false;
-      }else{
-         this.wrapImg = true;
+      } else {
+        this.wrapImg = true;
       }
     },
     watchScroll() {
@@ -463,11 +469,12 @@ export default {
   color: #d21623;
 }
 
-.wrapper >>> .swiper-pagination-bullet {
+.wrap >>> .mint-swipe-indicator {
+  opacity:1
   background: #fff;
 }
 
-.wrapper >>> .swiper-pagination-bullet-active {
+.wrap >>> .mint-swipe-indicator.is-active {
   background: #b21822;
 }
 

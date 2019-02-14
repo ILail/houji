@@ -1,6 +1,6 @@
 <template>
   <div>
-    <img v-lazy="img" alt class="Himg" @click="showLists">
+    <img v-lazy="img" alt class="Himg" @click="showLists" >
     <div class="list">
       <div
         v-for="(item,index) in wordArry"
@@ -177,6 +177,7 @@ export default {
 <style lang="stylus" type="text/stylus" rel="stylesheet/stylus" scoped>
 .Himg {
   width: 100%;
+  height:180.97px;
   margin-bottom: 5px;
   border-top: 0.5px solid #eee;
 }

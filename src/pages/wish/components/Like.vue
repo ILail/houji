@@ -1,6 +1,6 @@
 <template>
   <div style="padding-bottom: 60px;">
-    <div class="title">
+    <div class="title" v-if="show">
       <div style="font-size:14px">猜你喜欢</div>
     </div>
     <div class="content container">
@@ -13,7 +13,7 @@
         }
     }"
         >
-          <img :src="items.pic" class="wrapImg">
+          <img v-lazy="items.pic" class="wrapImg">
           <div class="list">{{items.crowd_funding_name}}</div>
           <div class="progressAll">
             <div class="progress-outer">
@@ -49,9 +49,15 @@ export default {
     hot: Array
   },
   data() {
-    return {};
+    return {
+      show:false
+    };
   },
-
+  mounted() {
+    setTimeout(() => {
+      this.show = true
+    }, 1500);
+  },
   methods: {
     computedResidualTime: function(items) {
       let residualTime = items.left_time;

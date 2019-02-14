@@ -1,5 +1,5 @@
 <template>
-  <div class="active" ref="wrappers" style="visibility:hidden;">
+  <div class="active">
     <van-tabs v-model="activea" swipeable sticky animated @click="onClick">
       <van-tab title="全部">
         <div class="hitImg" v-show="ispic">
@@ -24,7 +24,7 @@
             @click="ImgDetial(item.trade_no)"
           >
             <div class="left">
-              <img :src="pl.pic">
+              <img v-lazy="pl.pic">
             </div>
             <div class="right">
               <div class="title">
@@ -63,7 +63,7 @@
             @click="ImgDetial(item.trade_no)"
           >
             <div class="left">
-              <img :src="pl.pic">
+              <img v-lazy="pl.pic">
             </div>
             <div class="right">
               <div class="title">
@@ -103,7 +103,7 @@
             @click="ImgDetial(item.trade_no)"
           >
             <div class="left">
-              <img :src="pl.pic">
+              <img v-lazy="pl.pic">
             </div>
             <div class="right">
               <div class="title">
@@ -143,7 +143,7 @@
               @click="ImgDetial(item.trade_no)"
             >
               <div class="left">
-                <img :src="pl.pic">
+                <img v-lazy="pl.pic">
               </div>
               <div class="right">
                 <div class="title">
@@ -188,7 +188,7 @@
             @click="ImgDetial(item.trade_no)"
           >
             <div class="left">
-              <img :src="pl.pic">
+              <img v-lazy="pl.pic">
             </div>
             <div class="right">
               <div class="title">
@@ -295,9 +295,9 @@ export default {
       });
   },
   mounted() {
-    setTimeout(() => {
-      this.$refs.wrappers.style.visibility = "visible";
-    }, 500);
+    // setTimeout(() => {
+    //   this.$refs.wrappers.style.visibility = "visible";
+    // }, 500);
   },
   methods: {
     onClick(index) {

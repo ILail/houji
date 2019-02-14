@@ -1,5 +1,5 @@
 <template>
-  <div ref="wrappers" style="visibility:hidden;">
+  <div>
     <div id="box">
       <div class="hitImg" v-show="shops">
         <img src="@/assets/empty.png">
@@ -181,11 +181,7 @@ export default {
         console.log(err, "请求失败");
       });
   },
-  mounted() {
-    setTimeout(() => {
-      this.$refs.wrappers.style.visibility = "visible";
-    }, 1500);
-  },
+
   methods: {
     linjuan() {
       this.$router.push("/linjuan");

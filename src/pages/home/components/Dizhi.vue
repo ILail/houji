@@ -25,7 +25,7 @@
         }
     }"
           >
-            <img :src="require('@/assets/more.png')">
+            <img v-lazy="require('@/assets/more.png')">
             
             <span>更多</span>
           </router-link>

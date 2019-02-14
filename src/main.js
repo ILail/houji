@@ -9,8 +9,7 @@ import axios from 'axios';
 import LyTab from 'ly-tab';
 import store from '@/components/vuex/store'
 import clipper from '../static/clipper'
-import VueLazyload from 'vue-lazyload'
-import VueAwesomeSwiper from 'vue-awesome-swiper'
+
 // bus
 import VueBus from 'vue-bus';
 Vue.use(VueBus);
@@ -25,7 +24,20 @@ import { PullRefresh } from 'vant';
 import { List } from 'vant';
 import { Loading } from 'vant';
 import { Swipe, SwipeItem } from "vant";
-Vue.use(VueAwesomeSwiper)
+
+import MintUI from 'mint-ui'
+import 'mint-ui/lib/style.css'
+Vue.use(MintUI)
+import { Lazyload } from 'vant';
+
+// options 为可选参数，无则不传
+Vue.use(Lazyload,{
+  preLoad: 1,
+  error:require('@/assets/err2.png'),
+  loading:require('@/assets/err2.png'),
+  attempt: 1,
+  throttleWait:500
+});
 Vue.use(Swipe).use(SwipeItem);
 Vue.use(Loading);
 Vue.use(List);
@@ -33,14 +45,15 @@ Vue.use(PullRefresh);
 Vue.use(Toast);
 Vue.use(Tab).use(Tabs);
 Vue.use(Popup);
-Vue.use(VueLazyload)
 Vue.use(clipper)
-Vue.use(VueLazyload, {
-  preLoad: 1,
-  error: require('@/assets/err2.png'),
-  loading: '@/assets/err2.png',
-  attempt: 2,
-})
+// import VueLazyload from 'vue-lazyload'
+// Vue.use(VueLazyload, {
+//   preLoad: 1,
+//   error:require('@/assets/err2.png'),
+//   loading:'../static/loading.gif',
+//   attempt: 2,
+// })
+
 Vue.use(require('vue-wechat-title'))
 Vue.use(LyTab);
 Vue.prototype.$http = axios;

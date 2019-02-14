@@ -22,7 +22,7 @@
         </div>
         <div class="item" v-for="(pl,index) in json" :key="index" :data-id="index">
           <div class="left">
-            <img :src="pl.pic">
+            <img v-lazy="pl.pic">
           </div>
           <div class="right">
             <div class="title">

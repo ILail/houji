@@ -14,7 +14,7 @@
         }
     }"
           >
-            <img :src="items.pic" class="wrapImg">
+            <img v-lazy="items.pic" class="wrapImg">
             <div class="list">{{items.crowd_funding_name}}</div>
             <div class="progressAll">
               <div class="progress-outer">

@@ -86,6 +86,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="stylus" type="text/stylus" rel="stylesheet/stylus" scoped>
 .tImg {
+  height:96.41px;
   width: 100%;
   margin-top: 10px;
 }

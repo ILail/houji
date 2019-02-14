@@ -83,7 +83,7 @@ export default {
   mounted() {
     setTimeout(() => {
       this.$refs.wrapps.style.visibility = "visible";
-    }, 1000);
+    }, 800);
   },
   methods: {
     getVal: function(res) {

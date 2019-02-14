@@ -1,11 +1,11 @@
 <template>
-  <div>
+  <div class="wrapAll">
     <!-- 轮播 -->
-    <van-swipe :autoplay="time" :touchable="false" indicator-color="#D21623" @change="onChange">
+    <van-swipe :autoplay="time" :touchable="false" indicator-color="#D21623" @change="onChange" style="height:380px">
       <van-swipe-item v-if="shows">
         <video
           width="100%"
-          height="375px"
+          height="100%"
           x5-video-player-type="h5"
           x5-video-player-fullscreen="true"
           x5-playsinline
@@ -17,12 +17,13 @@
           x-webkit-airplay="allow"
           @click="pauseVideo"
           @ended="onPlayerEnded($event)"
+          style="object-fit:fill"
         ></video>
         
         <img :src="imgs" class="imgsaa" @click="pauseVideo" v-show="show">
       </van-swipe-item>
       <van-swipe-item v-for="item of picList" :key="item.id">
-        <img class="swiper-img" :src="item" @click="imghir" style="width:100%">
+        <img class="swiper-img" :src="item" @click="imghir" style="width:100%;height:100%">
       </van-swipe-item>
     </van-swipe>
     <!-- 内容 -->
@@ -434,6 +435,12 @@ export default {
 .peoDela >>> p {
   margin-top: 20px;
   padding-bottom: 50px;
+}
+.wrapAll >>> .van-swipe__indicator{
+  width 8px
+  height 8px
+  background-color #fff
+  opacity 1
 }
 </style>
 
