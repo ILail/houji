@@ -95,6 +95,7 @@ export default {
 <style lang="stylus" scoped>
 .pJext {
   padding: 18px 0 18px 0;
+  height 826px
 }
 
 .title {
