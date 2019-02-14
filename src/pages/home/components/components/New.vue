@@ -126,6 +126,7 @@ export default {
   border-radius: 5px;
   box-shadow: #eee 0px 0px 10px;
   margin-bottom: 20px;
+  height 358px
 }
 
 .people .peoImg {

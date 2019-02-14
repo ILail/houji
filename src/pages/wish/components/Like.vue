@@ -104,6 +104,7 @@ export default {
 .wrapImg {
   width: 100%;
   border-radius: 5px;
+  height 164.11px
 }
 
 .list {

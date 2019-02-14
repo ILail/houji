@@ -19,7 +19,7 @@
         }
     }"
         >-->
-        <img v-lazy="itemCon.pic" class="peoImg">
+        <img v-lazy="itemCon.pic" class="peoImg" style="height:181.32px">
         <div class="people_p">
           <div class="list">{{itemCon.crowd_funding_name}}</div>
           <div class="crowd-info">

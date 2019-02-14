@@ -250,7 +250,7 @@ export default {
 
 .title {
   display: flex;
-  justify-content space-between
+  justify-content: space-between;
 }
 
 .titleWord {
@@ -263,7 +263,7 @@ export default {
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
-  max-width 70%
+  max-width: 70%;
   line-height: 1.2;
   margin-top: 2px;
 }
@@ -279,7 +279,7 @@ export default {
   width: 83%;
   margin-top: 8px;
   line-height: 1.2;
-  max-width 70%
+  max-width: 70%;
 }
 
 .pricr {
@@ -330,6 +330,7 @@ export default {
 
 .left img {
   width: 100%;
+  height: 77.5px;
   border-radius: 5px;
 }
 

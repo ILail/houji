@@ -12,7 +12,7 @@
         }
     }"
           >
-            <img v-lazy="item.pic">
+            <img :src="item.pic">
             <span>{{item.geographical_name}}</span>
           </router-link>
         </li>
@@ -25,7 +25,7 @@
         }
     }"
           >
-            <img v-lazy="require('@/assets/more.png')">
+            <img :src="require('@/assets/more.png')">
             
             <span>更多</span>
           </router-link>
@@ -47,7 +47,7 @@
         }
     }"
           >
-            <img v-lazy="items.pic" class="wrapImg">
+            <img v-lazy="items.pic" class="wrapImg" style="height:164.11px">
             <div class="list">{{items.crowd_funding_name}}</div>
             <div class="progressAll">
               <div class="progress-outer">

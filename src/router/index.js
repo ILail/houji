@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 // 首页
-import Small from '@/pages/home/Small'
+// import Small from '@/pages/home/Small'
 import Addressdetail from '@/pages/home/components/Addressdetail'
 import Centerj from '@/pages/home/components/centerj'
 import Shao from '@/pages/home/components/Shao'
@@ -68,12 +68,13 @@ import Confirmation from '@/components/common/Confirmation'
 import Confirmations from '@/components/common/Confirmations'
 import store from '@/components/vuex/store'
 import * as types from '@/components/vuex/types'
+// import { resolve } from 'dns';
 Vue.use(Router)
 // export default new Router({
 const routes = [{
     path: '/',
     name: '猴集',
-    component: Small,
+    component: resolve => require(['@/pages/home/Small'],resolve),
     meta: {
       oppendid: true,
     },

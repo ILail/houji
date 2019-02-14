@@ -11,7 +11,7 @@
     }"
       >
         <div class="left">
-          <img v-lazy="item.pic" alt>
+          <img v-lazy="item.pic" style="height:100px">
         </div>
         <div class="right">
           <div class="name">{{item.crowd_funding_name}}</div>

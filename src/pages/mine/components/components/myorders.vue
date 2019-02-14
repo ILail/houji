@@ -24,7 +24,7 @@
             @click="ImgDetial(item.trade_no)"
           >
             <div class="left">
-              <img v-lazy="pl.pic">
+              <img v-lazy="pl.pic" style="height:77.5px">
             </div>
             <div class="right">
               <div class="title">
@@ -483,6 +483,7 @@ export default {
 
 .left img {
   width: 100%;
+  height:77.5px
   border-radius: 5px;
 }
 

@@ -92,6 +92,7 @@ export default {
   box-shadow: #eee 0px 0px 10px;
   border-radius: 5px;
   padding-bottom: 10px;
+  height 283px
 }
 
 .wrapImg {
