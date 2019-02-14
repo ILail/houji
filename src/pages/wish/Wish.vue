@@ -51,7 +51,7 @@
                 }"
                   class="item-img"
                 >
-                  <img :src="pl.pic">
+                  <img v-lazy="pl.pic">
                 </router-link>
                 <!-- 商品名称 -->
                 <div class="item-text">
@@ -731,6 +731,7 @@ export default {
 .item-img img {
   width: 100%;
   border-radius: 5px;
+  height:89.38px
 }
 
 .item-text {

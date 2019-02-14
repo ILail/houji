@@ -66,7 +66,7 @@
         </div>
         <div class="item" v-for="(pl,index) in json[index].options" :key="index" :data-id="index">
           <div class="left">
-            <img :src="pl.pic">
+            <img v-lazy="pl.pic">
           </div>
           <div class="right">
             <div class="title">
@@ -611,6 +611,7 @@ export default {
 .left img {
   width: 100%;
   border-radius: 5px;
+  height 77.83px
 }
 
 .allW {
