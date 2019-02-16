@@ -169,6 +169,8 @@ export default {
           // this.numlength = this.picList.length
           if (this.listAddress.length == 0) {
             this.ispic = true;
+          }else{
+             this.ispic = false;
           }
         })
         .catch(err => {
