@@ -18,7 +18,7 @@
           <div class="detail">{{item.summary}}</div>
           <div class="all">
             <span class="xians">限时价：</span>
-            <span class="Lmoney">¥{{item.reality_money}}0</span>
+            <span class="Lmoney">¥{{item.reality_money}}</span>
             <span class="Smoney">¥{{item.support_money}}</span>
           </div>
           <div class="sall">
@@ -43,8 +43,8 @@ export default {
     ForList()
       .then(res => {
         res = res.data;
-        this.list = res.data.slice(0,3);
-        // console.log(this.list);
+        this.list = res.data;
+        console.log(this.list);
       })
       .catch(err => {
         console.log(err, "请求失败");

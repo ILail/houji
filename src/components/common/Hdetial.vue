@@ -1,7 +1,7 @@
 <template>
-  <div ref="wrappers" style="visibility:hidden;">
+  <div ref="wrappers" class="wrapAll" style="visibility:hidden;">
     <!-- 轮播 -->
-    <van-swipe :autoplay="2500" :touchable="false" indicator-color="#D21623">
+    <van-swipe :autoplay="2500"  :touchable="false" indicator-color="#D21623">
       <van-swipe-item v-for="item of picList" :key="item.id">
         <img class="swiper-img" :src="item" @click="imghir" style="width:100%;height:376px">
       </van-swipe-item>
@@ -21,7 +21,7 @@
       <div class="name top">{{list.crowd_funding_name}}</div>
       <div class="detail top">{{list.summary}}</div>
       <div class="all top">
-        <span class="Lmoney">¥ {{money}}0</span>
+        <span class="Lmoney">¥ {{money}}</span>
         <span class="Smoney">¥ {{moneys}}</span>
       </div>
     </div>
@@ -219,6 +219,7 @@ export default {
     // 点击下单
     ljxd() {
       if (store.state.token == null) {
+        console.log(123)
         this.$router.push({ path: "/phone" });
       } else {
         const arry = [
@@ -539,6 +540,12 @@ export default {
   width: 100%;
   height: 80%;
   z-index: 999;
+}
+.wrapAll >>> .van-swipe__indicator{
+  width 8px
+  height 8px
+  background-color #fff
+  opacity 1
 }
 </style>
 

@@ -224,6 +224,7 @@ export default {
       })
       .catch(err => {
         console.log(err, "请求失败");
+        
       });
     // 发送请求
     Confirtwo(this.routerParams, this.routerParamb, this.routerParamo, 111)
@@ -287,6 +288,16 @@ export default {
           }
 
           if (this.routerParams == 284) {
+            this.aa = false;
+            this.aas = true;
+            let moeysA = this.json[0].options[0].support_money;
+            let nums = moeysA - routerParama;
+            const newmoneyS = nums * this.routerParamo;
+            this.newmoney = newmoneyS.toFixed(2);
+            this.totalMoney = this.moneyAll - this.newmoney;
+          }
+
+          if (this.routerParams == 290) {
             this.aa = false;
             this.aas = true;
             let moeysA = this.json[0].options[0].support_money;
@@ -666,7 +677,7 @@ export default {
 .left img {
   width: 100%;
   border-radius: 5px;
-  height 77.83px
+  height: 77.83px;
 }
 
 .allW {
