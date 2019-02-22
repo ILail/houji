@@ -224,7 +224,7 @@ export default {
       })
       .catch(err => {
         console.log(err, "请求失败");
-        
+
       });
     // 发送请求
     Confirtwo(this.routerParams, this.routerParamb, this.routerParamo, 111)
@@ -297,7 +297,7 @@ export default {
             this.totalMoney = this.moneyAll - this.newmoney;
           }
 
-          if (this.routerParams == 290) {
+          if (this.routerParams == 292) {
             this.aa = false;
             this.aas = true;
             let moeysA = this.json[0].options[0].support_money;
