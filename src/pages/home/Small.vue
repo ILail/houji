@@ -59,7 +59,7 @@
       <mt-swipe-item v-for="item of sowingMap" :key="item.id">
         <router-link
           :to="{  
-        path: 'Detail',     
+        path: 'hdetial',     
         query: {   
             key: item.link, // orderNum : this.searchData.orderNo
         }

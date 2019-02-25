@@ -95,7 +95,7 @@ export default {
 <style lang="stylus" scoped>
 .pJext {
   padding: 18px 0 18px 0;
-  height 794px
+  height 397px
 }
 
 .title {
@@ -124,7 +124,7 @@ export default {
   border-radius: 5px;
   box-shadow: #eee 0px 0px 10px;
   margin-bottom: 20px;
-  height 358px
+  // height 358px
 }
 
 .people .peoImg {

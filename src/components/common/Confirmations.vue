@@ -212,6 +212,9 @@ export default {
         }
       })
       .catch(err => {
+        this.$router.push({
+          path: "/phone"
+        });
         console.log(err, "请求失败");
       });
     coupon(111)
@@ -224,7 +227,6 @@ export default {
       })
       .catch(err => {
         console.log(err, "请求失败");
-
       });
     // 发送请求
     Confirtwo(this.routerParams, this.routerParamb, this.routerParamo, 111)
