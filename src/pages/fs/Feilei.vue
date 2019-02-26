@@ -110,10 +110,12 @@
 import { fsDetail } from "@/components/axios/api";
 import { fs } from "@/components/axios/api";
 import Item from "@/components/Item.vue";
+import assign from "@/components/axios/assign.js";
 import Tabbar from "@/components/common/Tan";
 import Swiper from "moon/swiper.min";
 import "moon/swiper.min.css";
 export default {
+  mixins: [assign],
   name: "Feilei",
   components: {
     Item,
@@ -184,7 +186,6 @@ export default {
     window.addEventListener("scroll", this.watchScroll);
     let mySwiperA = new Swiper(".swiper-container");
     mySwiperA.on("slideChange", () => {
-  
       this.active = mySwiperA.activeIndex;
       this.ids = this.tabs[mySwiperA.activeIndex].crowd_funding_class_id;
       this.$toast({
@@ -196,7 +197,6 @@ export default {
   },
   methods: {
     onClick(names) {
-  
       this.ids = names;
       this.$toast({
         message: "加载中...",
@@ -213,8 +213,8 @@ export default {
           }
           if (this.tabContentsa.length == 0) {
             this.ispic = true;
-          }else{
-             this.ispic = false;
+          } else {
+            this.ispic = false;
           }
         })
         .catch(err => {

@@ -49,9 +49,7 @@ export default {
         if (res.status && res.data) {
           const data = res.data;
           this.adInfo = data.adInfo;
-         
-          this.popuLarity = data.popularity;
-           console.log(this.popuLarity)
+          this.popuLarity = data.popularity.slice(0,2);
           this.dayProduct = data.dayProduct.slice(0,2);
         }
       })

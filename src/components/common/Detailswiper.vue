@@ -43,7 +43,7 @@
         </li>
         <li class="xiadan" @click="selectSort()">加入购物车</li>
         <li class="joinw" @click="selectSorta()" v-show="show">立即购买</li>
-        <li class="joinwa" v-show="shows">立即购买</li>
+        <li class="joinwa" v-show="shows">已经结束</li>
       </ul>
     </div>
 
@@ -158,9 +158,11 @@ import store from "@/components/vuex/store";
 import { PullRefresh } from "vant";
 import { Toast } from "vant";
 import Tabbar from "@/components/common/Tan";
+import assign from "@/components/axios/assign.js";
 Vue.use(PullRefresh);
 Vue.use(Toast);
 export default {
+  mixins: [assign],
   name: "Detail",
   components: {
     Detail,
@@ -250,11 +252,10 @@ export default {
     this.$bus.$on("msg", msg => {
       if (this.daytime <= 0) {
         this.showlj = false;
-
         this.showljs = true;
       }
-      this.istanchuana = msg;
-      this.isshowa = !msg;
+        this.istanchuana = msg;
+        this.isshowa = !msg;
     });
     window.addEventListener("scroll", this.watchScroll);
     setTimeout(() => {
@@ -617,7 +618,8 @@ export default {
   color: #fff;
   line-height: 44px;
 }
-.querens{
+
+.querens {
   width: 100%;
   background: rgba(210, 22, 35, 1);
   border-radius: 2px;
@@ -628,8 +630,9 @@ export default {
   font-size: 15px;
   color: #fff;
   line-height: 44px;
-  opacity 0.2
+  opacity: 0.2;
 }
+
 .querena {
   width: 100%;
   background: rgba(210, 22, 35, 1);

@@ -57,16 +57,16 @@
     </div>-->
     <mt-swipe :auto="3500" style="height:185.5px" v-if="wrapImg">
       <mt-swipe-item v-for="item of sowingMap" :key="item.id">
-        <router-link
+        <!-- <router-link
           :to="{  
         path: 'hdetial',     
         query: {   
             key: item.link, // orderNum : this.searchData.orderNo
         }
     }"
-        >
-          <img class="swiper-img" v-lazy="item.pic">
-        </router-link>
+        >-->
+        <img class="swiper-img" v-lazy="item.pic" @click="changes(item.link)">
+        <!-- </router-link> -->
       </mt-swipe-item>
     </mt-swipe>
     <!-- 导航内容 -->
@@ -119,8 +119,9 @@ import Finish from "./components/finish";
 import Swiper from "moon/swiper.min";
 import "moon/swiper.min.css";
 import { lookOption } from "@/components/axios/api";
-
+// import assign from "@/components/axios/assign.js";
 export default {
+  // mixins: [assign],
   name: "Small",
   components: {
     Tabbar,
@@ -209,6 +210,7 @@ export default {
         if (res.status && res.data) {
           const data = res.data;
           this.sowingMap = data.sowingMap;
+          // console.log(data);
         }
       })
       .catch(err => {
@@ -368,6 +370,23 @@ export default {
         _this.searchBarFixed = false;
       }
     },
+    changes(id) {
+      if (id == 237 || id == 275 || id == 286) {
+        this.$router.push({
+          path: "/Detail",
+          query: {
+            key: id
+          }
+        });
+      } else {
+        this.$router.push({
+          path: "/hdetial",
+          query: {
+            key: id
+          }
+        });
+      }
+    },
     shaoshao() {
       // this.$router.push("/shao");
     },
@@ -470,7 +489,7 @@ export default {
 }
 
 .wrap >>> .mint-swipe-indicator {
-  opacity:1
+  opacity: 1;
   background: #fff;
 }
 

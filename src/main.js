@@ -46,13 +46,7 @@ Vue.use(Toast);
 Vue.use(Tab).use(Tabs);
 Vue.use(Popup);
 Vue.use(clipper)
-// import VueLazyload from 'vue-lazyload'
-// Vue.use(VueLazyload, {
-//   preLoad: 1,
-//   error:require('@/assets/err2.png'),
-//   loading:'../static/loading.gif',
-//   attempt: 2,
-// })
+
 
 Vue.use(require('vue-wechat-title'))
 Vue.use(LyTab);

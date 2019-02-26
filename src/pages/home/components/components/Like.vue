@@ -42,13 +42,19 @@
   </div>
 </template>
 <script>
+
 export default {
   name: "HomeLike",
   props: {
     gass: Array
   },
+  // data() {
+  //   return {
+  //     gass: []
+  //   };
+  // },
   // mounted() {
-  //   console.log(this.gass);
+
   // },
   methods: {
     computedResidualTime: function(items) {
@@ -92,7 +98,7 @@ export default {
   box-shadow: #eee 0px 0px 10px;
   border-radius: 5px;
   padding-bottom: 10px;
-  height 283px
+  height: 283px;
 }
 
 .wrapImg {

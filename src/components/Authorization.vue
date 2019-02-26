@@ -26,6 +26,7 @@ export default {
       });
   },
   mounted() {
+    
     // 拿到跳转后的链接
     const url = window.location.href;
     const urlLength = url.split("?").length
