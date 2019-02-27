@@ -173,7 +173,7 @@ export default {
       plun(this.id)
         .then(res => {
           this.list = res.data.data;
-          console.log(res);
+          // console.log(res);
         })
         .catch(err => {
           console.log(err, "请求失败");

@@ -24,9 +24,10 @@
           >{{item.class_name}}</div>
         </div>-->
         <van-tabs v-model="active" animated sticky v-if="showcon">
-          <van-tab v-for="(item) in tabs" :key="item.id">
-            <div slot="title" @click="onClick(item.crowd_funding_class_id)">{{item.class_name}}</div>
+          <van-tab v-for="(item,index) in tabs" :key="item.id">
+            <div slot="title" @click="onClick(item.crowd_funding_class_id,index)">{{item.class_name}}</div>
             <!-- 内容 {{ index }} -->
+              <!-- <component :is="currentView"></component> -->
           </van-tab>
         </van-tabs>
       </div>
@@ -35,11 +36,13 @@
     <div class="swiper-container wrapAll">
       <div class="swiper-wrapper">
         <div class="swiper-slide" v-for="index in numlength" :key="index">
-          <van-list>
+        
+          
             <div class="hitImg" style="border:none" v-show="ispic">
               <img src="@/assets/woring.png">
               <div class="contenr">暂时无数据，静请期待！</div>
             </div>
+            
             <div v-for="(itemCon) in tabContentsa" :key="itemCon.id" class="people container">
               <router-link
                 :to="{  
@@ -83,7 +86,6 @@
                 </div>
               </router-link>
             </div>
-          </van-list>
         </div>
       </div>
     </div>
@@ -129,7 +131,7 @@ export default {
       numlength: 10,
       tabContentsa: [],
       ispic: false,
-      active: 0,
+      active:0,
       tabs: [],
       num: 0,
       loading: false,
@@ -185,8 +187,10 @@ export default {
   mounted() {
     window.addEventListener("scroll", this.watchScroll);
     let mySwiperA = new Swiper(".swiper-container");
+    // mySwiperA.slideTo(this.active, 0, false);
     mySwiperA.on("slideChange", () => {
       this.active = mySwiperA.activeIndex;
+      this.$root.eventHub.$emit("changeTab", mySwiperA.activeIndex);
       this.ids = this.tabs[mySwiperA.activeIndex].crowd_funding_class_id;
       this.$toast({
         message: "加载中...",
@@ -194,9 +198,15 @@ export default {
       });
       this.refecd();
     });
+
+       this.$root.eventHub.$on("changeTab", index => {
+      // 点击导航键跳转相应内容区
+      mySwiperA.slideTo(index, 0, false);
+    });
   },
   methods: {
-    onClick(names) {
+    onClick(names,index) {
+       this.$root.eventHub.$emit("changeTab", index);
       this.ids = names;
       this.$toast({
         message: "加载中...",

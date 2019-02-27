@@ -11,7 +11,37 @@
       v-show="isshow"
       class="isFixed"
     ></ly-tab>
-
+    <!-- 轮播 -->
+    <van-swipe
+      :autoplay="time"
+      indicator-color="#D21623"
+      @change="onChange"
+      style="height:375.5px"
+      v-if="showA"
+    >
+      <van-swipe-item v-if="showV">
+        <video
+          width="100%"
+          height="100%"
+          x5-video-player-type="h5"
+          x5-video-player-fullscreen="true"
+          x5-playsinline
+          playsinline
+          webkit-playsinline
+          preload="auto"
+          :src="video"
+          :poster="pic"
+          x-webkit-airplay="allow"
+          @click="pauseVideo"
+          @ended="onPlayerEnded($event)"
+        ></video>
+        
+        <img :src="imgs" class="imgsaa" @click="pauseVideo" v-show="showVi">
+      </van-swipe-item>
+      <van-swipe-item v-for="item of picList" :key="item.id">
+        <img class="swiper-img needsclick" :src="item" @click="imghir">
+      </van-swipe-item>
+    </van-swipe>
     <!-- </div> -->
     <!-- <van-pull-refresh v-model="isLoading" @refresh="onRefresh"> -->
     <div class="swiper-box">
@@ -143,8 +173,10 @@ window.url = function() {
     alert("sdk尚未加载成功，请稍后再试");
   }
 };
-// import MsgBus from "@/bus/Bus.vue";
 import Vue from "vue";
+import { Swipe, SwipeItem } from "vant";
+import { ImagePreview } from "vant";
+Vue.use(Swipe).use(SwipeItem);
 import Detail from "@/components/common/component/Detail";
 import Travel from "@/components/common/component/Travel";
 import Plun from "@/components/common/component/Plun";
@@ -155,12 +187,9 @@ import { wishList } from "@/components/axios/api";
 import { specifications } from "@/components/axios/api";
 import { crowd_funding } from "@/components/axios/api";
 import store from "@/components/vuex/store";
-import { PullRefresh } from "vant";
-import { Toast } from "vant";
 import Tabbar from "@/components/common/Tan";
 // import assign from "@/components/axios/assign.js";
-Vue.use(PullRefresh);
-Vue.use(Toast);
+
 export default {
   // mixins: [assign],
   name: "Detail",
@@ -173,6 +202,11 @@ export default {
   },
   data() {
     return {
+      showA: true,
+      picList: [],
+      pic: "",
+      video: "",
+      imgs: require("@/assets/bof.png"),
       daytime: "",
       show: true,
       shows: false,
@@ -208,7 +242,11 @@ export default {
       listP: [],
       img_path: "",
       clickList: "",
-      num: 0
+      num: 0,
+      time: 3500,
+      numv: "",
+      showV: true,
+      showVi: true
     };
   },
   created() {
@@ -232,14 +270,20 @@ export default {
 
         if (res.status && res.data) {
           const data = res.data;
+          this.picList = data.imgs.split(",");
+          this.pic = res.data.video_pic;
+          // console.log(this.pic);
+          this.video = res.data.video_data;
+          // console.log(this.video);
+          if (this.pic == "" && this.video == "") {
+            this.showV = false;
+          }
           this.img_path = data.imgs.split(",")[0];
           let residualTime = data.left_time;
           let day = parseInt(residualTime / (24 * 3600));
           this.daytime = day;
           if (day <= 0) {
-            // console.log(this.show);
             this.show = false;
-            // console.log(this.show);
             this.shows = true;
           }
         }
@@ -254,13 +298,13 @@ export default {
         this.showlj = false;
         this.showljs = true;
       }
-        this.istanchuana = msg;
-        this.isshowa = !msg;
+      this.istanchuana = msg;
+      this.isshowa = !msg;
     });
     window.addEventListener("scroll", this.watchScroll);
     setTimeout(() => {
       this.$refs.wrappers.style.visibility = "visible";
-    }, 1000);
+    }, 1300);
     // 首页图片 设置定时器加载 不然swiper 会有bug (图片的吭) bind 解决this 指向
 
     let mySwiperA = new Swiper(".wrapA", {});
@@ -271,8 +315,10 @@ export default {
       // this.$root.eventHub.$emit("slideTab", mySwiperA.activeIndex);
       if (mySwiperA.activeIndex == 0) {
         this.isshow = false;
+        this.showA = true;
       } else {
         this.isshow = true;
+        this.showA = false;
       }
     });
     // 接收nav组件传过来的导航按钮索引值，跳转到相应内容区
@@ -282,6 +328,28 @@ export default {
     });
   },
   methods: {
+    onChange(index) {
+      this.numV = index;
+    },
+    imghir() {
+      ImagePreview(this.picList);
+    },
+    pauseVideo() {
+      //暂停\播放
+      this.time = 0;
+      let video = document.querySelector("video");
+
+      if (this.numV != 0) {
+        video.pause();
+      }
+      video.play();
+      this.showVi = false;
+    },
+    onPlayerEnded(player) {
+      this.time = 3500;
+      //视频结束
+      this.showVi = true;
+    },
     wishesHit() {
       this.$router.push({
         path: "/wishs"
@@ -677,5 +745,24 @@ export default {
 
 .layerNode .active {
   color: #D21623;
+}
+
+.imgsaa {
+  position: absolute;
+  left: 45%;
+  width: 50px;
+  top: 170px;
+}
+
+.detailWrap >>> .van-swipe__indicator {
+  width: 8px;
+  height: 8px;
+  background-color: #fff;
+  opacity: 1;
+}
+
+.swiper-img {
+  width: 100%;
+  height: 100%;
 }
 </style>

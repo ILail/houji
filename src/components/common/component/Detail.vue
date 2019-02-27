@@ -1,7 +1,7 @@
 <template>
   <div class="wrapAll">
     <!-- 轮播 -->
-    <van-swipe :autoplay="time" :touchable="false" indicator-color="#D21623" @change="onChange" style="height:380px">
+    <!-- <van-swipe :autoplay="time" indicator-color="#D21623" @change="onChange" style="height:380px">
       <van-swipe-item v-if="shows">
         <video
           width="100%"
@@ -17,15 +17,15 @@
           x-webkit-airplay="allow"
           @click="pauseVideo"
           @ended="onPlayerEnded($event)"
-          style="object-fit:fill"
+      
         ></video>
         
         <img :src="imgs" class="imgsaa" @click="pauseVideo" v-show="show">
       </van-swipe-item>
       <van-swipe-item v-for="item of picList" :key="item.id">
-        <img class="swiper-img" :src="item" @click="imghir" style="width:100%;height:100%">
+        <img class="swiper-img needsclick" :src="item" @click="imghir">
       </van-swipe-item>
-    </van-swipe>
+    </van-swipe> -->
     <!-- 内容 -->
     <div v-cloak>
       <div class="container" style=" box-shadow: 0px 1px 24px 0px rgba(255, 255, 255, 0.75);">
@@ -97,24 +97,21 @@
 </template>
 <script>
 import { crowd_funding } from "@/components/axios/api";
-import Vue from "vue";
-import { Swipe, SwipeItem } from "vant";
-import { ImagePreview } from "vant";
-Vue.use(Swipe).use(SwipeItem);
+
 // import this.$bus from "@/bus/Bus.vue";
 export default {
   data() {
     return {
       list: {},
-      picList: [],
-      pic: "",
-      video: "",
-      imgs: require("@/assets/bof.png"),
+      // picList: [],
+      // pic: "",
+      // video: "",
+      // imgs: require("@/assets/bof.png"),
       img: require("@/assets/rr.png"),
-      num: "",
-      show: true,
-      time: 3000,
-      shows: true,
+      // num: "",
+      // show: true,
+      // time: 3000,
+      // shows: true,
       istanchuana: true,
     };
   },
@@ -126,13 +123,13 @@ export default {
         if (res.status && res.data) {
           const data = res.data;
           this.list = data;
-          console.log(this.list);
-          this.picList = data.imgs.split(",");
-          this.pic = res.data.video_pic;
-          this.video = res.data.video_data;
-          if (this.pic == "" && this.video == "") {
-            this.shows = false;
-          }
+          // console.log(this.list);
+          // this.picList = data.imgs.split(",");
+          // this.pic = res.data.video_pic;
+          // this.video = res.data.video_data;
+          // if (this.pic == "" && this.video == "") {
+          //   this.shows = false;
+          // }
         }
       })
       .catch(err => {
@@ -143,31 +140,34 @@ export default {
     flexr() {
       this.$bus.$emit("msg", this.istanchuana);
     },
-    onChange(index) {
-      this.num = index;
-    },
-    imghir() {
-      ImagePreview(this.picList);
-    },
-    pauseVideo() {
-      //暂停\播放
-      this.time = 0;
-      let video = document.querySelector("video");
-      // console.log(this.num);
-      if (this.num != 0) {
-        video.pause();
-      }
-      video.play();
+    // onChange(index) {
+    //   this.num = index;
+    // },
+    // imghir() {
+    //   ImagePreview(this.picList);
+    // },
+    // pauseVideo() {
+    //   //暂停\播放
+    //   this.time = 0;
+    //   let video = document.querySelector("video");
+    //   // console.log(this.num);
+    //   if (this.num != 0) {
+    //     video.pause();
+    //   }
+    //   video.play();
 
-      this.show = false;
-    },
-    onPlayerEnded(player) {
-      this.time = 3000;
-      //视频结束
-      this.show = true;
-    },
+    //   this.show = false;
+    // },
+    // onPlayerEnded(player) {
+    //   this.time = 3000;
+    //   //视频结束
+    //   this.show = true;
+    // },
     computedR: function(list) {
-      let width = list.progress-1.6;
+      let width = list.progress+1.6;
+      if(width >= 13) {
+        width =list.progress
+      }
       if(width>=98.4){
         width = 85
       }
@@ -254,20 +254,13 @@ export default {
   margin-right: 0.2rem;
 }
 
-.imgsaa {
-  position: absolute;
-  left: 45%;
-  width: 50px;
-  top: 170px;
-}
+
 
 [v-cloak] {
   display: none;
 }
 
-.swiper-img {
-  height: 375px;
-}
+
 
 .wordess {
   text-decoration: line-through;
@@ -436,12 +429,7 @@ export default {
   margin-top: 20px;
   padding-bottom: 50px;
 }
-.wrapAll >>> .van-swipe__indicator{
-  width 8px
-  height 8px
-  background-color #fff
-  opacity 1
-}
+
 </style>
 
 

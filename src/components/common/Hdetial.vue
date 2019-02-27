@@ -1,9 +1,14 @@
 <template>
   <div ref="wrappers" class="wrapAll" style="visibility:hidden;">
     <!-- 轮播 -->
-    <van-swipe :autoplay="2500"  :touchable="false" indicator-color="#D21623">
+    <van-swipe :autoplay="3500" indicator-color="#D21623" style="height:375.5px">
       <van-swipe-item v-for="item of picList" :key="item.id">
-        <img class="swiper-img" :src="item" @click="imghir" style="width:100%;height:376px">
+        <img
+          class="swiper-img needsclick"
+          :src="item"
+          @click="imghir"
+          style="width:100%;height:100%"
+        >
       </van-swipe-item>
     </van-swipe>
 
@@ -124,7 +129,7 @@ export default {
       picList: [],
       listP: [],
       img: require("@/assets/rrs.png"),
-      list: {},
+      list: "",
       img_path: "",
       clickList: "",
       num: 0
@@ -164,9 +169,12 @@ export default {
   mounted() {
     setTimeout(() => {
       this.$refs.wrappers.style.visibility = "visible";
-    }, 1700);
+    }, 1300);
   },
   methods: {
+    onChange(index) {
+      this.current = index;
+    },
     jia: function() {
       if (this.count == 1) {
         return;
@@ -219,7 +227,7 @@ export default {
     // 点击下单
     ljxd() {
       if (store.state.token == null) {
-        console.log(123)
+        console.log(123);
         this.$router.push({ path: "/phone" });
       } else {
         const arry = [
@@ -472,7 +480,7 @@ export default {
   float: left;
   margin-bottom: 28px;
 }
-
+[v-cloak]{ display: none; }
 .queren {
   width: 100%;
   background: rgba(210, 22, 35, 1);
@@ -541,11 +549,12 @@ export default {
   height: 80%;
   z-index: 999;
 }
-.wrapAll >>> .van-swipe__indicator{
-  width 8px
-  height 8px
-  background-color #fff
-  opacity 1
+
+.wrapAll >>> .van-swipe__indicator {
+  width: 8px;
+  height: 8px;
+  background-color: #fff;
+  opacity: 1;
 }
 </style>
 

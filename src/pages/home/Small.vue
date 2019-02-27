@@ -55,7 +55,7 @@
         <div class="swiper-pagination" slot="pagination"></div>
       </swiper>
     </div>-->
-    <mt-swipe :auto="3500" style="height:185.5px" v-if="wrapImg">
+    <mt-swipe :auto="3500" style="height:187.5px" v-if="wrapImg">
       <mt-swipe-item v-for="item of sowingMap" :key="item.id">
         <!-- <router-link
           :to="{  
@@ -499,5 +499,6 @@ export default {
 
 .swiper-img {
   width: 100%;
+  height 100%
 }
 </style>
