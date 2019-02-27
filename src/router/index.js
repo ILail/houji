@@ -286,7 +286,7 @@ const routes = [{
 
 const router = new Router({
   mode: 'history',
-  base:'/test',
+  base: '/test_h5',
   routes,
   scrollBehavior(to, from, savedPosition) {
     if (savedPosition) {
