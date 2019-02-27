@@ -110,12 +110,12 @@
 import { fsDetail } from "@/components/axios/api";
 import { fs } from "@/components/axios/api";
 import Item from "@/components/Item.vue";
-import assign from "@/components/axios/assign.js";
+// import assign from "@/components/axios/assign.js";
 import Tabbar from "@/components/common/Tan";
 import Swiper from "moon/swiper.min";
 import "moon/swiper.min.css";
 export default {
-  mixins: [assign],
+  // mixins: [assign],
   name: "Feilei",
   components: {
     Item,

@@ -73,9 +73,9 @@
     <div class="swiper-container wrapWa">
       <div class="swiper-wrapper">
         <div class="swiper-slide" v-for="index of 7" :key="index">
-          <!-- <keep-alive> -->
-          <component :is="currentView"></component>
-          <!-- </keep-alive> -->
+          <keep-alive>
+            <component :is="currentView"></component>
+          </keep-alive>
         </div>
       </div>
     </div>

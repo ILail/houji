@@ -158,11 +158,11 @@ import store from "@/components/vuex/store";
 import { PullRefresh } from "vant";
 import { Toast } from "vant";
 import Tabbar from "@/components/common/Tan";
-import assign from "@/components/axios/assign.js";
+// import assign from "@/components/axios/assign.js";
 Vue.use(PullRefresh);
 Vue.use(Toast);
 export default {
-  mixins: [assign],
+  // mixins: [assign],
   name: "Detail",
   components: {
     Detail,
@@ -260,7 +260,7 @@ export default {
     window.addEventListener("scroll", this.watchScroll);
     setTimeout(() => {
       this.$refs.wrappers.style.visibility = "visible";
-    }, 2500);
+    }, 1000);
     // 首页图片 设置定时器加载 不然swiper 会有bug (图片的吭) bind 解决this 指向
 
     let mySwiperA = new Swiper(".wrapA", {});

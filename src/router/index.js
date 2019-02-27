@@ -78,6 +78,7 @@ const routes = [{
     component: Small,
     meta: {
       oppendid: true,
+      
     },
   },
   {
@@ -285,8 +286,8 @@ const routes = [{
 
 
 const router = new Router({
-  mode: 'history',
-  base: '/test_h5',
+  // mode: 'history',
+  // base: '/',
   routes,
   scrollBehavior(to, from, savedPosition) {
     if (savedPosition) {
