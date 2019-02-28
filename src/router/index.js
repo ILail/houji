@@ -108,6 +108,14 @@ const routes = [{
     },
   },
   {
+    path: '/peos',
+    name: '花果山',
+    // component: Feilei,
+    // meta: {
+    //   oppendid: true,
+    // },
+  },
+  {
     path: '/feilei',
     name: '分类',
     component: Feilei,

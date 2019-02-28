@@ -123,6 +123,7 @@ export default {
         if (res.status && res.data) {
           const data = res.data;
           this.list = data;
+          console.log(3)
           // console.log(this.list);
           // this.picList = data.imgs.split(",");
           // this.pic = res.data.video_pic;

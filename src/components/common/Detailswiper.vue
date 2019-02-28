@@ -34,6 +34,7 @@
           x-webkit-airplay="allow"
           @click="pauseVideo"
           @ended="onPlayerEnded($event)"
+          style="object-fit:cover;"
         ></video>
         
         <img :src="imgs" class="imgsaa" @click="pauseVideo" v-show="showVi">
@@ -212,6 +213,7 @@ export default {
       shows: false,
       showlj: true,
       showljs: false,
+      // 导航初始化
       selectedId: 0,
       items: [
         { label: "详情" },
@@ -226,7 +228,6 @@ export default {
       handler: function(e) {
         e.preventDefault();
       },
-      // searchBarFixed: false,
       list: [
         { component: Detail },
         { component: Travel },
@@ -235,14 +236,20 @@ export default {
       ],
       isshow: false,
       isshowa: true,
-      scrollTop: "",
+      // 判断
       istanchuan: false,
       istanchuana: false,
+      // 加减
       count: 1,
+      // 弹窗规格的数组
       listP: [],
+      // 弹窗的小图
       img_path: "",
+      // 第一个默认规格
       clickList: "",
+      // 弹窗切换的颜色
       num: 0,
+      // 视频
       time: 3500,
       numv: "",
       showV: true,
@@ -272,9 +279,7 @@ export default {
           const data = res.data;
           this.picList = data.imgs.split(",");
           this.pic = res.data.video_pic;
-          // console.log(this.pic);
           this.video = res.data.video_data;
-          // console.log(this.video);
           if (this.pic == "" && this.video == "") {
             this.showV = false;
           }
@@ -292,7 +297,7 @@ export default {
         console.log(err, "请求失败");
       });
   },
-  mounted: function() {
+  mounted() {
     this.$bus.$on("msg", msg => {
       if (this.daytime <= 0) {
         this.showlj = false;
@@ -301,7 +306,7 @@ export default {
       this.istanchuana = msg;
       this.isshowa = !msg;
     });
-    window.addEventListener("scroll", this.watchScroll);
+    // window.addEventListener("scroll", this.watchScroll);
     setTimeout(() => {
       this.$refs.wrappers.style.visibility = "visible";
     }, 1300);
@@ -316,6 +321,7 @@ export default {
       if (mySwiperA.activeIndex == 0) {
         this.isshow = false;
         this.showA = true;
+        this.showVi = true;
       } else {
         this.isshow = true;
         this.showA = false;
@@ -329,7 +335,12 @@ export default {
   },
   methods: {
     onChange(index) {
+      let video = document.querySelector("video");
       this.numV = index;
+      if (this.numV != 0) {
+        this.showVi = true;
+        video.pause();
+      }
     },
     imghir() {
       ImagePreview(this.picList);
@@ -338,10 +349,6 @@ export default {
       //暂停\播放
       this.time = 0;
       let video = document.querySelector("video");
-
-      if (this.numV != 0) {
-        video.pause();
-      }
       video.play();
       this.showVi = false;
     },

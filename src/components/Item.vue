@@ -38,8 +38,24 @@ export default {
   },
   methods: {
     changePage: function() {
+      console.log(this.page);
       this.$router.push("/" + this.page);
       this.$emit("change", this.page);
+      let ua = navigator.userAgent.toLowerCase();
+      //Android终端
+      let isAndroid = ua.indexOf("Android") > -1 || ua.indexOf("Adr") > -1;
+      //Ios终端
+      let isiOS = !!ua.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/);
+      if (this.page == "peos") {
+        if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
+          //Ios
+          window.location =
+            "https://itunes.apple.com/cn/app//id1438399174?mt=8";
+        } else if (/(Android)/i.test(navigator.userAgent)) {
+          //Android终端
+          window.location = "https://api.ngba.cn/download/houji.apk";
+        }
+      }
     }
   }
 };

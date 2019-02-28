@@ -152,6 +152,12 @@ export default {
           activeImg: require("@/assets/foot/fixs.png")
         },
         {
+          txt: "花果山",
+          page: "peos",
+          normalImg: require("@/assets/foot/peos.png"),
+          activeImg: require("@/assets/foot/peoss.png")
+        },
+        {
           txt: "购物车",
           page: "wishs",
           normalImg: require("@/assets/foot/wish.png"),
