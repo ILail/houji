@@ -445,7 +445,7 @@ const routes = [{
 
 
 const router = new Router({
-  // mode: 'history',
+  mode: 'history',
   // base: '/',
 
   scrollBehavior(to, from, savedPosition) {
