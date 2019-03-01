@@ -445,9 +445,9 @@ const routes = [{
 
 
 const router = new Router({
-  // mode: 'history',
+  mode: 'history',
   // base: '/',
-  routes,
+
   scrollBehavior(to, from, savedPosition) {
     if (savedPosition) {
       return savedPosition
@@ -457,7 +457,8 @@ const router = new Router({
         y: 0
       }
     }
-  }
+  },
+  routes
 });
 
 

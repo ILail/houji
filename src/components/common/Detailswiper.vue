@@ -337,7 +337,7 @@ export default {
     onChange(index) {
       let video = document.querySelector("video");
       this.numV = index;
-      if (this.numV != 0) {
+      if (this.numV != 0 && this.showV == true) {
         this.showVi = true;
         video.pause();
       }
