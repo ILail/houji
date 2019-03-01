@@ -1,12 +1,13 @@
 <template>
   <div class="wrapps">
-    <van-tabs v-model="active" animated sticky v-if="showcon">
-      <van-tab v-for="(item,index) in picList" :key="item.id">
-        <div slot="title" @click="onClick(item.geographical_id,index)">{{item.geographical_name}}</div>
-        <!-- 内容 {{ index }} -->
-      </van-tab>
-    </van-tabs>
-
+    <div v-if="showcon">
+      <van-tabs v-model="active" animated sticky>
+        <van-tab v-for="(item,index) in picList" :key="item.id">
+          <div slot="title" @click="onClick(item.geographical_id,index)">{{item.geographical_name}}</div>
+          <!-- 内容 {{ index }} -->
+        </van-tab>
+      </van-tabs>
+    </div>
     <!-- 下面内容 -->
     <div class="swiper-container">
       <div class="swiper-wrapper">
@@ -76,10 +77,10 @@ export default {
   data() {
     return {
       ispic: false,
-      numlength:9,
+      numlength: 9,
       ids: "",
       // index: this.$route.query.num,
-      active: this.$route.query.num,
+      active: 0,
       showcon: false,
       // items: [
       //   { label: "北京" },
@@ -102,7 +103,7 @@ export default {
     };
   },
   created() {
-    // this.active = this.index;
+    this.active = this.$route.query.num;
     address()
       .then(res => {
         res = res.data;
@@ -169,8 +170,8 @@ export default {
           // this.numlength = this.picList.length
           if (this.listAddress.length == 0) {
             this.ispic = true;
-          }else{
-             this.ispic = false;
+          } else {
+            this.ispic = false;
           }
         })
         .catch(err => {
@@ -208,6 +209,7 @@ export default {
 .wrapps >>> .van-tabs__line {
   background-color: #D21623;
 }
+
 .swiper-slide {
   height: 0px;
   overflow-y: hidden;

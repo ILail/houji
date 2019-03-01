@@ -229,7 +229,7 @@ export default {
       // preventClicks : true,//默认true
       // preventLinksPropagation : true,
       touchMoveStopPropagation: false,
-      observer: true
+      // observer: true
     });
     this.$root.eventHub.$on("changeTab", index => {
       // 点击导航键跳转相应内容区

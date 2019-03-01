@@ -38,7 +38,7 @@ export default {
   },
   methods: {
     changePage: function() {
-      console.log(this.page);
+      // console.log(this.page);
       this.$router.push("/" + this.page);
       this.$emit("change", this.page);
       let ua = navigator.userAgent.toLowerCase();
