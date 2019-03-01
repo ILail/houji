@@ -1,5 +1,5 @@
 <template>
-  <div ref="wrappers" class="wrapAll" style="visibility:hidden;">
+  <div class="wrapAll">
     <!-- 轮播 -->
     <van-swipe :autoplay="3500" indicator-color="#D21623" style="height:375.5px">
       <van-swipe-item v-for="item of picList" :key="item.id">
@@ -11,23 +11,24 @@
         >
       </van-swipe-item>
     </van-swipe>
-
-    <div class="middle">
-      <div>
-        <span>限量购</span>
-        <span>抢购中</span>
+    <div v-if="show">
+      <div class="middle">
+        <div>
+          <span>限量购</span>
+          <span>抢购中</span>
+        </div>
+        <div class="wrapss">
+          <span>仅剩{{list.left_nums}}件</span>
+          <img :src="img" style="width:8px">
+        </div>
       </div>
-      <div class="wrapss">
-        <span>仅剩{{list.left_nums}}件</span>
-        <img :src="img" style="width:8px">
-      </div>
-    </div>
-    <div class="container">
-      <div class="name top">{{list.crowd_funding_name}}</div>
-      <div class="detail top">{{list.summary}}</div>
-      <div class="all top">
-        <span class="Lmoney">¥ {{money}}</span>
-        <span class="Smoney">¥ {{moneys}}</span>
+      <div class="container">
+        <div class="name top">{{list.crowd_funding_name}}</div>
+        <div class="detail top">{{list.summary}}</div>
+        <div class="all top">
+          <span class="Lmoney">¥ {{money}}</span>
+          <span class="Smoney">¥ {{moneys}}</span>
+        </div>
       </div>
     </div>
     <div class="peoDela" v-html="list.content"></div>
@@ -120,6 +121,7 @@ Vue.use(Swipe).use(SwipeItem);
 export default {
   data() {
     return {
+      show: false,
       // isshowa: true,
       count: 1,
       // istanchuana: false,
@@ -154,7 +156,7 @@ export default {
 
         if (res.status && res.data) {
           const data = res.data;
-          console.log(data);
+          // console.log(data);
           this.money = data.reality_money;
           this.moneys = data.support_money;
           this.img_path = data.imgs.split(",")[0];
@@ -167,9 +169,17 @@ export default {
       });
   },
   mounted() {
+    // setTimeout(() => {
+    //   this.$refs.wrappers.style.visibility = "visible";
+    // }, 1250);
+    this.$toast({
+      type: 'loading',
+      message: "加载中...",
+      duration: "1250"
+    });
     setTimeout(() => {
-      this.$refs.wrappers.style.visibility = "visible";
-    }, 500);
+      this.show = true;
+    }, 1300);
   },
   methods: {
     onChange(index) {
@@ -480,7 +490,11 @@ export default {
   float: left;
   margin-bottom: 28px;
 }
-[v-cloak]{ display: none; }
+
+[v-cloak] {
+  display: none;
+}
+
 .queren {
   width: 100%;
   background: rgba(210, 22, 35, 1);

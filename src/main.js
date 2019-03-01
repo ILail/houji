@@ -47,7 +47,6 @@ Vue.use(Tab).use(Tabs);
 Vue.use(Popup);
 Vue.use(clipper)
 
-
 Vue.use(require('vue-wechat-title'))
 Vue.use(LyTab);
 Vue.prototype.$http = axios;

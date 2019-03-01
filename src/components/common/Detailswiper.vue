@@ -1,5 +1,5 @@
 <template>
-  <div class="detailWrap" ref="wrappers" style="visibility:hidden;">
+  <div class="detailWrap">
     <!-- 推荐 -->
     <!-- <div :class="searchBarFixed == true ? 'isFixed' :''" id="searchBar"> -->
     <!-- <home-nav></home-nav> -->
@@ -203,6 +203,7 @@ export default {
   },
   data() {
     return {
+      // showC: false,
       showA: true,
       picList: [],
       pic: "",
@@ -307,9 +308,13 @@ export default {
       this.isshowa = !msg;
     });
     // window.addEventListener("scroll", this.watchScroll);
-    setTimeout(() => {
-      this.$refs.wrappers.style.visibility = "visible";
-    }, 500);
+    this.$toast({
+      mask:"true",
+      message: "加载中...",
+      duration: "1250",
+
+    });
+
     // 首页图片 设置定时器加载 不然swiper 会有bug (图片的吭) bind 解决this 指向
 
     let mySwiperA = new Swiper(".wrapA", {});
@@ -349,7 +354,10 @@ export default {
       //暂停\播放
       this.time = 0;
       let video = document.querySelector("video");
-      video.play();
+      if (this.showV == true) {
+        video.play();
+      }
+
       this.showVi = false;
     },
     onPlayerEnded(player) {

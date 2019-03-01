@@ -159,7 +159,7 @@ const routes = [{
     path: '/jioayid',
     // name: '交易详情',
     component: resolve => require(["@/components/common/Jdetial"], resolve),
-   
+
     meta: {
       title: '交易详情',
     },
@@ -445,12 +445,14 @@ const routes = [{
 
 
 const router = new Router({
-  mode: 'history',
+  // mode: 'history',
   // base: '/',
 
   scrollBehavior(to, from, savedPosition) {
     if (savedPosition) {
-      return savedPosition
+      setTimeout(() => {
+        window.scrollTo(savedPosition.x, savedPosition.y)
+      }, 200)
     } else {
       return {
         x: 0,

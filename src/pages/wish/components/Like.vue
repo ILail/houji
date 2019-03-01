@@ -1,6 +1,6 @@
 <template>
   <div style="padding-bottom: 60px;">
-    <div class="title">
+    <div class="title" v-if="show">
       <div style="font-size:14px">猜你喜欢</div>
     </div>
     <div class="content container">
@@ -50,13 +50,13 @@ export default {
   },
   data() {
     return {
-      // show:false
+      show:false
     };
   },
   mounted() {
-    // setTimeout(() => {
-    //   this.show = true
-    // }, 1300);
+    setTimeout(() => {
+      this.show = true
+    }, 1000);
   },
   methods: {
     computedResidualTime: function(items) {

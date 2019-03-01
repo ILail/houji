@@ -25,9 +25,9 @@
       <van-swipe-item v-for="item of picList" :key="item.id">
         <img class="swiper-img needsclick" :src="item" @click="imghir">
       </van-swipe-item>
-    </van-swipe> -->
+    </van-swipe>-->
     <!-- 内容 -->
-    <div v-cloak>
+    <div v-if="showQ">
       <div class="container" style=" box-shadow: 0px 1px 24px 0px rgba(255, 255, 255, 0.75);">
         <div class="title top">{{list.crowd_funding_name}}</div>
         <div class="content top">{{list.summary}}</div>
@@ -88,10 +88,10 @@
           </div>
         </div>
       </div>
-    </div>
-    <!-- 详情页 -->
-    <div class="peoDela" v-html="list.content"></div>
 
+      <!-- 详情页 -->
+      <div class="peoDela" v-html="list.content"></div>
+    </div>
     <!-- 底部 -->
   </div>
 </template>
@@ -113,6 +113,7 @@ export default {
       // time: 3000,
       // shows: true,
       istanchuana: true,
+      showQ: false
     };
   },
   created() {
@@ -136,6 +137,11 @@ export default {
       .catch(err => {
         console.log(err, "请求失败");
       });
+  },
+  mounted() {
+    setTimeout(() => {
+      this.showQ = true;
+    }, 1350);
   },
   methods: {
     flexr() {
@@ -165,12 +171,12 @@ export default {
     //   this.show = true;
     // },
     computedR: function(list) {
-      let width = list.progress+1.6;
-      if(width >= 13) {
-        width =list.progress
+      let width = list.progress + 1.6;
+      if (width >= 13) {
+        width = list.progress;
       }
-      if(width>=98.4){
-        width = 85
+      if (width >= 98.4) {
+        width = 85;
       }
       return `${width}`;
     },
@@ -255,13 +261,9 @@ export default {
   margin-right: 0.2rem;
 }
 
-
-
 [v-cloak] {
   display: none;
 }
-
-
 
 .wordess {
   text-decoration: line-through;
@@ -430,7 +432,6 @@ export default {
   margin-top: 20px;
   padding-bottom: 50px;
 }
-
 </style>
 
 
