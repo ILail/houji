@@ -169,7 +169,7 @@ export default {
   mounted() {
     setTimeout(() => {
       this.$refs.wrappers.style.visibility = "visible";
-    }, 1300);
+    }, 500);
   },
   methods: {
     onChange(index) {
