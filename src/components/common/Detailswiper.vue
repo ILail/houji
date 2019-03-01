@@ -1,5 +1,5 @@
 <template>
-  <div class="detailWrap">
+  <div class="detailWrap" ref="wrappers" style="visibility:hidden;">
     <!-- 推荐 -->
     <!-- <div :class="searchBarFixed == true ? 'isFixed' :''" id="searchBar"> -->
     <!-- <home-nav></home-nav> -->
@@ -307,10 +307,9 @@ export default {
       this.isshowa = !msg;
     });
     // window.addEventListener("scroll", this.watchScroll);
-    // ref="wrapps" style="visibility:hidden"
-    // setTimeout(() => {
-    //   this.$refs.wrappers.style.visibility = "visible";
-    // }, 1300);
+    setTimeout(() => {
+      this.$refs.wrappers.style.visibility = "visible";
+    }, 500);
     // 首页图片 设置定时器加载 不然swiper 会有bug (图片的吭) bind 解决this 指向
 
     let mySwiperA = new Swiper(".wrapA", {});
