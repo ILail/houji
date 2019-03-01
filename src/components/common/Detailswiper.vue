@@ -189,10 +189,10 @@ import { specifications } from "@/components/axios/api";
 import { crowd_funding } from "@/components/axios/api";
 import store from "@/components/vuex/store";
 import Tabbar from "@/components/common/Tan";
-// import assign from "@/components/axios/assign.js";
+import assign from "@/components/axios/assign.js";
 
 export default {
-  // mixins: [assign],
+  mixins: [assign],
   name: "Detail",
   components: {
     Detail,

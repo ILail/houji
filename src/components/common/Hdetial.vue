@@ -115,10 +115,11 @@ import Vue from "vue";
 import { Swipe, SwipeItem } from "vant";
 import { ImagePreview } from "vant";
 import { Sku } from "vant";
-
+import assign from "@/components/axios/assign.js";
 Vue.use(Sku);
 Vue.use(Swipe).use(SwipeItem);
 export default {
+  mixins: [assign],
   data() {
     return {
       show: false,
@@ -173,7 +174,7 @@ export default {
     //   this.$refs.wrappers.style.visibility = "visible";
     // }, 1250);
     this.$toast({
-      type: 'loading',
+      type: "loading",
       message: "加载中...",
       duration: "1250"
     });
