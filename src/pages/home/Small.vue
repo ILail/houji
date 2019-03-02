@@ -295,6 +295,7 @@ export default {
           this.currentView = "Fuli";
           this.selectedId = 1;
           this.wrapImg = false;
+         
           break;
         case "Fuli":
           this.currentView = "Dizhi";
@@ -321,6 +322,7 @@ export default {
         case "Finish":
           this.currentView = "Home";
           this.selectedId = 0;
+           document.body.scrollTop = 0;
           break;
       }
     },
@@ -332,6 +334,7 @@ export default {
           this.currentView = "Finish";
           this.selectedId = 5;
           this.wrapImg = false;
+           document.body.scrollTop = 0;
           break;
 
         case "Finish":

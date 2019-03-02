@@ -458,12 +458,12 @@ const routes = [{
 const router = new Router({
   mode: 'history',
   // base: '',
-
+  routes,
   scrollBehavior(to, from, savedPosition) {
     if (savedPosition) {
-      setTimeout(() => {
-        window.scrollTo(savedPosition.x, savedPosition.y)
-      }, 200)
+
+      window.scrollTo(savedPosition.x, savedPosition.y)
+
     } else {
       return {
         x: 0,
@@ -471,7 +471,7 @@ const router = new Router({
       }
     }
   },
-  routes
+
 });
 
 

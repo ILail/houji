@@ -52,7 +52,7 @@ export function fsDetail(id, page) {
 // 地理省份标志
 export function address(id) {
   return fetch({
-    url: api.Hallowmas + '/v2p2/geographica/geographicalList?type=' + id+'',
+    url: api.Hallowmas + '/v2p2/geographica/geographicalList?type=' + id + '',
     method: "GET",
   })
 }
@@ -178,9 +178,9 @@ export function people() {
 }
 
 // 猜你喜欢
-export function gass() {
+export function gass(page) {
   return fetch({
-    url: api.Hallowmas + '/v2/index?crowd_funding_type= ' + 111 + ' ',
+    url: api.Hallowmas + '/v2/index?crowd_funding_type= ' + 111 + '&page=' + page + ' ',
     method: "GET",
 
   })
