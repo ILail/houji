@@ -6,7 +6,7 @@
         <li v-for=" (item,index) in picList" :key="item.id">
           <router-link
             :to="{  
-        path: 'addressdetail',     
+        path: '/word',     
         query: {   
             num:index,// orderNum : this.searchData.orderNo
         }
@@ -19,7 +19,7 @@
         <li>
           <router-link
             :to="{  
-        path: 'addressdetail',     
+        path: '/word',     
         query: {   
             num: 0, // orderNum : this.searchData.orderNo
         }

@@ -82,6 +82,17 @@ const routes = [{
       oppendid: true,
       title: '猴集',
     },
+    // children: [{
+
+    // }]
+  },
+  {
+    path: '/word',
+    component: resolve => require(["@/pages/home/components/AddressWord"], resolve),
+    meta: {
+
+      title: '海外淘',
+    },
   },
   {
     path: '/linjuan',
@@ -197,7 +208,7 @@ const routes = [{
     // name: '地址',
     component: resolve => require(["@/pages/home/components/Addressdetail"], resolve),
     meta: {
-      title: '地址'
+      title: '地理标志'
     }
     // component: Addressdetail
   },
