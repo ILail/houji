@@ -60,7 +60,7 @@
 <script type="text/ecmascript-6">
 import { fsDetail } from "@/components/axios/api";
 export default {
-  name: "Youji",
+  name: "Finish",
   data() {
     return {
       tabContents: [],

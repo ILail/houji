@@ -104,7 +104,7 @@ export default {
   },
   created() {
     this.active = this.$route.query.num;
-    address()
+    address(0)
       .then(res => {
         res = res.data;
         if (res.status && res.data) {
@@ -164,7 +164,7 @@ export default {
     },
     refecd() {
       // console.log(this.ids);
-      addresslist(this.ids, 0)
+      addresslist(this.ids,0)
         .then(res => {
           this.listAddress = res.data.data.crowd_list;
           // this.numlength = this.picList.length

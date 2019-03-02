@@ -32,7 +32,7 @@ export default {
     const urlLength = url.split("?").length
     if ( urlLength == 1) {
       // this.$router.push("/");
-      console.log(123)
+      // console.log(123)
     } else {
       const localarr = url.split("?")[1].split("&");
       let code = localarr[0].split("=")[1];

@@ -17,26 +17,50 @@ import clipboard from 'clipboard';
 //注册到vue原型上
 Vue.prototype.clipboard = clipboard;
 // vant
-import { Tab, Tabs } from "vant";
-import { Toast } from "vant";
-import { Popup } from "vant";
-import { PullRefresh } from 'vant';
-import { List } from 'vant';
-import { Loading } from 'vant';
-import { Swipe, SwipeItem } from "vant";
+import {
+  Tab,
+  Tabs
+} from "vant";
+import {
+  Toast
+} from "vant";
+import {
+  Popup
+} from "vant";
+import {
+  PullRefresh
+} from 'vant';
+import {
+  List
+} from 'vant';
+import {
+  Loading
+} from 'vant';
+import {
+  Swipe,
+  SwipeItem
+} from "vant";
 
 import MintUI from 'mint-ui'
 import 'mint-ui/lib/style.css'
 Vue.use(MintUI)
-import { Lazyload } from 'vant';
-
+import {
+  Lazyload
+} from 'vant';
+import VueTouch from 'vue-touch'
+VueTouch.config.swipe = {
+  direction: 'horizontal'
+};
+Vue.use(VueTouch, {
+  name: 'v-touch'
+})
 // options 为可选参数，无则不传
-Vue.use(Lazyload,{
+Vue.use(Lazyload, {
   preLoad: 1,
-  error:require('@/assets/err2.png'),
-  loading:require('@/assets/err2.png'),
+  error: require('@/assets/err2.png'),
+  loading: require('@/assets/err2.png'),
   attempt: 1,
-  throttleWait:500
+  throttleWait: 500
 });
 Vue.use(Swipe).use(SwipeItem);
 Vue.use(Loading);
@@ -64,6 +88,6 @@ new Vue({
   template: '<App/>',
   data: {
     eventHub: new Vue(),
-    eventHuC: new Vue()// 使用集中的事件处理器,在任何组件调用事件发射、接受的方法
+    eventHuC: new Vue() // 使用集中的事件处理器,在任何组件调用事件发射、接受的方法
   }
 })

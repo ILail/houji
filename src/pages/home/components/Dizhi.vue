@@ -138,7 +138,7 @@ export default {
     };
   },
   created() {
-    address()
+    address(0)
       .then(res => {
         // console.log(res.data);
         res = res.data;

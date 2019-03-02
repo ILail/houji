@@ -50,20 +50,20 @@ export function fsDetail(id, page) {
 }
 
 // 地理省份标志
-export function address() {
+export function address(id) {
   return fetch({
-    url: api.Hallowmas + '/v2/geographica/geographicalList',
+    url: api.Hallowmas + '/v2p2/geographica/geographicalList?type=' + id+'',
     method: "GET",
   })
 }
 
 // 地理标志列表
-export function addresslist(id, type) {
+export function addresslist(geographical_id, type) {
   return fetch({
     url: api.Hallowmas + '/v2p2/geographica/geographicalCrowdList',
     method: "POST",
     data: {
-      id: id,
+      geographical_id: geographical_id,
       type: type
     }
   })

@@ -1,5 +1,6 @@
 <template>
   <div>
+   
     <div class="wrapword container">
       <span>
         <img src="@/assets/one.png">24小时监控
@@ -21,6 +22,7 @@
 </template>
 
 <script>
+
 import HomePeople from "./components/People";
 import HomeNew from "./components/New";
 import HomeLike from "./components/Like";
@@ -31,14 +33,20 @@ export default {
   components: {
     HomePeople,
     HomeNew,
-    HomeLike
+    HomeLike,
+    
   },
   data() {
     return {
+      options: {
+        activeColor: "#D21623"
+        // 可在这里指定labelKey为你数据里文字对应的字段名
+      },
       popuLarity: [],
       dayProduct: [],
       gass: [],
-      adInfo: ""
+      adInfo: "",
+      sowingMap: []
     };
   },
   created: function() {
@@ -48,9 +56,10 @@ export default {
 
         if (res.status && res.data) {
           const data = res.data;
+          this.sowingMap = data.sowingMap;
           this.adInfo = data.adInfo;
-          this.popuLarity = data.popularity.slice(0,2);
-          this.dayProduct = data.dayProduct.slice(0,2);
+          this.popuLarity = data.popularity.slice(0, 2);
+          this.dayProduct = data.dayProduct.slice(0, 2);
         }
       })
       .catch(err => {
@@ -70,7 +79,6 @@ export default {
       });
   },
   mounted() {
-
     // setTimeout(() => {
     //   this.$refs.wrapps.style.visibility = "visible";
     // }, 100);
@@ -86,7 +94,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="stylus" type="text/stylus" rel="stylesheet/stylus" scoped>
 .tImg {
-  height:96.41px;
+  height: 96.41px;
   width: 100%;
   margin-top: 10px;
 }
@@ -112,4 +120,6 @@ export default {
   width: 10px;
   margin-right: 3px;
 }
+
+
 </style>

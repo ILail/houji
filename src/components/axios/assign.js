@@ -9,7 +9,7 @@ export default {
       console.log(to.fullPath)
       location.assign(to.fullPath)
     } else {
-        console.log(1212)
+        // console.log(1212)
       next()
     }
   }

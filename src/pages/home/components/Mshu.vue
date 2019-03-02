@@ -1,81 +1,152 @@
 <template>
-  <div class="wrapAll container">
-    <div class="hitImg" v-show="ispic">
-      <img src="@/assets/woring.png">
-      <div class="contenr">敬请期待</div>
-    </div>
-    <div
-      v-for="(itemCon) in tabContents"
-      :key="itemCon.id"
-      class="people"
-      @click="DEtails(itemCon.crowd_funding_id)"
-    >
-      <!-- <router-link
-        :to="{  
-        path: 'Detail',     
+  <div>
+    <!-- <home-swiper :list="sowingMap"></home-swiper> -->
+    <div class="contentNav">
+      <ul>
+        <li v-for=" (item,index) in picList" :key="item.id">
+          <router-link
+            :to="{  
+        path: 'addressdetail',     
         query: {   
-            key: itemCon.crowd_funding_id, // orderNum : this.searchData.orderNo
+            num:index,// orderNum : this.searchData.orderNo
         }
     }"
-      >-->
-      <img :src="itemCon.pic" class="peoImg">
-      <div class="people_p">
-        <div class="list">{{itemCon.crowd_funding_name}}</div>
-        <div class="crowd-info">
-          <div class="crowd-money">
-            <span class="word">已售：</span>
-            <span class="money">¥{{itemCon.now_money}}</span>
-          </div>
-          <div class="crowd-right">
-            <img :src="itemCon.headimgurl">
+          >
+            <img :src="item.pic">
+            <span>{{item.geographical_name}}</span>
+          </router-link>
+        </li>
+        <li>
+          <router-link
+            :to="{  
+        path: 'addressdetail',     
+        query: {   
+            num: 0, // orderNum : this.searchData.orderNo
+        }
+    }"
+          >
+            <img :src="require('@/assets/more.png')">
             
-            <span class="peoMuch">{{itemCon.nickname}}</span>
-          </div>
-        </div>
-        <div class="progressAll">
-          <div class="progress-outer">
-            <span class="progress" :style="{width:computedResidualTimea(itemCon)+'%'}"></span>
-          </div>
-          <span class="progressA">{{itemCon.progress}}%</span>
-        </div>
-        <div class="crowd-info_a">
-          <div class="crowd-money">
-            <span class="peoHow">{{itemCon.support_num}}人支持</span>
-          </div>
-          <div class="crowd-day">
-            <span style="margin-right: 3px;">
-              <img src="@/assets/time.png" class="crowdTimg">
-            </span>
-            <span class="money">{{computedResidualTime(itemCon)}}</span>
-          </div>
+            <span>更多</span>
+          </router-link>
+        </li>
+      </ul>
+    </div>
+    <div style="background:#eee;height:10px"></div>
+    <div class="container pJext">
+      <div class="title">
+        <div>人气推荐</div>
+      </div>
+      <div class="content">
+        <div class="wrap" v-for="items in intro" :key="items.id">
+          <router-link
+            :to="{  
+        path: 'Detail',     
+        query: {   
+            key: items.crowd_funding_id, // orderNum : this.searchData.orderNo
+        }
+    }"
+          >
+            <img v-lazy="items.pic" class="wrapImg" style="height:164.11px">
+            <div class="list">{{items.crowd_funding_name}}</div>
+            <div class="progressAll">
+              <div class="progress-outer">
+                <span class="progress" :style="{width:items.progress+'%'}"></span>
+              </div>
+              <span class="progressA">{{items.progress}}%</span>
+            </div>
+            <div class="crowd-mon">
+              <span class="word">已售：</span>
+              <span class="money">¥{{items.now_money}}</span>
+            </div>
+            <div class="crowd-info">
+              <div class="crowd-money">
+                <span style="color:#666">{{items.support_num}}人支持</span>
+              </div>
+              <div class="crowdT">
+                <span style="margin-right: 3px;">
+                  <img src="@/assets/time.png" class="crowdTimg">
+                </span>
+                <span class="peoMuch">{{computedResidualTime(items)}}</span>
+              </div>
+            </div>
+          </router-link>
         </div>
       </div>
-      <!-- </router-link> -->
     </div>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
-import { fsDetail } from "@/components/axios/api";
+import { address } from "@/components/axios/api";
 export default {
-  name: "Youji",
+  name: "Mshu",
+  // components: {
+  //   HomeSwiper
+  // },
   data() {
     return {
-      tabContents: [],
-      ispic: false
+      // picList: [
+      //   {
+      //     name: "北京",
+      //     pic: require("@/assets/dizhi.png")
+      //   },
+      //   {
+      //     name: "上海",
+      //     pic: require("@/assets/dizhi.png")
+      //   },
+      //   {
+      //     name: "广州",
+      //     pic: require("@/assets/dizhi.png")
+      //   },
+      //   {
+      //     name: "厦门",
+      //     pic: require("@/assets/dizhi.png")
+      //   },
+      //   {
+      //     name: "钟祥",
+      //     pic: require("@/assets/dizhi.png")
+      //   },
+      //   {
+      //     name: "武汉",
+      //     pic: require("@/assets/dizhi.png")
+      //   },
+      //   {
+      //     name: "杭州",
+      //     pic: require("@/assets/dizhi.png")
+      //   },
+      //   {
+      //     name: "安徽",
+      //     pic: require("@/assets/dizhi.png")
+      //   },
+      //   {
+      //     name: "江苏",
+      //     pic: require("@/assets/dizhi.png")
+      //   },
+      //   {
+      //     name: "更多",
+      //     pic: require("@/assets/dizhi.png")
+      //   }
+      // ],
+      // show: true,
+      // toggleShow: false,
+      // isLoad: false,
+      searchBarFixed: false,
+      // sowingMap: [],
+      picList: [],
+      intro: []
     };
   },
   created() {
-    fsDetail(20, 1)
+    address(1)
       .then(res => {
         // console.log(res.data);
         res = res.data;
         if (res.status && res.data) {
-          this.tabContents = res.data.result;
-        }
-        if (this.tabContents.length == 0) {
-          // console.log(123455);
-          this.ispic = true;
+          const data = res.data;
+          // this.sowingMap = data.sowingMap;
+          this.picList = data.geographicalList;
+          this.intro = data.geographicalCrowdList;
         }
       })
       .catch(err => {
@@ -83,192 +154,174 @@ export default {
       });
   },
   methods: {
-    DEtails(id) {
-      this.$router.push({
-        path: "/Detail",
-        query: {
-          key: id
-        }
-      });
-    },
-    computedResidualTime: function(itemCon) {
-      let residualTime = itemCon.left_time;
+    computedResidualTime: function(items) {
+      let residualTime = items.left_time;
       let day = parseInt(residualTime / (24 * 3600)); //剩余天数
       if (day <= 0) {
         day = 0;
       }
       return `${day}天`;
-    },
-    computedResidualTimea: function(itemCon) {
-      let progress = itemCon.progress;
-      if (progress >= 100) {
-        progress = 100;
-      }
-      return `${progress}`;
     }
   }
+  // mounted() {
+  //   this.initFunc();
+  // },
+  // methods: {
+  //   initFunc() {
+  //     if (!this.isLoad) {
+  //       setTimeout(() => {
+  //         this.show = false;
+  //         this.toggleShow = true;
+  //         this.isLoad = true;
+  //       }, 1500);
+  //     } else {
+  //       this.show = false;
+  //       this.toggleShow = true;
+  //     }
+  //   }
+  // }
 };
 </script>
 
 <style lang="stylus" type="text/stylus" rel="stylesheet/stylus" scoped>
-.pJext {
+.contentNav {
+  overflow: hidden;
+  width: 100%;
+  margin: 0 auto;
+  padding-top: 20px;
+  position: relative;
+}
+
+.contentNav img {
+  width: 50%;
+}
+
+.contentNav li {
+  float: left;
+  width: 20%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 20px;
+}
+
+.contentNav li a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 20px;
+}
+
+.contentNav li span {
+  margin-top: 6px;
+  font-size: 12px;
+  color: #020202;
+}
+
+.title {
+  color: #020202;
+  font-size: 16px;
+  text-align: center;
+  font-weight: bold;
   padding: 18px 0 18px 0;
 }
 
-.crowd-right span {
-  max-width: 110px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.project {
-  float: left;
-  font-size: 16px;
-  color: #020202;
-  font-family: PingFangSC-Medium;
-  font-weight: bold;
-}
-
-.more {
-  float: right;
+.content {
   display: flex;
-  align-items: center;
-  color: #333333;
-  font-size: 12px;
-  line-height: 16px;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  border-radius: 5px;
+  padding-bottom: 50px;
 }
 
-.people {
-  border-radius: 5px;
+.wrap {
+  width: 48.5%;
+  margin-bottom: 10px;
   box-shadow: #eee 0px 0px 10px;
-  margin-top: 15px;
-}
-
-.people .peoImg {
-  width: 100%;
-  margin-bottom: 18px;
   border-radius: 5px;
+  padding-bottom: 10px;
 }
 
-.people_p {
-  padding: 0 0.21rem 15px 0.21rem;
+.wrapImg {
+  width: 100%;
+  border-radius: 5px;
 }
 
 .list {
-  font-size: 18px;
+  font-size: 15px;
   color: #333333;
   font-weight: bold;
-  line-height: 1.4;
-}
-
-.crowd-info {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin: 15px 0 16px 0;
-}
-
-.crowd-money .word {
-  font-size: 12px;
-  color: #666666;
-}
-
-.crowd-money .money {
-  font-size: 16px;
-  color: #D21623;
-}
-
-.crowd-money .peoMuch {
-  color: #999999;
-  font-size: 12px;
-}
-
-.crowd-info_a {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin: 15px 0 0 0;
+  margin-top: 13px;
+  margin-bottom: 13px;
+  padding: 0 0.12rem 0 0.12rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .progressAll {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  padding: 0 0.12rem 0 0.12rem;
+
+  .progress-outer {
+    width: 70%;
+    height: 0.08rem;
+    position: relative;
+    background-color: #EEEEEE;
+    border-radius: 5px;
+
+    .progress {
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      border-radius: 5px;
+      background: #D21623;
+    }
+  }
+
+  .progressA {
+    font-size: 12px;
+    color: #D21623;
+  }
 }
 
-.progressA {
-  font-size: 12px;
-  color: #D21623;
+.crowd-mon {
+  margin-top: 13px;
+  padding: 0 0.12rem 0 0.12rem;
+
+  .word {
+    color: #666;
+    font-size: 14px;
+  }
+
+  .money {
+    color: #FF2930;
+    font-size: 16px;
+  }
 }
 
-.progress-outer {
-  width: 85%;
-  height: 0.08rem;
-  position: relative;
-  background-color: #EEEEEE;
-  border-radius: 5px;
-}
-
-.progress-outer .progress {
-  height: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-  border-radius: 5px;
-  background: #D21623;
-}
-
-.peoHow {
-  font-size: 10px;
-}
-
-.crowd-day {
+.crowd-info {
   display: flex;
   align-items: center;
-  color: #666;
-}
+  justify-content: space-between;
+  margin: 13px 0 0 0;
+  padding: 0 0.12rem 0 0.12rem;
 
-.crowd-money {
-  display: flex;
-  align-items: center;
-}
+  .crowdT {
+    display: flex;
+    align-items: center;
 
-.crowd-right {
-  display: flex;
-  align-items: center;
-  color: #999;
-}
+    .crowdTimg {
+      width: 12px;
+      vertical-align: baseline;
+    }
 
-.crowd-right img {
-  width: 13px;
-  height: 13px;
-  border-radius: 50%;
-  margin: -1px 3px 0 0;
-}
-
-.crowdTimg {
-  width: 12px;
-  vertical-align: baseline;
-}
-
-.wrapAll {
-  padding-bottom: 60px;
-}
-
-.hitImg {
-  display: table-cell;
-  vertical-align: middle;
-  text-align: center;
-}
-
-.hitImg img {
-  width: 50%;
-  margin-top: 20%;
-}
-
-.hitImg .contenr {
-  margin-top: 5px;
-  color: #999;
+    .peoMuch {
+      color: #666;
+    }
+  }
 }
 </style>

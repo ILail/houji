@@ -1,6 +1,7 @@
 <template>
   <div class="wrap">
-    <div :class="searchBarFixed == true ? 'isFixed' :''" id="searchBar">
+    <!-- :class="searchBarFixed == true ? 'isFixed' :''" id="searchBar" -->
+    <div class="isFixed">
       <!-- 头部 -->
       <div class="header">
         <div class="header-left" @click="shaoshao">
@@ -23,6 +24,10 @@
       <!-- 导航 -->
       <ly-tab v-model="selectedId" :items="items" :options="options" @change="handleChange"></ly-tab>
     </div>
+    <div class="wraL">
+      <home-swiper :sowingMap="sowingMap" v-if="wrapImg"></home-swiper>
+    </div>
+
     <!-- 轮播 -->
     <!-- <van-swipe :autoplay="3000" indicator-color="#D21623" :touchable="false" v-if="showSwiper">
       <van-swipe-item v-for="item of sowingMap" :key="item.id">
@@ -55,31 +60,20 @@
         <div class="swiper-pagination" slot="pagination"></div>
       </swiper>
     </div>-->
-    <mt-swipe :auto="3500" style="height:187.5px" v-if="wrapImg">
-      <mt-swipe-item v-for="item of sowingMap" :key="item.id">
-        <!-- <router-link
-          :to="{  
-        path: 'hdetial',     
-        query: {   
-            key: item.link, // orderNum : this.searchData.orderNo
-        }
-    }"
-        >-->
-        <img class="swiper-img" v-lazy="item.pic" @click="changes(item.link)">
-        <!-- </router-link> -->
-      </mt-swipe-item>
-    </mt-swipe>
     <!-- 导航内容 -->
-    <div class="swiper-container wrapWa">
+    <!-- <div class="swiper-container wrapWa">
       <div class="swiper-wrapper">
-        <div class="swiper-slide" v-for="index of 7" :key="index">
-          <keep-alive>
-            <component :is="currentView"></component>
-          </keep-alive>
-        </div>
+    <div class="swiper-slide">-->
+    <fade-animation>
+      <v-touch v-on:swipeleft="left" v-on:swiperight="right">
+        <keep-alive>
+          <component :is="currentView"></component>
+        </keep-alive>
+      </v-touch>
+    </fade-animation>
+    <!-- </div>
       </div>
-    </div>
-
+    </div>-->
     <!-- 底部 -->
     <div class="tabberWarp">
       <div class="warp">
@@ -101,39 +95,36 @@
 </template>
 
 <script type="text/ecmascript-6">
-import Vue from "vue";
-import { Swipe, SwipeItem } from "mint-ui";
-
-Vue.component(Swipe.name, Swipe);
-Vue.component(SwipeItem.name, SwipeItem);
+import HomeSwiper from "./components/components/swiper";
+import FadeAnimation from "@/components/common/Fade";
 import Tabbar from "@/components/common/Tan";
 import Item from "@/components/Item";
 import Home from "./components/Home";
 import Dizhi from "./components/Dizhi";
 import Fuli from "./components/Fuli";
-import Youji from "./components/Youji";
+// import Youji from "./components/Youji";
 import Mshu from "./components/Mshu";
 import Yugao from "./components/Yugao";
 import Finish from "./components/finish";
 // import Welfare from "./components/Welfare";
-import Swiper from "moon/swiper.min";
-import "moon/swiper.min.css";
+// import Swiper from "moon/swiper.min";
+// import "moon/swiper.min.css";
 import { lookOption } from "@/components/axios/api";
 // import assign from "@/components/axios/assign.js";
 export default {
   // mixins: [assign],
   name: "Small",
   components: {
+    HomeSwiper,
+    FadeAnimation,
     Tabbar,
     Item,
     Home,
     Dizhi,
     Fuli,
-    Youji,
     Mshu,
     Yugao,
     Finish
-    // Welfare
   },
   data() {
     return {
@@ -141,10 +132,9 @@ export default {
       wrapImg: true,
       items: [
         { label: "推荐" },
-        { label: "地理标志" },
         { label: "猴集卡" },
-        { label: "有机产品" },
-        { label: "民宿" },
+        { label: "地理标志" },
+        { label: "海外淘" },
         { label: "预告" },
         { label: "已完成" }
       ],
@@ -213,10 +203,10 @@ export default {
     lookOption()
       .then(res => {
         res = res.data;
+
         if (res.status && res.data) {
           const data = res.data;
           this.sowingMap = data.sowingMap;
-          // console.log(data);
         }
       })
       .catch(err => {
@@ -224,158 +214,222 @@ export default {
       });
   },
   mounted() {
-    window.addEventListener("scroll", this.watchScroll);
-    var mySwiperA = new Swiper(".wrapWa", {
-      // preventClicks : true,//默认true
-      // preventLinksPropagation : true,
-      touchMoveStopPropagation: false,
-      // observer: true
-    });
-    this.$root.eventHub.$on("changeTab", index => {
-      // 点击导航键跳转相应内容区
-      mySwiperA.slideTo(index, 0, false);
-    });
-    mySwiperA.on("slideChange", () => {
-      this.selectedId = mySwiperA.activeIndex;
-      // console.log(mySwiperA.activeIndex);
-      switch (mySwiperA.activeIndex) {
-        case 0:
-          this.$toast({
-            message: "加载中...",
-            duration: "500"
-          });
-          this.currentView = "Home";
-          break;
-        case 1:
-          this.$toast({
-            message: "加载中...",
-            duration: "500"
-          });
-          this.currentView = "Dizhi";
-          break;
-        case 2:
-          this.$toast({
-            message: "加载中...",
-            duration: "500"
-          });
-          this.currentView = "Fuli";
-          break;
-        case 3:
-          this.$toast({
-            message: "加载中...",
-            duration: "500"
-          });
-          this.currentView = "Youji";
-          break;
-        case 4:
-          this.$toast({
-            message: "加载中...",
-            duration: "500"
-          });
-          this.currentView = "Mshu";
-          break;
-
-        case 5:
-          this.$toast({
-            message: "加载中...",
-            duration: "500"
-          });
-          this.currentView = "Yugao";
-          break;
-
-        case 6:
-          this.$toast({
-            message: "加载中...",
-            duration: "500"
-          });
-          this.currentView = "Finish";
-          break;
-      }
-
-      if (mySwiperA.activeIndex >= 2) {
-        this.wrapImg = false;
-      } else {
-        this.wrapImg = true;
-      }
-    });
+    // window.addEventListener("scroll", this.watchScroll);
+    // var mySwiperA = new Swiper(".wrapWa", {
+    // preventClicks : true,//默认true
+    // preventLinksPropagation : true,
+    // touchMoveStopPropagation: false
+    // observer: true
+    // });
+    // this.$root.eventHub.$on("changeTab", index => {
+    //   // 点击导航键跳转相应内容区
+    //   mySwiperA.slideTo(index, 0, false);
+    // });
+    // mySwiperA.on("slideChange", () => {
+    //   this.selectedId = mySwiperA.activeIndex;
+    //   // console.log(mySwiperA.activeIndex);
+    //   switch (mySwiperA.activeIndex) {
+    //     case 0:
+    //       this.$toast({
+    //         message: "加载中...",
+    //         duration: "500"
+    //       });
+    //       this.currentView = "Home";
+    //       break;
+    //     case 1:
+    //       this.$toast({
+    //         message: "加载中...",
+    //         duration: "500"
+    //       });
+    //       this.currentView = "Dizhi";
+    //       break;
+    //     case 2:
+    //       this.$toast({
+    //         message: "加载中...",
+    //         duration: "500"
+    //       });
+    //       this.currentView = "Fuli";
+    //       break;
+    //     case 3:
+    //       this.$toast({
+    //         message: "加载中...",
+    //         duration: "500"
+    //       });
+    //       this.currentView = "Youji";
+    //       break;
+    //     case 4:
+    //       this.$toast({
+    //         message: "加载中...",
+    //         duration: "500"
+    //       });
+    //       this.currentView = "Mshu";
+    //       break;
+    //     case 5:
+    //       this.$toast({
+    //         message: "加载中...",
+    //         duration: "500"
+    //       });
+    //       this.currentView = "Yugao";
+    //       break;
+    //     case 6:
+    //       this.$toast({
+    //         message: "加载中...",
+    //         duration: "500"
+    //       });
+    //       this.currentView = "Finish";
+    //       break;
+    //   }
+    //   if (mySwiperA.activeIndex >= 2) {
+    //     this.wrapImg = false;
+    //   } else {
+    //     this.wrapImg = true;
+    //   }
+    // });
   },
   methods: {
+    left() {
+      // console.log(123);
+      // console.log(this.currentView);
+      switch (this.currentView) {
+        case "Home":
+          this.currentView = "Fuli";
+          this.selectedId = 1;
+          this.wrapImg = false;
+          break;
+        case "Fuli":
+          this.currentView = "Dizhi";
+          this.selectedId = 2;
+          break;
+
+        case "Dizhi":
+          this.currentView = "Mshu";
+          this.selectedId = 3;
+          break;
+
+        case "Mshu":
+          this.currentView = "Yugao";
+          this.selectedId = 4;
+          this.wrapImg = false;
+          break;
+
+        case "Yugao":
+          this.currentView = "Finish";
+          this.selectedId = 5;
+          this.wrapImg = false;
+          break;
+
+        case "Finish":
+          this.currentView = "Home";
+          this.selectedId = 0;
+          break;
+      }
+    },
+    right() {
+      // console.log(1234);
+      // console.log(this.currentView);
+      switch (this.currentView) {
+        case "Home":
+          this.currentView = "Finish";
+          this.selectedId = 5;
+          this.wrapImg = false;
+          break;
+
+        case "Finish":
+          this.currentView = "Yugao";
+          this.selectedId = 4;
+          this.wrapImg = false;
+          break;
+
+        case "Yugao":
+          this.currentView = "Mshu";
+          this.selectedId = 3;
+          break;
+
+        case "Mshu":
+          this.currentView = "Dizhi";
+          this.selectedId = 2;
+          break;
+
+        case "Dizhi":
+          this.currentView = "Fuli";
+          this.selectedId = 1;
+          this.wrapImg = false;
+          break;
+
+        case "Fuli":
+          this.currentView = "Home";
+          this.selectedId = 0;
+          break;
+      }
+    },
     getVal: function(res) {
       this.selected = res;
     },
     handleChange(item, index) {
-      this.$root.eventHub.$emit("changeTab", index);
+      // console.log(item);
+      // this.$root.eventHub.$emit("changeTab", index);
       switch (index) {
         case 0:
-          this.$toast({
-            message: "加载中...",
-            duration: "500"
-          });
+          // this.$toast({
+          //   message: "加载中...",
+          //   duration: "500"
+          // });
           this.currentView = "Home";
           break;
         case 1:
-          this.$toast({
-            message: "加载中...",
-            duration: "500"
-          });
-          this.currentView = "Dizhi";
-          break;
-        case 2:
-          this.$toast({
-            message: "加载中...",
-            duration: "500"
-          });
+          // this.$toast({
+          //   message: "加载中...",
+          //   duration: "500"
+          // });
           this.currentView = "Fuli";
           break;
-        case 3:
-          this.$toast({
-            message: "加载中...",
-            duration: "500"
-          });
-          this.currentView = "Youji";
+        case 2:
+          // this.$toast({
+          //   message: "加载中...",
+          //   duration: "500"
+          // });
+          this.currentView = "Dizhi";
           break;
-        case 4:
-          this.$toast({
-            message: "加载中...",
-            duration: "500"
-          });
+        case 3:
+          // this.$toast({
+          //   message: "加载中...",
+          //   duration: "500"
+          // });
           this.currentView = "Mshu";
           break;
-
-        case 5:
-          this.$toast({
-            message: "加载中...",
-            duration: "500"
-          });
+        case 4:
+          // this.$toast({
+          //   message: "加载中...",
+          //   duration: "500"
+          // });
           this.currentView = "Yugao";
           break;
-
-        case 6:
-          this.$toast({
-            message: "加载中...",
-            duration: "500"
-          });
+        case 5:
+          // this.$toast({
+          //   message: "加载中...",
+          //   duration: "500"
+          // });
           this.currentView = "Finish";
           break;
       }
-      if (index >= 2) {
+      if (index != 0 && index != 2 && index != 3) {
         this.wrapImg = false;
       } else {
         this.wrapImg = true;
       }
     },
-    watchScroll() {
-      var scrollTop =
-        window.pageYOffset ||
-        document.documentElement.scrollTop ||
-        document.body.scrollTop;
-      var _this = this;
-      if (scrollTop > 32) {
-        _this.searchBarFixed = true;
-      } else {
-        _this.searchBarFixed = false;
-      }
-    },
+    // watchScroll() {
+    //   var scrollTop =
+    //     window.pageYOffset ||
+    //     document.documentElement.scrollTop ||
+    //     document.body.scrollTop;
+    //   var _this = this;
+    //   if (scrollTop > 32) {
+    //     _this.searchBarFixed = true;
+    //   } else {
+    //     _this.searchBarFixed = false;
+    //   }
+    // },
     changes(id) {
       if (id == 237 || id == 275 || id == 286) {
         this.$router.push({
@@ -407,6 +461,10 @@ export default {
 </script>
 
 <style lang="stylus" type="text/stylus" rel="stylesheet/stylus" scoped>
+.wraL {
+  margin-top: 76px;
+}
+
 .header {
   display: flex;
   line-height: 0.64rem;
@@ -441,15 +499,6 @@ export default {
 
 .wrap >>> .ly-tab-active-bar {
   bottom: 0;
-}
-
-.swiper-slide {
-  height: 0px;
-  overflow-y: hidden;
-}
-
-.swiper-slide-active {
-  height: auto;
 }
 
 .isFixed {
@@ -488,23 +537,5 @@ export default {
   padding-bottom: 5px;
   background: #fff;
   z-index: 9999;
-}
-
-.active span {
-  color: #d21623;
-}
-
-.wrap >>> .mint-swipe-indicator {
-  opacity: 1;
-  background: #fff;
-}
-
-.wrap >>> .mint-swipe-indicator.is-active {
-  background: #b21822;
-}
-
-.swiper-img {
-  width: 100%;
-  height: 100%;
 }
 </style>

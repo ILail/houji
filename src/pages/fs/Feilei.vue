@@ -183,7 +183,7 @@ export default {
           this.ids = this.tabs[0].crowd_funding_class_id;
           this.refecd();
           this.numlength = res.data.length;
-          console.log(this.numlength);
+          // console.log(this.numlength);
         }
       })
       .catch(err => {

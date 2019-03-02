@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="padding-bottom:60px">
     <div v-for="(item , key) of list" :key="key">
       <router-link
         class="wrap"
