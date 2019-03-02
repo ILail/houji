@@ -55,7 +55,7 @@ export default {
       gass: [],
       loading: false,
       finished: false,
-      num: 0,
+      num: 1,
       lastpage: 3
     };
   },
