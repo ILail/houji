@@ -3,7 +3,9 @@
 import * as types from "@/components/vuex/types";
 import { Code } from "@/components/axios/api";
 import { huoqu } from "@/components/axios/api";
-import { Jssdk } from "@/components/axios/api";
+import { SignPackage } from "@/components/axios/api";
+
+
 export default {
   created() {
     // 获取当前页面的链接给后台
@@ -49,13 +51,13 @@ export default {
           // this.$store.commit(types.OPPENDID, imgs);
           localStorage.setItem("key", imgs); //将变量imgs存储到name字段
           // this.$router.go(-2);
-          // Jssdk()
-          //   .then(res => {
-          //     console.log(res);
-          //   })
-          //   .catch(err => {
-          //     console.log(err, "请求失败");
-          //   });
+          SignPackage('http://webtest.ngba.cn/feilei',access)
+            .then(res => {
+              console.log(res);
+            })
+            .catch(err => {
+              console.log(err, "请求失败");
+            });
         })
         .catch(err => {
           console.log(err, "请求失败");

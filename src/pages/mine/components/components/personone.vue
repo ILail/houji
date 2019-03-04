@@ -9,7 +9,7 @@
             <img src="@/assets/abs.png" alt class="weix" v-if="show">
             <img :src="letter.headimgurl" class="weix" id="img" ref="imgsss" v-if="!show">
             <!-- <span id="text">请上传Word文档</span> -->
-            <input type="file" id="fileinp" ref="upload">
+            <input type="file" id="fileinp" ref="upload" accept="image/*">
           </label>
           <!--mint-ui的progress的库-->
           <mt-progress

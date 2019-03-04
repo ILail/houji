@@ -697,10 +697,24 @@ export function qinius() {
 
 // 获取微信签名
 
-export function Jssdk() {
-  let value = localStorage.getItem("keys");
+// export function Jssdk() {
+//   let value = localStorage.getItem("keys");
+//   return fetch({
+//     url: 'https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token=' + value + '&type=jsapi',
+//     method: "GET",
+//   })
+// }
+
+
+
+export function SignPackage(url,access_token) {
+  // let value = localStorage.getItem("keys");
   return fetch({
-    url: 'https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token=' + value + '&type=jsapi',
-    method: "GET",
+    url: api.Hallowmas + '/getSignPackage',
+    method: "POST",
+    data: {
+      url: url,
+      access_token:access_token
+    }
   })
 }
