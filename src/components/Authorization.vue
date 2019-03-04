@@ -40,8 +40,9 @@ export default {
       Code(code)
         .then(res => {
           // console.log(url);
-          console.log(res.data.data);
-          var imgs = res.data.data; //声明个变量存储下数据
+          console.log(res.data.data.access_token);
+          console.log(res.data.data.openid);
+          var imgs = res.data.data.openid; //声明个变量存储下数据
           console.log(imgs);
           // this.$store.commit(types.OPPENDID, imgs);
           localStorage.setItem("key", imgs); //将变量imgs存储到name字段
