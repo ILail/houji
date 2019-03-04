@@ -49,13 +49,13 @@ export default {
           // this.$store.commit(types.OPPENDID, imgs);
           localStorage.setItem("key", imgs); //将变量imgs存储到name字段
           // this.$router.go(-2);
-          Jssdk()
-            .then(res => {
-              console.log(res);
-            })
-            .catch(err => {
-              console.log(err, "请求失败");
-            });
+          // Jssdk()
+          //   .then(res => {
+          //     console.log(res);
+          //   })
+          //   .catch(err => {
+          //     console.log(err, "请求失败");
+          //   });
         })
         .catch(err => {
           console.log(err, "请求失败");
