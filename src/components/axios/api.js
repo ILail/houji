@@ -692,3 +692,15 @@ export function qinius() {
     method: "GET",
   })
 }
+
+
+
+// 获取微信签名
+
+export function Jssdk() {
+  let value = localStorage.getItem("keys");
+  return fetch({
+    url: 'https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token=' + value + '&type=jsapi',
+    method: "GET",
+  })
+}
