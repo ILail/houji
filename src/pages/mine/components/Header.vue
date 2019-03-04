@@ -2,9 +2,9 @@
   <div>
     <div class="heard" :style="note" @click="fit">
       <!-- 微信头像 -->
-      <img :src="letter.headimgurl" alt class="weix" v-if="shows">
+      <img :src="letter.headimgurl" id="weix" v-bind:class="{ active: isActive }" v-if="shows">
       <!-- 微信头像 -->
-      <img src="@/assets/abs.png" alt class="weix" v-if="show">
+      <img src="@/assets/abs.png" class="weix" v-if="show">
       <div class="middle">
         <div class="Mress">
           <div style="font-size:18px">{{letter.username}}</div>
@@ -40,6 +40,7 @@ export default {
   //   },
   data() {
     return {
+      isActive: false,
       shows: true,
       show: false,
       // wx: require("@/assets/rr.png"),
@@ -69,10 +70,25 @@ export default {
           this.shows = false;
           this.show = true;
         }
+        let ua = navigator.userAgent.toLowerCase();
+        //Android终端
+        let isAndroid = ua.indexOf("Android") > -1 || ua.indexOf("Adr") > -1;
+        //Ios终端
+        let isiOS = !!ua.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/);
+
+        if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
+          //Ios
+         this.isActive = false
+        } else if (/(Android)/i.test(navigator.userAgent)) {
+          //Android终端
+         this.isActive = true
+        }
+
+      
       })
       .catch(err => {
         store.commit(types.LOGOUT);
-        this.$router.push('/phone')
+        this.$router.push("/phone");
         console.log(err, "请求失败");
       });
   },
@@ -88,6 +104,13 @@ export default {
 .headimg {
   width: 16px;
   margin-left: 4px;
+}
+
+.active {
+  -ms-transform: rotate(-90deg);
+  -moz-transform: rotate(-90deg);
+  -webkit-transform: rotate(-90deg);
+  -o-transform: rotate(-90deg);
 }
 
 .Mress {
@@ -109,6 +132,13 @@ export default {
   }
 
   .weix {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    border: 2px solid #fff;
+  }
+
+  #weix {
     width: 70px;
     height: 70px;
     border-radius: 50%;

@@ -6,8 +6,8 @@
           <span class="word">头像</span>
           <label for="fileinp">
             <!-- 微信头像 -->
-            <img src="@/assets/abs.png" alt class="weix" v-if="show">
-            <img :src="letter.headimgurl" class="weix" id="img" ref="imgsss" v-if="!show">
+            <img src="@/assets/abs.png"  class="weix" v-if="show">
+            <img :src="letter.headimgurl" id="img" v-if="!show" v-bind:class="{ actives: isActive }">
             <!-- <span id="text">请上传Word文档</span> -->
             <input type="file" id="fileinp" ref="upload" accept="image/*">
           </label>
@@ -57,6 +57,7 @@ export default {
   name: "Fit",
   data() {
     return {
+      isActive: false,
       show: false,
       remnant: 118,
       desc: "",
@@ -78,6 +79,19 @@ export default {
         if (this.letter.headimgurl == "") {
           this.show = true;
         }
+        let ua = navigator.userAgent.toLowerCase();
+        //Android终端
+        let isAndroid = ua.indexOf("Android") > -1 || ua.indexOf("Adr") > -1;
+        //Ios终端
+        let isiOS = !!ua.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/);
+
+        if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
+          //Ios
+          this.isActive = false;
+        } else if (/(Android)/i.test(navigator.userAgent)) {
+          //Android终端
+          this.isActive = true;
+        }
       })
       .catch(err => {
         console.log(err, "请求失败");
@@ -92,11 +106,16 @@ export default {
         this.uploadToken = res.data.data.utoken;
         this.url = res.data.data.onlineUrl;
         let self = this;
-        this.$refs.upload.addEventListener("change", function() {
+        this.$refs.upload.addEventListener("change", function(event) {
           // self.$toast({
           //   message: "上传360x360的照片效果最好",
           //   duration: "1000"
           // });
+          let image = document.getElementById("img"); //预览对象
+          self.clip(event, {
+            resultObj: image,
+            aspectRatio: 1
+          });
           self.show = false;
           let data = new FormData();
           data.append("token", self.uploadToken);
@@ -169,6 +188,7 @@ label {
   left: 0;
   top: 0;
   opacity: 0;
+  margin: 0;
 }
 
 #btn {
@@ -207,10 +227,23 @@ label {
   padding: 10px 2% 10px 2%;
 }
 
+#img {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+}
+
 .weix {
   width: 35px;
   height: 35px;
   border-radius: 50%;
+}
+
+.actives {
+  -ms-transform: rotate(-90deg);
+  -moz-transform: rotate(-90deg);
+  -webkit-transform: rotate(-90deg);
+  -o-transform: rotate(-90deg);
 }
 
 .active {

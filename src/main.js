@@ -4,11 +4,12 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import 'styles/reset.css'
+import 'styles/common.css'
 import fastClick from 'fastclick'
 import axios from 'axios';
 import LyTab from 'ly-tab';
 import store from '@/components/vuex/store'
-// import clipper from '../static/clipper'
+import clipper from '../static/clipper'
 // bus
 import VueBus from 'vue-bus';
 Vue.use(VueBus);
@@ -68,7 +69,7 @@ Vue.use(PullRefresh);
 Vue.use(Toast);
 Vue.use(Tab).use(Tabs);
 Vue.use(Popup);
-// Vue.use(clipper)
+Vue.use(clipper)
 
 Vue.use(require('vue-wechat-title'))
 Vue.use(LyTab);
