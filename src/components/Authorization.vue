@@ -40,7 +40,7 @@ export default {
       Code(code)
         .then(res => {
           // console.log(url);
-          // console.log(res.data.data);
+          console.log(res.data.data);
           var imgs = res.data.data; //声明个变量存储下数据
           console.log(imgs);
           // this.$store.commit(types.OPPENDID, imgs);

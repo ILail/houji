@@ -4,12 +4,20 @@
       <ul>
         <li class="line">
           <span class="word">头像</span>
-          <!-- <label for="fileinp"> -->
-            <img :src="letter.headimgurl" class="weix" id="img" ref="imgsss">
+          <label for="fileinp">
+            <!-- 微信头像 -->
+            <img src="@/assets/abs.png" alt class="weix" v-if="show">
+            <img :src="letter.headimgurl" class="weix" id="img" ref="imgsss" v-if="!show">
             <!-- <span id="text">请上传Word文档</span> -->
-            <!-- <input type="file" name="file" id="fileinp" @change="change($event)" ref="wrapImg"> -->
-          <!-- </label> -->
-
+            <input type="file" id="fileinp" ref="upload">
+          </label>
+          <!--mint-ui的progress的库-->
+          <mt-progress
+            v-if="!(progress==0||progress==100)"
+            :value="progress"
+            :bar-height="5"
+            class="progress"
+          ></mt-progress>
           <!-- <input type="file" accept="image/png, image/jpg, image/jpeg" @change="change($event)"> -->
           <!-- <van-uploader :after-read="onRead" accept="image/png, image/jpg, image/jpeg" multiple> -->
           <!-- </van-uploader> -->
@@ -17,11 +25,11 @@
         <li class="line" style="height:30px">
           <span class="word">昵称</span>
           <!-- <span class="imgsa">{{letter.username}}</span> -->
-          <textarea v-model="desca" class="wordAlla">{{letter.username}}</textarea>
+          <textarea v-model="desca" class="wordAlla">{{desc}}</textarea>
         </li>
         <li class="linea">
           <span class="word">个人简介</span>
-          <textarea @input="descInput" v-model="desc" class="wordAll">{{letter.self_introduction}}</textarea>
+          <textarea @input="descInput" v-model="desc" class="wordAll">{{desca}}</textarea>
           <div class="num">{{remnant}}</div>
         </li>
       </ul>
@@ -32,26 +40,32 @@
   </div>
 </template>
 <script>
-// import Vue from "vue";
-// import { Uploader } from "vant";
-// import { Icon } from "vant";
+import Vue from "vue";
+import { Progress } from "mint-ui";
 
-// Vue.use(Icon);
-// Vue.use(Uploader);
+Vue.component(Progress.name, Progress);
+
 import { peosMS } from "@/components/axios/api";
 import secret from "@/utils/utils";
 import { people } from "@/components/axios/api";
-
+import { qinius } from "@/components/axios/api";
+import axios from "axios";
 import { imgUpdat } from "@/components/axios/api";
+
+const axiosInstance = axios.create({});
 export default {
   name: "Fit",
   data() {
     return {
+      show: false,
       remnant: 118,
       desc: "",
       desca: "",
-      letter: {},
-      imsg: ""
+      letter: "",
+      files: [], // 文件
+      uploadToken: "", // 上传文件 token
+      progress: 0, // 进度条
+      url: ""
     };
   },
   created() {
@@ -59,6 +73,59 @@ export default {
       .then(res => {
         const num = secret.Decrypt(res.data.data);
         this.letter = JSON.parse(num);
+        this.desca = this.letter.username;
+        this.desc = this.letter.self_introduction;
+        if (this.letter.headimgurl == "") {
+          this.show = true;
+        }
+      })
+      .catch(err => {
+        console.log(err, "请求失败");
+        // this.$router.push("/phone");
+      });
+  },
+  mounted() {
+    // let self = this;
+    qinius()
+      .then(res => {
+        // console.log(res.data.data);
+        this.uploadToken = res.data.data.utoken;
+        this.url = res.data.data.onlineUrl;
+        let self = this;
+        this.$refs.upload.addEventListener("change", function() {
+          // self.$toast({
+          //   message: "上传360x360的照片效果最好",
+          //   duration: "1000"
+          // });
+          self.show = false;
+          let data = new FormData();
+          data.append("token", self.uploadToken);
+          data.append("file", this.files[0]);
+          // 需要上传到七牛云的token 和 file
+          axiosInstance({
+            method: "POST",
+            url: "http://upload.qiniu.com/",
+            data: data,
+            onUploadProgress: function(progressEvent) {
+              var percentCompleted = Math.round(
+                (progressEvent.loaded * 100) / progressEvent.total
+              );
+              //console.log(percentCompleted)
+              //对应上传进度条
+              self.progress = percentCompleted;
+            }
+          })
+            .then(function(res) {
+              // console.log(res);
+              // let { base_url, path } = res.data;
+              // console.log(self.url)
+              let url = res.data.key;
+              self.letter.headimgurl = self.url + url;
+            })
+            .catch(function(err) {
+              console.log("err", err);
+            });
+        });
       })
       .catch(err => {
         console.log(err, "请求失败");
@@ -66,86 +133,29 @@ export default {
       });
   },
   methods: {
-    // change(file) {
-    //   let image = document.getElementById("img"); //预览对象
-    //   this.clip(file, {
-    //     resultObj: image,
-    //     aspectRatio: 1
-    //   });
-    //   // console.log(file);
-    //   console.log(this.$refs.wrapImg.files[0]);
-    //   let num = this.$refs.wrapImg.files[0];
-      // imgUpdat(num)
-      //   .then(res => {
-      //     this.imsg = res.data.data;
-      //   })
-      //   .catch(err => {
-      //     console.log(err, "请求失败");
-      //   });
-      // console.log(file.path[1].childNodes[0])
-      // console.log(this.$refs.wrapImg.files[0]);
-      // var file = this.$refs.wrapImg.files[0];
-      // var files = this.$refs.wrapImg.files[0].name;
-      // // 如果该文件没有后缀就新年构造一个File对象， 并指定文件名和类型
-      // // 第一个参数可以为Blob对象的数组 （第一个参数必须是数组）， File对象继承自Blob，所以可以传递File对象
-      // // 第二个参数为 要设置的文件名
-      // // 第三个参数为可选参数， 没有后缀可能获取不到该文件类型， 所以最好设置下该值
-      // let filea = new File([file], new Date().getTime() + ".png", {
-      //   type: files
-      // });
-      // console.log(filea);
-
-      // var reader = new FileReader();
-
-      // var imgFile;
-
-      // reader.onload = function(e) {
-      //   imgFile = e.target.result;
-      //   console.log(imgFile);
-      // };
-
-      //正式读取文件
-      // reader.readAsDataURL(file);
-
-      // var reader = new FileReader();
-      // reader.readAsDataURL(file);
-      // var URL = URL || webkitURL;
-      // var blob = URL.createObjectURL(file);
-      // let aaa = window.URL.createObjectURL(num);
-
-      // console.log(files);
-      // let aafile = new File([num], files);
-      // console.log(aafile);
-
-      // let aaa = files.split('/')[0]
-      // let bbb = aaa+'/'+num
-    // },
     descInput() {
       var txtVal = this.desc.length;
       this.remnant = 118 - txtVal;
     },
     enenneen() {
       // const imgs = secret.Decrypt(this.imsg);
-      if (this.desca == "" || this.desc == "") {
-        this.$toast({
-          message: "请更改",
-          duration: "1000"
-        });
-      } else {
-        peosMS(this.desca, this.desc, this.imsg)
-          .then(res => {
-            console.log(res);
-            this.$toast({
-              message: "保存成功",
-              duration: "1000"
-            });
-            this.$router.go(-1);
-          })
-          .catch(err => {
-            console.log(err, "请求失败");
+
+      peosMS(this.desca, this.desc, this.letter.headimgurl)
+        .then(res => {
+          // console.log(res);
+          this.$toast({
+            message: "保存成功",
+            duration: "1000"
           });
-      }
+          this.$router.go(-1);
+        })
+        .catch(err => {
+          console.log(err, "请求失败");
+        });
     }
+  },
+  components: {
+    [Progress.name]: Progress //mint-ui引入组件的方法
   }
 };
 </script>
@@ -249,7 +259,7 @@ label {
 
 .warpall {
   background: #F4F4F4;
-  width 100%
+  width: 100%;
 }
 
 .smal {

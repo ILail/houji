@@ -682,3 +682,13 @@ export function weal() {
     method: "GET",
   })
 }
+
+
+// 七牛云 文件上传
+export function qinius() {
+
+  return fetch({
+    url: 'http://csapi.nguiba.com/api/v2p3/returnQiniu',
+    method: "GET",
+  })
+}
