@@ -95,6 +95,7 @@
 </template>
 
 <script type="text/ecmascript-6">
+import wx from "weixin-js-sdk";
 import HomeSwiper from "./components/components/swiper";
 import FadeAnimation from "@/components/common/Fade";
 import Tabbar from "@/components/common/Tan";
@@ -112,7 +113,9 @@ import Finish from "./components/finish";
 import { lookOption } from "@/components/axios/api";
 import assign from "@/components/axios/assign.js";
 import { SignPackage } from "@/components/axios/api";
-
+// import { WechatPlugin} from 'vux'
+// Vue.use(WechatPlugin); //  微信
+// const wx = Vue.wechat;
 export default {
   mixins: [assign],
   name: "Small",
@@ -218,10 +221,38 @@ export default {
   mounted() {
     let value = localStorage.getItem("keys");
     let url = window.location.href;
-    if(value == null) return
+    console.log(wx);
+    if (value == null) return;
     SignPackage(url, value)
       .then(res => {
-        console.log(res);
+        console.log(wx);
+        console.log(res.data.data.signPackage);
+        let signPackage = res.data.data.signPackage;
+        wx.config({
+          debug: false,
+          appId: signPackage.appId,
+          timestamp: signPackage.timestamp,
+          nonceStr: signPackage.nonceStr,
+          signature: signPackage.signature,
+          jsApiList: ["onMenuShareTimeline", "onMenuShareAppMessage"]
+        });
+        wx.ready(function() {
+          wx.onMenuShareAppMessage({
+            title: "猴集官方服务号", // 分享标题
+            desc: "集全球健康食材", // 分享描述
+            link: url, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+            imgUrl: "http://h5.ngba.cn/image/pic300.jpg", // 分享图标
+            type: "", // 分享类型,music、video或link，不填默认为link
+            dataUrl: "", // 如果type是music或video，则要提供数据链接，默认为空
+            success: function() {
+              alert("分享给朋友成功");
+              // 用户确认分享后执行的回调函数
+            },
+            cancel: function() {
+              // 用户取消分享后执行的回调函数
+            }
+          });
+        });
       })
       .catch(err => {
         console.log(err, "请求失败");

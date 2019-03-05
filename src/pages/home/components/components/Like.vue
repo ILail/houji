@@ -71,7 +71,7 @@ export default {
         // 加载状态结束
         this.loading = false;
         // 数据全部加载完成
-        console.log(this.num)
+        // console.log(this.num)
         if (this.num >= this.lastpage) {
           this.finished = true;
         }

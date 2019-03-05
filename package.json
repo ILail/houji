@@ -41,6 +41,7 @@
     "vue-wechat-title": "^2.0.5",
     "vue-ydui": "^1.2.6",
     "vuex": "^3.0.1",
+    "vux": "^2.9.2",
     "weixin-js-sdk": "^1.4.0-test",
     "ydui-district": "^1.1.0"
   },
@@ -66,6 +67,7 @@
     "file-loader": "^1.1.4",
     "friendly-errors-webpack-plugin": "^1.6.1",
     "html-webpack-plugin": "^2.30.1",
+    "less-loader": "^4.1.0",
     "node-notifier": "^5.1.2",
     "node-sass": "^4.11.0",
     "optimize-css-assets-webpack-plugin": "^3.2.0",
