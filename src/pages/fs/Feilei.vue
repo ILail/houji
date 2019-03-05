@@ -198,7 +198,7 @@ export default {
             'onMenuShareAppMessage'
           ]
         });
-        this.$wx.ready(function() {
+        // this.$wx.ready(function() {
           this.$wx.onMenuShareTimeline({
             title: "猴集官方服务号", // 分享标题
             desc: "集全球健康食材！！！", // 分享描述
@@ -230,7 +230,7 @@ export default {
               // 用户取消分享后执行的回调函数
             }
           });
-        });
+        // });
       })
       .catch(err => {
         console.log(err, "请求失败");
