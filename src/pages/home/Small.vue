@@ -110,11 +110,11 @@ import Finish from "./components/finish";
 // import Swiper from "moon/swiper.min";
 // import "moon/swiper.min.css";
 import { lookOption } from "@/components/axios/api";
-// import assign from "@/components/axios/assign.js";
+import assign from "@/components/axios/assign.js";
 import { SignPackage } from "@/components/axios/api";
-  
+
 export default {
-  // mixins: [assign],
+  mixins: [assign],
   name: "Small",
   components: {
     HomeSwiper,
@@ -202,6 +202,10 @@ export default {
   //   }
   // },
   created() {
+    let value = localStorage.getItem("keys");
+    let url = window.location.href;
+    console.log(value);
+    console.log(url);
     lookOption()
       .then(res => {
         res = res.data;
@@ -216,10 +220,6 @@ export default {
       });
   },
   mounted() {
-    let value = localStorage.getItem("keys");
-    let url =  window.location.href;
-    console.log(value)
-    console.log(url)
     // window.addEventListener("scroll", this.watchScroll);
     // var mySwiperA = new Swiper(".wrapWa", {
     // preventClicks : true,//默认true
@@ -301,7 +301,7 @@ export default {
           this.currentView = "Fuli";
           this.selectedId = 1;
           this.wrapImg = false;
-         
+
           break;
         case "Fuli":
           this.currentView = "Dizhi";
@@ -328,7 +328,7 @@ export default {
         case "Finish":
           this.currentView = "Home";
           this.selectedId = 0;
-           document.body.scrollTop = 0;
+          document.body.scrollTop = 0;
           break;
       }
     },
@@ -340,7 +340,7 @@ export default {
           this.currentView = "Finish";
           this.selectedId = 5;
           this.wrapImg = false;
-           document.body.scrollTop = 0;
+          document.body.scrollTop = 0;
           break;
 
         case "Finish":

@@ -38,12 +38,12 @@ export default {
     } else {
       const localarr = url.split("?")[1].split("&");
       let code = localarr[0].split("=")[1];
-      // console.log(1111);
+      console.log(1111);
       Code(code)
         .then(res => {
           // console.log(url);
           var access = res.data.data.access_token;
-          // console.log(res.data.data.access_token);
+          console.log(res.data.data.access_token);
           localStorage.setItem("keys", access); //将变量imgs存储到name字段
           // console.log(res.data.data.openid);
           var imgs = res.data.data.openid; //声明个变量存储下数据
