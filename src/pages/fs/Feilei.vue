@@ -195,7 +195,8 @@ export default {
           signature: signPackage.signature,
           jsApiList: [
             'onMenuShareTimeline',
-            'onMenuShareAppMessage'
+            'onMenuShareAppMessage',
+            'translateVoice'
           ]
         });
         // this.$wx.ready(function() {
