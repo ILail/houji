@@ -706,9 +706,9 @@ export function qinius() {
 // }
 
 
-
+// 获取微信签名
 export function SignPackage(url,access_token) {
-  // let value = localStorage.getItem("keys");
+
   return fetch({
     url: api.Hallowmas + '/getSignPackage',
     method: "POST",

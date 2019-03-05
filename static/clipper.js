@@ -156,7 +156,7 @@ export default {
           image.onload = function () {
             //压缩处理
             let data = self.compress( image , self.Orientation );
-            self.resultObj.src = data;
+            // self.resultObj.src = data;
             //图片上传
             self.postImg( data );
           }
@@ -203,12 +203,12 @@ export default {
       let self = this;
       self.destoried();
 
-      // window.setTimeout( function () {
-      //   document.querySelector('.crop_loading').style.display = 'none';
-      //   document.querySelector('.crop_success').style.display = 'block';
-      //   //裁剪完后摧毁对象
-      //     self.destoried();
-      // },3000)
+      window.setTimeout( function () {
+        document.querySelector('.crop_loading').style.display = 'none';
+        document.querySelector('.crop_success').style.display = 'block';
+        //裁剪完后摧毁对象
+          self.destoried();
+      },3000)
     }
 
     //图片旋转

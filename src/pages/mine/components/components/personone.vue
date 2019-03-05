@@ -7,7 +7,7 @@
           <label for="fileinp">
             <!-- 微信头像 -->
             <img src="@/assets/abs.png"  class="weix" v-if="show">
-            <img :src="letter.headimgurl" id="img" v-if="!show" v-bind:class="{ actives: isActive }">
+            <img :src="letter.headimgurl" id="img" v-if="!show">
             <!-- <span id="text">请上传Word文档</span> -->
             <input type="file" id="fileinp" ref="upload" accept="image/*">
           </label>
@@ -57,7 +57,7 @@ export default {
   name: "Fit",
   data() {
     return {
-      isActive: false,
+      // isActive: false,
       show: false,
       remnant: 118,
       desc: "",
@@ -79,19 +79,7 @@ export default {
         if (this.letter.headimgurl == "") {
           this.show = true;
         }
-        let ua = navigator.userAgent.toLowerCase();
-        //Android终端
-        let isAndroid = ua.indexOf("Android") > -1 || ua.indexOf("Adr") > -1;
-        //Ios终端
-        let isiOS = !!ua.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/);
-
-        if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
-          //Ios
-          this.isActive = false;
-        } else if (/(Android)/i.test(navigator.userAgent)) {
-          //Android终端
-          this.isActive = true;
-        }
+  
       })
       .catch(err => {
         console.log(err, "请求失败");

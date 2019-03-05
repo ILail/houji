@@ -111,6 +111,8 @@ import Finish from "./components/finish";
 // import "moon/swiper.min.css";
 import { lookOption } from "@/components/axios/api";
 // import assign from "@/components/axios/assign.js";
+import { SignPackage } from "@/components/axios/api";
+  
 export default {
   // mixins: [assign],
   name: "Small",
@@ -214,6 +216,10 @@ export default {
       });
   },
   mounted() {
+    let value = localStorage.getItem("keys");
+    let url =  window.location.href;
+    console.log(value)
+    console.log(url)
     // window.addEventListener("scroll", this.watchScroll);
     // var mySwiperA = new Swiper(".wrapWa", {
     // preventClicks : true,//默认true
