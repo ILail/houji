@@ -202,10 +202,6 @@ export default {
   //   }
   // },
   created() {
-    let value = localStorage.getItem("keys");
-    let url = window.location.href;
-    console.log(value);
-    console.log(url);
     lookOption()
       .then(res => {
         res = res.data;
@@ -220,6 +216,16 @@ export default {
       });
   },
   mounted() {
+    let value = localStorage.getItem("keys");
+    let url = window.location.href;
+    if(value == null) return
+    SignPackage(url, value)
+      .then(res => {
+        console.log(res);
+      })
+      .catch(err => {
+        console.log(err, "请求失败");
+      });
     // window.addEventListener("scroll", this.watchScroll);
     // var mySwiperA = new Swiper(".wrapWa", {
     // preventClicks : true,//默认true
