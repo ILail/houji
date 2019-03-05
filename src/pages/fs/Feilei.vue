@@ -25,9 +25,12 @@
         </div>-->
         <van-tabs v-model="active" animated sticky v-if="showcon">
           <van-tab v-for="(item,index) in tabs" :key="item.id">
-            <div slot="title" @click="onClick(item.crowd_funding_class_id,index)">{{item.class_name}}</div>
+            <div
+              slot="title"
+              @click="onClick(item.crowd_funding_class_id,index)"
+            >{{item.class_name}}</div>
             <!-- 内容 {{ index }} -->
-              <!-- <component :is="currentView"></component> -->
+            <!-- <component :is="currentView"></component> -->
           </van-tab>
         </van-tabs>
       </div>
@@ -36,56 +39,54 @@
     <div class="swiper-container wrapAll">
       <div class="swiper-wrapper">
         <div class="swiper-slide" v-for="index in numlength" :key="index">
-        
-          
-            <div class="hitImg" style="border:none" v-show="ispic">
-              <img src="@/assets/woring.png">
-              <div class="contenr">暂时无数据，静请期待！</div>
-            </div>
-            
-            <div v-for="(itemCon) in tabContentsa" :key="itemCon.id" class="people container">
-              <router-link
-                :to="{  
+          <div class="hitImg" style="border:none" v-show="ispic">
+            <img src="@/assets/woring.png">
+            <div class="contenr">暂时无数据，静请期待！</div>
+          </div>
+
+          <div v-for="(itemCon) in tabContentsa" :key="itemCon.id" class="people container">
+            <router-link
+              :to="{  
         path: 'Detail',     
         query: {   
             key: itemCon.crowd_funding_id, // orderNum : this.searchData.orderNo
         }
     }"
-              >
-                <img :src="itemCon.pic" class="peoImg">
-                <div class="people_p">
-                  <div class="list">{{itemCon.crowd_funding_name}}</div>
-                  <div class="crowd-info">
-                    <div class="crowd-money">
-                      <span class="word">已售：</span>
-                      <span class="money">¥{{itemCon.now_money}}</span>
-                    </div>
-                    <div class="crowd-right">
-                      <img :src="itemCon.headimgurl">
-                      
-                      <span class="peoMuch">{{itemCon.nickname}}</span>
-                    </div>
+            >
+              <img :src="itemCon.pic" class="peoImg">
+              <div class="people_p">
+                <div class="list">{{itemCon.crowd_funding_name}}</div>
+                <div class="crowd-info">
+                  <div class="crowd-money">
+                    <span class="word">已售：</span>
+                    <span class="money">¥{{itemCon.now_money}}</span>
                   </div>
-                  <div class="progressAll">
-                    <div class="progress-outer">
-                      <span class="progress" :style="{width:computedResidualTimea(itemCon)+'%'}"></span>
-                    </div>
-                    <span class="progressA">{{itemCon.progress}}%</span>
-                  </div>
-                  <div class="crowd-info_a">
-                    <div class="crowd-money">
-                      <span class="peoHow">{{itemCon.support_num}}人支持</span>
-                    </div>
-                    <div class="crowd-day">
-                      <span style="margin-right: 3px;">
-                        <img src="@/assets/time.png" class="crowdTimg">
-                      </span>
-                      <span class="money">{{computedResidualTime(itemCon)}}</span>
-                    </div>
+                  <div class="crowd-right">
+                    <img :src="itemCon.headimgurl">
+                    
+                    <span class="peoMuch">{{itemCon.nickname}}</span>
                   </div>
                 </div>
-              </router-link>
-            </div>
+                <div class="progressAll">
+                  <div class="progress-outer">
+                    <span class="progress" :style="{width:computedResidualTimea(itemCon)+'%'}"></span>
+                  </div>
+                  <span class="progressA">{{itemCon.progress}}%</span>
+                </div>
+                <div class="crowd-info_a">
+                  <div class="crowd-money">
+                    <span class="peoHow">{{itemCon.support_num}}人支持</span>
+                  </div>
+                  <div class="crowd-day">
+                    <span style="margin-right: 3px;">
+                      <img src="@/assets/time.png" class="crowdTimg">
+                    </span>
+                    <span class="money">{{computedResidualTime(itemCon)}}</span>
+                  </div>
+                </div>
+              </div>
+            </router-link>
+          </div>
         </div>
       </div>
     </div>
@@ -115,6 +116,7 @@ import Item from "@/components/Item.vue";
 import assign from "@/components/axios/assign.js";
 import Tabbar from "@/components/common/Tan";
 import Swiper from "moon/swiper.min";
+import { SignPackage } from "@/components/axios/api";
 import "moon/swiper.min.css";
 export default {
   mixins: [assign],
@@ -131,7 +133,7 @@ export default {
       numlength: 10,
       tabContentsa: [],
       ispic: false,
-      active:0,
+      active: 0,
       tabs: [],
       num: 0,
       loading: false,
@@ -191,6 +193,7 @@ export default {
       });
   },
   mounted() {
+
     window.addEventListener("scroll", this.watchScroll);
     let mySwiperA = new Swiper(".swiper-container");
     // mySwiperA.slideTo(this.active, 0, false);
@@ -205,14 +208,52 @@ export default {
       this.refecd();
     });
 
-       this.$root.eventHub.$on("changeTab", index => {
+    this.$root.eventHub.$on("changeTab", index => {
       // 点击导航键跳转相应内容区
       mySwiperA.slideTo(index, 0, false);
     });
+        let value = localStorage.getItem("keys");
+    let url = window.location.href;
+    console.log(this.$wx);
+    if (value == null) return;
+    SignPackage(url, value)
+      .then(res => {
+        console.log(this.$wx);
+        console.log(res.data.data.signPackage);
+        let signPackage = res.data.data.signPackage;
+        this.$wx.config({
+          debug: true,
+          appId: signPackage.appId,
+          timestamp: signPackage.timestamp,
+          nonceStr: signPackage.nonceStr,
+          signature: signPackage.signature,
+          jsApiList: ["onMenuShareTimeline", "onMenuShareAppMessage"]
+        });
+        this.$wx.ready(function() {
+          this.$wx.onMenuShareAppMessage({
+            title: "猴集官方服务号", // 分享标题
+            desc: "集全球健康食材！！！", // 分享描述
+            link: url, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+            imgUrl: "http://h5.ngba.cn/image/pic300.jpg", // 分享图标
+            type: "", // 分享类型,music、video或link，不填默认为link
+            dataUrl: "", // 如果type是music或video，则要提供数据链接，默认为空
+            success: function() {
+              alert("分享给朋友成功");
+              // 用户确认分享后执行的回调函数
+            },
+            cancel: function() {
+              // 用户取消分享后执行的回调函数
+            }
+          });
+        });
+      })
+      .catch(err => {
+        console.log(err, "请求失败");
+      });
   },
   methods: {
-    onClick(names,index) {
-       this.$root.eventHub.$emit("changeTab", index);
+    onClick(names, index) {
+      this.$root.eventHub.$emit("changeTab", index);
       this.ids = names;
       this.$toast({
         message: "加载中...",

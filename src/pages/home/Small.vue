@@ -229,7 +229,7 @@ export default {
         console.log(res.data.data.signPackage);
         let signPackage = res.data.data.signPackage;
         this.$wx.config({
-          debug: false,
+          debug: true,
           appId: signPackage.appId,
           timestamp: signPackage.timestamp,
           nonceStr: signPackage.nonceStr,
