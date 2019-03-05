@@ -176,7 +176,44 @@ export default {
   },
 
   created() {
-    let value = localStorage.getItem("keys");
+
+    fs()
+      .then(res => {
+        res = res.data;
+        if (res.status && res.data) {
+          this.showcon = true;
+          this.tabs = res.data;
+          this.ids = this.tabs[0].crowd_funding_class_id;
+          this.refecd();
+          this.numlength = res.data.length;
+          // console.log(this.numlength);
+        }
+      })
+      .catch(err => {
+        console.log(err, "请求失败");
+      });
+  },
+  mounted() {
+    window.addEventListener("scroll", this.watchScroll);
+    let mySwiperA = new Swiper(".swiper-container");
+    // mySwiperA.slideTo(this.active, 0, false);
+    mySwiperA.on("slideChange", () => {
+      this.active = mySwiperA.activeIndex;
+      this.$root.eventHub.$emit("changeTab", mySwiperA.activeIndex);
+      this.ids = this.tabs[mySwiperA.activeIndex].crowd_funding_class_id;
+      this.$toast({
+        message: "加载中...",
+        duration: "1000"
+      });
+      this.refecd();
+    });
+
+    this.$root.eventHub.$on("changeTab", index => {
+      // 点击导航键跳转相应内容区
+      mySwiperA.slideTo(index, 0, false);
+    });
+
+        let value = localStorage.getItem("keys");
     let url = window.location.href;
     let newurl = url.split("/")[2];
     // console.log(newurl);
@@ -233,41 +270,6 @@ export default {
       .catch(err => {
         console.log(err, "请求失败");
       });
-    fs()
-      .then(res => {
-        res = res.data;
-        if (res.status && res.data) {
-          this.showcon = true;
-          this.tabs = res.data;
-          this.ids = this.tabs[0].crowd_funding_class_id;
-          this.refecd();
-          this.numlength = res.data.length;
-          // console.log(this.numlength);
-        }
-      })
-      .catch(err => {
-        console.log(err, "请求失败");
-      });
-  },
-  mounted() {
-    window.addEventListener("scroll", this.watchScroll);
-    let mySwiperA = new Swiper(".swiper-container");
-    // mySwiperA.slideTo(this.active, 0, false);
-    mySwiperA.on("slideChange", () => {
-      this.active = mySwiperA.activeIndex;
-      this.$root.eventHub.$emit("changeTab", mySwiperA.activeIndex);
-      this.ids = this.tabs[mySwiperA.activeIndex].crowd_funding_class_id;
-      this.$toast({
-        message: "加载中...",
-        duration: "1000"
-      });
-      this.refecd();
-    });
-
-    this.$root.eventHub.$on("changeTab", index => {
-      // 点击导航键跳转相应内容区
-      mySwiperA.slideTo(index, 0, false);
-    });
   },
 
   methods: {
