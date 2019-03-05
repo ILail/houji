@@ -176,27 +176,27 @@ export default {
   },
 
   created() {
-    let value =
-      "19_uWgkkpsEMwGrnWILz-ohe227mtcDfpivg8jBNr_81jE45iHi-bSUYOo_Yyc-maGmePVU18z1-5Hp1ZM5-OrdOjtNdTryUmRxNWoOzu_XaNhnRnNVQyGvaM95vfYWnrMMVWl4901fChKbrmFhPUGjAHASXJ";
+    let value = localStorage.getItem("keys");
     let url = window.location.href;
     let newurl = url.split('/')[2]
     console.log( newurl)
-    console.log(wx);
+    console.log(this.$wx);
     console.log(value);
+    if (value == null) return;
     SignPackage('http://'+newurl+'', value)
       .then(res => {
         console.log(res.data.data.signPackage);
         let signPackage = res.data.data.signPackage;
-        wx.config({
+       this.$wx.config({
           debug: true,
           appId: signPackage.appId,
           timestamp: signPackage.timestamp,
           nonceStr: signPackage.nonceStr,
           signature: signPackage.signature,
-          jsApiList: ["onMenuShareTimeline", "onMenuShareAppMessage"]
+          jsApiList: ["onMenuShareTimeline", "onMenuShareAppMessage","translateVoice"]
         });
-        wx.ready(function() {
-          wx.onMenuShareAppMessage({
+        this.$wx.ready(function() {
+         this.$wx.onMenuShareAppMessage({
             title: "猴集官方服务号", // 分享标题
             desc: "集全球健康食材！！！", // 分享描述
             link: url, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
