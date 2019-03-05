@@ -95,7 +95,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-import wx from "weixin-js-sdk";
+// import wx from "weixin-js-sdk";
 import HomeSwiper from "./components/components/swiper";
 import FadeAnimation from "@/components/common/Fade";
 import Tabbar from "@/components/common/Tan";
@@ -221,14 +221,14 @@ export default {
   mounted() {
     let value = localStorage.getItem("keys");
     let url = window.location.href;
-    console.log(wx);
+    console.log(this.$wx);
     if (value == null) return;
     SignPackage(url, value)
       .then(res => {
-        console.log(wx);
+        console.log(this.$wx);
         console.log(res.data.data.signPackage);
         let signPackage = res.data.data.signPackage;
-        wx.config({
+        this.$wx.config({
           debug: false,
           appId: signPackage.appId,
           timestamp: signPackage.timestamp,
@@ -236,10 +236,10 @@ export default {
           signature: signPackage.signature,
           jsApiList: ["onMenuShareTimeline", "onMenuShareAppMessage"]
         });
-        wx.ready(function() {
-          wx.onMenuShareAppMessage({
+        this.$wx.ready(function() {
+          this.$wx.onMenuShareAppMessage({
             title: "猴集官方服务号", // 分享标题
-            desc: "集全球健康食材", // 分享描述
+            desc: "集全球健康食材！！！", // 分享描述
             link: url, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
             imgUrl: "http://h5.ngba.cn/image/pic300.jpg", // 分享图标
             type: "", // 分享类型,music、video或link，不填默认为link
