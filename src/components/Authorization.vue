@@ -13,12 +13,12 @@ export default {
       .then(res => {
         let URL = res.data.data;
         // console.log(URL);
-        var value = localStorage.getItem("ngba");
+        var value = localStorage.getItem("houji");
         // console.log(value);
         // 只做一次跳转
         if (value == null || value == undefined) {
           // setTimeout(function() {
-          localStorage.setItem("ngba", "2018");
+          localStorage.setItem("houji", "2018");
           window.location.href = URL;
           // console.log(URL);
           // }, 800);
