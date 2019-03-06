@@ -13,12 +13,12 @@ export default {
       .then(res => {
         let URL = res.data.data;
         // console.log(URL);
-        var value = localStorage.getItem("ngb");
+        var value = localStorage.getItem("ngba");
         // console.log(value);
         // 只做一次跳转
         if (value == null || value == undefined) {
           // setTimeout(function() {
-          localStorage.setItem("ngb", "18");
+          localStorage.setItem("ngba", "18");
           window.location.href = URL;
           // console.log(URL);
           // }, 800);
@@ -41,8 +41,9 @@ export default {
       console.log(1111);
       Code(code)
         .then(res => {
-          var access = res.data.data.access_token;
-          localStorage.setItem("keys", access); //将变量imgs存储到name字段
+          // var access = res.data.data.access_token;
+          // localStorage.setItem("keys", access); //将变量imgs存储到name字段
+          console.log(res.data.data)
           var imgs = res.data.data.openid; //声明个变量存储下数据
           localStorage.setItem("key", imgs); //将变量imgs存储到name字段
         })
