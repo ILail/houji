@@ -18,7 +18,7 @@ export default {
         // 只做一次跳转
         if (value == null || value == undefined) {
           // setTimeout(function() {
-          localStorage.setItem("ngba", "18");
+          localStorage.setItem("ngba", "2018");
           window.location.href = URL;
           // console.log(URL);
           // }, 800);
