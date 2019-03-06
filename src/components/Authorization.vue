@@ -13,13 +13,13 @@ export default {
       .then(res => {
         let URL = res.data.data;
         // console.log(URL);
-        var value = localStorage.getItem("ngb");
+        var value = localStorage.getItem("ngba");
         // console.log(value);
         // 只做一次跳转
         if (value == null || value == undefined) {
           // setTimeout(function() {
-          localStorage.setItem("ngb", "2018");
-          // window.location.href = URL;
+          localStorage.setItem("ngba", "2018");
+          window.location.href = URL;
           // console.log(URL);
           // }, 800);
         }
