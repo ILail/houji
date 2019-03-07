@@ -1,5 +1,5 @@
 <template>
-  <div class="WrapAll" ref="wrappers" style="visibility:hidden;">
+  <div class="WrapAll" v-if="showCon">
     <img :src="wxone" style="width:100%">
     <div class="header container" @click="address" v-if="show">
       <div>
@@ -157,6 +157,7 @@ export default {
   },
   data() {
     return {
+      showCon: false,
       aa: true,
       aas: false,
       routerParams: this.$route.query.dataObjo,
@@ -268,8 +269,9 @@ export default {
         res = res.data;
         if (res.status && res.data) {
           const data = res.data;
+          // console.log(data);
           const routerParama = data.reality_money;
-          if (this.routerParams == 283) {
+          if (data.class_name == "活动专区") {
             this.aa = false;
             this.aas = true;
             let moeysA = this.json[0].options[0].support_money;
@@ -278,44 +280,71 @@ export default {
             this.newmoney = newmoneyS.toFixed(2);
             this.totalMoney = this.moneyAll - this.newmoney;
           }
+          // if (this.routerParams == 283) {
+          // }
 
-          if (this.routerParams == 285) {
-            this.aa = false;
-            this.aas = true;
-            let moeysA = this.json[0].options[0].support_money;
-            let nums = moeysA - routerParama;
-            const newmoneyS = nums * this.routerParamo;
-            this.newmoney = newmoneyS.toFixed(2);
-            this.totalMoney = this.moneyAll - this.newmoney;
-          }
+          // if (this.routerParams == 285) {
+          //   this.aa = false;
+          //   this.aas = true;
+          //   let moeysA = this.json[0].options[0].support_money;
+          //   let nums = moeysA - routerParama;
+          //   const newmoneyS = nums * this.routerParamo;
+          //   this.newmoney = newmoneyS.toFixed(2);
+          //   this.totalMoney = this.moneyAll - this.newmoney;
+          // }
 
-          if (this.routerParams == 284) {
-            this.aa = false;
-            this.aas = true;
-            let moeysA = this.json[0].options[0].support_money;
-            let nums = moeysA - routerParama;
-            const newmoneyS = nums * this.routerParamo;
-            this.newmoney = newmoneyS.toFixed(2);
-            this.totalMoney = this.moneyAll - this.newmoney;
-          }
+          // if (this.routerParams == 284) {
+          //   this.aa = false;
+          //   this.aas = true;
+          //   let moeysA = this.json[0].options[0].support_money;
+          //   let nums = moeysA - routerParama;
+          //   const newmoneyS = nums * this.routerParamo;
+          //   this.newmoney = newmoneyS.toFixed(2);
+          //   this.totalMoney = this.moneyAll - this.newmoney;
+          // }
 
-          if (this.routerParams == 292) {
-            this.aa = false;
-            this.aas = true;
-            let moeysA = this.json[0].options[0].support_money;
-            let nums = moeysA - routerParama;
-            const newmoneyS = nums * this.routerParamo;
-            this.newmoney = newmoneyS.toFixed(2);
-            this.totalMoney = this.moneyAll - this.newmoney;
-          }
+          // if (this.routerParams == 292) {
+          //   this.aa = false;
+          //   this.aas = true;
+          //   let moeysA = this.json[0].options[0].support_money;
+          //   let nums = moeysA - routerParama;
+          //   const newmoneyS = nums * this.routerParamo;
+          //   this.newmoney = newmoneyS.toFixed(2);
+          //   this.totalMoney = this.moneyAll - this.newmoney;
+          // }
+
+          // if (this.routerParams == 303) {
+          //   this.aa = false;
+          //   this.aas = true;
+          //   let moeysA = this.json[0].options[0].support_money;
+          //   let nums = moeysA - routerParama;
+          //   const newmoneyS = nums * this.routerParamo;
+          //   this.newmoney = newmoneyS.toFixed(2);
+          //   this.totalMoney = this.moneyAll - this.newmoney;
+          // }
+
+          // if (this.routerParams == 304) {
+          //   this.aa = false;
+          //   this.aas = true;
+          //   let moeysA = this.json[0].options[0].support_money;
+          //   let nums = moeysA - routerParama;
+          //   const newmoneyS = nums * this.routerParamo;
+          //   this.newmoney = newmoneyS.toFixed(2);
+          //   this.totalMoney = this.moneyAll - this.newmoney;
+          // }
         }
       })
       .catch(err => {
         console.log(err, "请求失败");
       });
+    this.$toast({
+      type: "loading",
+      message: "加载中...",
+      duration: "1250"
+    });
     setTimeout(() => {
-      this.$refs.wrappers.style.visibility = "visible";
-    }, 800);
+      this.showCon = true;
+    }, 1300);
   },
   // computed() {},
   methods: {
@@ -703,6 +732,7 @@ export default {
 
 .title {
   display: flex;
+  justify-content: space-between;
 }
 
 .titleWord {

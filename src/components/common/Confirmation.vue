@@ -1,5 +1,5 @@
 <template>
-  <div class="WrapAll" ref="wrappers" style="visibility:hidden;">
+  <div class="WrapAll" v-if="showCon">
     <img :src="wxone" style="width:100%">
     <div class="header container" @click="address" v-if="show">
       <div>
@@ -128,6 +128,7 @@
 import { Confirone } from "@/components/axios/api";
 import { getDIZ } from "@/components/axios/api";
 import { coupon } from "@/components/axios/api";
+
 import store from "@/components/vuex/store";
 import secret from "@/utils/utils";
 // import bus from "@/bus/bus.js";
@@ -148,6 +149,7 @@ export default {
   },
   data() {
     return {
+      showCon: false,
       wx: require("@/assets/rr.png"),
       wxone: require("@/assets/mine/xu.png"),
       shoiw: false,
@@ -178,7 +180,7 @@ export default {
       vouchers_id: 0,
       addressID: "",
       // 结算
-
+      wishid: [],
       juan: "",
       saleING: "",
       totalMoney: "",
@@ -212,10 +214,10 @@ export default {
         console.log(err, "请求失败");
       });
     // 发送请求
-    let routerParams = this.$route.query.dataObj;
-    this.wishid = routerParams.toString();
-
-    Confirone(this.wishid, 222)
+    const routerParams = this.$route.query.dataObj;
+    const wishid = routerParams.toString();
+    this.wishid = wishid;
+    Confirone(wishid, 222)
       .then(res => {
         this.json = res.data.data.wish_list.list;
 
@@ -239,7 +241,6 @@ export default {
         console.log(err, "请求失败");
       });
 
-
     // Member()
     //   .then(res => {
     //     // console.log(res.data.status);
@@ -254,9 +255,17 @@ export default {
     //   });
   },
   mounted() {
+    // setTimeout(() => {
+    //   this.$refs.wrappers.style.visibility = "visible";
+    // }, 1200);
+    this.$toast({
+      type: "loading",
+      message: "加载中...",
+      duration: "1250"
+    });
     setTimeout(() => {
-      this.$refs.wrappers.style.visibility = "visible";
-    }, 1200);
+      this.showCon = true;
+    }, 1300);
   },
   methods: {
     address() {
@@ -317,7 +326,7 @@ export default {
         return false;
       }
 
-      let naid = localStorage.getItem('key')
+      let naid = localStorage.getItem("key");
       console.log(naid);
       const arry = [
         this.details,
@@ -340,20 +349,6 @@ export default {
           dataObjg: arry[6]
         }
       });
-      // bus.$emit(
-      //   "AllChange",
-      //   this.details,
-      //   this.we_chat,
-      //   this.routerParams,
-      //   this.routerParamb,
-      //   this.addressID,
-      //   this.totalMoney,
-      //   this.routerParamo,
-      //   this.liuyab,
-      //   this.idNum,
-      //   naid
-      // );
-      // this.$router.push("/zhifu");
     }
   }
 };
@@ -611,7 +606,7 @@ export default {
 .left img {
   width: 100%;
   border-radius: 5px;
-  height 77.83px
+  height: 77.83px;
 }
 
 .allW {
@@ -630,11 +625,12 @@ export default {
 }
 
 .titlew {
-  margin-top: 5px;
+  margin-top: 2px;
 }
 
 .title {
   display: flex;
+  justify-content: space-between;
 }
 
 .titleWord {
@@ -648,7 +644,6 @@ export default {
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   line-height: 1.2;
-  margin-top: 2px;
 }
 
 .detailsame {

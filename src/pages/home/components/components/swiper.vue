@@ -19,7 +19,7 @@
 <script>
 import Vue from "vue";
 import { Swipe, SwipeItem } from "mint-ui";
-
+import { crowd_funding } from "@/components/axios/api";
 Vue.component(Swipe.name, Swipe);
 Vue.component(SwipeItem.name, SwipeItem);
 export default {
@@ -29,22 +29,29 @@ export default {
   },
   methods: {
     changes(id) {
-      //   console.log(id);
-      if (id == 237 || id == 275 || id == 286) {
-        this.$router.push({
-          path: "/Detail",
-          query: {
-            key: id
+      crowd_funding(id)
+        .then(res => {
+          res = res.data;
+          // console.log(res)
+          if (res.data.class_name == "活动专区") {
+            this.$router.push({
+              path: "/hdetial",
+              query: {
+                key: id
+              }
+            });
+          } else {
+            this.$router.push({
+              path: "/Detail",
+              query: {
+                key: id
+              }
+            });
           }
+        })
+        .catch(err => {
+          console.log(err, "请求失败");
         });
-      } else {
-        this.$router.push({
-          path: "/hdetial",
-          query: {
-            key: id
-          }
-        });
-      }
     }
   }
 };

@@ -18,7 +18,7 @@ export function lookOption() { //lookOption是你要调用接口的名字，issu
 // 头部搜索
 export function search(name) {
   return fetch({
-    url: api.Hallowmas + '/v2/index?keyword=' + name + '',
+    url: api.Hallowmas + '/v2p3/index?keyword=' + name + '',
     method: "GET",
 
   })

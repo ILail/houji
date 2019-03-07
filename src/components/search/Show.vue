@@ -63,6 +63,7 @@
 // console.log('加密后: '+a)
 // console.log('解密后: '+b)
 import { search } from "@/components/axios/api";
+import { crowd_funding } from "@/components/axios/api";
 export default {
   name: "Show",
   data() {
@@ -82,6 +83,7 @@ export default {
         if (res.status && res.data) {
           const data = res.data;
           this.sowingMap = data.result;
+          console.log(this.sowingMap);
           if (data.result.length == 0) {
             this.ispic = true;
           }
@@ -93,24 +95,28 @@ export default {
   },
   methods: {
     hitS(INDE) {
-      // 梨的接口
-      // if (INDE == 275) {
-      //   this.$router.push({
-      //     path: "/hdetial",
-      //     query: {
-      //       key: INDE,
-      //       money: "59.4",
-      //       moneys: "180"
-      //     }
-      //   });
-      // } else {
-        this.$router.push({
-          path: "/Detail",
-          query: {
-            key: INDE
+      crowd_funding(INDE)
+        .then(res => {
+          res = res.data;
+          if (res.data.class_name == "活动专区") {
+            this.$router.push({
+              path: "/hdetial",
+              query: {
+                key: INDE
+              }
+            });
+          }else{
+                      this.$router.push({
+              path: "/Detail",
+              query: {
+                key: INDE
+              }
+            });
           }
+        })
+        .catch(err => {
+          console.log(err, "请求失败");
         });
-      // }
     },
     computedResidualTime: function(item) {
       let residualTime = item.left_time;
