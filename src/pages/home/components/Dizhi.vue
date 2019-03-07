@@ -12,7 +12,7 @@
         }
     }"
           >
-            <img :src="item.pic">
+            <img v-lazy="item.pic">
             <span>{{item.geographical_name}}</span>
           </router-link>
         </li>
@@ -190,10 +190,13 @@ export default {
   margin: 0 auto;
   padding-top: 20px;
   position: relative;
+  height 216px
 }
 
 .contentNav img {
-  width: 50%;
+  width:40px;
+  height 40px;
+  border-radius 50%
 }
 
 .contentNav li {

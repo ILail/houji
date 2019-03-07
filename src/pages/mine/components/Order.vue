@@ -76,24 +76,53 @@
         </div>
       </router-link>
     </div>
+
+    <img v-lazy="adInfo.ad_img" class="tImg" @click="imgJ">
   </div>
 </template>
 
 <script type="text/ecmascript-6">
+import { lookOption } from "@/components/axios/api";
 export default {
   data() {
     return {
+      adInfo: "",
       wx: require("@/assets/rr.png"),
       one: require("@/assets/list/1.png"),
       two: require("@/assets/list/2.png"),
       three: require("@/assets/list/3.png"),
       four: require("@/assets/list/4.png")
     };
+  },
+  created: function() {
+    lookOption()
+      .then(res => {
+        res = res.data;
+        if (res.status && res.data) {
+          const data = res.data;
+          this.adInfo = data.adInfo;
+        }
+      })
+      .catch(err => {
+        console.log(err, "请求失败");
+      });
+  },
+  methods: {
+    imgJ() {
+      this.$router.push({ path: "/linjuan" });
+    }
   }
 };
 </script>
 
 <style lang="stylus" type="text/stylus" rel="stylesheet/stylus" scoped>
+.tImg {
+  height: 96.41px;
+  margin-top: 10px;
+  width 87.2%
+  padding: 0 6.4% 20px 6.4%;
+}
+
 .title {
   display: flex;
   align-items: center;

@@ -1,6 +1,5 @@
 <template>
   <div>
-   
     <div class="wrapword container">
       <span>
         <img src="@/assets/one.png">24小时监控
@@ -12,17 +11,27 @@
         <img src="@/assets/three.png">假一赔十
       </span>
     </div>
-    <img v-lazy="adInfo.ad_img" class="tImg" @click="imgJ">
     <home-people :larity="popuLarity"></home-people>
+    <img v-lazy="adInfo.ad_img" class="tImg" @click="imgJ">
     <div style="background:#eee;height:10px"></div>
     <home-new :product="dayProduct"></home-new>
+    <div style="background:#eee;height:10px"></div>
+    <div v-for="item of dailyAd" :key="item.id" class="container">
+      <router-link
+        :to="{  
+        path: 'days',     
+    }"
+      >
+        <img v-lazy="item.pic" class="dailyImg">
+      </router-link>
+    </div>
+
     <div style="background:#eee;height:10px"></div>
     <home-like></home-like>
   </div>
 </template>
 
 <script>
-
 import HomePeople from "./components/People";
 import HomeNew from "./components/New";
 import HomeLike from "./components/Like";
@@ -33,8 +42,7 @@ export default {
   components: {
     HomePeople,
     HomeNew,
-    HomeLike,
-    
+    HomeLike
   },
   data() {
     return {
@@ -46,27 +54,26 @@ export default {
       dayProduct: [],
       // gass: [],
       adInfo: "",
+      dailyAd: [],
       sowingMap: []
     };
   },
-  created: function() {
+  created() {
     lookOption()
       .then(res => {
         res = res.data;
-
         if (res.status && res.data) {
           const data = res.data;
           this.sowingMap = data.sowingMap;
           this.adInfo = data.adInfo;
-          this.popuLarity = data.popularity.slice(0, 2);
-          this.dayProduct = data.dayProduct.slice(0, 2);
+          this.popuLarity = data.classification;
+          this.dayProduct = data.welfareList;
+          this.dailyAd = data.dailyAd;
         }
       })
       .catch(err => {
         console.log(err, "请求失败");
       });
-
-  
   },
   mounted() {
     // setTimeout(() => {
@@ -85,8 +92,8 @@ export default {
 <style lang="stylus" type="text/stylus" rel="stylesheet/stylus" scoped>
 .tImg {
   height: 96.41px;
-  width: 100%;
-  margin-top: 10px;
+  width: 94%;
+  padding 10px 3%
 }
 
 .wrapword {
@@ -111,5 +118,9 @@ export default {
   margin-right: 3px;
 }
 
-
+.dailyImg {
+  width: 100%;
+  height: 170px;
+  padding: 18px 0;
+}
 </style>

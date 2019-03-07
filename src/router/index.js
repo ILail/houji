@@ -116,6 +116,15 @@ const routes = [{
     },
   },
   {
+    path: '/days',
+    // name: '购物车',
+    // component: Wish,
+    component: resolve => require(["@/components/common/Day"], resolve),
+    meta: {
+      title: '每日新品',
+    },
+  },
+  {
     path: '/mines',
     // name: '个人中心',
     // component: Mine,

@@ -10,7 +10,7 @@
         }
     }"
         >-->
-        <img class="swiper-img" v-lazy="item.pic" @click="changes(item.link)">
+        <img class="swiper-img" v-lazy="item.pic" :key="item.pic" @click="changes(item.link,item.jump_type)">
         <!-- </router-link> -->
       </mt-swipe-item>
     </mt-swipe>
@@ -28,30 +28,31 @@ export default {
     sowingMap: Array
   },
   methods: {
-    changes(id) {
-      crowd_funding(id)
-        .then(res => {
-          res = res.data;
-          // console.log(res)
-          if (res.data.class_name == "活动专区") {
-            this.$router.push({
-              path: "/hdetial",
-              query: {
-                key: id
-              }
-            });
-          } else {
-            this.$router.push({
-              path: "/Detail",
-              query: {
-                key: id
-              }
-            });
-          }
-        })
-        .catch(err => {
-          console.log(err, "请求失败");
-        });
+    changes(id, jump_type) {
+      switch (jump_type) {
+        case 1:
+          this.$router.push({
+            path: "/Detail",
+            query: {
+              key: id
+            }
+          });
+          break;
+        case 2:
+          this.$router.push({
+            path: "/hdetial",
+            query: {
+              key: id
+            }
+          });
+          break;
+        case 3:
+          //  h5页面
+          break;
+        case 4:
+          //  每日新品页面
+          break;
+      }
     }
   }
 };

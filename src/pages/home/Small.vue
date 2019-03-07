@@ -208,7 +208,6 @@ export default {
     lookOption()
       .then(res => {
         res = res.data;
-
         if (res.status && res.data) {
           const data = res.data;
           this.sowingMap = data.sowingMap;

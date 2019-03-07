@@ -44,19 +44,16 @@
   </div>
 </template>
 <script>
-import { gass } from "@/components/axios/api";
+import { Day } from "@/components/axios/api";
 export default {
-  name: "HomeLike",
-  // props: {
-  //   gass: Array
-  // },
+  name: "HomeDay",
   data() {
     return {
       gass: [],
       loading: false,
       finished: false,
       num: 1,
-      lastpage: 3
+      lastpage:2
     };
   },
   created() {
@@ -78,7 +75,7 @@ export default {
       }, 2500);
     },
     refresh: function() {
-      gass(this.num)
+      Day(this.num)
         .then(res => {
           res = res.data;
 

@@ -7,7 +7,7 @@ import api from './url'; //引用url.js
 export function lookOption() { //lookOption是你要调用接口的名字，issuer,userId是传进来的参数
   return fetch({
     //api.Hallowmas 引用url.js里面的数据
-    url: api.Hallowmas + '/v2/frontPageHead',
+    url: api.Hallowmas + '/v2p3/frontPageHead',
     method: 'GET', //请求方法
     // params:{}
     //   currentUserId:userId //传过去的参数
@@ -180,7 +180,16 @@ export function people() {
 // 猜你喜欢
 export function gass(page) {
   return fetch({
-    url: api.Hallowmas + '/v2/index?crowd_funding_type= ' + 111 + '&page=' + page + ' ',
+    url: api.Hallowmas + '/v2p3/index?crowd_funding_type= ' + 111 + '&page=' + page + ' ',
+    method: "GET",
+
+  })
+}
+
+// 每日新品
+export function Day(page) {
+  return fetch({
+    url: api.Hallowmas + '/v2p3/index?crowd_funding_type= ' + 115 + '&page=' + page + ' ',
     method: "GET",
 
   })
@@ -718,3 +727,8 @@ export function SignPackage(url,access_token) {
     }
   })
 }
+
+
+
+
+

@@ -9,7 +9,7 @@
       class="people"
       v-for="item of sowingMap"
       :key="item.id"
-      @click="hitS(item.crowd_funding_id)"
+      @click="hitS(item.crowd_funding_id,cf_type)"
     >
       <!-- <router-link 
         :to="{  
@@ -63,7 +63,7 @@
 // console.log('加密后: '+a)
 // console.log('解密后: '+b)
 import { search } from "@/components/axios/api";
-import { crowd_funding } from "@/components/axios/api";
+// import { crowd_funding } from "@/components/axios/api";
 export default {
   name: "Show",
   data() {
@@ -94,29 +94,22 @@ export default {
       });
   },
   methods: {
-    hitS(INDE) {
-      crowd_funding(INDE)
-        .then(res => {
-          res = res.data;
-          if (res.data.class_name == "活动专区") {
-            this.$router.push({
-              path: "/hdetial",
-              query: {
-                key: INDE
-              }
-            });
-          }else{
-                      this.$router.push({
-              path: "/Detail",
-              query: {
-                key: INDE
-              }
-            });
+    hitS(INDE, cf_type) {
+      if (cf_type == "activity") {
+        this.$router.push({
+          path: "/hdetial",
+          query: {
+            key: INDE
           }
-        })
-        .catch(err => {
-          console.log(err, "请求失败");
         });
+      } else {
+        this.$router.push({
+          path: "/Detail",
+          query: {
+            key: INDE
+          }
+        });
+      }
     },
     computedResidualTime: function(item) {
       let residualTime = item.left_time;

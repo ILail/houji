@@ -58,11 +58,13 @@ import secret from "@/utils/utils";
 import Vue from "vue";
 import { detailMshop } from "@/components/axios/api";
 import { zfuM } from "@/components/axios/api";
-import { Dialog } from "vant";
-import { Field } from "vant";
+// import { Dialog } from "vant";
+// import { Field } from "vant";
+import { PasswordInput, NumberKeyboard } from 'vant';
 
-Vue.use(Field);
-Vue.use(Dialog);
+Vue.use(PasswordInput).use(NumberKeyboard);
+// Vue.use(Field);
+// Vue.use(Dialog);
 export default {
   data() {
     return {
@@ -118,7 +120,7 @@ export default {
       this.pay_type = "balance";
     },
     nowWay() {
-      console.log(this.pay_type);
+      // console.log(this.pay_type);
       if (this.pay_type == "alipay") {
         this.$toast({
           message: "模式控制",
@@ -191,7 +193,9 @@ export default {
     },
     onInput(key) {
       this.value = (this.value + key).slice(0, 6);
+     
       if (this.value.length == "6") {
+         console.log( this.value )
         detailMshop(
           this.pay_style,
           this.pay_type,
@@ -203,10 +207,12 @@ export default {
           this.value
         )
           .then(res => {
+            console.log(res)
+            var _this = this
             if (res.data.message == "支付密码错误") {
               this.$toast({
                 message: "支付密码错误",
-                duration: "1000"
+                duration: "500"
               });
             }
             if (res.data.message == "钱包余额不足") {

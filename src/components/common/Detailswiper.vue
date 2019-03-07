@@ -309,10 +309,9 @@ export default {
     });
     // window.addEventListener("scroll", this.watchScroll);
     this.$toast({
-      mask:"true",
       message: "加载中...",
       duration: "1250",
-
+      type: "loading",
     });
 
     // 首页图片 设置定时器加载 不然swiper 会有bug (图片的吭) bind 解决this 指向

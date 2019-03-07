@@ -11,6 +11,8 @@ import LyTab from 'ly-tab';
 import store from '@/components/vuex/store'
 import clipper from '../static/clipper'
 import wx from 'weixin-js-sdk';
+import VueAwesomeSwiper from 'vue-awesome-swiper'
+Vue.use(VueAwesomeSwiper)
 Vue.prototype.$wx = wx;
 // bus
 import VueBus from 'vue-bus';
@@ -68,7 +70,7 @@ Vue.use(Swipe).use(SwipeItem);
 Vue.use(Loading);
 Vue.use(List);
 Vue.use(PullRefresh);
-Vue.use(Toast);
+Vue.prototype.$toast = Toast
 Vue.use(Tab).use(Tabs);
 Vue.use(Popup);
 Vue.use(clipper)
