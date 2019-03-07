@@ -1,5 +1,5 @@
 <template>
-  <div ref="wrapps" style="visibility:hidden">
+  <div v-if="show">
     <mine-header></mine-header>
     <mine-order></mine-order>
     <div style="background:#eee;height:10px"></div>
@@ -44,6 +44,7 @@ export default {
   },
   data() {
     return {
+      show:false,
       selected: "mines",
       tabbarDes: [
         {
@@ -81,9 +82,13 @@ export default {
     };
   },
   mounted() {
-    setTimeout(() => {
-      this.$refs.wrapps.style.visibility = "visible";
-    }, 500);
+    this.$toast({
+      type: "loading",
+      message: "加载中...",
+      duration: "1250"
+    });
+
+    this.show = true;
   },
   methods: {
     getVal: function(res) {

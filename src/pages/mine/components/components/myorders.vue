@@ -1,5 +1,5 @@
 <template>
-  <div class="active">
+  <div class="active" v-if="showA">
     <van-tabs v-model="activea" swipeable sticky animated @click="onClick">
       <van-tab title="全部">
         <div class="hitImg" v-show="ispic">
@@ -221,6 +221,7 @@ export default {
   name: "Myorders",
   data() {
     return {
+      showA: false,
       activea: 1,
       num: 1,
       json: [],
@@ -295,9 +296,14 @@ export default {
       });
   },
   mounted() {
-    // setTimeout(() => {
-    //   this.$refs.wrappers.style.visibility = "visible";
-    // }, 500);
+    this.$toast({
+      type: "loading",
+      message: "加载中...",
+      duration: "1000"
+    });
+    setTimeout(() => {
+      this.showA = true;
+    }, 1200);
   },
   methods: {
     onClick(index) {
@@ -483,7 +489,7 @@ export default {
 
 .left img {
   width: 100%;
-  height:77.5px
+  height: 77.5px;
   border-radius: 5px;
 }
 

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="show">
     <div id="box">
       <div class="hitImg" v-show="shops">
         <img src="@/assets/empty.png">
@@ -119,6 +119,7 @@ export default {
   },
   data() {
     return {
+      show: false,
       shops: false,
       arry: [],
       selecteda: "wishs",
@@ -181,7 +182,15 @@ export default {
         console.log(err, "请求失败");
       });
   },
+  mounted() {
+    this.$toast({
+      type: "loading",
+      message: "加载中...",
+      duration: "1250"
+    });
 
+    this.show = true;
+  },
   methods: {
     linjuan() {
       this.$router.push("/linjuan");
@@ -731,7 +740,7 @@ export default {
 .item-img img {
   width: 100%;
   border-radius: 5px;
-  height:89.38px
+  height: 89.38px;
 }
 
 .item-text {

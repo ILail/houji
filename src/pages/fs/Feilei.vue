@@ -201,8 +201,8 @@ export default {
       this.$root.eventHub.$emit("changeTab", mySwiperA.activeIndex);
       this.ids = this.tabs[mySwiperA.activeIndex].crowd_funding_class_id;
       this.$toast({
-        message: "加载中...",
-        duration: "1000"
+        message: "加载中……",
+        duration: "1500"
       });
       this.refecd();
     });
@@ -277,7 +277,7 @@ export default {
       this.$root.eventHub.$emit("changeTab", index);
       this.ids = names;
       this.$toast({
-        message: "加载中...",
+        message: "加载中……",
         duration: "1000"
       });
       this.refecd();

@@ -520,11 +520,11 @@ const router = new Router({
 // 页面刷新时，重新赋值token,用户名也在界面上展示
 
 
-
+// console.log(window.localStorage.getItem('token'))
 if (window.localStorage.getItem('token')) {
   store.commit(types.LOGIN, window.localStorage.getItem('token'));
 }
-// console.log(store.state.urlName)
+
 router.beforeEach((to, from, next) => {
   if (to.matched.some(r => r.meta.requireAuth)) {
     if (store.state.token) {
