@@ -44,7 +44,7 @@ export default {
           // var access = res.data.data.access_token;
           // localStorage.setItem("keys", access); //将变量imgs存储到name字段
           console.log(res.data.data)
-          var imgs = res.data.data; //声明个变量存储下数据
+          const imgs = res.data.data.openid; //声明个变量存储下数据
           localStorage.setItem("key", imgs); //将变量imgs存储到name字段
         })
         .catch(err => {
