@@ -18,7 +18,7 @@ export default {
         // 只做一次跳转
         if (value == null || value == undefined) {
           // setTimeout(function() {
-          localStorage.setItem("houji", "2018");
+          localStorage.setItem("houji", "2019");
           window.location.href = URL;
           // console.log(URL);
           // }, 800);
