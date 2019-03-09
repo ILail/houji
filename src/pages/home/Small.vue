@@ -333,6 +333,7 @@ export default {
     left() {
       // console.log(123);
       // console.log(this.currentView);
+        document.body.scrollTop = 0;
       switch (this.currentView) {
         case "Home":
           this.currentView = "Fuli";
@@ -372,6 +373,7 @@ export default {
     right() {
       // console.log(1234);
       // console.log(this.currentView);
+        document.body.scrollTop = 0;
       switch (this.currentView) {
         case "Home":
           this.currentView = "Finish";

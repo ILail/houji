@@ -37,57 +37,62 @@
     <div class="swiper-container wrapAll">
       <div class="swiper-wrapper">
         <div class="swiper-slide" v-for="index in numlength" :key="index">
-          <div class="hitImg" style="border:none" v-show="ispic">
-            <img src="@/assets/woring.png">
-            <div class="contenr">暂时无数据，静请期待！</div>
-          </div>
+          <fade-animation>
+            <div>
 
-          <div v-for="(itemCon) in tabContentsa" :key="itemCon.id" class="people container">
-            <router-link
-              :to="{  
+            <div class="hitImg" style="border:none" v-show="ispic">
+              <img src="@/assets/woring.png">
+              <div class="contenr">暂时无数据，静请期待！</div>
+            </div>
+            <div v-for="(itemCon) in tabContentsa" :key="itemCon.id" class="people container">
+              <router-link
+                :to="{  
         path: 'Detail',     
         query: {   
             key: itemCon.crowd_funding_id, // orderNum : this.searchData.orderNo
         }
     }"
-            >
-              <img :src="itemCon.pic" class="peoImg">
-              <div class="people_p">
-                <div class="list">{{itemCon.crowd_funding_name}}</div>
-                <div class="crowd-info">
-                  <div class="crowd-money">
-                    <span class="word">已售：</span>
-                    <span class="money">¥{{itemCon.now_money}}</span>
+              >
+                <img :src="itemCon.pic" class="peoImg">
+                <div class="people_p">
+                  <div class="list">{{itemCon.crowd_funding_name}}</div>
+                  <div class="crowd-info">
+                    <div class="crowd-money">
+                      <span class="word">已售：</span>
+                      <span class="money">¥{{itemCon.now_money}}</span>
+                    </div>
+                    <div class="crowd-right">
+                      <img :src="itemCon.headimgurl">
+                      
+                      <span class="peoMuch">{{itemCon.nickname}}</span>
+                    </div>
                   </div>
-                  <div class="crowd-right">
-                    <img :src="itemCon.headimgurl">
-                    
-                    <span class="peoMuch">{{itemCon.nickname}}</span>
+                  <div class="progressAll">
+                    <div class="progress-outer">
+                      <span class="progress" :style="{width:computedResidualTimea(itemCon)+'%'}"></span>
+                    </div>
+                    <span class="progressA">{{itemCon.progress}}%</span>
+                  </div>
+                  <div class="crowd-info_a">
+                    <div class="crowd-money">
+                      <span class="peoHow">{{itemCon.support_num}}人支持</span>
+                    </div>
+                    <div class="crowd-day">
+                      <span style="margin-right: 3px;">
+                        <img src="@/assets/time.png" class="crowdTimg">
+                      </span>
+                      <span class="money">{{computedResidualTime(itemCon)}}</span>
+                    </div>
                   </div>
                 </div>
-                <div class="progressAll">
-                  <div class="progress-outer">
-                    <span class="progress" :style="{width:computedResidualTimea(itemCon)+'%'}"></span>
-                  </div>
-                  <span class="progressA">{{itemCon.progress}}%</span>
-                </div>
-                <div class="crowd-info_a">
-                  <div class="crowd-money">
-                    <span class="peoHow">{{itemCon.support_num}}人支持</span>
-                  </div>
-                  <div class="crowd-day">
-                    <span style="margin-right: 3px;">
-                      <img src="@/assets/time.png" class="crowdTimg">
-                    </span>
-                    <span class="money">{{computedResidualTime(itemCon)}}</span>
-                  </div>
-                </div>
-              </div>
-            </router-link>
-          </div>
+              </router-link>
+            </div>
+            </div>
+          </fade-animation>
         </div>
       </div>
     </div>
+
     <!-- 底部 -->
     <div class="tabberWarp">
       <div class="warp">
@@ -111,6 +116,7 @@
 import { fsDetail } from "@/components/axios/api";
 import { fs } from "@/components/axios/api";
 import Item from "@/components/Item.vue";
+import FadeAnimation from "@/components/common/Fade";
 import assign from "@/components/axios/assign.js";
 import Tabbar from "@/components/common/Tan";
 import Swiper from "moon/swiper.min";
@@ -121,7 +127,8 @@ export default {
   name: "Feilei",
   components: {
     Item,
-    Tabbar
+    Tabbar,
+    FadeAnimation
   },
   data() {
     return {
@@ -198,6 +205,7 @@ export default {
     let mySwiperA = new Swiper(".swiper-container");
     // mySwiperA.slideTo(this.active, 0, false);
     mySwiperA.on("slideChange", () => {
+       document.body.scrollTop = 0;
       this.active = mySwiperA.activeIndex;
       this.$root.eventHub.$emit("changeTab", mySwiperA.activeIndex);
       this.ids = this.tabs[mySwiperA.activeIndex].crowd_funding_class_id;
@@ -275,6 +283,7 @@ export default {
 
   methods: {
     onClick(names, index) {
+       document.body.scrollTop = 0;
       this.$root.eventHub.$emit("changeTab", index);
       this.ids = names;
       this.$toast({
