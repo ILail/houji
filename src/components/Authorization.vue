@@ -5,7 +5,6 @@ import { Code } from "@/components/axios/api";
 import { huoqu } from "@/components/axios/api";
 import { SignPackage } from "@/components/axios/api";
 
-
 export default {
   created() {
     // 获取当前页面的链接给后台
@@ -13,12 +12,12 @@ export default {
       .then(res => {
         let URL = res.data.data;
         // console.log(URL);
-        var value = localStorage.getItem("houji");
+        var value = localStorage.getItem("houjiA");
         // console.log(value);
         // 只做一次跳转
         if (value == null || value == undefined) {
           // setTimeout(function() {
-          localStorage.setItem("houji", "2019");
+          localStorage.setItem("houjiA", "2019");
           window.location.href = URL;
           // console.log(URL);
           // }, 800);
@@ -41,9 +40,10 @@ export default {
       console.log(1111);
       Code(code)
         .then(res => {
-          // var access = res.data.data.access_token;
-          // localStorage.setItem("keys", access); //将变量imgs存储到name字段
-          console.log(res.data.data)
+          console.log(res.data.data);
+          const access = res.data.data.access_token;
+          localStorage.setItem("keys", access); //将变量imgs存储到name字段
+
           const imgs = res.data.data.openid; //声明个变量存储下数据
           localStorage.setItem("key", imgs); //将变量imgs存储到name字段
         })
