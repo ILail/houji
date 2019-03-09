@@ -468,18 +468,18 @@ const router = new Router({
   mode: 'history',
   // base: '',
   routes,
-  scrollBehavior(to, from, savedPosition) {
-    if (savedPosition) {
+  // scrollBehavior(to, from, savedPosition) {
+  //   if (savedPosition) {
 
-      window.scrollTo(savedPosition.x, savedPosition.y)
+  //     window.scrollTo(savedPosition.x, savedPosition.y)
 
-    } else {
-      return {
-        x: 0,
-        y: 0
-      }
-    }
-  },
+  //   } else {
+  //     return {
+  //       x: 0,
+  //       y: 0
+  //     }
+  //   }
+  // },
 
 });
 
@@ -535,6 +535,7 @@ router.beforeEach((to, from, next) => {
       })
     }
   } else {
+    document.body.scrollTop = 0;
     next();
   }
 })
