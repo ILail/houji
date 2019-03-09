@@ -64,13 +64,14 @@
     <!-- <div class="swiper-container wrapWa">
       <div class="swiper-wrapper">
     <div class="swiper-slide">-->
-    <fade-animation>
-      <v-touch v-on:swipeleft="left" v-on:swiperight="right">
+    <v-touch v-on:swipeleft="left" v-on:swiperight="right">
+      <fade-animation>
         <keep-alive>
           <component :is="currentView"></component>
         </keep-alive>
-      </v-touch>
-    </fade-animation>
+      </fade-animation>
+    </v-touch>
+
     <!-- </div>
       </div>
     </div>-->

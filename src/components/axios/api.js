@@ -243,8 +243,9 @@ export function Confirtwo(crowd_funding_id, crowd_funding_return_id, wish_nums, 
 
 // 获取用户默认地址
 export function getDIZ() {
+  
   return fetch({
-    url: api.Hallowmas + '/v2/member/getUserDefaultAddress',
+    url: api.Hallowmas + '/v1/member/getUserDefaultAddress',
     method: "GET",
   })
 }

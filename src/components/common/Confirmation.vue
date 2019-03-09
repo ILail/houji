@@ -1,5 +1,5 @@
 <template>
-  <div class="WrapAll" v-if="showCon">
+  <div class="WrapAll" v-show="showCon">
     <img :src="wxone" style="width:100%">
     <div class="header container" @click="address" v-if="show">
       <div>
@@ -200,6 +200,9 @@ export default {
         }
       })
       .catch(err => {
+           this.$router.push({
+          path: "/phone"
+        });
         console.log(err, "请求失败");
       });
     coupon(111)
@@ -211,6 +214,9 @@ export default {
         }
       })
       .catch(err => {
+           this.$router.push({
+          path: "/phone"
+        });
         console.log(err, "请求失败");
       });
     // 发送请求
@@ -238,6 +244,9 @@ export default {
         }
       })
       .catch(err => {
+           this.$router.push({
+          path: "/phone"
+        });
         console.log(err, "请求失败");
       });
 
@@ -355,6 +364,18 @@ export default {
 </script>
 
 <style lang="stylus" type="text/stylus" rel="stylesheet/stylus" scoped>
+.WrapAll >>> .van-tab {
+  width: 100%;
+  position: fixed;
+}
+
+.WrapAll >>> .van-tabs__content--animated {
+  overflow: visible;
+  height: 400px;
+}
+.WrapAll >>> .van-popup::-webkit-scrollbar {
+  display: none;
+}
 .sameInput input::-webkit-input-placeholder {
   color: #999;
 }
@@ -706,5 +727,15 @@ export default {
   text-align: center;
   color: #fff;
   font-size: 15px;
+}
+
+@media (max-width: 330px) {
+  .nows {
+    padding: 3px 6px;
+  }
+
+  .content {
+    bottom: 6px;
+  }
 }
 </style>

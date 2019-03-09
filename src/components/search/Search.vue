@@ -39,9 +39,9 @@
       </ul>
     </div>
     <!-- 历史搜索 -->
-    <div v-if="isbottom">
+    <div v-show="isbottom">
       <div class="line"></div>
-      <div class="hostory container" v-if="isShow">
+      <div class="hostory container" v-show="isShow">
         <div>
           <span class="suos">历史收索</span>
           <span style="float:right;color:#666666" @click="clickcourse()">清除</span>

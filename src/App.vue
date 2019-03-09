@@ -1,7 +1,9 @@
 <template>
   <div id="app">
-    <!-- <keep-alive include="Small"> -->
-    <router-view v-if="show"></router-view>
+    <!-- <keep-alive> -->
+    <fade-animation>
+      <router-view  v-show="show"></router-view>
+    </fade-animation>
     <!-- </keep-alive> -->
     <Guan v-if="$route.meta.oppendid"></Guan>
     <div v-wechat-title="$route.meta.title"></div>
@@ -10,6 +12,7 @@
 
 <script>
 import Guan from "@/components/Authorization";
+import FadeAnimation from "@/components/common/Fade";
 export default {
   name: "App",
   data() {
@@ -18,7 +21,8 @@ export default {
     };
   },
   components: {
-    Guan
+    Guan,
+    FadeAnimation
   },
   mounted() {
     this.$toast({
@@ -26,7 +30,7 @@ export default {
       duration: "1200",
       type: "loading"
     });
-    this.show = true
+    this.show = true;
   }
 };
 </script>

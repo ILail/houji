@@ -1,8 +1,4 @@
 <template>
-  <div>
-    <div class="title">
-      <div>猜你喜欢</div>
-    </div>
     <div class="content container">
       <van-list v-model="loading" :finished="finished" finished-text="没有更多了" @load="onLoad">
         <div class="wrap" v-for="items in gass" :key="items.id">
@@ -41,7 +37,7 @@
         </div>
       </van-list>
     </div>
-  </div>
+
 </template>
 <script>
 import { Day } from "@/components/axios/api";
@@ -141,13 +137,9 @@ export default {
   display: none;
 }
 
-// .content {
-// display: flex;
-// justify-content: space-between;
-// flex-wrap: wrap;
-// border-radius: 5px;
-// padding-bottom: 50px;
-// }
+.content {
+margin-top 12px
+}
 .wrap {
   width: 48.5%;
   margin-bottom: 10px;

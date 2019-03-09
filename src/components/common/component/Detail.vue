@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapAll">
+  <div class="wrapAll" v-show="showQ">
     <!-- 轮播 -->
     <!-- <van-swipe :autoplay="time" indicator-color="#D21623" @change="onChange" style="height:380px">
       <van-swipe-item v-if="shows">
@@ -27,73 +27,71 @@
       </van-swipe-item>
     </van-swipe>-->
     <!-- 内容 -->
-    <div v-if="showQ">
-      <div class="container" style=" box-shadow: 0px 1px 24px 0px rgba(255, 255, 255, 0.75);">
-        <div class="title top">{{list.crowd_funding_name}}</div>
-        <div class="content top">{{list.summary}}</div>
-        <div class="price top">
-          <span class="mubiao">已售金额：</span>
-          <span class="Mmoney">{{computedmoey(list)}}</span>
-        </div>
+    <div class="container" style=" box-shadow: 0px 1px 24px 0px rgba(255, 255, 255, 0.75);">
+      <div class="title top">{{list.crowd_funding_name}}</div>
+      <div class="content top">{{list.summary}}</div>
+      <div class="price top">
+        <span class="mubiao">已售金额：</span>
+        <span class="Mmoney">{{computedmoey(list)}}</span>
       </div>
-      <!-- 人员 -->
-      <div class="people top">
-        <div class="progressAll">
-          <div class="progress-outer">
-            <span class="progress" :style="{width:computedWidth(list)+'%'}"></span>
-          </div>
-          <span class="progressA" :style="{left:computedR(list)+'%'}">{{list.progress}}%</span>
-        </div>
-        <ul>
-          <li>
-            <span class="peopleT">{{computedmoeys(list)}}</span>
-            <span class="peopleC">目标金额</span>
-          </li>
-          <li class="linesss"></li>
-          <li>
-            <span class="peopleT">{{list.support_num}}</span>
-            <span class="peopleC">支持人数</span>
-          </li>
-          <li class="linesss"></li>
-          <li>
-            <span class="peopleT">{{computedResidualTime(list)}}</span>
-            <span class="peopleC">剩余时间</span>
-          </li>
-        </ul>
-        <div class="lines"></div>
-        <!-- 价格 -->
-        <div class="middCon container">
-          <div class="flexa">
-            <span class="flexl">¥{{list.support_money}}</span>
-            <!-- <span class="wordess">125</span> -->
-          </div>
-          <div class="flexa">
-            <span class="flexr" @click="flexr">立即支持</span>
-            <img :src="img" style="width:8px">
-          </div>
-        </div>
-        <div class="line container"></div>
-        <!-- 查看全部档位 -->
-        <div class="allName" @click="flexr">查看全部档位</div>
-        <div class="lines"></div>
-      </div>
-      <!-- 人员信息 -->
-      <div class="Originator">
-        <img :src="list.headimgurl">
-        <div class="middle">
-          <div class="middleName">{{list.nickname}}</div>
-          <div class="middleB">
-            <span class="middleC">发起项目：{{list.statistics}}项</span>
-            <span class="middleC" style="margin-left:.5rem">支持人数：{{list.total_number}}人</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- 详情页 -->
-      <div class="peoDela" v-html="list.content"></div>
     </div>
-    <!-- 底部 -->
+    <!-- 人员 -->
+    <div class="people top">
+      <div class="progressAll">
+        <div class="progress-outer">
+          <span class="progress" :style="{width:computedWidth(list)+'%'}"></span>
+        </div>
+        <span class="progressA" :style="{left:computedR(list)+'%'}">{{list.progress}}%</span>
+      </div>
+      <ul>
+        <li>
+          <span class="peopleT">{{computedmoeys(list)}}</span>
+          <span class="peopleC">目标金额</span>
+        </li>
+        <li class="linesss"></li>
+        <li>
+          <span class="peopleT">{{list.support_num}}</span>
+          <span class="peopleC">支持人数</span>
+        </li>
+        <li class="linesss"></li>
+        <li>
+          <span class="peopleT">{{computedResidualTime(list)}}</span>
+          <span class="peopleC">剩余时间</span>
+        </li>
+      </ul>
+      <div class="lines"></div>
+      <!-- 价格 -->
+      <div class="middCon container">
+        <div class="flexa">
+          <span class="flexl">¥{{list.support_money}}</span>
+          <!-- <span class="wordess">125</span> -->
+        </div>
+        <div class="flexa">
+          <span class="flexr" @click="flexr">立即支持</span>
+          <img :src="img" style="width:8px">
+        </div>
+      </div>
+      <div class="line container"></div>
+      <!-- 查看全部档位 -->
+      <div class="allName" @click="flexr">查看全部档位</div>
+      <div class="lines"></div>
+    </div>
+    <!-- 人员信息 -->
+    <div class="Originator">
+      <img :src="list.headimgurl">
+      <div class="middle">
+        <div class="middleName">{{list.nickname}}</div>
+        <div class="middleB">
+          <span class="middleC">发起项目：{{list.statistics}}项</span>
+          <span class="middleC" style="margin-left:.5rem">支持人数：{{list.total_number}}人</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 详情页 -->
+    <div class="peoDela" v-html="list.content"></div>
   </div>
+  <!-- 底部 -->
 </template>
 <script>
 import { crowd_funding } from "@/components/axios/api";
@@ -141,7 +139,7 @@ export default {
   mounted() {
     setTimeout(() => {
       this.showQ = true;
-    }, 1350);
+    }, 1450);
   },
   methods: {
     flexr() {

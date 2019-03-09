@@ -9,7 +9,12 @@
       <div class="wrapw">{{item.address_info}} {{item.address}}</div>
       <div class="wrapbott">
         <div class="right">
-          <img :src="imgSrc" ref="suan" class="imgC" @click="toggleImg(index)">
+          <img
+            :src="imgSrc(item.status)"
+            ref="suan"
+            class="imgC"
+            @click="toggleImg(index,item.user_address_id)"
+          >
           <span class="left">默认地址</span>
         </div>
 
@@ -35,60 +40,56 @@ export default {
       bgImg: [require("@/assets/xuan.png"), require("@/assets/xu.png")],
       imgIndex: 0,
       imgIndexa: 1,
-      index: ""
+      status: 2
     };
   },
   created: function() {
     getAddress()
       .then(res => {
         this.list = res.data.data;
+        // console.log(this.list);
       })
       .catch(err => {
         console.log(err, "请求失败");
       });
   },
-  // mounted() {
-  //   this.$nextTick(() => {
-  //     console.log(this.$refs.suan);
-  //   });
+// 方法二
+  // computed: {
+  //     imgSrc(val) {
+  //     return val == this.status ? this.bgImg[0] : this.bgImg[1];
+  //   },
   // },
-  updated: function() {
-    this.$refs.suan[0].src = this.bgImg[this.imgIndexa];
-  },
-  computed: {
-    imgSrc() {
-      return this.bgImg[this.imgIndex];
-    }
-  },
   methods: {
+    // 方法一
+    imgSrc(val) {
+      return val == this.status ? this.bgImg[0] : this.bgImg[1];
+    },
     enenneen() {
       this.$router.push("/tianjia");
     },
-    toggleImg(index) {
-      this.index = index;
-      const idNum = this.list[this.index].user_address_id;
-      // const id = this.$route.query.dataObj;
+    toggleImg(index, idNum) {
+      
+      // const idNum = this.list[this.index].user_address_id;
+      // console.log(status)
       getUser(idNum)
         .then(res => {
           if (res.data.data.length == 0) {
-            alert("设置成功");
-
-            // console.log('dataObj='+id+'')
-            // this.$router.push({
-            //   path: '/queren?dataObj='+id+'',
-            // });
+            this.$toast({
+              message: "设置成功",
+              duration: "1200"
+            });
           }
         })
         .catch(err => {
           console.log(err, "请求失败");
         });
-
-      this.$refs.suan[this.index].src = this.bgImg[this.imgIndexa];
-      for (var i = 0; i < this.$refs.suan.length; i++) {
-        if (i == this.index) {
+      const address = this.$refs.suan;
+      address[index].src = this.bgImg[this.imgIndexa];
+      for (var i = 0; i < address.length; i++) {
+        if (i == index) {
           continue;
         }
-        this.$refs.suan[i].src = this.bgImg[this.imgIndex];
+        address[i].src = this.bgImg[this.imgIndex];
       }
     },
     DerailL(iad, res) {

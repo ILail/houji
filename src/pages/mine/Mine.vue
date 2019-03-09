@@ -1,5 +1,5 @@
 <template>
-  <div v-if="show">
+  <div v-show="show">
     <mine-header></mine-header>
     <mine-order></mine-order>
     <div style="background:#eee;height:10px"></div>
@@ -85,7 +85,7 @@ export default {
     this.$toast({
       type: "loading",
       message: "加载中...",
-      duration: "1250"
+      duration: "1200"
     });
 
     this.show = true;

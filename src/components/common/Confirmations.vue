@@ -1,5 +1,5 @@
 <template>
-  <div class="WrapAll" v-if="showCon">
+  <div class="WrapAll" v-show="showCon">
     <img :src="wxone" style="width:100%">
     <div class="header container" @click="address" v-if="show">
       <div>
@@ -134,8 +134,8 @@
 </template>
 
 <script type="text/ecmascript-6">
-import { Confirtwo } from "@/components/axios/api";
 import { getDIZ } from "@/components/axios/api";
+import { Confirtwo } from "@/components/axios/api";
 import { coupon } from "@/components/axios/api";
 import { crowd_funding } from "@/components/axios/api";
 import secret from "@/utils/utils";
@@ -207,6 +207,7 @@ export default {
       .then(res => {
         this.letter = res.data.data;
         this.addressID = res.data.data.user_address_id;
+        console.log(this.letter);
         if (this.letter.length == 0) {
           this.show = false;
           this.shoiw = true;
@@ -227,6 +228,9 @@ export default {
         }
       })
       .catch(err => {
+        this.$router.push({
+          path: "/phone"
+        });
         console.log(err, "请求失败");
       });
     // 发送请求
@@ -247,7 +251,7 @@ export default {
           this.newmoney = 0.0;
           this.totalMoney = this.moneyAll - this.newmoney;
         }
-        console.log(this.routerParams);
+        // console.log(this.routerParams);
         // 活动接口呀呀…………
         // if (this.routerParams == 275) {
         //   this.aa = false;
@@ -260,6 +264,9 @@ export default {
         // }
       })
       .catch(err => {
+        this.$router.push({
+          path: "/phone"
+        });
         console.log(err, "请求失败");
       });
   },
@@ -453,6 +460,20 @@ export default {
 </script>
 
 <style lang="stylus" type="text/stylus" rel="stylesheet/stylus" scoped>
+.WrapAll >>> .van-tab {
+  width: 100%;
+  position: fixed;
+}
+
+.WrapAll >>> .van-tabs__content--animated {
+  overflow: visible;
+  height: 400px;
+}
+
+.WrapAll >>> .van-tabs__content--animated::-webkit-scrollbar {
+  display: none;
+}
+
 .sameInput {
   width: 80%;
 }
@@ -809,5 +830,15 @@ export default {
   text-align: center;
   color: #fff;
   font-size: 15px;
+}
+
+@media (max-width: 330px) {
+  .nows {
+    padding: 3px 6px;
+  }
+
+  .content {
+    bottom: 6px;
+  }
 }
 </style>

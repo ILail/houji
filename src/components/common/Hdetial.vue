@@ -11,7 +11,7 @@
         >
       </van-swipe-item>
     </van-swipe>
-    <div v-if="show">
+    <div v-show="show">
       <div class="middle">
         <div>
           <span>限量购</span>
@@ -173,11 +173,11 @@ export default {
     // setTimeout(() => {
     //   this.$refs.wrappers.style.visibility = "visible";
     // }, 1250);
-    this.$toast({
-      type: "loading",
-      message: "加载中...",
-      duration: "1250"
-    });
+    // this.$toast({
+    //   type: "loading",
+    //   message: "加载中...",
+    //   duration: "1250"
+    // });
     setTimeout(() => {
       this.show = true;
     }, 1300);
@@ -297,6 +297,7 @@ export default {
   font-family: PingFangSC-Semibold;
   font-weight: 600;
   color: rgba(51, 51, 51, 1);
+      line-height: 1.2;
 }
 
 .detail {
@@ -304,6 +305,7 @@ export default {
   font-family: PingFangSC-Regular;
   font-weight: 400;
   color: rgba(102, 102, 102, 1);
+      line-height: 1.2;
 }
 
 .wrapss {

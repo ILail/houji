@@ -108,6 +108,7 @@ export default {
       img: ""
     };
   },
+
   created() {
     weal()
       .then(res => {

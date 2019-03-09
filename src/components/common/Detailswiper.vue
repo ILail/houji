@@ -17,9 +17,9 @@
       indicator-color="#D21623"
       @change="onChange"
       style="height:375.5px"
-      v-if="showA"
+      v-show="showA"
     >
-      <van-swipe-item v-if="showV">
+      <van-swipe-item v-show="showV">
         <video
           width="100%"
           height="100%"
@@ -57,7 +57,7 @@
       </div>
     </div>
     <!-- </van-pull-refresh> -->
-    <div class="bottom" v-if="isshowa">
+    <div class="bottom" v-show="isshowa">
       <ul>
         <li class="shu" onclick="url()">
           <span style="margin-bottom:3px">
@@ -113,7 +113,7 @@
             <li class="jian" v-on:click="jian">+</li>
           </ul>
           <div class="queren" @click="confirm()" v-show="show">确认</div>
-          <div class="querena" v-show="shows">确认</div>
+          <div class="querena" v-show="shows">已经结束</div>
         </div>
       </div>
     </div>
@@ -153,7 +153,7 @@
             <li class="jian" v-on:click="jian">+</li>
           </ul>
           <div class="queren" @click="ljxd" v-show="showlj">立即购买</div>
-          <div class="querens" v-show="showljs">立即购买</div>
+          <div class="querens" v-show="showljs">已经结束</div>
         </div>
       </div>
     </div>
@@ -308,11 +308,11 @@ export default {
       this.isshowa = !msg;
     });
     // window.addEventListener("scroll", this.watchScroll);
-    this.$toast({
-      message: "加载中...",
-      duration: "1250",
-      type: "loading",
-    });
+    // this.$toast({
+    //   message: "加载中...",
+    //   duration: "1250",
+    //   type: "loading",
+    // });
 
     // 首页图片 设置定时器加载 不然swiper 会有bug (图片的吭) bind 解决this 指向
 
@@ -749,9 +749,10 @@ export default {
   background-color: #fff;
   position: absolute;
   overflow-y: scroll;
-  -webkit-overflow-scrolling: touch; /* ios 自带滚动条不平滑解决方法 */
+  -webkit-overflow-scrolling: touch; 
+  /* ios 自带滚动条不平滑解决方法 */
 }
-
+ .layerNode ::-webkit-scrollbar {display: none;}
 .content {
   margin-bottom: 18px;
   padding-top: 1px;

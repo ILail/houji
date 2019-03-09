@@ -23,14 +23,12 @@
             @click="tab(index)"
           >{{item.class_name}}</div>
         </div>-->
-        <van-tabs v-model="active" animated sticky v-if="showcon">
+        <van-tabs v-model="active" animated sticky ref="showas">
           <van-tab v-for="(item,index) in tabs" :key="item.id">
             <div
               slot="title"
               @click="onClick(item.crowd_funding_class_id,index)"
             >{{item.class_name}}</div>
-            <!-- 内容 {{ index }} -->
-            <!-- <component :is="currentView"></component> -->
           </van-tab>
         </van-tabs>
       </div>
@@ -130,11 +128,12 @@ export default {
       searchBarFixed: false,
       showcon: false,
       ids: "",
-      numlength: 10,
+
       tabContentsa: [],
       ispic: false,
       active: 0,
       tabs: [],
+      numlength: 10,
       num: 0,
       loading: false,
       finished: false,
@@ -176,6 +175,9 @@ export default {
   },
 
   created() {
+    // this.$nextTick(() => {
+    //   console.log(this.$refs.showas.$children);
+    // });
     fs()
       .then(res => {
         res = res.data;
@@ -184,8 +186,7 @@ export default {
           this.tabs = res.data;
           this.ids = this.tabs[0].crowd_funding_class_id;
           this.refecd();
-          this.numlength = res.data.length;
-          // console.log(this.numlength);
+          this.numlength = this.tabs.length;
         }
       })
       .catch(err => {

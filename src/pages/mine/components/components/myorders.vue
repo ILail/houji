@@ -299,11 +299,11 @@ export default {
     this.$toast({
       type: "loading",
       message: "加载中...",
-      duration: "1000"
+      duration: "1200"
     });
     setTimeout(() => {
       this.showA = true;
-    }, 1200);
+    }, 1450);
   },
   methods: {
     onClick(index) {
