@@ -460,14 +460,14 @@ export default {
 </script>
 
 <style lang="stylus" type="text/stylus" rel="stylesheet/stylus" scoped>
-.WrapAll >>> .van-tab {
+.WrapAll >>> .van-tab,.van-tab--active {
   width: 100%;
   position: fixed;
 }
 
 .WrapAll >>> .van-tabs__content--animated {
   overflow: visible;
-  height: 400px;
+  height: 450px;
 }
 
 .WrapAll >>> .van-tabs__content--animated::-webkit-scrollbar {

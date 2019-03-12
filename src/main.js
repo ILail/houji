@@ -11,12 +11,16 @@ import LyTab from 'ly-tab';
 import store from '@/components/vuex/store'
 import clipper from '../static/clipper'
 import wx from 'weixin-js-sdk';
-import VueAwesomeSwiper from 'vue-awesome-swiper'
-Vue.use(VueAwesomeSwiper)
+// import VueAwesomeSwiper from 'vue-awesome-swiper'
+// Vue.use(VueAwesomeSwiper)
 Vue.prototype.$wx = wx;
 // bus
 import VueBus from 'vue-bus';
 Vue.use(VueBus);
+
+// import Cube from 'cube-ui'
+
+// Vue.use(Cube)
 import clipboard from 'clipboard';
 //注册到vue原型上
 Vue.prototype.clipboard = clipboard;
@@ -86,12 +90,9 @@ new Vue({
   el: '#app',
   router,
   store,
-  components: {
-    App
-  },
+  components: {App},
   template: '<App/>',
   data: {
-    eventHub: new Vue(),
-    eventHuC: new Vue() // 使用集中的事件处理器,在任何组件调用事件发射、接受的方法
+    eventHub: new Vue(), // 使用集中的事件处理器,在任何组件调用事件发射、接受的方法
   }
 })

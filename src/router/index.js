@@ -146,11 +146,27 @@ const routes = [{
     //   oppendid: true,
     // },
   },
+  // {
+  //   path: '/feilei',
+  //   // name: '分类',
+  //   // component: Feilei,
+  //   component: resolve => require(["@/pages/fs/Feilei"], resolve),
+  //   meta: {
+  //     oppendid: true,
+  //     title: '分类'
+  //   },
+  // },
   {
-    path: '/feilei',
+    path: '/sortCfList',
     // name: '分类',
     // component: Feilei,
-    component: resolve => require(["@/pages/fs/Feilei"], resolve),
+    component: resolve => require(["@/components/common/SortCfList"], resolve),
+  },
+  {
+    path: '/Classify',
+    // name: '分类',
+    // component: Feilei,
+    component: resolve => require(["@/pages/fs/Classify"], resolve),
     meta: {
       oppendid: true,
       title: '分类'

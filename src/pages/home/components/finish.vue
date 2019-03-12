@@ -19,7 +19,7 @@
         }
     }"
         >-->
-        <img v-lazy="itemCon.pic" class="peoImg" style="height:181.32px">
+        <img v-lazy="itemCon.pic" class="peoImg" style="height:194px">
         <div class="people_p">
           <div class="list">{{itemCon.crowd_funding_name}}</div>
           <div class="crowd-info">
@@ -293,5 +293,22 @@ export default {
 
 .wrapAll {
   padding-bottom: 60px;
+}
+
+
+.hitImg {
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+}
+
+.hitImg img {
+  width: 50%;
+  margin-top: 20%;
+}
+
+.hitImg .contenr {
+  margin-top: 5px;
+  color: #999;
 }
 </style>

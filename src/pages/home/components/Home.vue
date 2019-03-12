@@ -67,6 +67,7 @@ export default {
           this.sowingMap = data.sowingMap;
           this.adInfo = data.adInfo;
           this.popuLarity = data.classification;
+          // console.log( this.popuLarity)
           this.dayProduct = data.welfareList;
           this.dailyAd = data.dailyAd;
         }

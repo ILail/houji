@@ -2,7 +2,7 @@
   <div id="app">
     <!-- <keep-alive> -->
     <fade-animation>
-      <router-view  v-show="show"></router-view>
+      <router-view></router-view>
     </fade-animation>
     <!-- </keep-alive> -->
     <Guan v-if="$route.meta.oppendid"></Guan>
@@ -17,7 +17,6 @@ export default {
   name: "App",
   data() {
     return {
-      show: false
     };
   },
   components: {
@@ -30,7 +29,6 @@ export default {
       duration: "1200",
       type: "loading"
     });
-    this.show = true;
   }
 };
 </script>

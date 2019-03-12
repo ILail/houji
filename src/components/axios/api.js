@@ -36,7 +36,7 @@ export function crowd_funding(id) {
 // 分类页面
 export function fs() {
   return fetch({
-    url: api.Hallowmas + '/v2/crowdFunding/crowdFundingClass',
+    url: api.Hallowmas + '/v2p2/crowdFunding/crowdFundingClass',
     method: "GET",
   })
 }
@@ -729,7 +729,20 @@ export function SignPackage(url,access_token) {
   })
 }
 
+// 分类一级列表
 
+export function crowdFundingClass(crowd_funding_sort_id,crowd_funding_class_id,page) {
+
+  return fetch({
+    url: api.Hallowmas + '/v2p2/crowdFunding/crowdFundingSortCfList',
+    method: "POST",
+    data: {
+      crowd_funding_sort_id: crowd_funding_sort_id,
+      crowd_funding_class_id:crowd_funding_class_id,
+      page:page
+    }
+  })
+}
 
 
 

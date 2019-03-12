@@ -55,7 +55,7 @@ export default {
         },
         {
           txt: "分类",
-          page: "feilei",
+          page: "Classify",
           normalImg: require("@/assets/foot/fix.png"),
           activeImg: require("@/assets/foot/fixs.png")
         },

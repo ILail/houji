@@ -1,7 +1,7 @@
 <template>
   <div class="contentNav">
     <ul>
-      <li v-for=" (item,index) in larity" :key="item.id" @click="linkAll(index)">
+      <li v-for=" (item) in larity" :key="item.id" @click="sortClist(item.crowd_funding_class_id,item.crowd_funding_sort_id,0,item.class_name)">
         <!-- <router-link
             :to="{  
         path: 'feilei',     
@@ -32,9 +32,14 @@ export default {
     };
   },
   methods: {
-    linkAll(active) {
+    sortClist(crowd_funding_class_id, crowd_funding_sort_id,index) {
       this.$router.push({
-        path: "/feilei"
+        path: "/sortCfList",
+        query: {
+          crowd_funding_sort_id,
+          crowd_funding_class_id,
+          index,
+        }
       });
     }
   }
