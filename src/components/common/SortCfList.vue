@@ -198,7 +198,7 @@ export default {
   color: #887D5F;
   position: absolute;
   right: 0;
-  top: 0;
+  top: 1px;
 }
 
 .progress-outer {
