@@ -483,6 +483,16 @@ const routes = [{
 const router = new Router({
   mode: 'history',
   // base: '',
+  scrollBehavior(to, from, savedPosition) {
+    if (savedPosition) {
+      return savedPosition
+    } else {
+      return {
+        x: 0,
+        y: 0
+      }
+    }
+  },
   routes,
   // scrollBehavior(to, from, savedPosition) {
   //   if (savedPosition) {
@@ -499,49 +509,14 @@ const router = new Router({
 
 });
 
-
-// 缓存页面
-// Vue.config.productionTip = false
-// const sess = window.sessionStorage
-// Vue.mixin({
-//   beforeRouteLeave(to, from, next) {
-//     console.log(to)
-//     const toRouter = to.path
-//     const fromRouter = from.path
-//     const h = JSON.parse(sess.getItem(toRouter));
-//     if (h && h.history) {
-//       this.$destory()
-//       next()
-//     } else {
-//       next()
-//     }
-//   }
-// })
-// const beforeEach = function (to, from, next) {
-//   const toRouter = to.path
-//   const fromRouter = from.path
-//   const h = JSON.parse(sess.getItem(toRouter));
-//   console.log(h)
-//   if (h && h.history) {
-//     h.history = false
-//     sess.removeItem(toRouter)
-//   } else {
-//     sess.setItem(fromRouter || '/', JSON.stringify({
-//       history: true
-//     }))
-//   }
-//   next()
-// }
-// router.beforeEach(beforeEach)
-// 页面刷新时，重新赋值token,用户名也在界面上展示
-
-
-// console.log(window.localStorage.getItem('token'))
 if (window.localStorage.getItem('token')) {
   store.commit(types.LOGIN, window.localStorage.getItem('token'));
 }
-
-router.beforeEach((to, from, next) => {
+router.beforeEach(function (to, from, next) {
+  // const toRouter = to.path
+  // const fromRouter = from.path
+  // console.log(toRouter)
+  // console.log(fromRouter)
   if (to.matched.some(r => r.meta.requireAuth)) {
     if (store.state.token) {
       next();
@@ -551,9 +526,8 @@ router.beforeEach((to, from, next) => {
       })
     }
   } else {
-    document.body.scrollTop = 0;
     next();
   }
-})
+});
 
 export default router;

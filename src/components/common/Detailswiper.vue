@@ -1,8 +1,6 @@
 <template>
   <div class="detailWrap">
-    <!-- 推荐 -->
-    <!-- <div :class="searchBarFixed == true ? 'isFixed' :''" id="searchBar"> -->
-    <!-- <home-nav></home-nav> -->
+    <!-- 头部 -->
     <ly-tab
       v-model="selectedId"
       :items="items"
@@ -307,15 +305,7 @@ export default {
       this.istanchuana = msg;
       this.isshowa = !msg;
     });
-    // window.addEventListener("scroll", this.watchScroll);
-    // this.$toast({
-    //   message: "加载中...",
-    //   duration: "1250",
-    //   type: "loading",
-    // });
-
-    // 首页图片 设置定时器加载 不然swiper 会有bug (图片的吭) bind 解决this 指向
-
+  
     let mySwiperA = new Swiper(".wrapA", {});
     mySwiperA.on("slideChange", () => {
       // 监控滑动后当前页面的索引，将索引发射到导航组件
@@ -369,15 +359,6 @@ export default {
         path: "/wishs"
       });
     },
-    // onRefresh() {
-    //   setTimeout(
-    //     function() {
-    //       this.$toast("刷新成功");
-    //       this.isLoading = false;
-    //     }.bind(this),
-    //     500
-    //   );
-    // },
     handleChange(item, index) {
       this.nowIndex = index;
       this.$root.eventHub.$emit("changeTab", index);
@@ -490,6 +471,7 @@ export default {
   opacity: 0.1;
 }
 
+// 解决swiper高度
 .swiper-slide {
   height: 0px;
   overflow-y: hidden;

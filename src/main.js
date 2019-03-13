@@ -6,21 +6,18 @@ import router from './router'
 import 'styles/reset.css'
 import 'styles/common.css'
 import fastClick from 'fastclick'
-import axios from 'axios';
+// import axios from 'axios';
 import LyTab from 'ly-tab';
 import store from '@/components/vuex/store'
 import clipper from '../static/clipper'
 import wx from 'weixin-js-sdk';
-// import VueAwesomeSwiper from 'vue-awesome-swiper'
-// Vue.use(VueAwesomeSwiper)
+import VueAwesomeSwiper from 'vue-awesome-swiper'
+Vue.use(VueAwesomeSwiper)
 Vue.prototype.$wx = wx;
 // bus
 import VueBus from 'vue-bus';
 Vue.use(VueBus);
-
-// import Cube from 'cube-ui'
-
-// Vue.use(Cube)
+// 复制
 import clipboard from 'clipboard';
 //注册到vue原型上
 Vue.prototype.clipboard = clipboard;
@@ -81,11 +78,11 @@ Vue.use(clipper)
 
 Vue.use(require('vue-wechat-title'))
 Vue.use(LyTab);
-Vue.prototype.$http = axios;
+// Vue.prototype.$http = axios;
 // 移动端点击延迟
 fastClick.attach(document.body);
 Vue.config.productionTip = false
-Vue.prototype.$axios = axios
+
 new Vue({
   el: '#app',
   router,

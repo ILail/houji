@@ -26,10 +26,9 @@
     </div>
     <div class="wraL">
       <home-swiper :sowingMap="sowingMap" v-if="wrapImg"></home-swiper>
-    </div>
 
-    <!-- 轮播 -->
-    <!-- <van-swipe :autoplay="3000" indicator-color="#D21623" :touchable="false" v-if="showSwiper">
+      <!-- 轮播 -->
+      <!-- <van-swipe :autoplay="3000" indicator-color="#D21623" :touchable="false" v-if="showSwiper">
       <van-swipe-item v-for="item of sowingMap" :key="item.id">
         <router-link
           :to="{  
@@ -42,8 +41,8 @@
           <img :src="item.pic" style="height:190px;width:100%">
         </router-link>
       </van-swipe-item>
-    </van-swipe>-->
-    <!-- <div class="wrapper" v-if="wrapImg">
+      </van-swipe>-->
+      <!-- <div class="wrapper" v-if="wrapImg">
       <swiper :options="swiperOption" v-if="showSwiper">
         <swiper-slide v-for="item of sowingMap" :key="item.id">
           <router-link
@@ -59,19 +58,23 @@
         </swiper-slide>
         <div class="swiper-pagination" slot="pagination"></div>
       </swiper>
-    </div>-->
-    <!-- 导航内容 -->
-    <!-- <div class="swiper-container wrapWa">
+      </div>-->
+      <!-- 导航内容 -->
+      <!-- <div class="swiper-container wrapWa">
       <div class="swiper-wrapper">
-    <div class="swiper-slide">-->
-    <v-touch v-on:swipeleft="left" v-on:swiperight="right">
-      <fade-animation>
-        <keep-alive>
-          <component :is="currentView"></component>
-        </keep-alive>
-      </fade-animation>
-    </v-touch>
-
+      <div class="swiper-slide">-->
+      <swiper :options="swiperOption">
+        <swiper-slide>
+          <v-touch v-on:swipeleft="left" v-on:swiperight="right">
+            <!-- <fade-animation> -->
+            <keep-alive>
+              <component :is="currentView"></component>
+            </keep-alive>
+            <!-- </fade-animation> -->
+          </v-touch>
+        </swiper-slide>
+      </swiper>
+    </div>
     <!-- </div>
       </div>
     </div>-->
@@ -96,33 +99,22 @@
 </template>
 
 <script type="text/ecmascript-6">
-// import wx from "weixin-js-sdk";
 import HomeSwiper from "./components/components/swiper";
-import FadeAnimation from "@/components/common/Fade";
 import Tabbar from "@/components/common/Tan";
 import Item from "@/components/Item";
 import Home from "./components/Home";
 import Dizhi from "./components/Dizhi";
 import Fuli from "./components/Fuli";
-// import Youji from "./components/Youji";
 import Mshu from "./components/Mshu";
 import Yugao from "./components/Yugao";
 import Finish from "./components/finish";
-// import Welfare from "./components/Welfare";
-// import Swiper from "moon/swiper.min";
-// import "moon/swiper.min.css";
 import { lookOption } from "@/components/axios/api";
 import assign from "@/components/axios/assign.js";
-// import { SignPackage } from "@/components/axios/api";
-// import { WechatPlugin} from 'vux'
-// Vue.use(WechatPlugin); //  微信
-// const wx = Vue.wechat;
 export default {
   mixins: [assign],
   name: "Small",
   components: {
     HomeSwiper,
-    FadeAnimation,
     Tabbar,
     Item,
     Home,
@@ -134,6 +126,10 @@ export default {
   },
   data() {
     return {
+      swiperOption: {
+        preventLinksPropagation: true,
+        touchMoveStopPropagation: false
+      },
       currentView: "Home",
       wrapImg: true,
       items: [
@@ -186,18 +182,8 @@ export default {
         }
       ],
       // 置顶
-      searchBarFixed: false
-      // list: [
-      //   { component: Home },
-      //   { component: Dizhi },
-      //   { component: Fuli },
-      //   { component: Youji },
-      //   { component: Mshu },
-      //   { component: Yugao },
-      //   { component: Finish },
-      //   // { component: Welfare }
-      // ],
-      // nowIndex: 0
+      // searchBarFixed: false
+
     };
   },
   // computed: {
@@ -478,23 +464,7 @@ export default {
     //     _this.searchBarFixed = false;
     //   }
     // },
-    changes(id) {
-      if (id == 237 || id == 275 || id == 286) {
-        this.$router.push({
-          path: "/Detail",
-          query: {
-            key: id
-          }
-        });
-      } else {
-        this.$router.push({
-          path: "/hdetial",
-          query: {
-            key: id
-          }
-        });
-      }
-    },
+
     shaoshao() {
       // this.$router.push("/shao");
     },
@@ -502,15 +472,16 @@ export default {
       this.$router.push("/xiao");
     }
   },
-  destroyed() {
-    window.removeEventListener("scroll", this.watchScroll);
-  }
+  // destroyed() {
+  //   window.removeEventListener("scroll", this.watchScroll);
+  // }
 };
 </script>
 
 <style lang="stylus" type="text/stylus" rel="stylesheet/stylus" scoped>
 .wraL {
-  margin-top: 76px;
+  margin-top:76px
+
 }
 
 .header {

@@ -243,7 +243,7 @@ export function Confirtwo(crowd_funding_id, crowd_funding_return_id, wish_nums, 
 
 // 获取用户默认地址
 export function getDIZ() {
-  
+
   return fetch({
     url: api.Hallowmas + '/v1/member/getUserDefaultAddress',
     method: "GET",
@@ -694,7 +694,7 @@ export function weal() {
 }
 
 
-// 七牛云 文件上传
+// 七牛云 文件图片上传
 export function qinius() {
 
   return fetch({
@@ -717,32 +717,29 @@ export function qinius() {
 
 
 // 获取微信签名
-export function SignPackage(url,access_token) {
+export function SignPackage(url, access_token) {
 
   return fetch({
     url: api.Hallowmas + '/getSignPackage',
     method: "POST",
     data: {
       url: url,
-      access_token:access_token
+      access_token: access_token
     }
   })
 }
 
 // 分类一级列表
 
-export function crowdFundingClass(crowd_funding_sort_id,crowd_funding_class_id,page) {
+export function crowdFundingClass(crowd_funding_sort_id, crowd_funding_class_id, page) {
 
   return fetch({
     url: api.Hallowmas + '/v2p2/crowdFunding/crowdFundingSortCfList',
     method: "POST",
     data: {
       crowd_funding_sort_id: crowd_funding_sort_id,
-      crowd_funding_class_id:crowd_funding_class_id,
-      page:page
+      crowd_funding_class_id: crowd_funding_class_id,
+      page: page
     }
   })
 }
-
-
-
