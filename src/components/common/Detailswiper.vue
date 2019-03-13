@@ -188,7 +188,7 @@ import { crowd_funding } from "@/components/axios/api";
 import store from "@/components/vuex/store";
 import Tabbar from "@/components/common/Tan";
 import assign from "@/components/axios/assign.js";
-
+import {SignPackage} from "@/components/axios/api";
 export default {
   mixins: [assign],
   name: "Detail",
@@ -252,7 +252,8 @@ export default {
       time: 3500,
       numv: "",
       showV: true,
-      showVi: true
+      showVi: true,
+      listC: {}
     };
   },
   created() {
@@ -276,6 +277,7 @@ export default {
 
         if (res.status && res.data) {
           const data = res.data;
+          this.listC = data;
           this.picList = data.imgs.split(",");
           this.pic = res.data.video_pic;
           this.video = res.data.video_data;
@@ -305,7 +307,7 @@ export default {
       this.istanchuana = msg;
       this.isshowa = !msg;
     });
-  
+
     let mySwiperA = new Swiper(".wrapA", {});
     mySwiperA.on("slideChange", () => {
       // 监控滑动后当前页面的索引，将索引发射到导航组件
@@ -326,6 +328,75 @@ export default {
       // 点击导航键跳转相应内容区
       mySwiperA.slideTo(index, 0, false);
     });
+
+    let value = localStorage.getItem("keys");
+    let url = window.location.href;
+    console.log(url);
+    console.log(this.$wx);
+    console.log(value);
+    if (value == null) return;
+    SignPackage(url, value)
+      .then(res => {
+        console.log(res.data.data.signPackage);
+        let signPackage = res.data.data.signPackage;
+        this.$wx.config({
+          debug: true,
+          appId: signPackage.appId,
+          timestamp: signPackage.timestamp,
+          nonceStr: signPackage.nonceStr,
+          signature: signPackage.signature,
+          jsApiList: [
+            "onMenuShareTimeline",
+            "onMenuShareAppMessage",
+            "translateVoice"
+          ]
+        });
+        // this.$wx.ready(function() {
+        this.$wx.onMenuShareTimeline({
+          title: this.listC.crowd_funding_name, // 分享标题
+          desc: this.listC.summary, // 分享描述
+          link: url, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+          imgUrl: this.img_path, // 分享图标
+          success: function() {
+            this.$toast({
+              message: "分享成功",
+              duration: "500"
+            });
+            // 用户确认分享后执行的回调函数
+          },
+          cancel: function() {
+            this.$toast({
+              message: "取消分享成功",
+              duration: "500"
+            });
+            // 用户取消分享后执行的回调函数
+          }
+        });
+        this.$wx.onMenuShareAppMessage({
+          title: this.listC.crowd_funding_name, // 分享标题
+          desc: this.listC.summary, // 分享描述
+          link: url, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+          imgUrl: this.img_path, // 分享图标
+          success: function() {
+            this.$toast({
+              message: "分享成功",
+              duration: "500"
+            });
+            // 用户确认分享后执行的回调函数
+          },
+          cancel: function() {
+            this.$toast({
+              message: "取消分享成功",
+              duration: "500"
+            });
+            // 用户取消分享后执行的回调函数
+          }
+        });
+        // });
+      })
+      .catch(err => {
+        console.log(err, "请求失败");
+      });
   },
   methods: {
     onChange(index) {
@@ -731,10 +802,14 @@ export default {
   background-color: #fff;
   position: absolute;
   overflow-y: scroll;
-  -webkit-overflow-scrolling: touch; 
+  -webkit-overflow-scrolling: touch;
   /* ios 自带滚动条不平滑解决方法 */
 }
- .layerNode ::-webkit-scrollbar {display: none;}
+
+.layerNode ::-webkit-scrollbar {
+  display: none;
+}
+
 .content {
   margin-bottom: 18px;
   padding-top: 1px;

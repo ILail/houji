@@ -115,6 +115,7 @@ import Vue from "vue";
 import { Swipe, SwipeItem } from "vant";
 import { ImagePreview } from "vant";
 import { Sku } from "vant";
+import { SignPackage } from "@/components/axios/api";
 import assign from "@/components/axios/assign.js";
 Vue.use(Sku);
 Vue.use(Swipe).use(SwipeItem);
@@ -158,6 +159,7 @@ export default {
         if (res.status && res.data) {
           const data = res.data;
           // console.log(data);
+         
           this.money = data.reality_money;
           this.moneys = data.support_money;
           this.img_path = data.imgs.split(",")[0];
@@ -181,6 +183,74 @@ export default {
     setTimeout(() => {
       this.show = true;
     }, 1300);
+    let value = localStorage.getItem("keys");
+    let url = window.location.href;
+    console.log(url);
+    console.log(this.$wx);
+    console.log(value);
+    if (value == null) return;
+    SignPackage(url, value)
+      .then(res => {
+        console.log(res.data.data.signPackage);
+        let signPackage = res.data.data.signPackage;
+        this.$wx.config({
+          debug: true,
+          appId: signPackage.appId,
+          timestamp: signPackage.timestamp,
+          nonceStr: signPackage.nonceStr,
+          signature: signPackage.signature,
+          jsApiList: [
+            "onMenuShareTimeline",
+            "onMenuShareAppMessage",
+            "translateVoice"
+          ]
+        });
+        // this.$wx.ready(function() {
+        this.$wx.onMenuShareTimeline({
+          title: this.listC.crowd_funding_name, // 分享标题
+          desc: this.listC.summary, // 分享描述
+          link: url, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+          imgUrl: this.img_path, // 分享图标
+          success: function() {
+            this.$toast({
+              message: "分享成功",
+              duration: "500"
+            });
+            // 用户确认分享后执行的回调函数
+          },
+          cancel: function() {
+            this.$toast({
+              message: "取消分享成功",
+              duration: "500"
+            });
+            // 用户取消分享后执行的回调函数
+          }
+        });
+        this.$wx.onMenuShareAppMessage({
+          title: this.listC.crowd_funding_name, // 分享标题
+          desc: this.listC.summary, // 分享描述
+          link: url, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+          imgUrl: this.img_path, // 分享图标
+          success: function() {
+            this.$toast({
+              message: "分享成功",
+              duration: "500"
+            });
+            // 用户确认分享后执行的回调函数
+          },
+          cancel: function() {
+            this.$toast({
+              message: "取消分享成功",
+              duration: "500"
+            });
+            // 用户取消分享后执行的回调函数
+          }
+        });
+        // });
+      })
+      .catch(err => {
+        console.log(err, "请求失败");
+      });
   },
   methods: {
     onChange(index) {
@@ -297,7 +367,7 @@ export default {
   font-family: PingFangSC-Semibold;
   font-weight: 600;
   color: rgba(51, 51, 51, 1);
-      line-height: 1.2;
+  line-height: 1.2;
 }
 
 .detail {
@@ -305,7 +375,7 @@ export default {
   font-family: PingFangSC-Regular;
   font-weight: 400;
   color: rgba(102, 102, 102, 1);
-      line-height: 1.2;
+  line-height: 1.2;
 }
 
 .wrapss {

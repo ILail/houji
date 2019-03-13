@@ -120,7 +120,7 @@ import FadeAnimation from "@/components/common/Fade";
 import assign from "@/components/axios/assign.js";
 import Tabbar from "@/components/common/Tan";
 import Swiper from "moon/swiper.min";
-import { SignPackage } from "@/components/axios/api";
+
 import "moon/swiper.min.css";
 export default {
   mixins: [assign],

@@ -183,6 +183,8 @@ export default {
       });
   },
   mounted() {
+
+    // console.log(wish_nums)
     this.$toast({
       type: "loading",
       message: "加载中...",

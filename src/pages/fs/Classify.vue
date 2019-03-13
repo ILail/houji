@@ -52,6 +52,13 @@
 <script>
 import Item from "@/components/Item.vue";
 import { fs } from "@/components/axios/api";
+import assign from "@/components/axios/assign.js";
+// import {
+//   commonShare,
+//   shareTitle,
+//   shareDesc
+// } from "@/components/axios/wx.js";
+
 export default {
   name: "Classify",
   components: {
@@ -59,6 +66,7 @@ export default {
   },
   data() {
     return {
+      mixins: [assign],
       tabs: [],
       num: 0,
       img_path: "",
@@ -96,7 +104,9 @@ export default {
           normalImg: require("@/assets/foot/mine.png"),
           activeImg: require("@/assets/foot/mines.png")
         }
-      ]
+      ],
+      shareTitle: "分类",
+      shareDesc: "猴集大分类"
     };
   },
   created() {
@@ -115,6 +125,7 @@ export default {
       });
   },
   mounted() {
+    // commonShare(this, this.shareTitle, this.shareDesc);
     this.$toast({
       message: "加载中...",
       duration: "1200",
@@ -126,7 +137,7 @@ export default {
       this.selected = res;
     },
     tab(index) {
-      console.log(index);
+      // console.log(index);
       this.num = index;
       this.img_path = this.tabs[index].img_path;
       this.options = this.tabs[index].options;
