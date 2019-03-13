@@ -354,10 +354,10 @@ export default {
         });
         // this.$wx.ready(function() {
         this.$wx.onMenuShareTimeline({
-          title: this.listC.crowd_funding_name, // 分享标题
-          desc: this.listC.summary, // 分享描述
+          title: _this.listC.crowd_funding_name, // 分享标题
+          desc: _this.listC.summary, // 分享描述
           link: url, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
-          imgUrl: this.img_path, // 分享图标
+          imgUrl: _this.img_path, // 分享图标
           success: function() {
             _this.$toast({
               message: "分享成功",
@@ -374,10 +374,10 @@ export default {
           }
         });
         this.$wx.onMenuShareAppMessage({
-          title: this.listC.crowd_funding_name, // 分享标题
-          desc: this.listC.summary, // 分享描述
+          title: _this.listC.crowd_funding_name, // 分享标题
+          desc: _this.listC.summary, // 分享描述
           link: url, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
-          imgUrl: this.img_path, // 分享图标
+          imgUrl: _this.img_path, // 分享图标
           success: function() {
             _this.$toast({
               message: "分享成功",
