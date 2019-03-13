@@ -1,6 +1,6 @@
 <template></template>
 <script type="text/javascript">
-import * as types from "@/components/vuex/types";
+// import * as types from "@/components/vuex/types";
 import { Code } from "@/components/axios/api";
 import { huoqu } from "@/components/axios/api";
 import { SignPackage } from "@/components/axios/api";
