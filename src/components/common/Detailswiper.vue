@@ -335,6 +335,7 @@ export default {
     console.log(this.$wx);
     console.log(value);
     if (value == null) return;
+    const _this = this
     SignPackage(url, value)
       .then(res => {
         console.log(res.data.data.signPackage);
@@ -358,14 +359,14 @@ export default {
           link: url, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
           imgUrl: this.img_path, // 分享图标
           success: function() {
-            this.$toast({
+            _this.$toast({
               message: "分享成功",
               duration: "500"
             });
             // 用户确认分享后执行的回调函数
           },
           cancel: function() {
-            this.$toast({
+            _this.$toast({
               message: "取消分享成功",
               duration: "500"
             });
