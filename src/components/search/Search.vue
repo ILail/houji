@@ -12,9 +12,9 @@
         </form>
         <b :style="note"></b>
       </div>
-      <router-link to="/">
-        <div class="name">取消</div>
-      </router-link>
+      <!-- <router-link to="/"> -->
+        <div class="name" @click="chanceS">取消</div>
+      <!-- </router-link> -->
     </div>
     <!-- 错误页面 -->
     <div class="hitImg" style="border:none" v-show="ispic">
@@ -209,6 +209,9 @@ export default {
     clickcourse() {
       this.isShow=false
       localStorage.clear();
+    },
+    chanceS(){
+      this.$router.go(-1);
     }
     // handleCityClick(res) {
 

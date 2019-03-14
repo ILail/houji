@@ -20,16 +20,7 @@ export default new Vuex.Store({
       localStorage.removeItem('token');
       state.token = null
     },
-    // [types.OPPENDID]: (state, data) => {
-    //   console.log(data)
-    //   localStorage.setItem("Oppenid",data)
-    //   state.oppenId = data;
-    // },
-    // SET_KEEP_ALIVE: (state, keepAlive) => {
-    //   state.keepAlive = keepAlive
-    // }
+  
   },
-  // getters: {
-  //   keepAlive: state => state.keepAlive
-  // }
+ 
 })
