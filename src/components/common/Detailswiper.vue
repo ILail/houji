@@ -340,7 +340,7 @@ export default {
       console.log(res.data.data.signPackage);
       let signPackage = res.data.data.signPackage;
       wx.config({
-        debug: true,
+        debug: false,
         appId: signPackage.appId,
         timestamp: signPackage.timestamp,
         nonceStr: signPackage.nonceStr,
@@ -360,13 +360,13 @@ export default {
             });
             // 用户确认分享后执行的回调函数
           },
-          cancel: function() {
-            _this.$toast({
-              message: "取消分享成功",
-              duration: "500"
-            });
-            // 用户取消分享后执行的回调函数
-          }
+          // cancel: function() {
+          //   _this.$toast({
+          //     message: "取消分享成功",
+          //     duration: "500"
+          //   });
+          //   // 用户取消分享后执行的回调函数
+          // }
         });
         wx.onMenuShareAppMessage({
           title: _this.listC.crowd_funding_name, // 分享标题
@@ -380,13 +380,13 @@ export default {
             });
             // 用户确认分享后执行的回调函数
           },
-          cancel: function() {
-            _this.$toast({
-              message: "取消分享成功",
-              duration: "500"
-            });
-            // 用户取消分享后执行的回调函数
-          }
+          // cancel: function() {
+          //   _this.$toast({
+          //     message: "取消分享成功",
+          //     duration: "500"
+          //   });
+          //   // 用户取消分享后执行的回调函数
+          // }
         });
         // });
       }).catch(err => {
