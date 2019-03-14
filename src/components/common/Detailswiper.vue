@@ -278,7 +278,6 @@ export default {
         if (res.status && res.data) {
           const data = res.data;
           this.listC = data;
-          console.log( this.listC)
           this.picList = data.imgs.split(",");
           this.pic = res.data.video_pic;
           this.video = res.data.video_data;
@@ -332,8 +331,7 @@ export default {
 
     let value = localStorage.getItem("keys");
     let url = window.location.href;
-    let newurl = url.split("?")[0];
-    console.log(newurl);
+    console.log(url);
     console.log(this.$wx);
     console.log(value);
     if (value == null) return;
@@ -360,7 +358,6 @@ export default {
           desc: _this.listC.summary, // 分享描述
           link: url, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
           imgUrl: _this.img_path, // 分享图标
-          type: 'link',
           success: function() {
             _this.$toast({
               message: "分享成功",
@@ -381,7 +378,6 @@ export default {
           desc: _this.listC.summary, // 分享描述
           link: url, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
           imgUrl: _this.img_path, // 分享图标
-          type: 'link',
           success: function() {
             _this.$toast({
               message: "分享成功",
