@@ -13,22 +13,22 @@ export default {
       .then(res => {
         let URL = res.data.data;
         // console.log(URL);
-        // var value = localStorage.getItem("houjij");
+        var value = localStorage.getItem("hou");
         // console.log(value);
         // 只做一次跳转
-        // if (value == null || value == undefined) {
-        //   // setTimeout(function() {
-        //   localStorage.setItem("houjij", "2019");
-        //   window.location.href = URL;
-        //   // console.log(URL);
-        //   // }, 800);
-        // }
-        console.log(URL);
-        if (store.state.token == null) {
+        if (value == null || value == undefined) {
+          // setTimeout(function() {
+          localStorage.setItem("hou", "2019");
           window.location.href = URL;
-        } else {
-          store.commit(types.LOGIN, window.localStorage.getItem("token"));
+          // console.log(URL);
+          // }, 800);
         }
+        // console.log(URL);
+        // if (store.state.token == null) {
+        //   window.location.href = URL;
+        // } else {
+        //   store.commit(types.LOGIN, window.localStorage.getItem("token"));
+        // }
       })
       .catch(err => {
         console.log(err, "请求失败");
