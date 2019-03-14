@@ -337,63 +337,57 @@ export default {
     console.log(value);
     if (value == null) return;
     const _this = this;
-    SignPackage(url, value).then(res => {
-      console.log(res.data.data.signPackage);
-      let signPackage = res.data.data.signPackage;
-      wx.config({
-        debug: false,
-        appId: signPackage.appId,
-        timestamp: signPackage.timestamp,
-        nonceStr: signPackage.nonceStr,
-        signature: signPackage.signature,
-        jsApiList: ["onMenuShareTimeline", "onMenuShareAppMessage"]
-      });
-      wx.ready(function() {
-        wx.onMenuShareTimeline({
-          title: _this.listC.crowd_funding_name, // 分享标题
-          desc: _this.listC.summary, // 分享描述
-          link: url, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
-          imgUrl: _this.img_path, // 分享图标
-          success: function() {
-            _this.$toast({
-              message: "分享成功",
-              duration: "500"
-            });
-            // 用户确认分享后执行的回调函数
-          }
-          // cancel: function() {
-          //   _this.$toast({
-          //     message: "取消分享成功",
-          //     duration: "500"
-          //   });
-          //   // 用户取消分享后执行的回调函数
-          // }
+    SignPackage(url, value)
+      .then(res => {
+        console.log(res.data.data.signPackage);
+        let signPackage = res.data.data.signPackage;
+        wx.config({
+          debug: false,
+          appId: signPackage.appId,
+          timestamp: signPackage.timestamp,
+          nonceStr: signPackage.nonceStr,
+          signature: signPackage.signature,
+          jsApiList: ["onMenuShareTimeline", "onMenuShareAppMessage"]
         });
-        wx.onMenuShareAppMessage({
-          title: _this.listC.crowd_funding_name, // 分享标题
-          desc: _this.listC.summary, // 分享描述
-          link: url, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
-          imgUrl: _this.img_path, // 分享图标
-          success: function() {
-            _this.$toast({
-              message: "分享成功",
-              duration: "500"
-            });
-            // 用户确认分享后执行的回调函数
-          }
-          // cancel: function() {
-          //   _this.$toast({
-          //     message: "取消分享成功",
-          //     duration: "500"
-          //   });
-          //   // 用户取消分享后执行的回调函数
-          // }
+        wx.ready(function() {
+          wx.onMenuShareTimeline({
+            title: _this.listC.crowd_funding_name, // 分享标题
+            desc: _this.listC.summary, // 分享描述
+            link: url, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+            imgUrl: _this.img_path, // 分享图标
+            success: function() {
+              _this.$toast({
+                message: "分享成功",
+                duration: "500"
+              });
+              // 用户确认分享后执行的回调函数
+            }
+            // cancel: function() {
+            //   _this.$toast({
+            //     message: "取消分享成功",
+            //     duration: "500"
+            //   });
+            //   // 用户取消分享后执行的回调函数
+            // }
+          });
+          wx.onMenuShareAppMessage({
+            title: _this.listC.crowd_funding_name, // 分享标题
+            desc: _this.listC.summary, // 分享描述
+            link: url, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+            imgUrl: _this.img_path, // 分享图标
+            success: function() {
+              _this.$toast({
+                message: "分享成功",
+                duration: "500"
+              });
+              // 用户确认分享后执行的回调函数
+            }
+          });
         });
-        // });
-      }).catch(err => {
+      })
+      .catch(err => {
         console.log(err, "请求失败");
       });
-    });
   },
 
   methods: {
