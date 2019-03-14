@@ -332,7 +332,8 @@ export default {
 
     let value = localStorage.getItem("keys");
     let url = window.location.href;
-    console.log(url);
+    let newurl = url.split("?")[0];
+    console.log(newurl);
     console.log(this.$wx);
     console.log(value);
     if (value == null) return;
