@@ -206,7 +206,6 @@ const routes = [{
     // name: '活动专区',
     component: resolve => require(["@/components/common/Hdetial"], resolve),
     meta: {
-      oppendid: true,
       title: '活动专区',
     },
     // component: Hdetial
@@ -225,7 +224,6 @@ const routes = [{
     // name: '详情页',
     component: resolve => require(["@/components/common/Detailswiper"], resolve),
     meta: {
-      oppendid: true,
       title: '详情页',
     },
     // component: Detail,

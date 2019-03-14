@@ -4,7 +4,7 @@ import * as types from "@/components/vuex/types";
 import store from "@/components/vuex/store";
 import { Code } from "@/components/axios/api";
 import { huoqu } from "@/components/axios/api";
-import { SignPackage } from "@/components/axios/api";
+// import { SignPackage } from "@/components/axios/api";
 
 export default {
   created() {

@@ -331,8 +331,8 @@ export default {
 
     const value = localStorage.getItem("keys");
     const url = window.location.href;
-    const newUrl = url.split("&")[0];
-    console.log(newUrl);
+    // const url = url.split("&")[0];
+    console.log(url);
     console.log(wx);
     console.log(value);
     if (value == null) return;
@@ -352,7 +352,7 @@ export default {
         wx.onMenuShareTimeline({
           title: _this.listC.crowd_funding_name, // 分享标题
           desc: _this.listC.summary, // 分享描述
-          link: newUrl, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+          link: url, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
           imgUrl: _this.img_path, // 分享图标
           success: function() {
             _this.$toast({
@@ -372,7 +372,7 @@ export default {
         wx.onMenuShareAppMessage({
           title: _this.listC.crowd_funding_name, // 分享标题
           desc: _this.listC.summary, // 分享描述
-          link: newUrl, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+          link: url, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
           imgUrl: _this.img_path, // 分享图标
           success: function() {
             _this.$toast({
