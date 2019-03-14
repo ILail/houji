@@ -24,9 +24,19 @@ export default {
         //   // }, 800);
         // }
         // console.log(URL);
-        if (store.state.token == null) {
-          window.location.replace(URL);
-          this.refrech();
+        // if (store.state.token == null) {
+        //   window.location.replace(URL);
+        //   this.refrech();
+        // }
+        let iswx =navigator.userAgent.toLowerCase().match(/MicroMessenger/i) == "micromessenger"
+        if (iswx) {
+          const code = sessionStorage.getItem("weixin-redirect-code");
+          if (!code) {
+            window.location.replace(URL);
+          } else if (!code) {
+            sessionStorage.setItem("weixin-redirect-code", params);
+            history.back();
+          }
         }
       })
       .catch(err => {
@@ -65,7 +75,14 @@ export default {
           console.log(err, "请求失败");
         });
     }
-  }
+  },
+  destroyed() {
+  //离开页面清空 sessionStorage 中的 weixin-redirect-code
+   let iswx = navigator.userAgent.toLowerCase().match(/MicroMessenger/i) == "micromessenger";
+   if (iswx) {
+      sessionStorage.removeItem('weixin-redirect-code')
+    }
+},
 };
 </script>
 <style lang="stylus" scoped>
