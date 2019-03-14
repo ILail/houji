@@ -1,7 +1,7 @@
 <template></template>
 <script type="text/javascript">
 import * as types from "@/components/vuex/types";
-import store from '@/components/vuex/store'
+import store from "@/components/vuex/store";
 import { Code } from "@/components/axios/api";
 import { huoqu } from "@/components/axios/api";
 import { SignPackage } from "@/components/axios/api";
@@ -23,10 +23,11 @@ export default {
         //   // console.log(URL);
         //   // }, 800);
         // }
-        console.log(URL)
-        if(store.state.token == null){
+        console.log(URL);
+        if (store.state.token == null) {
           window.location.href = URL;
-          return
+        } else {
+          store.commit(types.LOGIN, window.localStorage.getItem("token"));
         }
       })
       .catch(err => {
