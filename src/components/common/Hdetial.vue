@@ -183,14 +183,15 @@ export default {
     setTimeout(() => {
       this.show = true;
     }, 1300);
-    let value = localStorage.getItem("keys");
-    let url = window.location.href;
-    console.log(url);
+    const value = localStorage.getItem("keys");
+    const url = window.location.href;
+    const newUrl = url.split('&')[0]
+    console.log(newUrl);
     console.log(wx);
     console.log(value);
     const _this = this;
     if (value == null) return;
-    SignPackage(url, value).then(res => {
+    SignPackage(newUrl, value).then(res => {
       console.log(res.data.data.signPackage);
       let signPackage = res.data.data.signPackage;
       wx.config({
@@ -205,7 +206,7 @@ export default {
         wx.onMenuShareTimeline({
           title: _this.list.crowd_funding_name, // 分享标题
           desc: _this.list.summary, // 分享描述
-          link: url, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+          link: newUrl, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
           imgUrl: _this.img_path, // 分享图标
           success: function() {
             _this.$toast({
@@ -225,7 +226,7 @@ export default {
         wx.onMenuShareAppMessage({
           title: _this.list.crowd_funding_name, // 分享标题
           desc: _this.list.summary, // 分享描述
-          link: url, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+          link: newUrl, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
           imgUrl: _this.img_path, // 分享图标
           success: function() {
             _this.$toast({
