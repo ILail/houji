@@ -26,6 +26,7 @@ export default {
         console.log(URL)
         if(store.state.token == null){
           window.location.href = URL;
+          return
         }
       })
       .catch(err => {
