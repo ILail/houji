@@ -7,7 +7,8 @@ import { huoqu } from "@/components/axios/api";
 // import { SignPackage } from "@/components/axios/api";
 
 export default {
-  created() {
+  created() {},
+  mounted() {
     // 获取当前页面的链接给后台
     huoqu(window.location.href)
       .then(res => {
@@ -24,17 +25,14 @@ export default {
         //   // }, 800);
         // }
         // console.log(URL);
-        if (store.state.token == null) {
-          window.location.href = URL;
-        } else {
-          this.refrech();
-        }
+
+        window.location.href = URL;
+        this.refrech();
       })
       .catch(err => {
         console.log(err, "请求失败");
       });
   },
-  mounted() {},
   methods: {
     refrech() {
       // 拿到跳转后的链接
