@@ -13,12 +13,12 @@ export default {
       .then(res => {
         let URL = res.data.data;
         // console.log(URL);
-        var value = localStorage.getItem("hous");
+        var value = localStorage.getItem("houjis");
         // console.log(value);
         // 只做一次跳转
         if (value == null || value == undefined) {
           // setTimeout(function() {
-          localStorage.setItem("hous", "2019");
+          localStorage.setItem("houjis", "2019");
           window.location.href = URL;
           // console.log(URL);
           // }, 800);
@@ -37,26 +37,27 @@ export default {
   mounted() {
     // 拿到跳转后的链接
     const url = window.location.href;
+    console.log(url);
     const urlLength = url.split("?").length;
+    console.log(urlLength);
     if (urlLength == 1) {
-      console.log(123);
-    } else {
-      const localarr = url.split("?")[1].split("&");
-      let code = localarr[0].split("=")[1];
-      console.log(1111);
-      Code(code)
-        .then(res => {
-          console.log(res.data.data);
-          const access = res.data.data.access_token;
-          localStorage.setItem("keys", access); //将变量imgs存储到name字段
-
-          const imgs = res.data.data.openid; //声明个变量存储下数据
-          localStorage.setItem("key", imgs); //将变量imgs存储到name字段
-        })
-        .catch(err => {
-          console.log(err, "请求失败");
-        });
+      return;
     }
+    const localarr = url.split("?")[1].split("&");
+    let code = localarr[0].split("=")[1];
+    console.log(1111);
+    Code(code)
+      .then(res => {
+        console.log(res.data.data);
+        const access = res.data.data.access_token;
+        localStorage.setItem("keys", access); //将变量imgs存储到name字段
+
+        const imgs = res.data.data.openid; //声明个变量存储下数据
+        localStorage.setItem("key", imgs); //将变量imgs存储到name字段
+      })
+      .catch(err => {
+        console.log(err, "请求失败");
+      });
   }
 };
 </script>
