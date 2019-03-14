@@ -332,14 +332,14 @@ export default {
     let value = localStorage.getItem("keys");
     let url = window.location.href;
     console.log(url);
-    console.log(this.$wx);
+    console.log(wx);
     console.log(value);
     if (value == null) return;
     const _this = this;
     SignPackage(url, value).then(res => {
       console.log(res.data.data.signPackage);
       let signPackage = res.data.data.signPackage;
-      this.$wx.config({
+     wx.config({
         debug: true,
         appId: signPackage.appId,
         timestamp: signPackage.timestamp,
@@ -347,9 +347,9 @@ export default {
         signature: signPackage.signature,
         jsApiList: ["onMenuShareTimeline", "onMenuShareAppMessage"]
       });
-      this.$wx
+     wx
         .ready(function() {
-          this.$wx.onMenuShareTimeline({
+         wx.onMenuShareTimeline({
             title: _this.listC.crowd_funding_name, // 分享标题
             desc: _this.listC.summary, // 分享描述
             link: url, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
@@ -369,7 +369,7 @@ export default {
               // 用户取消分享后执行的回调函数
             }
           });
-          this.$wx.onMenuShareAppMessage({
+         wx.onMenuShareAppMessage({
             title: _this.listC.crowd_funding_name, // 分享标题
             desc: _this.listC.summary, // 分享描述
             link: url, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
