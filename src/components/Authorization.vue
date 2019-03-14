@@ -1,6 +1,7 @@
 <template></template>
 <script type="text/javascript">
-// import * as types from "@/components/vuex/types";
+import * as types from "@/components/vuex/types";
+import store from '@/components/vuex/store'
 import { Code } from "@/components/axios/api";
 import { huoqu } from "@/components/axios/api";
 import { SignPackage } from "@/components/axios/api";
@@ -12,15 +13,19 @@ export default {
       .then(res => {
         let URL = res.data.data;
         // console.log(URL);
-        var value = localStorage.getItem("houjij");
+        // var value = localStorage.getItem("houjij");
         // console.log(value);
         // 只做一次跳转
-        if (value == null || value == undefined) {
-          // setTimeout(function() {
-          localStorage.setItem("houjij", "2019");
+        // if (value == null || value == undefined) {
+        //   // setTimeout(function() {
+        //   localStorage.setItem("houjij", "2019");
+        //   window.location.href = URL;
+        //   // console.log(URL);
+        //   // }, 800);
+        // }
+        console.log(URL)
+        if(store.state.token == null){
           window.location.href = URL;
-          // console.log(URL);
-          // }, 800);
         }
       })
       .catch(err => {
