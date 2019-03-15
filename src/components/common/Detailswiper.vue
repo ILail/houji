@@ -481,16 +481,17 @@ export default {
         this.$route.query.key
       )
         .then(res => {
-          if (res.data.status == "-2012") {
-            this.$router.push({ path: "/phone" });
-          } else {
-            this.$toast({
-              message: "添加购物车成功",
-              duration: "1000"
-            });
-            this.istanchuan = false;
-            this.isshowa = true;
-          }
+          // if (res.data.status == "-2012") {
+          //   this.$router.push({ path: "/phone" });
+          // } else {
+
+          // }
+          this.$toast({
+            message: "添加购物车成功",
+            duration: "1000"
+          });
+          this.istanchuan = false;
+          this.isshowa = true;
         })
         .catch(err => {
           console.log(err, "请求失败");
@@ -498,23 +499,24 @@ export default {
     },
     // 点击下单
     ljxd() {
-      if (store.state.token == null) {
-        this.$router.push({ path: "/phone" });
-      } else {
-        const arry = [
-          this.$route.query.key,
-          this.clickList.crowd_funding_return_id,
-          this.count
-        ];
-        this.$router.push({
-          path: "/querenone",
-          query: {
-            dataObjo: arry[0],
-            dataObjb: arry[1],
-            dataObjc: arry[2]
-          }
-        });
-      }
+      // if (store.state.token == null) {
+      //   this.$router.push({ path: "/phone" });
+      // } else {
+
+      // }
+      const arry = [
+        this.$route.query.key,
+        this.clickList.crowd_funding_return_id,
+        this.count
+      ];
+      this.$router.push({
+        path: "/querenone",
+        query: {
+          dataObjo: arry[0],
+          dataObjb: arry[1],
+          dataObjc: arry[2]
+        }
+      });
     }
   }
 };

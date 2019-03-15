@@ -52,27 +52,26 @@ export default {
       // if (urlLength == 1) {
       //   return;
       // }
-      const code = url.split("code=");
-       console.log(code);
-      // const code = localarr[0].split("=")[1];
-      // console.log(1111);
-      // Code(code)
-      //   .then(res => {
-      //     console.log(res.data.data);
-      //     const data = res.data.data;
-      //     const access = data.access_token;
-      //     localStorage.setItem("keys", access); //将变量imgs存储到name字段
+      const code = url.split("code=")[1].split("&")[0];
+      console.log(code);
+    
+      Code(code)
+        .then(res => {
+          console.log(res.data.data);
+          const data = res.data.data;
+          const access = data.access_token;
+          localStorage.setItem("keys", access); //将变量imgs存储到name字段
 
-      //     const imgs = data.openid; //声明个变量存储下数据
-      //     localStorage.setItem("key", imgs); //将变量imgs存储到name字段
+          const imgs = data.openid; //声明个变量存储下数据
+          localStorage.setItem("key", imgs); //将变量imgs存储到name字段
 
-      //     const tokenmine = data.token;
-      //     this.$store.commit(types.LOGIN, tokenmine);
-      //     // if()
-      //   })
-      //   .catch(err => {
-      //     console.log(err, "请求失败");
-      //   });
+          const tokenmine = data.token;
+          this.$store.commit(types.LOGIN, tokenmine);
+          // if()
+        })
+        .catch(err => {
+          console.log(err, "请求失败");
+        });
     }
   },
 //   destroyed() {
