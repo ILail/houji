@@ -8,7 +8,6 @@ try {
   }
 } catch (e) {}
 export default new Vuex.Store({
-
   state: {
     token: defaultCode,
   },

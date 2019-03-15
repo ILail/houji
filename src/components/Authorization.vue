@@ -73,7 +73,7 @@ export default {
             localStorage.setItem("key", imgs); //将变量imgs存储到name字段
 
             const tokenmine = data.token;
-            store.commit("getCode", tokenmine);
+            this.$store.commit("getCode", tokenmine);
             // if()
           })
           .catch(err => {
