@@ -169,6 +169,7 @@ export default {
 
   created: function() {},
   mounted() {
+    // setTimeout
     wishPush()
       .then(res => {
         this.json = res.data.data.wish_list.list;

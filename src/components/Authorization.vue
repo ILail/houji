@@ -58,6 +58,7 @@ export default {
       // if (urlLength == 1) {
       //   return;
       // }
+      console.log(store.state.token)
       if (store.state.token == null) {
         const code = url.split("code=")[1].split("&")[0];
         console.log(code);
