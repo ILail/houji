@@ -509,25 +509,25 @@ const router = new Router({
 
 });
 
-if (window.localStorage.getItem('token')) {
-  store.commit(types.LOGIN, window.localStorage.getItem('token'));
-}
-router.beforeEach(function (to, from, next) {
-  // const toRouter = to.path
-  // const fromRouter = from.path
-  // console.log(toRouter)
-  // console.log(fromRouter)
-  if (to.matched.some(r => r.meta.requireAuth)) {
-    if (store.state.token) {
-      next();
-    } else {
-      next({
-        path: '/phone'
-      })
-    }
-  } else {
-    next();
-  }
-});
+// if (window.localStorage.getItem('token')) {
+//   store.commit(types.LOGIN, window.localStorage.getItem('token'));
+// }
+// router.beforeEach(function (to, from, next) {
+//   // const toRouter = to.path
+//   // const fromRouter = from.path
+//   // console.log(toRouter)
+//   // console.log(fromRouter)
+//   if (to.matched.some(r => r.meta.requireAuth)) {
+//     if (store.state.token) {
+//       next();
+//     } else {
+//       next({
+//         path: '/phone'
+//       })
+//     }
+//   } else {
+//     next();
+//   }
+// });
 
 export default router;

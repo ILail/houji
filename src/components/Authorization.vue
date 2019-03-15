@@ -52,7 +52,8 @@ export default {
       // if (urlLength == 1) {
       //   return;
       // }
-      // const localarr = url.split("?")[1].split("&");
+      const code = url.split("code=");
+       console.log(code);
       // const code = localarr[0].split("=")[1];
       // console.log(1111);
       // Code(code)
