@@ -1,7 +1,7 @@
 <template></template>
 <script type="text/javascript">
 // import * as types from "@/components/vuex/types";
-// import store from "@/components/vuex/store";
+import store from "@/components/store/index";
 import { Code } from "@/components/axios/api";
 import { huoqu } from "@/components/axios/api";
 // import { SignPackage } from "@/components/axios/api";
@@ -56,8 +56,9 @@ export default {
       // if (urlLength == 1) {
       //   return;
       // }
-      console.log(this.$store.state.token);
-      if (this.$store.state.token == null) {
+      const self = this;
+      console.log(store.state.token);
+      if (store.state.token == null) {
         const code = url.split("code=")[1].split("&")[0];
         console.log(code);
 
@@ -72,7 +73,7 @@ export default {
             localStorage.setItem("key", imgs); //将变量imgs存储到name字段
 
             const tokenmine = data.token;
-            this.$store.commit('getCode', tokenmine);
+            // self.$store.commit("getCode", tokenmine);
             // if()
           })
           .catch(err => {
