@@ -8,7 +8,8 @@ import 'styles/common.css'
 import fastClick from 'fastclick'
 // import axios from 'axios';
 import LyTab from 'ly-tab';
-import store from '@/components/vuex/store'
+// import store from '@/components/vuex/store'
+import store from '@/components/store'
 import clipper from '../static/clipper'
 // import wx from 'weixin-js-sdk';
 import VueAwesomeSwiper from 'vue-awesome-swiper'
