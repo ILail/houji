@@ -58,7 +58,7 @@ export default {
       // }
       const self = this;
       console.log(store.state.token);
-      if (store.state.token == null) {
+      if (store.state.token == '') {
         const code = url.split("code=")[1].split("&")[0];
         console.log(code);
 
@@ -73,7 +73,7 @@ export default {
             localStorage.setItem("key", imgs); //将变量imgs存储到name字段
 
             const tokenmine = data.token;
-            // self.$store.commit("getCode", tokenmine);
+            self.$store.commit("getCode", tokenmine);
             // if()
           })
           .catch(err => {
