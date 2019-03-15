@@ -11,8 +11,13 @@ export default new Vuex.Store({
   state: {
     token: defaultCode,
   },
+  // actions:{
+  //   getCode(ctx,tokenmine){
+  //     console.log(tokenmine)
+  //   }
+  // },
   mutations: {
-    getCode(tokenmine) {
+    getCode(state,tokenmine) {
       state.token = tokenmine
       try {
         localStorage.tokenmine = tokenmine
