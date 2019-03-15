@@ -42,9 +42,11 @@ export default {
       .catch(err => {
         console.log(err, "请求失败");
       });
+
+        this.refrech();
   },
   mounted() {
-    this.refrech();
+  
   },
   methods: {
     refrech() {

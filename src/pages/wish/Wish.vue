@@ -167,7 +167,8 @@ export default {
     };
   },
 
-  created: function() {
+  created: function() {},
+  mounted() {
     wishPush()
       .then(res => {
         this.json = res.data.data.wish_list.list;
@@ -181,9 +182,6 @@ export default {
         // this.$router.push("/phone");
         console.log(err, "请求失败");
       });
-  },
-  mounted() {
-
     // console.log(wish_nums)
     this.$toast({
       type: "loading",
