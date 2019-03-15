@@ -5,7 +5,7 @@
       <router-view></router-view>
     </fade-animation>
     <!-- </keep-alive> -->
-    <Guan v-if="$route.meta.oppendid"></Guan>
+    <Guan></Guan>
     <div v-wechat-title="$route.meta.title"></div>
   </div>
 </template>

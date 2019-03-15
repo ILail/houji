@@ -8,6 +8,7 @@ import * as types from './types'
 Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
+    // 全局公用的数据
     token: null,
     // oppenId: null,
   },

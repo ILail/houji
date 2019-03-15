@@ -30,59 +30,57 @@ export default {
         // }
         let iswx =navigator.userAgent.toLowerCase().match(/MicroMessenger/i) == "micromessenger"
         if (iswx) {
-          const code = sessionStorage.getItem("weixin-redirect-code");
-          if (!code) {
+          const code = localStorage.getItem("weixin-redirect-code");
+          if (code == null || code  == undefined) {
             window.location.replace(URL);
-          } else if (!code) {
-            sessionStorage.setItem("weixin-redirect-code", params);
-            history.back();
-          }
+            localStorage.setItem("weixin-redirect-code", "2019");
+          } 
         }
       })
       .catch(err => {
         console.log(err, "请求失败");
       });
   },
-  mounted() {},
+  mounted() { this.refrech()},
   methods: {
     refrech() {
       // 拿到跳转后的链接
       const url = window.location.href;
       console.log(url);
-      const urlLength = url.split("?").length;
-      console.log(urlLength);
-      if (urlLength == 1) {
-        return;
-      }
-      const localarr = url.split("?")[1].split("&");
-      const code = localarr[0].split("=")[1];
-      console.log(1111);
-      Code(code)
-        .then(res => {
-          console.log(res.data.data);
-          const data = res.data.data;
-          const access = data.access_token;
-          localStorage.setItem("keys", access); //将变量imgs存储到name字段
+      // const urlLength = url.split("?").length;
+      // console.log(urlLength);
+      // if (urlLength == 1) {
+      //   return;
+      // }
+      // const localarr = url.split("?")[1].split("&");
+      // const code = localarr[0].split("=")[1];
+      // console.log(1111);
+      // Code(code)
+      //   .then(res => {
+      //     console.log(res.data.data);
+      //     const data = res.data.data;
+      //     const access = data.access_token;
+      //     localStorage.setItem("keys", access); //将变量imgs存储到name字段
 
-          const imgs = data.openid; //声明个变量存储下数据
-          localStorage.setItem("key", imgs); //将变量imgs存储到name字段
+      //     const imgs = data.openid; //声明个变量存储下数据
+      //     localStorage.setItem("key", imgs); //将变量imgs存储到name字段
 
-          const tokenmine = data.token;
-          this.$store.commit(types.LOGIN, tokenmine);
-          // if()
-        })
-        .catch(err => {
-          console.log(err, "请求失败");
-        });
+      //     const tokenmine = data.token;
+      //     this.$store.commit(types.LOGIN, tokenmine);
+      //     // if()
+      //   })
+      //   .catch(err => {
+      //     console.log(err, "请求失败");
+      //   });
     }
   },
-  destroyed() {
-  //离开页面清空 sessionStorage 中的 weixin-redirect-code
-   let iswx = navigator.userAgent.toLowerCase().match(/MicroMessenger/i) == "micromessenger";
-   if (iswx) {
-      sessionStorage.removeItem('weixin-redirect-code')
-    }
-},
+//   destroyed() {
+//   //离开页面清空 sessionStorage 中的 weixin-redirect-code
+//    let iswx = navigator.userAgent.toLowerCase().match(/MicroMessenger/i) == "micromessenger";
+//    if (iswx) {
+//       sessionStorage.removeItem('weixin-redirect-code')
+//     }
+// },
 };
 </script>
 <style lang="stylus" scoped>
