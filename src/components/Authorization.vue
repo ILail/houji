@@ -34,10 +34,12 @@ export default {
         // }
 
         if (iswx) {
-          const code = localStorage.getItem("we");
+          const code = localStorage.getItem("houjiours");
           if (code == null || code == undefined) {
-            window.location.replace(URL);
-            localStorage.setItem("we", "2");
+            setTimeout(() => {
+              window.location.replace(URL);
+            }, 1000);
+            localStorage.setItem("whoujiours", "2");
           }
         }
       })
@@ -64,7 +66,7 @@ export default {
         const newurl = url.split("code=")[0];
         Code(code)
           .then(res => {
-            window.location.href = newurl;
+            // window.location.href = newurl;
             console.log(res.data.data);
             const data = res.data.data;
             const accessToken = data.access_token;

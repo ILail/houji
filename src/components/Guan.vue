@@ -31,7 +31,7 @@ export default {
       "micromessenger";
     let num = this.$store.state.subscribe;
     console.log(num)
-    if(num === 0){
+    if(num == 0){
       this.showG = true;
     }
     // if (iswx && num == 0) {
