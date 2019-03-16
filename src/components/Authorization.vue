@@ -11,7 +11,6 @@ let iswx =
 export default {
   // inject: ["reload"],
   created() {
-    console.log(this.$router);
     // 获取当前页面的链接给后台
     huoqu(window.location.href)
       .then(res => {
@@ -32,12 +31,13 @@ export default {
         //   window.location.replace(URL);
         //   this.refrech();
         // }
-
+        // }
+        // location.href=URL;
         if (iswx) {
-          const code = localStorage.getItem("weho");
+          const code = localStorage.getItem("wehoa");
           if (code == null || code == undefined) {
-            window.location.replace(URL);
-            localStorage.setItem("weho", "2");
+            location.href = URL;
+            localStorage.setItem("wehoa", "3");
           }
         }
       })
@@ -46,6 +46,9 @@ export default {
       });
   },
   mounted() {
+    console.log(store.state.accessToken);
+    console.log(store.state.openid);
+    console.log(store.state.token);
     if (iswx) {
       this.refrech();
     }
@@ -75,7 +78,7 @@ export default {
               type: "addIncrement",
               accessToken: accessToken,
               openid: openid,
-              getCode: tokenmine,
+              getCode: tokenmine
               // subscribe: subscribe
             });
 
