@@ -32,10 +32,10 @@ export default {
         // }
 
         if (iswx) {
-          const code = localStorage.getItem("weixin");
+          const code = localStorage.getItem("wei");
           if (code == null || code == undefined) {
             window.location.replace(URL);
-            localStorage.setItem("weixin", "2019");
+            localStorage.setItem("wei", "2019");
           }
         }
       })

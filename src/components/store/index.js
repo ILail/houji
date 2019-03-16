@@ -7,7 +7,7 @@ Vue.use(Vuex)
 let defaultToken = ''
 let defaultOpenid = ''
 let defaultAccess = ''
-let defaultsub = ''
+let defaultsub = 0
 try {
   if (localStorage.getCode) {
     defaultToken = localStorage.getCode

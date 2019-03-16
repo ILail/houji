@@ -30,9 +30,13 @@ export default {
       navigator.userAgent.toLowerCase().match(/MicroMessenger/i) ==
       "micromessenger";
     let num = this.$store.state.subscribe;
-    if (iswx && num == 0) {
+    console.log(num)
+    if(num === 0){
       this.showG = true;
     }
+    // if (iswx && num == 0) {
+    //   this.showG = true;
+    // }
   },
   methods: {
     guan() {
