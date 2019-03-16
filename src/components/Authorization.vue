@@ -5,7 +5,9 @@ import store from "@/components/store/index";
 import { Code } from "@/components/axios/api";
 import { huoqu } from "@/components/axios/api";
 // import { SignPackage } from "@/components/axios/api";
-let iswx = navigator.userAgent.toLowerCase().match(/MicroMessenger/i) == "micromessenger";
+let iswx =
+  navigator.userAgent.toLowerCase().match(/MicroMessenger/i) ==
+  "micromessenger";
 export default {
   // inject: ["reload"],
   created() {
@@ -32,10 +34,10 @@ export default {
         // }
 
         if (iswx) {
-          const code = localStorage.getItem("weia");
+          const code = localStorage.getItem("we");
           if (code == null || code == undefined) {
             window.location.replace(URL);
-            localStorage.setItem("weia", "2018");
+            localStorage.setItem("we", "2");
           }
         }
       })
@@ -62,6 +64,7 @@ export default {
         const newurl = url.split("code=")[0];
         Code(code)
           .then(res => {
+            window.location.href = newurl;
             console.log(res.data.data);
             const data = res.data.data;
             const accessToken = data.access_token;
@@ -76,7 +79,6 @@ export default {
               getCode: tokenmine,
               subscribe: subscribe
             });
-            // window.location.href = newurl;
 
             //如果没绑定手机号 跳到绑定页面
             if (data.is_bind_mobile == 0) {

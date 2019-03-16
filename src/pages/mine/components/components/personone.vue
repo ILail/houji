@@ -53,13 +53,9 @@ import axios from "axios";
 import { imgUpdat } from "@/components/axios/api";
 
 const axiosInstance = axios.create({});
-var mo=function(e){e.preventDefault();};
-function stop(){
-        document.body.style.overflow='hidden';       
-        document.addEventListener("touchmove",mo,false);//禁止页面滑动
-}
-//直接默认不让滑动
-stop();
+document.querySelector('body').addEventListener('touchmove', function (ev) {
+            event.preventDefault();
+  });
 export default {
   name: "Fit",
   data() {
