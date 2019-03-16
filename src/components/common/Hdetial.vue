@@ -183,7 +183,7 @@ export default {
     setTimeout(() => {
       this.show = true;
     }, 1300);
-    const value = localStorage.getItem("keys");
+    const value = this.$store.state.accessToken;
     const url = window.location.href;
     // const newUrl = url.split('&')[0]
     console.log(url);

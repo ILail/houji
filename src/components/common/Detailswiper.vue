@@ -189,6 +189,7 @@ import store from "@/components/vuex/store";
 import Tabbar from "@/components/common/Tan";
 import assign from "@/components/axios/assign.js";
 import { SignPackage } from "@/components/axios/api";
+// import store from "@/components/store/index";
 export default {
   mixins: [assign],
   name: "Detail",
@@ -329,13 +330,13 @@ export default {
       mySwiperA.slideTo(index, 0, false);
     });
 
-    const value = localStorage.getItem("keys");
+    const value = this.$store.state.accessToken;
     const url = window.location.href;
     // const url = url.split("&")[0];
     console.log(url);
     console.log(wx);
     console.log(value);
-    if (value == null) return;
+    if (value == '') return;
     const _this = this;
     SignPackage(url, value)
       .then(res => {

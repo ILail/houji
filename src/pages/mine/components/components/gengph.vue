@@ -71,7 +71,7 @@ export default {
         .then(res => {
           console.log(res);
           this.$toast("更改成功");
-          this.$router.push("/");
+          this.$router.go(-1);
         })
         .catch(err => {
           console.log(err, "请求失败");
