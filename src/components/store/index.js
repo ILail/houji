@@ -8,15 +8,15 @@ let defaultToken = ''
 let defaultOpenid = ''
 let defaultAccess = ''
 try {
-  if (localStorage.addIncrement.getCode) {
-    defaultToken = localStorage.addIncrement.getCode
+  if (localStorage.getCode) {
+    defaultToken = localStorage.getCode
   }
-  if (localStorage.addIncrement.openid) {
-    defaultOpenid = localStorage.addIncrement.openid
+  if (localStorage.openid) {
+    defaultOpenid = localStorage.openid
   }
 
-  if (localStorage.addIncrement.accessToken) {
-    defaultAccess = localStorage.addIncrement.accessToken
+  if (localStorage.accessToken) {
+    defaultAccess = localStorage.accessToken
   }
 
 } catch (e) {}
@@ -38,9 +38,9 @@ export default new Vuex.Store({
       state.openid = addIncrement.openid
       state.accessToken = addIncrement.accessToken
       try {
-        localStorage.addIncrement.getCode = addIncrement.getCode
-        localStorage.addIncrement.openid = addIncrement.openid
-        localStorage.addIncrement.accessToken = addIncrement.accessToken
+        localStorage.getCode = addIncrement.getCode
+        localStorage.openid = addIncrement.openid
+        localStorage.accessToken = addIncrement.accessToken
       } catch (e) {}
 
     },
