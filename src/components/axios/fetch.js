@@ -1,7 +1,5 @@
 import axios from 'axios'; //引入axios
 import store from '@/components/store/index'
-// import * as types from "@/components/vuex/types";
-import router from "@/router/index";
 export function fetch(options) {
   return new Promise((resolve, reject) => {
     const instance = axios.create({ //instance创建一个axios实例，可以自定义配置，可在 axios文档中查看详情

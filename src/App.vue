@@ -2,7 +2,7 @@
   <div id="app">
     <!-- <keep-alive> -->
     <fade-animation>
-      <router-view></router-view>
+      <router-view v-if="isRouterAlive"></router-view>
     </fade-animation>
     <!-- </keep-alive> -->
     <Guan></Guan>
@@ -15,20 +15,28 @@ import Guan from "@/components/Authorization";
 import FadeAnimation from "@/components/common/Fade";
 export default {
   name: "App",
+  provide() {
+    return {
+      reload: this.reload
+    };
+  },
   data() {
     return {
+      isRouterAlive: true
     };
   },
   components: {
     Guan,
     FadeAnimation
   },
-  mounted() {
-    this.$toast({
-      message: "加载中...",
-      duration: "1200",
-      type: "loading"
-    });
+  mounted() {},
+  methods: {
+    reload() {
+      this.isRouterAlive = false
+      this.$nextTick(function(){
+         this.isRouterAlive = true
+      })
+    }
   }
 };
 </script>

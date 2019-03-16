@@ -1,29 +1,20 @@
 import Vuex from 'vuex'
 import Vue from 'vue'
+import state from './state'
+import mutations from './mutations'
 Vue.use(Vuex)
-let defaultCode = ''
-try {
-  if (localStorage.tokenmine) {
-    defaultCode = localStorage.tokenmine
-  }
-} catch (e) {}
+
 export default new Vuex.Store({
-  state: {
-    token: defaultCode,
+  state:{
+    token: state.token,
+    openid: state.openid,
+    accessToken: state.accessToken
   },
   // actions:{
   //   getCode(ctx,tokenmine){
   //     console.log(tokenmine)
   //   }
   // },
-  mutations: {
-    getCode(state,tokenmine) {
-      state.token = tokenmine
-      try {
-        localStorage.tokenmine = tokenmine
-      } catch (e) {}
-
-    }
-  }
+  mutations
 
 })

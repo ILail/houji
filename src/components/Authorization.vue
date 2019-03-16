@@ -7,6 +7,7 @@ import { huoqu } from "@/components/axios/api";
 // import { SignPackage } from "@/components/axios/api";
 
 export default {
+  inject:['reload'],
   created() {
     // 获取当前页面的链接给后台
     huoqu(window.location.href)
@@ -28,9 +29,7 @@ export default {
         //   window.location.replace(URL);
         //   this.refrech();
         // }
-        let iswx =
-          navigator.userAgent.toLowerCase().match(/MicroMessenger/i) ==
-          "micromessenger";
+        let iswx = navigator.userAgent.toLowerCase().match(/MicroMessenger/i) == "micromessenger";
         if (iswx) {
           const code = localStorage.getItem("weixin-redirect-code");
           if (code == null || code == undefined) {
@@ -51,14 +50,9 @@ export default {
       // 拿到跳转后的链接
       const url = window.location.href;
       console.log(url);
-      // const urlLength = url.split("?").length;
-      // console.log(urlLength);
-      // if (urlLength == 1) {
-      //   return;
-      // }
-     
-      console.log(store.state.token);
-      if (store.state.token == '') {
+      console.log(store.state.accessToken);
+      if (store.state.token == "") {
+        // 半年经验的前端 这个问题在微信端不影响
         const code = url.split("code=")[1].split("&")[0];
         console.log(code);
 
@@ -66,15 +60,15 @@ export default {
           .then(res => {
             console.log(res.data.data);
             const data = res.data.data;
-            const access = data.access_token;
-            localStorage.setItem("keys", access); //将变量imgs存储到name字段
-
-            const imgs = data.openid; //声明个变量存储下数据
-            localStorage.setItem("key", imgs); //将变量imgs存储到name字段
-
+            const accessToken = data.access_token;
+            // localStorage.setItem("keys", access); //将变量imgs存储到name字段
+            const openid = data.openid; //声明个变量存储下数据
             const tokenmine = data.token;
-            store.commit('getCode',tokenmine);
+            store.commit("accessToken", accessToken);
+            store.commit("openid", openid);
+            store.commit("getCode", tokenmine);
             // if()
+            this.reload()
           })
           .catch(err => {
             console.log(err, "请求失败");
