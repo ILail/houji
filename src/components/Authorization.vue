@@ -67,9 +67,13 @@ export default {
             const openid = data.openid; //声明个变量存储下数据
             const tokenmine = data.token;
             console.log(this.$store)
-            this.$store.commit("accessToken", accessToken);
-            this.$store.commit("openid", openid);
-            this.$store.commit("getCode", tokenmine);
+            this.$store.commit({
+              "accessToken":accessToken,
+              "openid": openid,
+              "getCode":tokenmine
+              });
+            // this.$store.commit("openid", openid);
+            // this.$store.commit("getCode", tokenmine);
             // if()
             this.reload()
           })
