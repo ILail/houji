@@ -109,7 +109,7 @@
         </Item>
       </div>
     </div>
-    <Tabbar></Tabbar>
+   
   </div>
 </template>
 <script>
@@ -118,7 +118,7 @@ import { fs } from "@/components/axios/api";
 import Item from "@/components/Item.vue";
 import FadeAnimation from "@/components/common/Fade";
 import assign from "@/components/axios/assign.js";
-import Tabbar from "@/components/common/Tan";
+
 import Swiper from "moon/swiper.min";
 
 import "moon/swiper.min.css";
@@ -127,7 +127,7 @@ export default {
   name: "Feilei",
   components: {
     Item,
-    Tabbar,
+   
     FadeAnimation
   },
   data() {

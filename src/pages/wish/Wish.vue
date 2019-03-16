@@ -95,7 +95,7 @@
         </Item>
       </div>
     </div>
-    <Tabbar></Tabbar>
+   
   </div>
 </template>
 <script type="text/ecmascript-6" defer=true>
@@ -105,7 +105,7 @@ import { wishPush } from "@/components/axios/api";
 import { forDetil } from "@/components/axios/api";
 import { Addjia } from "@/components/axios/api";
 import Item from "@/components/Item.vue";
-import Tabbar from "@/components/common/Tan";
+
 import * as types from "@/components/vuex/types";
 import store from "@/components/vuex/store";
 export default {
@@ -115,7 +115,7 @@ export default {
     MineHeader,
     rSwiperOut,
     rSwiperOutItem,
-    Tabbar
+    
   },
   data() {
     return {

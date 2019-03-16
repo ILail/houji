@@ -155,7 +155,7 @@
         </div>
       </div>
     </div>
-    <Tabbar></Tabbar>
+  
   </div>
 </template>
 
@@ -186,7 +186,7 @@ import { wishList } from "@/components/axios/api";
 import { specifications } from "@/components/axios/api";
 import { crowd_funding } from "@/components/axios/api";
 import store from "@/components/vuex/store";
-import Tabbar from "@/components/common/Tan";
+
 import assign from "@/components/axios/assign.js";
 import { SignPackage } from "@/components/axios/api";
 export default {
@@ -197,7 +197,7 @@ export default {
     Travel,
     Plun,
     Suyuan,
-    Tabbar
+    
   },
   data() {
     return {

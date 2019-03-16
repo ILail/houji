@@ -426,7 +426,7 @@ export default {
   width: 100%;
 }
 
-.peoDela >>> p {
+.peoDela {
   margin-top: 20px;
   padding-bottom: 50px;
 }

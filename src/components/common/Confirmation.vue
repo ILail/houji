@@ -32,7 +32,7 @@
       <div class="same houji" @click="showLists">
         <div class="sameInput">
           <span>猴集卡：</span>
-          <input type="text" placeholder="享受95折优惠" v-model="saleING" readonly>
+          <input type="text" placeholder="享受10折优惠" v-model="saleING" readonly>
         </div>
 
         <div>

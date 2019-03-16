@@ -94,13 +94,13 @@
         </Item>
       </div>
     </div>
-    <Tabbar></Tabbar>
+    //<Tabbar></Tabbar>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
 import HomeSwiper from "./components/components/swiper";
-import Tabbar from "@/components/common/Tan";
+//import Tabbar from "@/components/common/Tan";
 import Item from "@/components/Item";
 import Home from "./components/Home";
 import Dizhi from "./components/Dizhi";
@@ -115,7 +115,7 @@ export default {
   name: "Small",
   components: {
     HomeSwiper,
-    Tabbar,
+    //Tabbar,
     Item,
     Home,
     Dizhi,

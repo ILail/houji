@@ -42,22 +42,9 @@ export default {
         var _this = this;
 
         if (userID == "1") {
-          _this.$toast({
-            message: "未领取会员",
-            duration: "500"
-          });
-          setTimeout(function() {
-            _this.$router.push("/");
-          }, 1500);
-        } else {
-          _this.$toast({
-            message: "已经领取会员",
-            duration: "500"
-          });
-          setTimeout(function() {
-            _this.$router.go(-1);
-          }, 1500);
-        }
+         _this.$router.go(-1)
+
+        } 
       }
     }
   },

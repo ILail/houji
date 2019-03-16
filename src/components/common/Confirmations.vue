@@ -37,7 +37,7 @@
       <div class="same houji">
         <div class="sameInput">
           <span>猴集卡：</span>
-          <input type="text" placeholder="享受95折优惠" v-model="saleING" readonly v-show="aa">
+          <input type="text" placeholder="享受10折优惠" v-model="saleING" readonly v-show="aa">
           <input type="text" placeholder="暂不可用" readonly v-show="aas">
         </div>
 
