@@ -34,10 +34,10 @@ export default {
         // }
 
         if (iswx) {
-          const code = localStorage.getItem("wehouji");
+          const code = localStorage.getItem("weho");
           if (code == null || code == undefined) {
             window.location.replace(URL);
-            localStorage.setItem("wehouji", "2");
+            localStorage.setItem("weho", "2");
           }
         }
       })
