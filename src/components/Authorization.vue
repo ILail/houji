@@ -34,14 +34,10 @@ export default {
         // }
 
         if (iswx) {
-          const code = localStorage.getItem("houjiours");
+          const code = localStorage.getItem("wehouji");
           if (code == null || code == undefined) {
-            setTimeout(() => {
-             
-              window.location.replace(URL);
-                localStorage.setItem("whoujiours", "2");
-            }, 1000);
-           
+            window.location.replace(URL);
+            localStorage.setItem("wehouji", "2");
           }
         }
       })
@@ -68,7 +64,6 @@ export default {
         const newurl = url.split("code=")[0];
         Code(code)
           .then(res => {
-            // window.location.href = newurl;
             console.log(res.data.data);
             const data = res.data.data;
             const accessToken = data.access_token;
@@ -95,7 +90,7 @@ export default {
                 });
               }, 3000);
             }
-
+            window.location.href = newurl;
             // this.reload();
           })
           .catch(err => {
