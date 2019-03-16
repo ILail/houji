@@ -70,13 +70,13 @@ export default {
             const openid = data.openid;
             const tokenmine = data.token;
             const unionid = data.unionid;
-            const subscribe = data.subscribe;
+            // const subscribe = data.subscribe;
             this.$store.commit({
               type: "addIncrement",
               accessToken: accessToken,
               openid: openid,
               getCode: tokenmine,
-              subscribe: subscribe
+              // subscribe: subscribe
             });
 
             //如果没绑定手机号 跳到绑定页面

@@ -7,7 +7,7 @@ Vue.use(Vuex)
 let defaultToken = ''
 let defaultOpenid = ''
 let defaultAccess = ''
-let defaultsub = 0
+// let defaultsub = 0
 try {
   if (localStorage.getCode) {
     defaultToken = localStorage.getCode
@@ -19,9 +19,7 @@ try {
   if (localStorage.accessToken) {
     defaultAccess = localStorage.accessToken
   }
-  if (localStorage.subscribe) {
-    defaultsub = localStorage.subscribe
-  }
+
 
 } catch (e) {}
 export default new Vuex.Store({
@@ -29,7 +27,6 @@ export default new Vuex.Store({
     token: defaultToken,
     openid: defaultOpenid,
     accessToken: defaultAccess,
-    subscribe:defaultsub
   },
   // actions:{
   //   getCode(ctx,tokenmine){
@@ -42,12 +39,12 @@ export default new Vuex.Store({
       state.token = addIncrement.getCode
       state.openid = addIncrement.openid
       state.accessToken = addIncrement.accessToken
-      state.subscribe = addIncrement.subscribe
+
       try {
         localStorage.getCode = addIncrement.getCode
         localStorage.openid = addIncrement.openid
         localStorage.accessToken = addIncrement.accessToken
-        localStorage.subscribe = addIncrement.subscribe
+
       } catch (e) {}
 
     },
