@@ -5,9 +5,11 @@ import store from "@/components/store/index";
 import { Code } from "@/components/axios/api";
 import { huoqu } from "@/components/axios/api";
 // import { SignPackage } from "@/components/axios/api";
-
+let iswx =
+  navigator.userAgent.toLowerCase().match(/MicroMessenger/i) ==
+  "micromessenger";
 export default {
-  inject:['reload'],
+  inject: ["reload"],
   created() {
     // 获取当前页面的链接给后台
     huoqu(window.location.href)
@@ -29,7 +31,7 @@ export default {
         //   window.location.replace(URL);
         //   this.refrech();
         // }
-        let iswx = navigator.userAgent.toLowerCase().match(/MicroMessenger/i) == "micromessenger";
+
         if (iswx) {
           const code = localStorage.getItem("weixin-redirect-code");
           if (code == null || code == undefined) {
@@ -43,18 +45,19 @@ export default {
       });
   },
   mounted() {
-    this.refrech();
+    if (iswx) {
+      this.refrech();
+    }
   },
   methods: {
     refrech() {
       // 拿到跳转后的链接
       const url = window.location.href;
-      
+
       console.log(store.state.accessToken);
       console.log(store.state.openid);
       console.log(store.state.token);
       if (store.state.token == "") {
-        // 半年经验的前端 这个问题在微信端不影响
         const code = url.split("code=")[1].split("&")[0];
         console.log(code);
 
@@ -66,16 +69,17 @@ export default {
             // localStorage.setItem("keys", access); //将变量imgs存储到name字段
             const openid = data.openid; //声明个变量存储下数据
             const tokenmine = data.token;
-            console.log(this.$store)
+            console.log(this.$store);
             this.$store.commit({
-              "accessToken":accessToken,
-              "openid": openid,
-              "getCode":tokenmine
-              });
+              type: "addIncrement",
+              accessToken: accessToken,
+              openid: openid,
+              getCode: tokenmine
+            });
             // this.$store.commit("openid", openid);
             // this.$store.commit("getCode", tokenmine);
             // if()
-            this.reload()
+            this.reload();
           })
           .catch(err => {
             console.log(err, "请求失败");
