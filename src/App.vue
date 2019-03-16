@@ -2,7 +2,7 @@
   <div id="app">
     <!-- <keep-alive> -->
     <fade-animation>
-      <router-view v-if="isRouterAlive"></router-view>
+      <router-view></router-view>
     </fade-animation>
     <!-- </keep-alive> -->
     <Guan></Guan>
@@ -21,23 +21,23 @@ export default {
     };
   },
   data() {
-    return {
-      isRouterAlive: true
-    };
+    // return {
+    //   isRouterAlive: true
+    // };
   },
   components: {
     Guan,
     FadeAnimation
   },
   mounted() {},
-  methods: {
-    reload() {
-      this.isRouterAlive = false
-      this.$nextTick(function(){
-         this.isRouterAlive = true
-      })
-    }
-  }
+  // methods: {
+  //   reload() {
+  //     this.isRouterAlive = false
+  //     this.$nextTick(function(){
+  //        this.isRouterAlive = true
+  //     })
+  //   }
+  // }
 };
 </script>
 

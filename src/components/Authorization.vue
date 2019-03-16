@@ -9,7 +9,7 @@ let iswx =
   navigator.userAgent.toLowerCase().match(/MicroMessenger/i) ==
   "micromessenger";
 export default {
-  inject: ["reload"],
+  // inject: ["reload"],
   created() {
     // 获取当前页面的链接给后台
     huoqu(window.location.href)
@@ -60,7 +60,7 @@ export default {
       if (store.state.token == "") {
         const code = url.split("code=")[1].split("&")[0];
         console.log(code);
-
+        const newurl = url.split("code=")[0];
         Code(code)
           .then(res => {
             console.log(res.data.data);
@@ -76,10 +76,11 @@ export default {
               openid: openid,
               getCode: tokenmine
             });
+            window.location.href = newurl;
             // this.$store.commit("openid", openid);
             // this.$store.commit("getCode", tokenmine);
             // if()
-            this.reload();
+            // this.reload();
           })
           .catch(err => {
             console.log(err, "请求失败");
