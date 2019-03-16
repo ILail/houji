@@ -33,10 +33,10 @@ export default {
         // }
 
         if (iswx) {
-          const code = localStorage.getItem("weixin-redirect-code");
+          const code = localStorage.getItem("weixin-redirect");
           if (code == null || code == undefined) {
             window.location.replace(URL);
-            localStorage.setItem("weixin-redirect-code", "2019");
+            localStorage.setItem("weixin-redirect", "2019");
           }
         }
       })
