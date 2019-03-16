@@ -32,10 +32,10 @@ export default {
         // }
 
         if (iswx) {
-          const code = localStorage.getItem("wei");
+          const code = localStorage.getItem("weia");
           if (code == null || code == undefined) {
             window.location.replace(URL);
-            localStorage.setItem("wei", "2019");
+            localStorage.setItem("weia", "2018");
           }
         }
       })
@@ -76,7 +76,7 @@ export default {
               getCode: tokenmine,
               subscribe: subscribe
             });
-            window.location.href = newurl;
+            // window.location.href = newurl;
 
             //如果没绑定手机号 跳到绑定页面
             if (data.is_bind_mobile == 0) {
