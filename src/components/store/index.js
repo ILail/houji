@@ -33,13 +33,14 @@ export default new Vuex.Store({
   // },
   mutations: {
     addIncrement(state, addIncrement) {
+      console.log(addIncrement)
       state.token = addIncrement.getCode
       state.openid = addIncrement.openid
       state.accessToken = addIncrement.accessToken
       try {
-        localStorage.addIncrement.getCode = state.token
-        localStorage.addIncrement.openid = state.openid
-        localStorage.addIncrement.accessToken = state.accessToken
+        localStorage.addIncrement.getCode = addIncrement.getCode
+        localStorage.addIncrement.openid = addIncrement.openid
+        localStorage.addIncrement.accessToken = addIncrement.accessToken
       } catch (e) {}
 
     },
