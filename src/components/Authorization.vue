@@ -32,10 +32,10 @@ export default {
         // }
 
         if (iswx) {
-          const code = localStorage.getItem("weixin-redirect");
+          const code = localStorage.getItem("weixin");
           if (code == null || code == undefined) {
             window.location.replace(URL);
-            localStorage.setItem("weixin-redirect", "2019");
+            localStorage.setItem("weixin", "2019");
           }
         }
       })
