@@ -703,7 +703,18 @@ export function qinius() {
   })
 }
 
+// 微信绑定手机
+export function bindMobile(mobile,unionid) {
 
+  return fetch({
+    url: 'http://csapi.nguiba.com/api/bindMobile',
+    method: "POST",
+    data: {
+      mobile: mobile,
+      unionid: unionid
+    }
+  })
+}
 
 // 获取微信签名
 

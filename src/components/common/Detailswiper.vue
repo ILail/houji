@@ -189,6 +189,7 @@ import store from "@/components/vuex/store";
 
 import assign from "@/components/axios/assign.js";
 import { SignPackage } from "@/components/axios/api";
+// import store from "@/components/store/index";
 export default {
   mixins: [assign],
   name: "Detail",
@@ -329,76 +330,67 @@ export default {
       mySwiperA.slideTo(index, 0, false);
     });
 
-    let value = localStorage.getItem("keys");
-    let url = window.location.href;
+    const value = this.$store.state.accessToken;
+    const url = window.location.href;
+    // const url = url.split("&")[0];
     console.log(url);
-    console.log(this.$wx);
+    console.log(wx);
     console.log(value);
-    if (value == null) return;
+    if (value == '') return;
     const _this = this;
     SignPackage(url, value)
       .then(res => {
         console.log(res.data.data.signPackage);
         let signPackage = res.data.data.signPackage;
-        this.$wx.config({
+        wx.config({
           debug: false,
           appId: signPackage.appId,
           timestamp: signPackage.timestamp,
           nonceStr: signPackage.nonceStr,
           signature: signPackage.signature,
-          jsApiList: [
-            "onMenuShareTimeline",
-            "onMenuShareAppMessage",
-            "translateVoice"
-          ]
+          jsApiList: ["onMenuShareTimeline", "onMenuShareAppMessage"]
         });
-        // this.$wx.ready(function() {
-        this.$wx.onMenuShareTimeline({
-          title: _this.listC.crowd_funding_name, // 分享标题
-          desc: _this.listC.summary, // 分享描述
-          link: url, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
-          imgUrl: _this.img_path, // 分享图标
-          success: function() {
-            _this.$toast({
-              message: "分享成功",
-              duration: "500"
-            });
-            // 用户确认分享后执行的回调函数
-          },
-          cancel: function() {
-            _this.$toast({
-              message: "取消分享成功",
-              duration: "500"
-            });
-            // 用户取消分享后执行的回调函数
-          }
+        wx.ready(function() {
+          wx.onMenuShareTimeline({
+            title: _this.listC.crowd_funding_name, // 分享标题
+            desc: _this.listC.summary, // 分享描述
+            link: url, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+            imgUrl: _this.img_path, // 分享图标
+            success: function() {
+              _this.$toast({
+                message: "分享成功",
+                duration: "500"
+              });
+              // 用户确认分享后执行的回调函数
+            }
+            // cancel: function() {
+            //   _this.$toast({
+            //     message: "取消分享成功",
+            //     duration: "500"
+            //   });
+            //   // 用户取消分享后执行的回调函数
+            // }
+          });
+          wx.onMenuShareAppMessage({
+            title: _this.listC.crowd_funding_name, // 分享标题
+            desc: _this.listC.summary, // 分享描述
+            link: url, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+            imgUrl: _this.img_path, // 分享图标
+            success: function() {
+              _this.$toast({
+                message: "分享成功",
+                duration: "500"
+              });
+              // 用户确认分享后执行的回调函数
+            }
+          });
         });
-        this.$wx.onMenuShareAppMessage({
-          title: _this.listC.crowd_funding_name, // 分享标题
-          desc: _this.listC.summary, // 分享描述
-          link: url, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
-          imgUrl: _this.img_path, // 分享图标
-          success: function() {
-            _this.$toast({
-              message: "分享成功",
-              duration: "500"
-            });
-            // 用户确认分享后执行的回调函数
-          },
-          cancel: function() {
-            _this.$toast({
-              message: "取消分享成功",
-              duration: "500"
-            });
-            // 用户取消分享后执行的回调函数
-          }
-        });
-        // });
       })
       .catch(err => {
         console.log(err, "请求失败");
       });
   },
+
   methods: {
     onChange(index) {
       let video = document.querySelector("video");
@@ -490,16 +482,17 @@ export default {
         this.$route.query.key
       )
         .then(res => {
-          if (res.data.status == "-2012") {
-            this.$router.push({ path: "/phone" });
-          } else {
-            this.$toast({
-              message: "添加购物车成功",
-              duration: "1000"
-            });
-            this.istanchuan = false;
-            this.isshowa = true;
-          }
+          // if (res.data.status == "-2012") {
+          //   this.$router.push({ path: "/phone" });
+          // } else {
+
+          // }
+          this.$toast({
+            message: "添加购物车成功",
+            duration: "1000"
+          });
+          this.istanchuan = false;
+          this.isshowa = true;
         })
         .catch(err => {
           console.log(err, "请求失败");
@@ -507,23 +500,24 @@ export default {
     },
     // 点击下单
     ljxd() {
-      if (store.state.token == null) {
-        this.$router.push({ path: "/phone" });
-      } else {
-        const arry = [
-          this.$route.query.key,
-          this.clickList.crowd_funding_return_id,
-          this.count
-        ];
-        this.$router.push({
-          path: "/querenone",
-          query: {
-            dataObjo: arry[0],
-            dataObjb: arry[1],
-            dataObjc: arry[2]
-          }
-        });
-      }
+      // if (store.state.token == null) {
+      //   this.$router.push({ path: "/phone" });
+      // } else {
+
+      // }
+      const arry = [
+        this.$route.query.key,
+        this.clickList.crowd_funding_return_id,
+        this.count
+      ];
+      this.$router.push({
+        path: "/querenone",
+        query: {
+          dataObjo: arry[0],
+          dataObjb: arry[1],
+          dataObjc: arry[2]
+        }
+      });
     }
   }
 };

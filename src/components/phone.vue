@@ -56,7 +56,6 @@ export default {
           message: "手机号码有误，请重填",
           duration: "1000"
         });
-        return false;
       } else {
         this.timed = 60;
         this.active = false;

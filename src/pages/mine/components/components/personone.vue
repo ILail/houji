@@ -53,6 +53,9 @@ import axios from "axios";
 import { imgUpdat } from "@/components/axios/api";
 
 const axiosInstance = axios.create({});
+document.querySelector('body').addEventListener('touchmove', function (ev) {
+            event.preventDefault();
+  });
 export default {
   name: "Fit",
   data() {

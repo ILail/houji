@@ -8,12 +8,13 @@ import 'styles/common.css'
 import fastClick from 'fastclick'
 // import axios from 'axios';
 import LyTab from 'ly-tab';
-import store from '@/components/vuex/store'
+// import store from '@/components/vuex/store'
+import store from '@/components/store/index'
 import clipper from '../static/clipper'
-import wx from 'weixin-js-sdk';
+// import wx from 'weixin-js-sdk';
 import VueAwesomeSwiper from 'vue-awesome-swiper'
 Vue.use(VueAwesomeSwiper)
-Vue.prototype.$wx = wx;
+// Vue.prototype.$wx = wx;
 // bus
 import VueBus from 'vue-bus';
 Vue.use(VueBus);

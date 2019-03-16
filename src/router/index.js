@@ -79,7 +79,8 @@ const routes = [{
     // name: '猴集',
     // component: Small,
     meta: {
-      oppendid: true,
+      // oppendid: true,
+     
       title: '猴集',
     },
     // children: [{
@@ -111,7 +112,7 @@ const routes = [{
     component: resolve => require(["@/pages/wish/Wish"], resolve),
     meta: {
       requireAuth: true, // 添加该字段，表示进入这个路由是需要登录的
-      oppendid: true,
+      // oppendid: true,
       title: '购物车',
     },
   },
@@ -131,7 +132,7 @@ const routes = [{
     component: resolve => require(["@/pages/mine/Mine"], resolve),
     meta: {
       requireAuth: true, // 添加该字段，表示进入这个路由是需要登录的
-      oppendid: true,
+      // oppendid: true,
       title: '个人中心',
     },
   },
@@ -143,7 +144,7 @@ const routes = [{
     },
     // component: Feilei,
     // meta: {
-    //   oppendid: true,
+      // oppendid: true,
     // },
   },
   // {
@@ -152,7 +153,7 @@ const routes = [{
   //   // component: Feilei,
   //   component: resolve => require(["@/pages/fs/Feilei"], resolve),
   //   meta: {
-  //     oppendid: true,
+      // oppendid: true,
   //     title: '分类'
   //   },
   // },
@@ -168,7 +169,7 @@ const routes = [{
     // component: Feilei,
     component: resolve => require(["@/pages/fs/Classify"], resolve),
     meta: {
-      oppendid: true,
+      // oppendid: true,
       title: '分类'
     },
   },
@@ -314,6 +315,16 @@ const routes = [{
     component: resolve => require(["@/pages/mine/components/components/gengph"], resolve),
     meta: {
       title: '更改手机号',
+    },
+    // component: Gengph
+  },
+
+  {
+    path: '/bindm',
+    // name: '更改手机号',
+    component: resolve => require(["@/pages/mine/components/components/BindMobile"], resolve),
+    meta: {
+      title: '绑定手机号',
     },
     // component: Gengph
   },
@@ -509,25 +520,25 @@ const router = new Router({
 
 });
 
-if (window.localStorage.getItem('token')) {
-  store.commit(types.LOGIN, window.localStorage.getItem('token'));
-}
-router.beforeEach(function (to, from, next) {
-  // const toRouter = to.path
-  // const fromRouter = from.path
-  // console.log(toRouter)
-  // console.log(fromRouter)
-  if (to.matched.some(r => r.meta.requireAuth)) {
-    if (store.state.token) {
-      next();
-    } else {
-      next({
-        path: '/phone'
-      })
-    }
-  } else {
-    next();
-  }
-});
+// if (window.localStorage.getItem('token')) {
+//   store.commit(types.LOGIN, window.localStorage.getItem('token'));
+// }
+// router.beforeEach(function (to, from, next) {
+//   // const toRouter = to.path
+//   // const fromRouter = from.path
+//   // console.log(toRouter)
+//   // console.log(fromRouter)
+//   if (to.matched.some(r => r.meta.requireAuth)) {
+//     if (store.state.token) {
+//       next();
+//     } else {
+//       next({
+//         path: '/phone'
+//       })
+//     }
+//   } else {
+//     next();
+//   }
+// });
 
 export default router;

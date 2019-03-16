@@ -167,7 +167,9 @@ export default {
     };
   },
 
-  created: function() {
+  created: function() {},
+  mounted() {
+    // setTimeout
     wishPush()
       .then(res => {
         this.json = res.data.data.wish_list.list;
@@ -177,13 +179,10 @@ export default {
         }
       })
       .catch(err => {
-        store.commit(types.LOGOUT);
-        this.$router.push("/phone");
+        // store.commit(types.LOGOUT);
+        // this.$router.push("/phone");
         console.log(err, "请求失败");
       });
-  },
-  mounted() {
-
     // console.log(wish_nums)
     this.$toast({
       type: "loading",

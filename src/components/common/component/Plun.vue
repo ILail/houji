@@ -131,9 +131,9 @@ export default {
             .then(res => {
               this.value = "";
               this.refresh();
-              if (res.config.headers.token == null) {
-                this.$router.push({ path: "/phone" });
-              }
+              // if (res.config.headers.token == null) {
+              //   this.$router.push({ path: "/phone" });
+              // }
 
               this.$forceUpdate();
             })
@@ -192,9 +192,9 @@ export default {
           plunPushs(this.fid, this.id, this.values)
             .then(res => {
               console.log(res);
-              if (res.config.headers.token == null) {
-                this.$router.push({ path: "/phone" });
-              }
+              // if (res.config.headers.token == null) {
+              //   this.$router.push({ path: "/phone" });
+              // }
               this.values = "";
               this.refresh();
               this.showss = false;

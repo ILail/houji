@@ -52,9 +52,9 @@ export default {
   },
   methods: {
     enenneen() {
-     
+  
       store.commit(types.LOGOUT);
-      this.$router.push("/");
+  
     },
     geren() {
       this.$router.push("/personone");
