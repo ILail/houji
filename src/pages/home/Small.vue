@@ -1,8 +1,9 @@
 <template>
   <div class="wrap">
     <!-- :class="searchBarFixed == true ? 'isFixed' :''" id="searchBar" -->
-    <div class="isFixed">
+    <div :class="searchBarFixed == true ? 'isFixed' :''" id="searchBar">
       <!-- 头部 -->
+      <Guan></Guan>
       <div class="header">
         <div class="header-left" @click="shaoshao">
           <img src="@/assets/shousuo.png">
@@ -109,6 +110,7 @@ import Mshu from "./components/Mshu";
 import Yugao from "./components/Yugao";
 import Finish from "./components/finish";
 import { lookOption } from "@/components/axios/api";
+import Guan from "@/components/Guan";
 import assign from "@/components/axios/assign.js";
 export default {
   mixins: [assign],
@@ -122,7 +124,8 @@ export default {
     Fuli,
     Mshu,
     Yugao,
-    Finish
+    Finish,
+    Guan
   },
   data() {
     return {
@@ -182,7 +185,7 @@ export default {
         }
       ],
       // 置顶
-      // searchBarFixed: false
+      searchBarFixed: false
 
     };
   },
@@ -200,6 +203,7 @@ export default {
       });
   },
   mounted() {
+     window.addEventListener("scroll", this.watchScroll);
     // window.addEventListener("scroll", this.watchScroll);
     // var mySwiperA = new Swiper(".wrapWa", {
     // preventClicks : true,//默认true
@@ -407,18 +411,19 @@ export default {
         this.wrapImg = true;
       }
     },
-    // watchScroll() {
-    //   var scrollTop =
-    //     window.pageYOffset ||
-    //     document.documentElement.scrollTop ||
-    //     document.body.scrollTop;
-    //   var _this = this;
-    //   if (scrollTop > 32) {
-    //     _this.searchBarFixed = true;
-    //   } else {
-    //     _this.searchBarFixed = false;
-    //   }
-    // },
+    
+    watchScroll() {
+      var scrollTop =
+        window.pageYOffset ||
+        document.documentElement.scrollTop ||
+        document.body.scrollTop;
+      var _this = this;
+      if (scrollTop > 32) {
+        _this.searchBarFixed = true;
+      } else {
+        _this.searchBarFixed = false;
+      }
+    },
 
     shaoshao() {
       // this.$router.push("/shao");
@@ -427,17 +432,14 @@ export default {
       this.$router.push("/xiao");
     }
   },
-  // destroyed() {
-  //   window.removeEventListener("scroll", this.watchScroll);
-  // }
+  destroyed() {
+    window.removeEventListener("scroll", this.watchScroll);
+  }
 };
 </script>
 
 <style lang="stylus" type="text/stylus" rel="stylesheet/stylus" scoped>
-.wraL {
-  margin-top:76px
 
-}
 
 .header {
   display: flex;

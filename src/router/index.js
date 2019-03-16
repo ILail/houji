@@ -80,6 +80,7 @@ const routes = [{
     // component: Small,
     meta: {
       // oppendid: true,
+     
       title: '猴集',
     },
     // children: [{
@@ -314,6 +315,16 @@ const routes = [{
     component: resolve => require(["@/pages/mine/components/components/gengph"], resolve),
     meta: {
       title: '更改手机号',
+    },
+    // component: Gengph
+  },
+
+  {
+    path: '/bindm',
+    // name: '更改手机号',
+    component: resolve => require(["@/pages/mine/components/components/BindMobile"], resolve),
+    meta: {
+      title: '绑定手机号',
     },
     // component: Gengph
   },

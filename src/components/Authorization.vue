@@ -5,12 +5,11 @@ import store from "@/components/store/index";
 import { Code } from "@/components/axios/api";
 import { huoqu } from "@/components/axios/api";
 // import { SignPackage } from "@/components/axios/api";
-let iswx =
-  navigator.userAgent.toLowerCase().match(/MicroMessenger/i) ==
-  "micromessenger";
+let iswx = navigator.userAgent.toLowerCase().match(/MicroMessenger/i) == "micromessenger";
 export default {
   // inject: ["reload"],
   created() {
+    console.log(this.$router);
     // 获取当前页面的链接给后台
     huoqu(window.location.href)
       .then(res => {
@@ -66,20 +65,31 @@ export default {
             console.log(res.data.data);
             const data = res.data.data;
             const accessToken = data.access_token;
-            // localStorage.setItem("keys", access); //将变量imgs存储到name字段
-            const openid = data.openid; //声明个变量存储下数据
+            const openid = data.openid;
             const tokenmine = data.token;
-            console.log(this.$store);
+            const unionid = data.unionid;
+            const subscribe = data.subscribe;
             this.$store.commit({
               type: "addIncrement",
               accessToken: accessToken,
               openid: openid,
-              getCode: tokenmine
+              getCode: tokenmine,
+              subscribe: subscribe
             });
             window.location.href = newurl;
-            // this.$store.commit("openid", openid);
-            // this.$store.commit("getCode", tokenmine);
-            // if()
+
+            //如果没绑定手机号 跳到绑定页面
+            if (data.is_bind_mobile == 0) {
+              setTimeout(() => {
+                this.$router.push({
+                  path: "/bindm",
+                  query: {
+                    dataObj: unionid
+                  }
+                });
+              }, 3000);
+            }
+
             // this.reload();
           })
           .catch(err => {

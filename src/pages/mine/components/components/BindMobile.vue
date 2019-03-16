@@ -30,7 +30,7 @@
   </div>
 </template>
 <script>
-import { peosMoble } from "@/components/axios/api";
+import { bindMobile } from "@/components/axios/api";
 import { yzm } from "@/components/axios/api";
 // import store from "@/components/vuex/store";
 // import * as types from "@/components/vuex/types";
@@ -43,7 +43,8 @@ export default {
       duanx: "",
       timed: 0,
       active: true,
-      code_type: "land"
+      code_type: "land",
+      unionid: this.$route.query.dataObj,
     };
   },
   created() {},
@@ -81,10 +82,10 @@ export default {
         });
         return;
       }
-      peosMoble(this.tell, this.duanx)
+      bindMobile(this.tell, this.unionid)
         .then(res => {
           console.log(res);
-          this.$toast("更改成功");
+          this.$toast("绑定成功");
           this.$router.go(-1);
         })
         .catch(err => {

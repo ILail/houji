@@ -1,32 +1,34 @@
 <template>
+
   <div id="app">
+  
     <!-- <keep-alive> -->
     <fade-animation>
       <router-view></router-view>
     </fade-animation>
     <!-- </keep-alive> -->
-    <Guan></Guan>
+    <Grant></Grant>
     <div v-wechat-title="$route.meta.title"></div>
   </div>
 </template>
 
 <script>
-import Guan from "@/components/Authorization";
+import Grant from "@/components/Authorization";
 import FadeAnimation from "@/components/common/Fade";
 export default {
   name: "App",
-  provide() {
-    return {
-      reload: this.reload
-    };
-  },
-  data() {
-    // return {
-    //   isRouterAlive: true
-    // };
-  },
+  // provide() {
+  //   return {
+  //     reload: this.reload
+  //   };
+  // },
+  // data() {
+  //   return {
+  //     isRouterAlive: true
+  //   };
+  // },
   components: {
-    Guan,
+    Grant,
     FadeAnimation
   },
   mounted() {},

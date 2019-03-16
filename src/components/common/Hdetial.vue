@@ -190,7 +190,7 @@ export default {
     console.log(wx);
     console.log(value);
     const _this = this;
-    if (value == null) return;
+    if (value == '') return;
     SignPackage(url, value)
       .then(res => {
         console.log(res.data.data.signPackage);

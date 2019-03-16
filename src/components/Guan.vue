@@ -1,20 +1,45 @@
 <template>
-  <div>
-    <div class="hitImg">
+  <div v-show="showG">
+    <div class="focus">
+      <img src="@/assets/abs.png" alt>
+      <div class="wen">欢迎进入[猴集]，便于使用请关注微信公众号</div>
+      <div class="guanz" @click="guan">点击关注</div>
+    </div>
+
+    <!-- <div class="hitImg">
       <img src="@/assets/del.png" alt class="hit_one">
       <img src="@/assets/code.jpg" alt class="hit_img">
       <div class="img_c">长按识别二维码关注</div>
       <div class="img_con">猴集</div>
-    </div>
-    <div class="focus">
-      <img src="@/assets/abs.png" alt>
-      <div class="wen">欢迎进入[猴集]，便于使用请关注微信公众号</div>
-      <div class="guanz">点击关注</div>
-    </div>
+    </div>-->
+    <van-popup v-model="show" position="middle" :close-on-click-overlay="false">
+      <img src="@/assets/code.jpg" alt class="hit_img">
+    </van-popup>
   </div>
 </template>
 <script type="text/javascript">
-export default {};
+export default {
+  data() {
+    return {
+      show: false,
+      showG: false
+    };
+  },
+  mounted() {
+    let iswx =
+      navigator.userAgent.toLowerCase().match(/MicroMessenger/i) ==
+      "micromessenger";
+    let num = this.$store.state.subscribe;
+    if (iswx && num == 0) {
+      this.showG = true;
+    }
+  },
+  methods: {
+    guan() {
+      this.show = true;
+    }
+  }
+};
 </script>
 <style lang="stylus" scoped>
 .focus {
@@ -23,9 +48,6 @@ export default {};
   height: 1rem;
   display: flex;
   align-items: center;
-  margin-left: 3%;
-  width: 94%;
-  border-radius: 0.2rem;
 }
 
 .focus img {
@@ -54,11 +76,9 @@ export default {};
   height: 100%;
   overflow: hidden;
   position: relative;
-  width: 94%;
   position: absolute;
   background: rgba(0, 0, 0, 0.8);
   z-index: 999;
-  margin-left: 3%;
 }
 
 .hitImg .hit_one {
