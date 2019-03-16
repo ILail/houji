@@ -230,7 +230,7 @@ export default {
         this.moneyAll = res.data.data.wish_list.total_money;
         var userID = localStorage.getItem("userID");
         // console.log(userID);
-        if (userID != "1") {
+        if (userID == "1") {
           this.newmoney = (this.moneyAll * 0.05).toFixed(2);
           this.totalMoney = this.moneyAll - this.newmoney;
         } else {
