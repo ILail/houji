@@ -37,9 +37,9 @@ export default {
           const code = localStorage.getItem("houjiours");
           if (code == null || code == undefined) {
             setTimeout(() => {
-              localStorage.setItem("whoujiours", "2");
+             
               window.location.replace(URL);
-               
+                localStorage.setItem("whoujiours", "2");
             }, 1000);
            
           }
