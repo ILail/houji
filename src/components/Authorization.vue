@@ -49,8 +49,10 @@ export default {
     refrech() {
       // 拿到跳转后的链接
       const url = window.location.href;
-      console.log(url);
+      
       console.log(store.state.accessToken);
+      console.log(store.state.openid);
+      console.log(store.state.token);
       if (store.state.token == "") {
         // 半年经验的前端 这个问题在微信端不影响
         const code = url.split("code=")[1].split("&")[0];
