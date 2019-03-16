@@ -21,15 +21,13 @@ export default {
   created() {
     var userID = localStorage.getItem("userID");
     // console.log(userID);
-    if (userID == "1") {
-      this.shows = true;
-    }
+ 
   },
   methods: {
     hitNew() {
       peosLin()
         .then(res => {
-          localStorage.setItem("userID", "0");
+          localStorage.setItem("userID", "1");
           this.shows = false;
           this.showsa = true;
         })
