@@ -174,7 +174,7 @@ export default {
 }
 
 .contS input {
-  width: 80%;
+  width: 100%;
   font-size: 14px;
 }
 
