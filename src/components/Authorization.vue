@@ -64,7 +64,7 @@ export default {
       if (localStorage.getItem("houjiwxa") == 2) {
         const code = url.split("code=")[1].split("&")[0];
         console.log(code);
-        const newurl = url.split("code=")[0];
+        // const newurl = url.split("code=")[0];
         Code(code)
           .then(res => {
             console.log(res.data.data);
@@ -93,7 +93,7 @@ export default {
                 });
               }, 3000);
             }
-            window.location.href = newurl;
+            // window.location.href = newurl;
             // this.reload();
           })
           .catch(err => {

@@ -46,9 +46,9 @@
     <order-bottom></order-bottom>
     <order-you></order-you>
 
-    <van-dialog v-model="show" show-cancel-button :before-close="beforeClose">
+    <!-- <van-dialog v-model="show" show-cancel-button :before-close="beforeClose">
       <div class="corlword">是否确认收货</div>
-    </van-dialog>
+    </van-dialog>-->
   </div>
 </template>
 
@@ -76,7 +76,7 @@ export default {
       json: "",
       return_nums: "",
       reality_money: "",
-      show: false,
+      // show: false,
       list: [],
       flag: false,
       messages: ""
@@ -145,30 +145,30 @@ export default {
     }, 1700);
   },
   methods: {
-    beforeClose(action, done) {
-      if (action === "confirm") {
-        CorfirWu(this.orderdetails)
-          .then(res => {
-            if (res.data.status == 1) {
-              this.$toast({
-                message: "确认成功",
-                duration: "1500"
-              });
-            } else {
-              this.$toast({
-                message: "已经确认",
-                duration: "1500"
-              });
-            }
-          })
-          .catch(err => {
-            console.log(err, "请求失败");
-          });
-        setTimeout(done, 500);
-      } else {
-        done();
-      }
-    },
+    // beforeClose(action, done) {
+    //   if (action === "confirm") {
+    //     CorfirWu(this.orderdetails)
+    //       .then(res => {
+    //         if (res.data.status == 1) {
+    //           this.$toast({
+    //             message: "确认成功",
+    //             duration: "1500"
+    //           });
+    //         } else {
+    //           this.$toast({
+    //             message: "已经确认",
+    //             duration: "1500"
+    //           });
+    //         }
+    //       })
+    //       .catch(err => {
+    //         console.log(err, "请求失败");
+    //       });
+    //     setTimeout(done, 500);
+    //   } else {
+    //     done();
+    //   }
+    // },
     wuliu(tradeNO) {
       console.log(tradeNO);
       this.$router.push({
@@ -179,7 +179,23 @@ export default {
       });
     },
     corif() {
-      this.show = true;
+      CorfirWu(this.orderdetails)
+        .then(res => {
+          if (res.data.status == 1) {
+            this.$toast({
+              message: "确认成功",
+              duration: "1500"
+            });
+          } else {
+            this.$toast({
+              message: "已经确认",
+              duration: "1500"
+            });
+          }
+        })
+        .catch(err => {
+          console.log(err, "请求失败");
+        });
     }
   }
 };
