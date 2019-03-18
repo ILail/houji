@@ -129,9 +129,10 @@ export default {
         if (res.status && res.data) {
           const data = res.data;
           this.img_path = data.imgs.split(",")[0];
-          // console.log(img_path)
+          // console.log(img_path )
           this.list = data;
           const value = this.$store.state.accessToken;
+          console.log(value)
           const url = window.location.href;
           if (value == "") return;
 
@@ -141,7 +142,7 @@ export default {
               let signPackage = res.data.data.signPackage;
 
               wx.config({
-                debug: false,
+                debug: true,
                 appId: signPackage.appId,
                 timestamp: signPackage.timestamp,
                 nonceStr: signPackage.nonceStr,

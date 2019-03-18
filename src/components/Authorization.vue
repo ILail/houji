@@ -15,6 +15,7 @@ export default {
     huoqu(window.location.href)
       .then(res => {
         let URL = res.data.data;
+        console.log(URL)
         // console.log(URL);
         // var value = localStorage.getItem("houjis");
         // console.log(value);
