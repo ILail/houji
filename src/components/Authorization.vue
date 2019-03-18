@@ -81,6 +81,7 @@ export default {
             //   // subscribe: subscribe
             // });
             console.log(tokens)
+            console.log(this.$store)
             this.$store.commit(types.LOGIN, tokens);
             //如果没绑定手机号 跳到绑定页面
             if (data.is_bind_mobile == 0) {
