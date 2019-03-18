@@ -28,8 +28,8 @@
     </van-swipe>-->
     <!-- 内容 -->
     <div class="container" style=" box-shadow: 0px 1px 24px 0px rgba(255, 255, 255, 0.75);">
-      <div class="title top">{{list.crowd_funding_name}}</div>
-      <div class="content top">{{list.summary}}</div>
+      <div class="title top" ref="fundingName">{{list.crowd_funding_name}}</div>
+      <div class="content top" ref="summary">{{list.summary}}</div>
       <div class="price top">
         <span class="mubiao">已售金额：</span>
         <span class="Mmoney">{{computedmoey(list)}}</span>
@@ -144,9 +144,7 @@ export default {
     const value = this.$store.state.accessToken;
     const url = window.location.href;
     if (value == "") return;
-      this.$nextTick(function(){
-         console.log(this.list)
-      })
+   
     SignPackage(url, value)
       .then(res => {
         // console.log(res.data.data.signPackage);
@@ -160,7 +158,7 @@ export default {
           signature: signPackage.signature,
           jsApiList: ["onMenuShareTimeline", "onMenuShareAppMessage"]
         });
-
+        console.log(this.refs.fundingName)
         wx.onMenuShareTimeline({
           title:this.list.crowd_funding_name, // 分享标题
           desc:this.list.summary, // 分享描述
