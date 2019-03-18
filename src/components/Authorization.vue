@@ -34,10 +34,10 @@ export default {
         // }
         // location.href=URL;
         if (iswx) {
-          const code = localStorage.getItem("wehob");
+          const code = localStorage.getItem("houjiwx");
           if (code == null || code == undefined) {
             location.href = URL;
-            localStorage.setItem("wehob", "2");
+            localStorage.setItem("houjiwx", "2");
           }
         }
       })
@@ -61,7 +61,7 @@ export default {
       // console.log(store.state.accessToken);
       // console.log(store.state.openid);
       // console.log(store.state.token);
-      if (localStorage.getItem("wehob") == 2) {
+      if (localStorage.getItem("houjiwx") == 2) {
         const code = url.split("code=")[1].split("&")[0];
         console.log(code);
         const newurl = url.split("code=")[0];
