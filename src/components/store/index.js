@@ -9,15 +9,15 @@ let defaultOpenid = ''
 let defaultAccess = ''
 // let defaultsub = 0
 try {
-  if (localStorage.token) {
-    defaultToken = localStorage.token
+  if (localStorage.tokens) {
+    defaultToken = localStorage.tokens
   }
-  if (localStorage.openid) {
-    defaultOpenid = localStorage.openid
+  if (localStorage.openids) {
+    defaultOpenid = localStorage.openids
   }
 
-  if (localStorage.accessToken) {
-    defaultAccess = localStorage.accessToken
+  if (localStorage.accessTokens) {
+    defaultAccess = localStorage.accessTokens
   }
 
 
@@ -36,14 +36,14 @@ export default new Vuex.Store({
   mutations: {
     addIncrement(state, addIncrement) {
       console.log(addIncrement)
-      state.token = addIncrement.token
-      state.openid = addIncrement.openid
-      state.accessToken = addIncrement.accessToken
+      state.token = addIncrement.tokens
+      state.openid = addIncrement.openids
+      state.accessToken = addIncrement.accessTokens
 
       try {
-        localStorage.token = addIncrement.token
-        localStorage.openid = addIncrement.openid
-        localStorage.accessToken = addIncrement.accessToken
+        localStorage.tokens = addIncrement.tokens
+        localStorage.openids = addIncrement.openids
+        localStorage.accessTokens = addIncrement.accessTokens
 
       } catch (e) {}
 

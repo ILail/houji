@@ -15,7 +15,7 @@ export default {
     huoqu(window.location.href)
       .then(res => {
         let URL = res.data.data;
-        console.log(URL)
+        // console.log(URL)
         // console.log(URL);
         // var value = localStorage.getItem("houjis");
         // console.log(value);
@@ -35,10 +35,10 @@ export default {
         // }
         // location.href=URL;
         if (iswx) {
-          const code = localStorage.getItem("hou");
+          const code = localStorage.getItem("hous");
           if (code == null || code == undefined) {
             location.href = URL;
-            localStorage.setItem("hou", "81");
+            localStorage.setItem("hous", "1");
           }
         }
       })
@@ -47,9 +47,9 @@ export default {
       });
   },
   mounted() {
-    // console.log(store.state.accessToken);
-    // console.log(store.state.openid);
-    // console.log(store.state.token);
+    console.log(store.state.accessToken);
+    console.log(store.state.openid);
+    console.log(store.state.token);
     if (iswx) {
       this.refrech();
     }
@@ -58,11 +58,8 @@ export default {
     refrech() {
       // 拿到跳转后的链接
       const url = window.location.href;
-
-      // console.log(store.state.accessToken);
-      // console.log(store.state.openid);
-      // console.log(store.state.token);
-      if (localStorage.getItem("hou") == 81) {
+      const oance = localStorage.getItem("oance");
+      if (oance == null || oance == undefined) {
         const code = url.split("code=")[1].split("&")[0];
         console.log(code);
         // const newurl = url.split("code=")[0];
@@ -70,16 +67,16 @@ export default {
           .then(res => {
             console.log(res.data.data);
             const data = res.data.data;
-            const accessToken = data.access_token;
-            const openid = data.openid;
-            const token = data.token;
+            const accessTokens = data.access_token;
+            const openids = data.openid;
+            const tokens = data.token;
             const unionid = data.unionid;
             // const subscribe = data.subscribe;
             this.$store.commit({
               type: "addIncrement",
-              accessToken: accessToken,
-              openid: openid,
-              token: token
+              accessTokens: accessTokens,
+              openids: openids,
+              tokens: tokens
               // subscribe: subscribe
             });
 
@@ -100,6 +97,7 @@ export default {
           .catch(err => {
             console.log(err, "请求失败");
           });
+          localStorage.setItem("oance", "2");
       }
     }
   }

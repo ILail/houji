@@ -13,8 +13,10 @@
 <script>
 import Grant from "@/components/Authorization";
 import FadeAnimation from "@/components/common/Fade";
+import assign from "@/components/axios/assign.js";
 export default {
   name: "App",
+  mixins: [assign],
   // provide() {
   //   return {
   //     reload: this.reload
