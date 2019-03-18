@@ -61,7 +61,7 @@ export default {
       // console.log(store.state.accessToken);
       // console.log(store.state.openid);
       // console.log(store.state.token);
-      if (localStorage.getItem("wehoa") == 2) {
+      if (localStorage.getItem("wehob") == 2) {
         const code = url.split("code=")[1].split("&")[0];
         console.log(code);
         const newurl = url.split("code=")[0];
