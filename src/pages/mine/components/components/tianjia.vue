@@ -7,8 +7,8 @@
       <div class="cont">
         <input maxlength="11" type="tel" placeholder="手机号码" class="inputaa" v-model="phone">
       </div>
-      <div class="contS"  @click="hitShow">
-        <input type="text" placeholder="收货地址" v-model="message" readonly>
+      <div class="contS">
+        <input type="text" @click="hitShow" placeholder="收货地址" v-model="message" readonly>
         <van-popup v-model="show" position="bottom" @click-overlay="Ooverlay">
           <van-area
             :area-list="areaList"
