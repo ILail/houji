@@ -342,12 +342,9 @@ export default {
 
     SignPackage(url, value)
       .then(res => {
-        console.log(this.listC);
         console.log(res.data.data.signPackage);
         let signPackage = res.data.data.signPackage;
 
-        let allName = this.listC;
-        let imgPath = this.img_path;
         wx.config({
           debug: true,
           appId: signPackage.appId,
@@ -356,19 +353,22 @@ export default {
           signature: signPackage.signature,
           jsApiList: ["onMenuShareTimeline", "onMenuShareAppMessage"]
         });
-
+        let allName = this.listC;
+        let imgPath = this.img_path;
+        console.log(allName);
+        console.log(imgPath);
         wx.onMenuShareTimeline({
           title: allName.crowd_funding_name, // 分享标题
           desc: allName.summary, // 分享描述
           link: url, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
-          imgUrl: imgPath, // 分享图标
-          success: function() {
-            this.$toast({
-              message: "分享成功",
-              duration: "500"
-            });
-            // 用户确认分享后执行的回调函数
-          }
+          imgUrl: imgPath // 分享图标
+          // success: function() {
+          //   this.$toast({
+          //     message: "分享成功",
+          //     duration: "500"
+          //   });
+          //   // 用户确认分享后执行的回调函数
+          // }
           // cancel: function() {
           //   _this.$toast({
           //     message: "取消分享成功",
@@ -381,14 +381,14 @@ export default {
           title: allName.crowd_funding_name, // 分享标题
           desc: allName.summary, // 分享描述
           link: url, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
-          imgUrl: imgPath, // 分享图标
-          success: function() {
-            this.$toast({
-              message: "分享成功",
-              duration: "500"
-            });
-            // 用户确认分享后执行的回调函数
-          }
+          imgUrl: imgPath // 分享图标
+          // success: function() {
+          //   this.$toast({
+          //     message: "分享成功",
+          //     duration: "500"
+          //   });
+          //   // 用户确认分享后执行的回调函数
+          // }
         });
       })
       .catch(err => {
