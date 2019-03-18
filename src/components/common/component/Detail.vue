@@ -121,7 +121,7 @@ export default {
   mounted() {
        setTimeout(() => {
       this.showQ = true;
-    }, 1450);
+    }, 1700);
     //获取上个页面传递的id,在下面获取数据的时候先提交id
     crowd_funding(this.id)
       .then(res => {
@@ -131,10 +131,10 @@ export default {
           this.img_path = data.imgs.split(",")[0];
           // console.log(img_path )
           this.list = data;
-          const value = this.$store.state.accessToken;
+          const value = localStorage.getItem("accessTokens");
           console.log(value)
           const url = window.location.href;
-          if (value == "") return;
+          if (value == "" ) return;
 
           SignPackage(url, value)
             .then(res => {
@@ -142,7 +142,7 @@ export default {
               let signPackage = res.data.data.signPackage;
 
               wx.config({
-                debug: true,
+                debug: fasle,
                 appId: signPackage.appId,
                 timestamp: signPackage.timestamp,
                 nonceStr: signPackage.nonceStr,

@@ -165,7 +165,7 @@ export default {
           this.img_path = data.imgs.split(",")[0];
           this.list = data;
           this.picList = data.imgs.split(",");
-          const value = this.$store.state.accessToken;
+          const value = localStorage.getItem("accessTokens");
           const url = window.location.href;
           if (value == "") return;
           SignPackage(url, value)

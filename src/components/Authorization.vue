@@ -1,7 +1,7 @@
 <template></template>
 <script type="text/javascript">
 // import * as types from "@/components/vuex/types";
-import store from "@/components/store/index";
+import * as types from "@/components/vuex/types";
 import { Code } from "@/components/axios/api";
 import { huoqu } from "@/components/axios/api";
 // import { SignPackage } from "@/components/axios/api";
@@ -47,9 +47,7 @@ export default {
       });
   },
   mounted() {
-    console.log(store.state.accessToken);
-    console.log(store.state.openid);
-    console.log(store.state.token);
+
     if (iswx) {
       this.refrech();
     }
@@ -67,19 +65,22 @@ export default {
           .then(res => {
             console.log(res.data.data);
             const data = res.data.data;
+
             const accessTokens = data.access_token;
             const openids = data.openid;
+            localStorage.setItem("accessTokens",accessTokens)
+            localStorage.setItem("openids",openids)
             const tokens = data.token;
             const unionid = data.unionid;
             // const subscribe = data.subscribe;
-            this.$store.commit({
-              type: "addIncrement",
-              accessTokens: accessTokens,
-              openids: openids,
-              tokens: tokens
-              // subscribe: subscribe
-            });
-
+            // this.$store.commit({
+            //   type: "addIncrement",
+            //   accessTokens: accessTokens,
+            //   openids: openids,
+            //   tokens: tokens
+            //   // subscribe: subscribe
+            // });
+            this.$store.commit(types.LOGIN, tokens);
             //如果没绑定手机号 跳到绑定页面
             if (data.is_bind_mobile == 0) {
               setTimeout(() => {

@@ -1,92 +1,106 @@
 <template>
-  <div class="active">
-    <div class="smal">
-      <div class="cont">
-        <span class="word">手机号</span>
-        <input
-          maxlength="11"
-          type="tel"
-          placeholder="输入新的手机号"
-          v-model="tell"
-          style="width:60%;margin-left:32px"
-        >
+  <div class="container">
+    <div class="number">
+      <input type="tel" placeholder="请输入手机号" maxlength="11" v-model="tell">
+    </div>
+    <div class="line"></div>
+    <div class="mobel">
+      <input type="tel" placeholder="短信验证码" v-model="duanx" maxlength="6" style="font-size:16px">
+      <span class="test" @click="time" v-if="active">获取验证码</span>
+      <span class="test" v-if="!active">{{timed}}s重新发送</span>
+    </div>
+    <div class="line"></div>
+    <div class="enters" v-on:click="enter" v-if="showbtn">登录</div>
+    <div class="enter" v-if="show">登录</div>
+
+    <div class="bott">
+      <div class="lyuan">
+        <div class="yuan"></div>
       </div>
-      <div class="cont">
-        <div class="conts">
-          <span class="word">验证码</span>
-          <input
-            maxlength="6"
-            type="tel"
-            placeholder="输入验证码"
-            v-model="duanx"
-            style="width:60%;margin-left:32px"
-          >
-        </div>
-        <span class="yanz" @click="time" v-if="active">获取验证码</span>
-        <span class="yanz" v-if="!active">{{timed}}s重新发送</span>
+      <div class="content">
+        我已仔细阅读并同意
+        <a
+          href="http://csapi.nguiba.com/api/v2p2/article/details?article_type=user_protocol"
+          target="_blank"
+        >《用户服务协议》</a>
+        <a
+          href="http://csapi.nguiba.com/api/v2p2/article/details?article_type=privacy"
+          target="_blank"
+        >《隐私政策》</a>
       </div>
     </div>
-    <div class="baocun" @click="baocun">保存</div>
   </div>
 </template>
 <script>
-import { bindMobile } from "@/components/axios/api";
 import { yzm } from "@/components/axios/api";
-// import store from "@/components/vuex/store";
-// import * as types from "@/components/vuex/types";
+import { bindMobile } from "@/components/axios/api";
+import * as types from "@/components/vuex/types";
 export default {
-  name: "Desgreo",
   data() {
     return {
-      img: require("@/assets/rr.png"),
       tell: "",
       duanx: "",
       timed: 0,
       active: true,
+      auth_timetimer: null,
       code_type: "land",
+      showbtn: false,
+      show: true,
       unionid: this.$route.query.dataObj,
     };
   },
-  created() {},
   methods: {
+    // 点击获取验证 post后台
     time() {
       if (!/^1(3|4|5|7|8)\d{9}$/.test(this.tell)) {
         this.$toast({
           message: "手机号码有误，请重填",
           duration: "1000"
         });
-        return
+      } else {
+        this.timed = 60;
+        this.active = false;
+        var auth_timetimer = setInterval(() => {
+          this.timed--;
+          if (this.timed <= 0) {
+            this.active = true;
+            clearInterval(auth_timetimer);
+          }
+        }, 1000);
+        yzm(this.tell, this.code_type)
+          .then(res => {
+            // console.log(res);
+            this.showbtn = true;
+            this.show = false;
+          })
+          .catch(err => {
+            console.log(err, "请求失败");
+          });
       }
-      this.timed = 60;
-      this.active = false;
-      var auth_timetimer = setInterval(() => {
-        this.timed--;
-        if (this.timed <= 0) {
-          this.active = true;
-          clearInterval(auth_timetimer);
-        }
-      }, 1000);
-      yzm(this.tell, this.code_type)
-        .then(res => {
-          console.log(res);
-        })
-        .catch(err => {
-          console.log(err, "请求失败");
-        });
     },
-    baocun() {
+    // 点击登录 获得token 写入缓存
+    enter() {
       if (this.duanx == "") {
         this.$toast({
           message: "验证码不能为空",
           duration: "1000"
         });
-        return;
+        return false;
       }
       bindMobile(this.tell, this.unionid)
         .then(res => {
-          console.log(res);
-          this.$toast("绑定成功");
-          this.$router.go(-1);
+            if(res.data.message == '该手机号码已绑定'){
+            this.$toast("该手机号码已绑定");
+            this.tell=''
+            this.duanx=''
+          }
+
+          if(res.data.status == 1){
+            let tokenmine = res.data.data.token;
+
+            this.$store.commit(types.LOGIN, tokenmine);
+            this.$router.go(-1);
+          }
         })
         .catch(err => {
           console.log(err, "请求失败");
@@ -96,59 +110,118 @@ export default {
 };
 </script>
 <style lang="stylus" type="text/stylus" rel="stylesheet/stylus" scoped>
-.active {
-  position: absolute;
+a {
+  text-decoration: underline;
+  color: #D21623;
+}
+
+.number {
+  height: 40px;
+  margin-top: 80px;
+}
+
+.number input {
   width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  overflow-y: auto;
-  background-color: #f4f4f4;
+  height: 20px;
+  font-size: 16px;
+  line-height: 20px;
 }
 
-.conts {
-  display: flex;
-  width: 75%;
+.line {
+  width: 100%;
+  height: 2px;
+  background: rgba(235, 235, 235, 1);
 }
 
-.word {
-  font-size: 14px;
+.mobel {
+  height: 40px;
+  margin-top: 40px;
+}
+
+.mobel input {
+  width: 71%;
+  height: 20px;
+  line-height: 20px;
+}
+
+.test {
+  height: 54px;
+  border: 1px solid rgba(153, 153, 153, 1);
+  border-radius: 5px;
+  font-size: 13px;
+  font-family: PingFangSC-Regular;
+  color: #999;
+  padding: 4px 6px;
+}
+
+.enter {
+  height: 44px;
+  background: rgba(210, 22, 35, 1);
+  border-radius: 10px;
+  margin-top: 40px;
+  line-height: 44px;
+  text-align: center;
+  color: #fff;
+  font-size: 15px;
+  opacity: 0.3;
+}
+
+.enters {
+  height: 44px;
+  background: rgba(210, 22, 35, 1);
+  border-radius: 10px;
+  margin-top: 40px;
+  line-height: 44px;
+  text-align: center;
+  color: #fff;
+  font-size: 15px;
+}
+
+.number input::-webkit-input-placeholder {
+  font-size: 15px;
   font-family: PingFangSC-Regular;
   font-weight: 400;
-  color: rgba(51, 51, 51, 1);
-  color: #333333;
-  margin-top: 2px;
+  color: rgba(153, 153, 153, 1);
 }
 
-.yanz {
-  width: 27%;
-  margin-top: 2px;
-  color: rgba(210, 22, 35, 1);
+.mobel input::-webkit-input-placeholder {
+  font-size: 15px;
+  font-family: PingFangSC-Regular;
+  font-weight: 400;
+  color: rgba(153, 153, 153, 1);
 }
 
-.smal {
-  background: #ffffff;
+.lyuan {
+  border: 2px solid #D21623;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  position: relative;
+  float: left;
 }
 
-.cont {
-  display: flex;
-  align-items: center;
-  padding: 10px 2% 10px 2%;
-  height: 50px;
-  line-height: 50px;
-  border-bottom: 1px solid #eee;
+.yuan {
+  width: 7px;
+  height: 7px;
+  background: #D21623;
+  border-radius: 50%;
+  position: absolute;
+  left: 2px;
+  top: 2px;
 }
 
-.baocun {
-  height: 50px;
-  background: rgba(210, 22, 35, 1);
-  border-radius: 5px;
-  font-size: 16px;
-  color: #ffffff;
-  line-height: 50px;
-  text-align: center;
-  width: 96%;
-  margin-left: 2%;
-  margin-top: 20px;
+.bott {
+  overflow: hidden;
+  margin-top: 15px;
+}
+
+.content {
+  width: 93%;
+  float: right;
+  margin-top: 1px;
+  margin-left: 5px;
+  font-size: 12px;
 }
 </style>
+
+

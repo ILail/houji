@@ -335,7 +335,7 @@ export default {
         return false;
       }
 
-      let naid = this.$store.state.openid;
+      let naid = localStorage.getItem("openids");
       console.log(naid);
       const arry = [
         this.details,

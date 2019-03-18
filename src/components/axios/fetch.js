@@ -1,5 +1,5 @@
 import axios from 'axios'; //引入axios
-import store from '@/components/store/index'
+import store from '@/components/vuex/store'
 export function fetch(options) {
   return new Promise((resolve, reject) => {
     const instance = axios.create({ //instance创建一个axios实例，可以自定义配置，可在 axios文档中查看详情
@@ -21,7 +21,12 @@ export function fetch(options) {
         // if (store.state.token != '') { // 判断是否存在token，如果存在的话，则每个http header都加上token
         //   config.headers.token = token
         // }
-   
+        console.log(store.state.token)
+        if(store.state.token == ''){
+          this.$router.push({
+            path: "/bindm",
+          });
+        }
         return config;
       },
       err => {

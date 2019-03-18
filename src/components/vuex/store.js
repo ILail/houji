@@ -9,7 +9,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     // 全局公用的数据
-    token: null,
+    token: '',
     // oppenId: null,
   },
   mutations: {
@@ -19,7 +19,7 @@ export default new Vuex.Store({
     },
     [types.LOGOUT]: (state) => {
       localStorage.removeItem('token');
-      state.token = null
+      state.token = ''
     },
   
   },

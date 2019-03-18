@@ -412,7 +412,7 @@ export default {
         });
         return false;
       }
-      let naid = this.$store.state.openid;
+      let naid = localStorage.getItem("openids");
       console.log(naid);
       const arry = [
         this.details,
@@ -460,7 +460,7 @@ export default {
 </script>
 
 <style lang="stylus" type="text/stylus" rel="stylesheet/stylus" scoped>
-.WrapAll >>> .van-tab,.van-tab--active {
+.WrapAll >>> .van-tab, .van-tab--active {
   width: 100%;
   position: fixed;
 }
