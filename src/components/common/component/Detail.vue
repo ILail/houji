@@ -134,7 +134,7 @@ export default {
           const value = localStorage.getItem("accessTokens");
           console.log(value)
           const url = window.location.href;
-          if (value == "" ) return;
+          if (value == null ) return;
 
           SignPackage(url, value)
             .then(res => {

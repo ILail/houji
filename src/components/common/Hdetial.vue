@@ -167,7 +167,7 @@ export default {
           this.picList = data.imgs.split(",");
           const value = localStorage.getItem("accessTokens");
           const url = window.location.href;
-          if (value == "") return;
+          if (value == null) return;
           SignPackage(url, value)
             .then(res => {
               let signPackage = res.data.data.signPackage;
