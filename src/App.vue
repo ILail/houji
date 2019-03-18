@@ -1,7 +1,5 @@
 <template>
-
   <div id="app">
-  
     <!-- <keep-alive> -->
     <fade-animation>
       <router-view></router-view>
@@ -31,7 +29,13 @@ export default {
     Grant,
     FadeAnimation
   },
-  mounted() {},
+  mounted() {
+    this.$toast({
+      type: "loading",
+      message: "加载中...",
+      duration: "1200"
+    });
+  }
   // methods: {
   //   reload() {
   //     this.isRouterAlive = false

@@ -34,10 +34,10 @@ export default {
         // }
         // location.href=URL;
         if (iswx) {
-          const code = localStorage.getItem("wehoa");
+          const code = localStorage.getItem("wehob");
           if (code == null || code == undefined) {
             location.href = URL;
-            localStorage.setItem("wehoa", "3");
+            localStorage.setItem("wehob", "2");
           }
         }
       })
@@ -61,7 +61,7 @@ export default {
       // console.log(store.state.accessToken);
       // console.log(store.state.openid);
       // console.log(store.state.token);
-      if (store.state.token == "") {
+      if (localStorage.getItem("wehoa") == 2) {
         const code = url.split("code=")[1].split("&")[0];
         console.log(code);
         const newurl = url.split("code=")[0];
