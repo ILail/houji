@@ -295,7 +295,7 @@ export default {
 
           this.$nextTick(function() {
             this.listC = data;
-            console.log(this.listC);
+            // console.log(this.listC);
           });
         }
       })
@@ -335,14 +335,14 @@ export default {
     const value = this.$store.state.accessToken;
     const url = window.location.href;
     // const url = url.split("&")[0];
-    console.log(url);
-    console.log(wx);
-    console.log(value);
+    // console.log(url);
+    // console.log(wx);
+    // console.log(value);
     if (value == "") return;
 
     SignPackage(url, value)
       .then(res => {
-        console.log(res.data.data.signPackage);
+        // console.log(res.data.data.signPackage);
         let signPackage = res.data.data.signPackage;
 
         wx.config({
