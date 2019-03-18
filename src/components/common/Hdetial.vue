@@ -189,7 +189,7 @@ export default {
     console.log(url);
     console.log(wx);
     console.log(value);
-    const _this = this;
+ 
     if (value == '') return;
     SignPackage(url, value)
       .then(res => {
@@ -203,12 +203,14 @@ export default {
           signature: signPackage.signature,
           jsApiList: ["onMenuShareTimeline", "onMenuShareAppMessage"]
         });
+        const _this = this;
         wx.ready(function() {
+             
           wx.onMenuShareTimeline({
-            title: this.list.crowd_funding_name, // 分享标题
-            desc: this.list.summary, // 分享描述
+            title: _this.list.crowd_funding_name, // 分享标题
+            desc: _this.list.summary, // 分享描述
             link: url, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
-            imgUrl: this.img_path, // 分享图标
+            imgUrl: _this.img_path, // 分享图标
             success: function() {
               _this.$toast({
                 message: "分享成功",
@@ -225,10 +227,10 @@ export default {
             // }
           });
           wx.onMenuShareAppMessage({
-            title: this.list.crowd_funding_name, // 分享标题
-            desc: this.list.summary, // 分享描述
+            title: _this.list.crowd_funding_name, // 分享标题
+            desc: _this.list.summary, // 分享描述
             link: url, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
-            imgUrl: this.img_path, // 分享图标
+            imgUrl: _this.img_path, // 分享图标
             success: function() {
               _this.$toast({
                 message: "分享成功",
