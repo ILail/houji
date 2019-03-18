@@ -9,8 +9,8 @@ let defaultOpenid = ''
 let defaultAccess = ''
 // let defaultsub = 0
 try {
-  if (localStorage.getCode) {
-    defaultToken = localStorage.getCode
+  if (localStorage.token) {
+    defaultToken = localStorage.token
   }
   if (localStorage.openid) {
     defaultOpenid = localStorage.openid
@@ -36,12 +36,12 @@ export default new Vuex.Store({
   mutations: {
     addIncrement(state, addIncrement) {
       console.log(addIncrement)
-      state.token = addIncrement.getCode
+      state.token = addIncrement.token
       state.openid = addIncrement.openid
       state.accessToken = addIncrement.accessToken
 
       try {
-        localStorage.getCode = addIncrement.getCode
+        localStorage.token = addIncrement.token
         localStorage.openid = addIncrement.openid
         localStorage.accessToken = addIncrement.accessToken
 
