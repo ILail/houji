@@ -88,8 +88,8 @@ export default {
       }
       wx(this.tell, this.duanx)
         .then(res => {
-          let imgs = res.data.data.user_rank_id;
-          localStorage.setItem("userID", imgs);
+          // let imgs = res.data.data.user_rank_id;
+          // localStorage.setItem("userID", imgs);
           if (res.data.data.length == 0) {
             this.$toast({
               message: "请正确输入验证码",
