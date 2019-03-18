@@ -184,7 +184,7 @@ import "moon/swiper.min.css";
 import { wishList } from "@/components/axios/api";
 import { specifications } from "@/components/axios/api";
 import { crowd_funding } from "@/components/axios/api";
-import store from "@/components/vuex/store";
+// import store from "@/components/vuex/store";
 
 import assign from "@/components/axios/assign.js";
 

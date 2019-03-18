@@ -111,7 +111,8 @@ export default {
       // time: 3000,
       // shows: true,
       istanchuana: true,
-      showQ: false
+      showQ: false,
+      id: this.$route.query.key
     };
   },
   created() {
@@ -120,14 +121,15 @@ export default {
     }, 1450);
   },
   mounted() {
-    this.id = this.$route.query.key; //获取上个页面传递的id,在下面获取数据的时候先提交id
+    //获取上个页面传递的id,在下面获取数据的时候先提交id
     crowd_funding(this.id)
       .then(res => {
         res = res.data;
         if (res.status && res.data) {
           const data = res.data;
+          const img_path = data.imgs.split(",")[0];
+          console.log(img_path)
           this.list = data;
-          console.log(this.list.crowd_funding_name);
           const value = this.$store.state.accessToken;
           const url = window.location.href;
           if (value == "") return;

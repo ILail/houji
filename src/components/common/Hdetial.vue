@@ -165,6 +165,7 @@ export default {
           this.img_path = data.imgs.split(",")[0];
           this.list = data;
           this.picList = data.imgs.split(",");
+          this.showAPP();
         }
       })
       .catch(err => {
@@ -183,69 +184,57 @@ export default {
     setTimeout(() => {
       this.show = true;
     }, 1300);
-    const value = this.$store.state.accessToken;
-    const url = window.location.href;
-    // const newUrl = url.split('&')[0]
-    console.log(url);
-    console.log(wx);
-    console.log(value);
- 
-    if (value == '') return;
-    SignPackage(url, value)
-      .then(res => {
-        console.log(res.data.data.signPackage);
-        let signPackage = res.data.data.signPackage;
-        wx.config({
-          debug: false,
-          appId: signPackage.appId,
-          timestamp: signPackage.timestamp,
-          nonceStr: signPackage.nonceStr,
-          signature: signPackage.signature,
-          jsApiList: ["onMenuShareTimeline", "onMenuShareAppMessage"]
-        });
-        const _this = this;
-        wx.ready(function() {
-             
-          wx.onMenuShareTimeline({
-            title: _this.list.crowd_funding_name, // 分享标题
-            desc: _this.list.summary, // 分享描述
-            link: url, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
-            imgUrl: _this.img_path, // 分享图标
-            success: function() {
-              _this.$toast({
-                message: "分享成功",
-                duration: "500"
-              });
-              // 用户确认分享后执行的回调函数
-            }
-            // cancel: function() {
-            //   _this.$toast({
-            //     message: "取消分享成功",
-            //     duration: "500"
-            //   });
-            //   // 用户取消分享后执行的回调函数
-            // }
-          });
-          wx.onMenuShareAppMessage({
-            title: _this.list.crowd_funding_name, // 分享标题
-            desc: _this.list.summary, // 分享描述
-            link: url, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
-            imgUrl: _this.img_path, // 分享图标
-            success: function() {
-              _this.$toast({
-                message: "分享成功",
-                duration: "500"
-              });
-              // 用户确认分享后执行的回调函数
-            }
-          });
-        });
-      })
-      .catch(err => {
-        console.log(err, "请求失败");
-      });
   },
   methods: {
+    showAPP() {
+      const value = this.$store.state.accessToken;
+      const url = window.location.href;
+      if (value == "") return;
+      SignPackage(url, value)
+        .then(res => {
+          let signPackage = res.data.data.signPackage;
+          wx.config({
+            debug: false,
+            appId: signPackage.appId,
+            timestamp: signPackage.timestamp,
+            nonceStr: signPackage.nonceStr,
+            signature: signPackage.signature,
+            jsApiList: ["onMenuShareTimeline", "onMenuShareAppMessage"]
+          });
+
+          wx.ready(function() {
+            wx.onMenuShareTimeline({
+              title: this.list.crowd_funding_name, // 分享标题
+              desc: this.list.summary, // 分享描述
+              link: url, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+              imgUrl: this.img_path // 分享图标
+              // success: function() {
+              //   _this.$toast({
+              //     message: "分享成功",
+              //     duration: "500"
+              //   });
+              //   // 用户确认分享后执行的回调函数
+              // }
+              // cancel: function() {
+              //   _this.$toast({
+              //     message: "取消分享成功",
+              //     duration: "500"
+              //   });
+              //   // 用户取消分享后执行的回调函数
+              // }
+            });
+            wx.onMenuShareAppMessage({
+              title: this.list.crowd_funding_name, // 分享标题
+              desc: this.list.summary, // 分享描述
+              link: url, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+              imgUrl: this.img_path // 分享图标
+            });
+          });
+        })
+        .catch(err => {
+          console.log(err, "请求失败");
+        });
+    },
     onChange(index) {
       this.current = index;
     },
@@ -305,21 +294,21 @@ export default {
       //   this.$router.push({ path: "/phone" });
       // } else {
 
-        const arry = [
-          this.$route.query.key,
-          this.clickList.crowd_funding_return_id,
-          this.count
-          // this.$route.query.money
-        ];
-        this.$router.push({
-          path: "/querenone",
-          query: {
-            dataObjo: arry[0],
-            dataObjb: arry[1],
-            dataObjc: arry[2]
-            // dataObjd: arry[3]
-          }
-        });
+      const arry = [
+        this.$route.query.key,
+        this.clickList.crowd_funding_return_id,
+        this.count
+        // this.$route.query.money
+      ];
+      this.$router.push({
+        path: "/querenone",
+        query: {
+          dataObjo: arry[0],
+          dataObjb: arry[1],
+          dataObjc: arry[2]
+          // dataObjd: arry[3]
+        }
+      });
       // }
     }
   }
