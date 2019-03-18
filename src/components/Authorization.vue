@@ -35,10 +35,10 @@ export default {
         // }
         // location.href=URL;
         if (iswx) {
-          const codes = localStorage.getItem("housa");
-          if (codes == null || codes == undefined) {
+          const codesa = localStorage.getItem("housaa");
+          if (codesa == null || codesa == undefined) {
             location.href = URL;
-            localStorage.setItem("housa", "1");
+            localStorage.setItem("housaa", "11");
           }
         }
       })
@@ -56,11 +56,11 @@ export default {
     refrech() {
       // 拿到跳转后的链接
       const url = window.location.href;
-      const oances = localStorage.getItem("oances");
-      if (oances == null || oances == undefined) {
+      // const oances = localStorage.getItem("oances");
+      // if (oances == null || oances == undefined) {
         const code = url.split("code=")[1].split("&")[0];
         console.log(code);
-        // const newurl = url.split("code=")[0];
+        const newurl = url.split("code=")[0];
         Code(code)
           .then(res => {
             console.log(res.data.data);
@@ -92,14 +92,14 @@ export default {
                 });
               }, 3000);
             }
-            // window.location.href = newurl;
+            window.location.href = newurl;
             // this.reload();
           })
           .catch(err => {
             console.log(err, "请求失败");
           });
-          localStorage.setItem("oances", "2");
-      }
+      //     localStorage.setItem("oances", "2");
+      // }
     }
   }
   //   destroyed() {

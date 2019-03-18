@@ -142,7 +142,7 @@ export default {
               let signPackage = res.data.data.signPackage;
 
               wx.config({
-                debug: fasle,
+                debug: false,
                 appId: signPackage.appId,
                 timestamp: signPackage.timestamp,
                 nonceStr: signPackage.nonceStr,

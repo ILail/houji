@@ -22,7 +22,7 @@ export function fetch(options) {
         // if (store.state.token != '') { // 判断是否存在token，如果存在的话，则每个http header都加上token
         //   config.headers.token = token
         // }
-        console.log(store.state.token)
+        // console.log(store.state.token)
         // if(store.state.token == ''){
         //   this.$router.push({
         //     path: "/bindm",
