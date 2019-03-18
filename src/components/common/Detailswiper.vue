@@ -252,7 +252,6 @@ export default {
       numv: "",
       showV: true,
       showVi: true,
-      listC: {},
       id: this.$route.query.key
     };
   },
@@ -293,10 +292,7 @@ export default {
             this.shows = true;
           }
 
-          this.$nextTick(function() {
-            this.listC = data;
-            // console.log(this.listC);
-          });
+      
         }
       })
       .catch(err => {
@@ -331,74 +327,6 @@ export default {
       // 点击导航键跳转相应内容区
       mySwiperA.slideTo(index, 0, false);
     });
-
-    const value = this.$store.state.accessToken;
-    const url = window.location.href;
-    // const url = url.split("&")[0];
-    // console.log(url);
-    // console.log(wx);
-    // console.log(value);
-    if (value == "") return;
-
-    SignPackage(url, value)
-      .then(res => {
-        // console.log(res.data.data.signPackage);
-        let signPackage = res.data.data.signPackage;
-
-        wx.config({
-          debug: true,
-          appId: signPackage.appId,
-          timestamp: signPackage.timestamp,
-          nonceStr: signPackage.nonceStr,
-          signature: signPackage.signature,
-          jsApiList: ["onMenuShareTimeline", "onMenuShareAppMessage"]
-        });
-        this.$nextTick(function() {
-         
-          // console.log(this.listC);
-
-          let allName = this.listC;
-          let imgPath = this.img_path;
-          console.log(allName);
-          console.log(imgPath);
-          wx.onMenuShareTimeline({
-            title: allName.crowd_funding_name, // 分享标题
-            desc: allName.summary, // 分享描述
-            link: url, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
-            imgUrl: imgPath // 分享图标
-            // success: function() {
-            //   this.$toast({
-            //     message: "分享成功",
-            //     duration: "500"
-            //   });
-            //   // 用户确认分享后执行的回调函数
-            // }
-            // cancel: function() {
-            //   _this.$toast({
-            //     message: "取消分享成功",
-            //     duration: "500"
-            //   });
-            //   // 用户取消分享后执行的回调函数
-            // }
-          });
-          wx.onMenuShareAppMessage({
-            title: allName.crowd_funding_name, // 分享标题
-            desc: allName.summary, // 分享描述
-            link: url, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
-            imgUrl: imgPath // 分享图标
-            // success: function() {
-            //   this.$toast({
-            //     message: "分享成功",
-            //     duration: "500"
-            //   });
-            //   // 用户确认分享后执行的回调函数
-            // }
-          });
-        });
-      })
-      .catch(err => {
-        console.log(err, "请求失败");
-      });
   },
 
   methods: {
