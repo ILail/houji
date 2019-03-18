@@ -205,10 +205,10 @@ export default {
         });
         wx.ready(function() {
           wx.onMenuShareTimeline({
-            title: _this.list.crowd_funding_name, // 分享标题
-            desc: _this.list.summary, // 分享描述
+            title: this.list.crowd_funding_name, // 分享标题
+            desc: this.list.summary, // 分享描述
             link: url, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
-            imgUrl: _this.img_path, // 分享图标
+            imgUrl: this.img_path, // 分享图标
             success: function() {
               _this.$toast({
                 message: "分享成功",
@@ -225,10 +225,10 @@ export default {
             // }
           });
           wx.onMenuShareAppMessage({
-            title: _this.list.crowd_funding_name, // 分享标题
-            desc: _this.list.summary, // 分享描述
+            title: this.list.crowd_funding_name, // 分享标题
+            desc: this.list.summary, // 分享描述
             link: url, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
-            imgUrl: _this.img_path, // 分享图标
+            imgUrl: this.img_path, // 分享图标
             success: function() {
               _this.$toast({
                 message: "分享成功",
@@ -298,10 +298,11 @@ export default {
     },
     // 点击下单
     ljxd() {
-      if (store.state.token == null) {
-        console.log(123);
-        this.$router.push({ path: "/phone" });
-      } else {
+      // if (store.state.token == null) {
+      //   console.log(123);
+      //   this.$router.push({ path: "/phone" });
+      // } else {
+
         const arry = [
           this.$route.query.key,
           this.clickList.crowd_funding_return_id,
@@ -317,7 +318,7 @@ export default {
             // dataObjd: arry[3]
           }
         });
-      }
+      // }
     }
   }
 };
