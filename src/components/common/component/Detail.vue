@@ -158,7 +158,7 @@ export default {
           signature: signPackage.signature,
           jsApiList: ["onMenuShareTimeline", "onMenuShareAppMessage"]
         });
-        console.log(this.refs.fundingName)
+        console.log(this.$refs.fundingName)
         wx.onMenuShareTimeline({
           title:this.list.crowd_funding_name, // 分享标题
           desc:this.list.summary, // 分享描述

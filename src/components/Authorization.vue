@@ -46,9 +46,9 @@ export default {
       });
   },
   mounted() {
-    console.log(store.state.accessToken);
-    console.log(store.state.openid);
-    console.log(store.state.token);
+    // console.log(store.state.accessToken);
+    // console.log(store.state.openid);
+    // console.log(store.state.token);
     if (iswx) {
       this.refrech();
     }
@@ -58,9 +58,9 @@ export default {
       // 拿到跳转后的链接
       const url = window.location.href;
 
-      console.log(store.state.accessToken);
-      console.log(store.state.openid);
-      console.log(store.state.token);
+      // console.log(store.state.accessToken);
+      // console.log(store.state.openid);
+      // console.log(store.state.token);
       if (store.state.token == "") {
         const code = url.split("code=")[1].split("&")[0];
         console.log(code);
