@@ -116,19 +116,20 @@ export default {
     };
   },
   created() {
-    setTimeout(() => {
-      this.showQ = true;
-    }, 1450);
+ 
   },
   mounted() {
+       setTimeout(() => {
+      this.showQ = true;
+    }, 1450);
     //获取上个页面传递的id,在下面获取数据的时候先提交id
     crowd_funding(this.id)
       .then(res => {
         res = res.data;
         if (res.status && res.data) {
           const data = res.data;
-          const img_path = data.imgs.split(",")[0];
-          console.log(img_path)
+          this.img_path = data.imgs.split(",")[0];
+          // console.log(img_path)
           this.list = data;
           const value = this.$store.state.accessToken;
           const url = window.location.href;
@@ -152,7 +153,7 @@ export default {
                 title: this.list.crowd_funding_name, // 分享标题
                 desc: this.list.summary, // 分享描述
                 link: url, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
-                imgUrl: imgPath // 分享图标
+                imgUrl:  this.img_path // 分享图标
                 // success: function() {
                 //   this.$toast({
                 //     message: "分享成功",
@@ -172,7 +173,7 @@ export default {
                 title: this.list.crowd_funding_name, // 分享标题
                 desc: this.list.summary, // 分享描述
                 link: url, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
-                imgUrl:imgPath // 分享图标
+                imgUrl: this.img_path // 分享图标
                 // success: function() {
                 //   this.$toast({
                 //     message: "分享成功",
