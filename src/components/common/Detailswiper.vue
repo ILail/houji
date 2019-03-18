@@ -187,7 +187,7 @@ import { crowd_funding } from "@/components/axios/api";
 import store from "@/components/vuex/store";
 
 import assign from "@/components/axios/assign.js";
-import { SignPackage } from "@/components/axios/api";
+
 // import store from "@/components/store/index";
 export default {
   mixins: [assign],

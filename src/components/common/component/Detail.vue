@@ -95,7 +95,7 @@
 </template>
 <script>
 import { crowd_funding } from "@/components/axios/api";
-
+import { SignPackage } from "@/components/axios/api";
 // import this.$bus from "@/bus/Bus.vue";
 export default {
   data() {
