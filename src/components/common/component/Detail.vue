@@ -144,7 +144,9 @@ export default {
     const value = this.$store.state.accessToken;
     const url = window.location.href;
     if (value == "") return;
-
+      this.$nextTick(function(){
+         console.log(this.list)
+      })
     SignPackage(url, value)
       .then(res => {
         // console.log(res.data.data.signPackage);
