@@ -351,7 +351,7 @@ export default {
         const _this = this;
         this.$nextTick(function() {
           wx.ready(function() {
-            console.log(this.listC);
+            console.log(_this.listC);
 
             wx.onMenuShareTimeline({
               title: _this.listC.crowd_funding_name, // 分享标题
