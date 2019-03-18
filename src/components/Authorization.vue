@@ -93,7 +93,7 @@ export default {
                 });
               }, 3000);
             }
-            window.location.href = newurl;
+            // window.location.href = newurl;
             // this.reload();
           })
           .catch(err => {
