@@ -295,6 +295,7 @@ export default {
 
           this.$nextTick(function() {
             this.listC = data;
+            console.log(this.listC )
           });
         }
       })
@@ -340,7 +341,9 @@ export default {
     if (value == "") return;
 
     SignPackage(url, value)
+      
       .then(res => {
+        console.log(this.listC )
         console.log(res.data.data.signPackage);
         let signPackage = res.data.data.signPackage;
         wx.config({
@@ -351,10 +354,6 @@ export default {
           signature: signPackage.signature,
           jsApiList: ["onMenuShareTimeline", "onMenuShareAppMessage"]
         });
-        const _this = this;
-
-        wx.ready(function() {
-          console.log(_this.listC);
 
           wx.onMenuShareTimeline({
             title: _this.listC.crowd_funding_name, // 分享标题
@@ -389,7 +388,7 @@ export default {
               // 用户确认分享后执行的回调函数
             }
           });
-        });
+       
       })
       .catch(err => {
         console.log(err, "请求失败");
