@@ -35,10 +35,11 @@ export default {
         // }
         // location.href=URL;
         if (iswx) {
-          const codesa = localStorage.getItem("houjiapp");
-          if (codesa == null || codesa == undefined) {
-            location.href = URL;
+          const onid = localStorage.getItem("houjiapp");
+          if (onid == null || onid == undefined) {
+           
             localStorage.setItem("houjiapp", "123");
+             window.location.href = URL;
           }
         }
       })
