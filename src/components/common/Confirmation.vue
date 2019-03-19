@@ -128,7 +128,7 @@
 import { Confirone } from "@/components/axios/api";
 import { getDIZ } from "@/components/axios/api";
 import { coupon } from "@/components/axios/api";
-
+import * as types from "@/components/vuex/types";
 import store from "@/components/vuex/store";
 import secret from "@/utils/utils";
 // import bus from "@/bus/bus.js";
@@ -200,9 +200,8 @@ export default {
         }
       })
       .catch(err => {
-        //    this.$router.push({
-        //   path: "/phone"
-        // });
+         store.commit(types.LOGOUT);
+        this.$router.push("/phone");
         console.log(err, "请求失败");
       });
     coupon(111)
@@ -214,9 +213,8 @@ export default {
         }
       })
       .catch(err => {
-        //    this.$router.push({
-        //   path: "/phone"
-        // });
+            store.commit(types.LOGOUT);
+        this.$router.push("/phone");
         console.log(err, "请求失败");
       });
     // 发送请求

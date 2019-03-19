@@ -35,10 +35,10 @@ export default {
         // }
         // location.href=URL;
         if (iswx) {
-          const codesa = localStorage.getItem("housaa");
+          const codesa = localStorage.getItem("houjiapp");
           if (codesa == null || codesa == undefined) {
             location.href = URL;
-            localStorage.setItem("housaa", "11");
+            localStorage.setItem("houjiapp", "123");
           }
         }
       })
@@ -87,10 +87,10 @@ export default {
             if (data.is_bind_mobile == 0) {
               setTimeout(() => {
                 this.$router.push({
-                  path: "/bindm",
-                  query: {
-                    dataObj: unionid
-                  }
+                  path: '/phone'
+                  // query: {
+                  //   dataObj: unionid
+                  // }
                 });
               }, 3000);
             }
