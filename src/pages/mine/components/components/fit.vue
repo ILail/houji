@@ -39,7 +39,7 @@
 <script>
 import Vue from "vue";
 import { Switch } from "vant";
-import store from '@/components/vuex/store'
+import store from "@/components/vuex/store";
 import * as types from "@/components/vuex/types";
 Vue.use(Switch);
 export default {
@@ -52,9 +52,10 @@ export default {
   },
   methods: {
     enenneen() {
-  
+      this.$router.push({
+        path: "/phone"
+      });
       store.commit(types.LOGOUT);
-  
     },
     geren() {
       this.$router.push("/personone");
