@@ -1,6 +1,6 @@
 <template></template>
 <script type="text/javascript">
-// import * as types from "@/components/vuex/types";
+import store from '@/components/vuex/store'
 import * as types from "@/components/vuex/types";
 import { Code } from "@/components/axios/api";
 import { huoqu } from "@/components/axios/api";
@@ -86,7 +86,7 @@ export default {
           // });
           // console.log(tokens)
           // console.log(this.$store)
-          this.$store.commit(types.LOGIN, tokens);
+          store.commit(types.LOGIN, tokens);
           //如果没绑定手机号 跳到绑定页面
           if (data.is_bind_mobile == 0) {
             setTimeout(() => {
