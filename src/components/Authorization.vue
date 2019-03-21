@@ -37,7 +37,7 @@ export default {
         if (iswx) {
           const onid = localStorage.getItem("houjiapp");
           if (onid == null || onid == undefined) {
-            localStorage.setItem("houjiapp", "123");
+            localStorage.setItem("houjiapp", "1314");
             window.location.href = URL;
           }
         }
@@ -48,7 +48,11 @@ export default {
   },
   mounted() {
     if (iswx) {
-      this.refrech();
+      const code = localStorage.getItem("houjicode");
+      if (onid == null || onid == undefined) {
+        localStorage.setItem("houjicode", "520");
+        this.refrech();
+      }
     }
   },
   methods: {
@@ -56,49 +60,50 @@ export default {
       // 拿到跳转后的链接
       const url = window.location.href;
       console.log(url);
-      // const code = url.split("code=")[1].split("&")[0];
+
+      const code = url.split("code=")[1].split("&")[0];
       // const newurl = url.split("code=")[0];
 
-      // Code(code)
-      //   .then(res => {
-      //     console.log(res.data.data);
-      //     const data = res.data.data;
-      //     const accessTokens = data.access_token;
-      //     const openids = data.openid;
-      //     localStorage.setItem("accessTokens", accessTokens);
-      //     localStorage.setItem("openids", openids);
-      //     const tokens = data.token;
-      //     const unionid = data.unionid;
-      //     // const subscribe = data.subscribe;
-      //     // this.$store.commit({
-      //     //   type: "addIncrement",
-      //     //   accessTokens: accessTokens,
-      //     //   openids: openids,
-      //     //   tokens: tokens
-      //     //   // subscribe: subscribe
-      //     // });
-      //     // console.log(tokens)
-      //     // console.log(this.$store)
-      //     this.$store.commit(types.LOGIN, tokens);
-      //     //如果没绑定手机号 跳到绑定页面
-      //     if (data.is_bind_mobile == 0) {
-      //       setTimeout(() => {
-      //         this.$router.push({
-      //           path: "/phone"
-      //           // query: {
-      //           //   dataObj: unionid
-      //           // }
-      //         });
-      //       }, 3000);
-      //     }
-      //   })
-      //   .catch(err => {
-      //     console.log(err, "请求失败");
-      //   });
+      Code(code)
+        .then(res => {
+          console.log(res.data.data);
+          const data = res.data.data;
+          const accessTokens = data.access_token;
+          const openids = data.openid;
+          localStorage.setItem("accessTokens", accessTokens);
+          localStorage.setItem("openids", openids);
+          const tokens = data.token;
+          const unionid = data.unionid;
+          // const subscribe = data.subscribe;
+          // this.$store.commit({
+          //   type: "addIncrement",
+          //   accessTokens: accessTokens,
+          //   openids: openids,
+          //   tokens: tokens
+          //   // subscribe: subscribe
+          // });
+          // console.log(tokens)
+          // console.log(this.$store)
+          this.$store.commit(types.LOGIN, tokens);
+          //如果没绑定手机号 跳到绑定页面
+          if (data.is_bind_mobile == 0) {
+            setTimeout(() => {
+              this.$router.push({
+                path: "/phone"
+                // query: {
+                //   dataObj: unionid
+                // }
+              });
+            }, 3000);
+          }
+        })
+        .catch(err => {
+          console.log(err, "请求失败");
+        });
 
-      // setTimeout(() => {
-      //   window.location.href = newurl;
-      // }, 1000);
+      setTimeout(() => {
+        window.location.href = newurl;
+      }, 100);
     }
   }
   //   destroyed() {
