@@ -60,9 +60,7 @@ export default {
       console.log(code);
       const newurl = url.split("code=")[0];
       const uilLength = url.split("?");
-      if (uilLength.length == 1 || uilLength.length == 2) {
-        return;
-      }
+
       Code(code)
         .then(res => {
           console.log(res.data.data);
@@ -104,6 +102,9 @@ export default {
         });
       //     localStorage.setItem("oances", "2");
       // }
+      if (uilLength.length == 1 || uilLength.length == 2) {
+        return;
+      }
     }
   }
   //   destroyed() {
