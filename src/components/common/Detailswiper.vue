@@ -572,7 +572,7 @@ export default {
 }
 
 .middlesM .cons {
-  width: 4.8rem;
+  width: 3.8rem;
   padding-top: 10px;
   padding-bottom: 2px;
   font-size: 13px;
@@ -660,7 +660,7 @@ export default {
 }
 
 .wrapUl span {
-  width: 94%;
+  width: 93%;
   line-height: 26px;
   font-size: 13px;
   font-family: PingFangSC-Light;
