@@ -5,7 +5,7 @@
       <router-view></router-view>
     </fade-animation>
     <!-- </keep-alive> -->
-    <Grant></Grant>
+    <Grant v-if="$route.meta.uio"></Grant>
     <div v-wechat-title="$route.meta.title"></div>
   </div>
 </template>
