@@ -55,8 +55,9 @@ export default {
     refrech() {
       // 拿到跳转后的链接
       const url = window.location.href;
+      console.log(url)
       const code = url.split("code=")[1].split("&")[0];
-      console.log(code);
+      console.log(url.split("code="));
       localStorage.setItem("code", code);
       // console.log(url.split("?"));
       // const uilLength = url.split("?");
