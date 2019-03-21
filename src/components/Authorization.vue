@@ -1,6 +1,6 @@
 <template></template>
 <script type="text/javascript">
-import store from '@/components/vuex/store'
+import store from "@/components/vuex/store";
 import * as types from "@/components/vuex/types";
 import { Code } from "@/components/axios/api";
 import { huoqu } from "@/components/axios/api";
@@ -36,7 +36,7 @@ export default {
         // location.href=URL;
         if (iswx) {
           const onid = localStorage.getItem("housss");
-          console.log(onid)
+          console.log(onid);
           if (onid == null || onid == undefined) {
             localStorage.setItem("housss", "1314");
             window.location.href = URL;
@@ -86,6 +86,8 @@ export default {
           // });
           // console.log(tokens)
           // console.log(this.$store)
+          console.log(this.$store);
+          console.log(tokens);
           store.commit(types.LOGIN, tokens);
           //如果没绑定手机号 跳到绑定页面
           if (data.is_bind_mobile == 0) {
