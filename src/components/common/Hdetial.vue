@@ -265,7 +265,7 @@ export default {
   mounted() {
     setTimeout(() => {
       this.show = true;
-    }, 1300);
+    }, 1350);
   },
   methods: {
     tab(index) {
@@ -612,6 +612,7 @@ export default {
 .cha {
   width: 13px;
   margin-top: 8px;
+  margin-right 2px
 }
 
 .middles .price {

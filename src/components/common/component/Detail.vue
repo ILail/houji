@@ -112,7 +112,7 @@ export default {
   created() {
     setTimeout(() => {
       this.show = true;
-    }, 1300);
+    }, 1500);
   },
   watch: {
     listAll() {

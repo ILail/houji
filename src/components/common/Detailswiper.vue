@@ -262,6 +262,14 @@ export default {
         });
         this.numALL = 99;
       }
+
+      if (this.numALL <= 0) {
+        this.$toast({
+          message: "最小1",
+          duration: "1000"
+        });
+        this.numALL = 1;
+      }
     }
   },
   mounted() {
@@ -592,6 +600,7 @@ export default {
 .cha {
   width: 13px;
   margin-top: 8px;
+  margin-right: 2px;
 }
 
 .middles .price {
@@ -651,7 +660,7 @@ export default {
 }
 
 .wrapUl span {
-   width 94%
+  width: 94%;
   line-height: 26px;
   font-size: 13px;
   font-family: PingFangSC-Light;
@@ -661,7 +670,6 @@ export default {
   border: 1px solid rgba(102, 102, 102, 1);
   border-radius: 4px;
   display: inline-block;
- 
 }
 
 .wrapUl .active span {
