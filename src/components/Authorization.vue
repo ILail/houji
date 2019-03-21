@@ -91,12 +91,12 @@ export default {
           if (data.is_bind_mobile == 0) {
             setTimeout(() => {
               this.$router.push({
-                path: "/phone"
-                // query: {
-                //   dataObj: unionid
-                // }
+                path: "/bindm",
+                query: {
+                  dataObj: unionid
+                }
               });
-            }, 3000);
+            }, 1800);
           }
         })
         .catch(err => {

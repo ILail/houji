@@ -32,7 +32,7 @@
       </ul>
     </div>
     <div class="warpall">
-      <div class="enterH" @click="enenneen">退出登录</div>
+      <div class="enterH" @click="enenneen">退出</div>
     </div>
   </div>
 </template>
@@ -53,9 +53,9 @@ export default {
   methods: {
     enenneen() {
       this.$router.push({
-        path: "/phone"
+        path: "/"
       });
-      store.commit(types.LOGOUT);
+      // store.commit(types.LOGOUT);
     },
     geren() {
       this.$router.push("/personone");

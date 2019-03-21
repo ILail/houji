@@ -101,7 +101,7 @@ const routes = [{
     // component: Centerj,
     component: resolve => require(["@/pages/home/components/centerj"], resolve),
     meta: {
-      requireAuth: true, // 添加该字段，表示进入这个路由是需要登录的
+      // requireAuth: true, // 添加该字段，表示进入这个路由是需要登录的
       title: '领卷中心',
     },
   },
@@ -111,7 +111,7 @@ const routes = [{
     // component: Wish,
     component: resolve => require(["@/pages/wish/Wish"], resolve),
     meta: {
-      requireAuth: true, // 添加该字段，表示进入这个路由是需要登录的
+      // requireAuth: true, // 添加该字段，表示进入这个路由是需要登录的
       // oppendid: true,
       title: '购物车',
     },
@@ -131,7 +131,7 @@ const routes = [{
     // component: Mine,
     component: resolve => require(["@/pages/mine/Mine"], resolve),
     meta: {
-      requireAuth: true, // 添加该字段，表示进入这个路由是需要登录的
+      // requireAuth: true, // 添加该字段，表示进入这个路由是需要登录的
       // oppendid: true,
       title: '个人中心',
     },
@@ -448,7 +448,7 @@ const routes = [{
     // name: '确认订单',
     component: resolve => require(["@/components/common/Confirmation"], resolve),
     meta: {
-      requireAuth: true,
+      // requireAuth: true,
       title: '确认订单',
     },
     // component: Confirmation
@@ -458,7 +458,7 @@ const routes = [{
     // name: '确认订单',
     component: resolve => require(["@/components/common/Confirmations"], resolve),
     meta: {
-      requireAuth: true,
+      // requireAuth: true,
       title: '确认订单',
     },
     // component: Confirmations
@@ -521,26 +521,26 @@ const router = new Router({
   // },
 
 });
-
-if (window.localStorage.getItem('token')) {
-  store.commit(types.LOGIN, window.localStorage.getItem('token'));
-}
-router.beforeEach(function (to, from, next) {
-  // const toRouter = to.path
-  // const fromRouter = from.path
-  // console.log(toRouter)
-  // console.log(fromRouter)
-  if (to.matched.some(r => r.meta.requireAuth)) {
-    if (store.state.token) {
-      next();
-    } else {
-      next({
-        path: '/phone'
-      })
-    }
-  } else {
-    next();
-  }
-});
+// token 登录 之前直接手机号认证 现在直接微信认证获取
+// if (window.localStorage.getItem('token')) {
+//   store.commit(types.LOGIN, window.localStorage.getItem('token'));
+// }
+// router.beforeEach(function (to, from, next) {
+//   // const toRouter = to.path
+//   // const fromRouter = from.path
+//   // console.log(toRouter)
+//   // console.log(fromRouter)
+//   if (to.matched.some(r => r.meta.requireAuth)) {
+//     if (store.state.token) {
+//       next();
+//     } else {
+//       next({
+//         path: '/phone'
+//       })
+//     }
+//   } else {
+//     next();
+//   }
+// });
 
 export default router;

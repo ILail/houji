@@ -200,7 +200,7 @@ export default {
         }
       })
       .catch(err => {
-        store.commit(types.LOGOUT);
+        // store.commit(types.LOGOUT);
         // this.$router.push("/phone");
         console.log(err, "请求失败");
       });
@@ -213,7 +213,7 @@ export default {
         }
       })
       .catch(err => {
-        store.commit(types.LOGOUT);
+        // store.commit(types.LOGOUT);
         // this.$router.push("/phone");
         console.log(err, "请求失败");
       });
