@@ -58,7 +58,6 @@ export default {
       console.log(url.split("code="));
       const code = url.split("code=")[1].split("&")[0];
       const newurl = url.split("code=")[0];
-       window.location.href = newurl;
       setTimeout(() => {
         Code(code)
           .then(res => {
@@ -97,7 +96,7 @@ export default {
             console.log(err, "请求失败");
           });
       }, 1000);
-     
+      window.location.href = newurl;
     }
   }
   //   destroyed() {

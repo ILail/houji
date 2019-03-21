@@ -88,7 +88,7 @@
         </div>
       </div>
     </div>
-    <div class="lines"></div>
+    <div class="lines" style="margin: 0;"></div>
     <!-- 详情页 -->
     <div class="peoDela" v-html="listAll.content"></div>
   </div>
