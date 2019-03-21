@@ -1,5 +1,5 @@
 import axios from 'axios'; //引入axios
-import store from '@/components/vuex/store'
+import store from '@/components/store/index'
 console.log(store.state.token)
 export function fetch(options) {
   return new Promise((resolve, reject) => {
