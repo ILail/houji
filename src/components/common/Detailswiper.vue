@@ -642,7 +642,7 @@ export default {
   font-family: PingFangSC-Light;
   font-weight: 300;
   color: rgba(255, 255, 255, 1);
-  margin: 80px 0 15px 0;
+  margin: 50px 0 15px 0;
 }
 
 .wrapUl li {

@@ -299,6 +299,10 @@ export default {
     address() {
       if (store.state.token == "") {
         this.$router.push({ path: "/phone" });
+      }else{
+           this.$router.push({
+        path: "/shouhuo",
+      });
       }
     },
     jian() {
@@ -658,7 +662,7 @@ export default {
   font-family: PingFangSC-Light;
   font-weight: 300;
   color: rgba(255, 255, 255, 1);
-  margin: 80px 0 15px 0;
+  margin: 50px 0 15px 0;
 }
 
 .wrapUl li {
@@ -668,7 +672,6 @@ export default {
 
 .wrapUl span {
   line-height: 26px;
-  height: 26px;
   font-size: 13px;
   font-family: PingFangSC-Light;
   font-weight: 300;
@@ -676,6 +679,7 @@ export default {
   padding: 5px 10px;
   border: 1px solid rgba(102, 102, 102, 1);
   border-radius: 4px;
+  display inline-block
 }
 
 .wrapUl .active span {
