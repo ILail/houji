@@ -64,8 +64,8 @@ export default {
       console.log(url);
 
       const code = url.split("code=")[1].split("&")[0];
-      const newurl = url.split("code=")[0];
-      window.location.href = newurl;
+      // const newurl = url.split("code=")[0];
+      // window.location.href = newurl;
       Code(code)
         .then(res => {
           console.log(res.data.data);
