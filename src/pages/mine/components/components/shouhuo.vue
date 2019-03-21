@@ -134,7 +134,7 @@ export default {
   border-radius: 5px;
   margin-left: 2%;
   position: fixed;
-  bottom: 0;
+  bottom: 8px;
 }
 
 // 内容
