@@ -88,7 +88,8 @@ export default {
           // console.log(this.$store)
           console.log(this.$store);
           console.log(tokens);
-          store.commit(types.LOGIN, tokens);
+          // store.commit(types.LOGIN, tokens);
+           this.$store.commit('changeToken', tokens)
           //如果没绑定手机号 跳到绑定页面
           if (data.is_bind_mobile == 0) {
             setTimeout(() => {
