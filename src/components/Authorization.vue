@@ -2,7 +2,7 @@
 <script type="text/javascript">
 // import * as types from "@/components/vuex/types";
 import * as types from "@/components/vuex/types";
-
+import { Code } from "@/components/axios/api";
 import { huoqu } from "@/components/axios/api";
 // import { SignPackage } from "@/components/axios/api";
 let iswx =
@@ -55,15 +55,49 @@ export default {
     refrech() {
       // 拿到跳转后的链接
       const url = window.location.href;
-      console.log(url)
-      const code = url.split("code=")[1].split("&")[0];
       console.log(url.split("code="));
-      localStorage.setItem("code", code);
-      // console.log(url.split("?"));
-      // const uilLength = url.split("?");
-      // if (uilLength.length == 1 || uilLength.length == 2) {
-      //   return false;
-      // }
+      const code = url.split("code=")[1].split("&")[0];
+      const newurl = url.split("code=")[0];
+       window.location.href = newurl;
+      setTimeout(() => {
+        Code(code)
+          .then(res => {
+            console.log(res.data.data);
+            const data = res.data.data;
+            const accessTokens = data.access_token;
+            const openids = data.openid;
+            localStorage.setItem("accessTokens", accessTokens);
+            localStorage.setItem("openids", openids);
+            const tokens = data.token;
+            const unionid = data.unionid;
+            // const subscribe = data.subscribe;
+            // this.$store.commit({
+            //   type: "addIncrement",
+            //   accessTokens: accessTokens,
+            //   openids: openids,
+            //   tokens: tokens
+            //   // subscribe: subscribe
+            // });
+            // console.log(tokens)
+            // console.log(this.$store)
+            // this.$store.commit(types.LOGIN, tokens);
+            //如果没绑定手机号 跳到绑定页面
+            if (data.is_bind_mobile == 0) {
+              setTimeout(() => {
+                this.$router.push({
+                  path: "/phone"
+                  // query: {
+                  //   dataObj: unionid
+                  // }
+                });
+              }, 3000);
+            }
+          })
+          .catch(err => {
+            console.log(err, "请求失败");
+          });
+      }, 1000);
+     
     }
   }
   //   destroyed() {
