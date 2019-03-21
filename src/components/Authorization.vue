@@ -36,6 +36,7 @@ export default {
         // location.href=URL;
         if (iswx) {
           const onid = localStorage.getItem("houjiapp");
+          console.log(onid)
           if (onid == null || onid == undefined) {
             localStorage.setItem("houjiapp", "1314");
             window.location.href = URL;
@@ -48,10 +49,11 @@ export default {
   },
   mounted() {
     if (iswx) {
-      const code = localStorage.getItem("houjicode");
-      if (code == null || code == undefined) {
-        localStorage.setItem("houjicode", "520");
+      const codes = localStorage.getItem("houjicode");
+      console.log(codes);
+      if (codes == null || codes == undefined) {
         this.refrech();
+        localStorage.setItem("houjicode", "520");
       }
     }
   },
@@ -101,9 +103,9 @@ export default {
           console.log(err, "请求失败");
         });
 
-      setTimeout(() => {
-        window.location.href = newurl;
-      }, 100);
+      // setTimeout(() => {
+      //   window.location.href = newurl;
+      // }, 100);
     }
   }
   //   destroyed() {
