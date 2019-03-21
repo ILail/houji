@@ -57,7 +57,7 @@ export default {
       const url = window.location.href;
       const code = url.split("code=")[1].split("&")[0];
       console.log(code);
-       localStorage.setItem("code", code);
+      localStorage.setItem("code", code);
       // console.log(url.split("?"));
       // const uilLength = url.split("?");
       // if (uilLength.length == 1 || uilLength.length == 2) {

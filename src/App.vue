@@ -30,6 +30,7 @@ export default {
       duration: "1200"
     });
     var code = localStorage.getItem("code")
+    console.log(code)
     if(code == null) return
     Code(code)
       .then(res => {
