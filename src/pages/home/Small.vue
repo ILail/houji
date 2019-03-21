@@ -3,7 +3,7 @@
     <!-- :class="searchBarFixed == true ? 'isFixed' :''" id="searchBar" -->
     <div :class="searchBarFixed == true ? 'isFixed' :''" id="searchBar">
       <!-- 头部 -->
-      <Guan></Guan>
+      <!-- <Guan></Guan> -->
       <div class="header">
         <div class="header-left" @click="shaoshao">
           <img src="@/assets/shousuo.png">
@@ -110,10 +110,10 @@ import Mshu from "./components/Mshu";
 import Yugao from "./components/Yugao";
 import Finish from "./components/finish";
 import { lookOption } from "@/components/axios/api";
-import Guan from "@/components/Guan";
-import assign from "@/components/axios/assign.js";
+// import Guan from "@/components/Guan";
+// import assign from "@/components/axios/assign.js";
 export default {
-  mixins: [assign],
+  // mixins: [assign],
   name: "Small",
   components: {
     HomeSwiper,
@@ -125,7 +125,7 @@ export default {
     Mshu,
     Yugao,
     Finish,
-    Guan
+    // Guan
   },
   data() {
     return {

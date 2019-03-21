@@ -40,11 +40,20 @@ export default {
 
       if (this.scrollTop > 1000) {
         var _this = this;
-
-        if (userID == "1") {
-         _this.$router.go(-1)
-
-        } 
+        _this.$toast({
+          message: "领取会员成功",
+          duration: "1000"
+        });
+        setTimeout(() => {
+          _this.$router.go(-1);
+        }, 1200);
+        // if (userID == "1") {
+        //   this.$toast({
+        //     message: "已经领取过会员",
+        //     duration: "1000"
+        //   });
+        //   _this.$router.go(-1);
+        // }
       }
     }
   },

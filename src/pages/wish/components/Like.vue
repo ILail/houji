@@ -56,7 +56,7 @@ export default {
   mounted() {
     setTimeout(() => {
       this.show = true
-    }, 1800);
+    }, 1500);
   },
   methods: {
     computedResidualTime: function(items) {

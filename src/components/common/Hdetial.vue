@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapAll">
+  <div class="wrapAll" v-cloak>
     <!-- 轮播 -->
     <van-swipe :autoplay="3500" indicator-color="#D21623" style="height:375.5px">
       <van-swipe-item v-for="item of picList" :key="item.id">
@@ -14,12 +14,12 @@
     <div v-show="show">
       <div class="middle">
         <div>
-          <span>限量购</span>
-          <span>抢购中</span>
+          <span class="one">限量购</span>
+          <span class="two">抢购中</span>
         </div>
         <div class="wrapss">
           <span>仅剩{{list.left_nums}}件</span>
-          <img :src="img" style="width:8px">
+          <!-- <img :src="img" style="width:8px"> -->
         </div>
       </div>
       <div class="container">
@@ -30,10 +30,39 @@
           <span class="Smoney">¥ {{moneys}}</span>
         </div>
       </div>
+
+      <div class="line top"></div>
+      <div class="container">
+        <div class="spec" @click="spec">
+          <div class="specWrap">
+            <span class="specSpan">已选：</span>
+            <input type="text" placeholder="请选择商品规格" v-model="consText" readonly>
+          </div>
+          <img :src="img" class="imgRight">
+        </div>
+
+        <div class="spec">
+          <div class="specWrap">
+            <span class="specSpan">活动：</span>
+            <input type="text" placeholder="限购商品不可与优惠卷叠加使用" readonly>
+          </div>
+          <!-- <img :src="img" class="imgRight"> -->
+        </div>
+
+        <div class="spec" style="border:0">
+          <div class="specWrap" @click="address">
+            <span class="specSpan">配送：</span>
+            <input type="text" placeholder="请选择收货地址" v-model="addresses" readonly>
+          </div>
+          <img :src="img" class="imgRight">
+        </div>
+      </div>
+      <div class="line"></div>
+
+      <div class="peoDela" v-html="list.content"></div>
     </div>
-    <div class="peoDela" v-html="list.content"></div>
     <!-- 底部 -->
-    <div class="bottom">
+    <div class="bottom" v-show="bottom">
       <ul>
         <li class="shu" onclick="url()">
           <span style="margin-bottom:3px">
@@ -45,52 +74,52 @@
           <span style="margin-bottom:5px">
             <img src="@/assets/sku.png">
           </span>
-          
+
           <span class="shuW" style="margin-top:-1px">购物车</span>
         </li>
-        <li class="xiadan" @click="selectSort()">加入购物车</li>
-        <li class="joinw" @click="ljxd()">立即购买</li>
+        <li class="xiadan" @click="selectSort">加入购物车</li>
+        <li class="joinw" @click="joinNow">立即购买</li>
       </ul>
     </div>
-
-    <!-- 弹窗2-->
-    <!-- <div class="tanBottom" v-show="istanchuana">
-      <div class="topt"></div>
-      <div class="topone container" @click="chaClik()">
-        <img :src="img_path" class="topImg">
-        <div class="middles">
-          <span class="price">价格: ¥{{clickList.support_money}}</span>
-          <span class="typen">{{clickList.return_name}}</span>
-        </div>
-        <div>
-          <img src="@/assets/cha.png" class="cha">
-        </div>
-      </div>
+    <van-popup v-model="showList" position="bottom" @click-overlay="clickOverlay">
       <div class="container">
-        <div class="guige">规格</div>
-        <div class="layerNode">
-          <div
-            class="content"
+        <div class="topone">
+          <div class="middles">
+            <img :src="img_path" class="topImg" @click="topImg">
+            <div class="middlesM">
+              <div>
+                <span class="price">价格: ¥{{money}}</span>
+                <span class="typen">¥{{moneys}}</span>
+              </div>
+
+              <span class="cons">已选：{{clickList}}</span>
+            </div>
+          </div>
+          <div @click="confire">
+            <img src="@/assets/cha.png" class="cha">
+          </div>
+        </div>
+        <div class="roues">规格</div>
+        <ul class="wrapUl">
+          <li
             v-for=" (item,index) in listP "
             :key="item.id"
             @click="tab(index)"
             :class="{active:index == num}"
           >
-            <div class="contentF">{{item.return_name}}：</div>
-            <div class="contentC">{{item.return_content}}</div>
-          </div>
+            <span>{{item.return_content}}</span>
+          </li>
+        </ul>
+        <div class="roues">数量</div>
+        <div class="hitNum">
+          <span @click="jian">-</span>
+          <input type="text" v-model="numALL">
+          <span @click="jia">+</span>
         </div>
-        <div class="numB" id="tan">
-          <div class="numBa">数量</div>
-          <ul class="listnum">
-            <li class="jia" v-on:click="jia">-</li>
-            <li class="numW">{{ count}}</li>
-            <li class="jian" v-on:click="jian">+</li>
-          </ul>
-          <div class="queren" @click="ljxd">立即购买</div>
-        </div>
+        <div class="confire" @click="confire" v-if="confires">确认</div>
+        <div class="confire" v-else @click="ljxd">立即购买</div>
       </div>
-    </div>-->
+    </van-popup>
   </div>
 </template>
 
@@ -110,59 +139,52 @@ window.url = function() {
 import store from "@/components/vuex/store";
 import { crowd_funding } from "@/components/axios/api";
 import { specifications } from "@/components/axios/api";
-import { ForList } from "@/components/axios/api";
-import Vue from "vue";
-import { Swipe, SwipeItem } from "vant";
+import { getDIZ } from "@/components/axios/api";
 import { ImagePreview } from "vant";
-import { Sku } from "vant";
 import { SignPackage } from "@/components/axios/api";
-import assign from "@/components/axios/assign.js";
-Vue.use(Sku);
+// import assign from "@/components/axios/assign.js";
+import Vue from "vue";
+// import { Sku } from "vant";
+// Vue.use(Sku);
+import { CouponList } from "vant";
+
+Vue.use(CouponList);
+import { Swipe, SwipeItem } from "vant";
 Vue.use(Swipe).use(SwipeItem);
 export default {
-  mixins: [assign],
+  // mixins: [assign],
   data() {
     return {
+      confires: true,
+      showList: false,
+      bottom: true,
       show: false,
-      // isshowa: true,
-      count: 1,
-      // istanchuana: false,
       id: this.$route.query.key,
       money: "",
       moneys: "",
       picList: [],
       listP: [],
-      img: require("@/assets/rrs.png"),
+      img: require("@/assets/rr.png"),
       list: "",
       img_path: "",
       clickList: "",
-      num: 0
+      img_paths: "",
+      num: 0,
+      consText: "",
+      numALL: 1,
+      addresses: ""
     };
   },
   created() {
-    specifications(this.id)
-      .then(res => {
-        res = res.data;
-        if (res.status && res.data) {
-          const data = res.data;
-          this.listP = data;
-          this.clickList = data[0];
-        }
-      })
-      .catch(err => {
-        console.log(err, "请求失败");
-      });
     crowd_funding(this.id)
       .then(res => {
         res = res.data;
 
         if (res.status && res.data) {
           const data = res.data;
-          // console.log(data);
-
           this.money = data.reality_money;
           this.moneys = data.support_money;
-          this.img_path = data.imgs.split(",")[0];
+          this.img_paths = data.imgs.split(",")[0];
           this.list = data;
           this.picList = data.imgs.split(",");
           const value = localStorage.getItem("accessTokens");
@@ -184,27 +206,13 @@ export default {
                 title: this.list.crowd_funding_name, // 分享标题
                 desc: this.list.summary, // 分享描述
                 link: url, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
-                imgUrl: this.img_path // 分享图标
-                // success: function() {
-                //   _this.$toast({
-                //     message: "分享成功",
-                //     duration: "500"
-                //   });
-                //   // 用户确认分享后执行的回调函数
-                // }
-                // cancel: function() {
-                //   _this.$toast({
-                //     message: "取消分享成功",
-                //     duration: "500"
-                //   });
-                //   // 用户取消分享后执行的回调函数
-                // }
+                imgUrl: this.img_paths // 分享图标
               });
               wx.onMenuShareAppMessage({
                 title: this.list.crowd_funding_name, // 分享标题
                 desc: this.list.summary, // 分享描述
                 link: url, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
-                imgUrl: this.img_path // 分享图标
+                imgUrl: this.img_paths // 分享图标
               });
             })
             .catch(err => {
@@ -215,49 +223,109 @@ export default {
       .catch(err => {
         console.log(err, "请求失败");
       });
+
+    specifications(this.id)
+      .then(res => {
+        res = res.data;
+        if (res.status && res.data) {
+          const data = res.data;
+          this.listP = data;
+          this.img_path = data[0].img_path;
+          this.clickList = data[0].return_content;
+        }
+      })
+      .catch(err => {
+        console.log(err, "请求失败");
+      });
+    // 地址
+    getDIZ()
+      .then(res => {
+        // console.log(res.data.data)
+        const address = res.data.data.address;
+        this.addresses = "至  " + address;
+        if (res.data.data.length == 0) {
+          this.addresses = "请选择收货地址";
+        }
+      })
+      .catch(err => {
+        console.log(err, "请求失败");
+      });
+  },
+  watch: {
+    numALL() {
+      if (this.numALL >= 100) {
+        this.$toast({
+          message: "最大99",
+          duration: "1000"
+        });
+        this.numALL = 99;
+      }
+    }
   },
   mounted() {
-    // setTimeout(() => {
-    //   this.$refs.wrappers.style.visibility = "visible";
-    // }, 1250);
-    // this.$toast({
-    //   type: "loading",
-    //   message: "加载中...",
-    //   duration: "1250"
-    // });
     setTimeout(() => {
       this.show = true;
     }, 1300);
   },
   methods: {
-    showAPP() {},
-    onChange(index) {
-      this.current = index;
+    tab(index) {
+      // 颜色
+      this.num = index;
+      this.clickList = this.listP[index].return_content;
     },
-    jia: function() {
-      if (this.count == 1) {
-        return;
-      }
-      this.count--;
+    spec() {
+      this.showList = true;
+      this.bottom = false;
     },
-    jian: function() {
-      if (this.count >= 99) {
-        return;
-      }
-      this.count++;
+    confire() {
+      this.showList = false;
+      this.bottom = true;
+      this.consText = this.clickList;
+    },
+    clickOverlay() {
+      this.bottom = true;
+    },
+    joinNow() {
+      this.showList = true;
+      this.bottom = false;
+      this.confires = false;
     },
     imghir() {
       ImagePreview(this.picList);
     },
+    topImg() {
+      ImagePreview(this.img_path.split(","));
+    },
+    address() {
+      if (store.state.token == "") {
+        this.$router.push({ path: "/phone" });
+      }
+    },
+    jian() {
+      if (this.numALL == 1) {
+        this.$toast({
+          message: "已经最小",
+          duration: "1000"
+        });
+        return;
+      }
+      this.numALL--;
+    },
+    jia() {
+      if (this.numALL >= 99) {
+        this.$toast({
+          message: "已经最大",
+          duration: "1000"
+        });
+        return;
+      }
+      this.numALL++;
+    },
+
     wishesHit() {
       this.$router.push({
         path: "/wishs"
       });
-    },
-    closeTouch: function() {
-      document
-        .getElementById("tan")
-        .addEventListener("touchmove", this.handler, { passive: false }); //阻止默认事件
     },
     selectSort() {
       this.$toast({
@@ -265,80 +333,120 @@ export default {
         duration: "1000"
       });
     },
-    // selectSorta() {
-    //   this.closeTouch(); //关闭默认事件
-    //   this.istanchuana = true;
-    //   this.isshowa = false;
-    // },
-    // // 点击关闭
-    // chaClik() {
-    //   // this.openTouch(); //打开默认事件
-
-    //   this.istanchuana = false;
-    //   this.isshowa = true;
-    // },
-    // 点击规格变化
-    tab(index) {
-      // 颜色
-      this.num = index;
-      this.clickList = this.listP[index];
-    },
     // 点击下单
     ljxd() {
-      // if (store.state.token == null) {
-      //   console.log(123);
-      //   this.$router.push({ path: "/phone" });
-      // } else {
-
-      const arry = [
-        this.$route.query.key,
-        this.clickList.crowd_funding_return_id,
-        this.count
-        // this.$route.query.money
-      ];
-      this.$router.push({
-        path: "/querenone",
-        query: {
-          dataObjo: arry[0],
-          dataObjb: arry[1],
-          dataObjc: arry[2]
-          // dataObjd: arry[3]
-        }
-      });
-      // }
+      if (store.state.token == "") {
+        this.$router.push({ path: "/phone" });
+      } else {
+        const arry = [
+          this.$route.query.key,
+          this.listP[0].crowd_funding_return_id,
+          this.numALL
+        ];
+        this.$router.push({
+          path: "/querenone",
+          query: {
+            dataObjo: arry[0],
+            dataObjb: arry[1],
+            dataObjc: arry[2]
+          }
+        });
+      }
     }
   }
 };
 </script>
 
 <style lang="stylus" type="text/stylus" rel="stylesheet/stylus" scoped>
-.top {
-  margin-top: 20px;
+.wrapAll >>> .van-swipe__indicator {
+  width: 8px;
+  height: 8px;
+  background-color: #fff;
+  opacity: 1;
 }
 
 .middle {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 8px 3.6%;
-  background: #D21623;
-  color: #fff;
+  height: 35px;
+  background: #FBA23E;
+  padding: 0 3%;
 }
 
-.middle span {
-  font-size: 13px;
+.middle .one {
+  font-size: 14px;
   font-family: PingFangSC-Regular;
   font-weight: bold;
   color: rgba(255, 255, 255, 1);
+}
+
+.middle .two {
+  font-size: 13px;
+  font-family: PingFangSC-Light;
+  font-weight: 300;
+  color: rgba(255, 255, 255, 1);
+}
+
+.spec {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px 0;
+  border-bottom: 1px solid #E5E5E5;
+}
+
+.specWrap {
+  width: 90%;
+  display: flex;
+  align-items: center;
+}
+
+.specSpan {
+  font-size: 14px;
+  font-family: PingFangSC-Light;
+  font-weight: 300;
+  color: rgba(102, 102, 102, 1);
+  line-height: 21px;
+}
+
+.spec input {
+  font-family: PingFangSC-Light;
+  font-size: 14px;
+  width: 80%;
+  color: rgba(102, 102, 102, 1);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.spec input::-webkit-input-placeholder {
+  font-size: 14px;
+  font-family: PingFangSC-Light;
+  font-weight: 300;
+  color: rgba(102, 102, 102, 1);
+}
+
+.top {
+  margin-top: 20px;
+}
+
+.imgRight {
+  width: 8px;
+  height: 13px;
+}
+
+.line {
+  height: 10px;
+  background: rgba(244, 244, 244, 1);
 }
 
 .peoDela >>> p img {
   width: 100%;
 }
 
-.peoDela >>> p {
-  margin-top: 20px;
-  padding-bottom: 50px;
+.peoDela {
+  padding-bottom: 59px;
 }
 
 .name {
@@ -363,7 +471,10 @@ export default {
 }
 
 .wrapss span {
-  margin-right: 0.2rem;
+  font-size: 12px;
+  font-family: PingFangSC-Light;
+  font-weight: 300;
+  color: rgba(255, 255, 255, 1);
 }
 
 .Lmoney {
@@ -387,6 +498,7 @@ export default {
   margin-left: 0.3rem;
 }
 
+// 底部
 .bottom ul {
   display: flex;
   align-items: center;
@@ -451,36 +563,51 @@ export default {
   line-height: 38px;
 }
 
-.topImg {
-  width: 89px;
-  height: 89px;
-  border-radius: 2px;
-}
-
-.topone {
-  margin-top: -30px;
+// 弹窗
+.wrapAll >>> .van-popup {
+  overflow-y: visible;
 }
 
 .topone {
   display: flex;
-  align-items: flex-end;
+  align-items: flex-start;
   justify-content: space-between;
 }
 
-.topone .middles {
+.middles {
+  display: flex;
+  align-items: flex-end;
+}
+
+.middlesM .cons {
+  width: 220px;
+  padding-top: 10px;
+  padding-bottom: 2px;
+  font-size: 13px;
+  font-family: PingFangSC-Light;
+  font-weight: 300;
+  color: rgba(102, 102, 102, 1);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.middlesM {
   display: flex;
   flex-direction: column;
-  flex: 1;
+  margin-left: 15px;
+}
+
+.topImg {
+  width: 89px;
+  height: 89px;
+  border-radius: 4px;
+  margin-top: -30px;
 }
 
 .cha {
-  margin-top: -70px;
-  width: 72%;
-  margin-right: -10px;
-}
-
-.middles {
-  margin-left: 10px;
+  width: 13px;
+  margin-top: 8px;
 }
 
 .middles .price {
@@ -488,139 +615,96 @@ export default {
   font-family: PingFangSC-Light;
   font-weight: 300;
   color: rgba(168, 43, 51, 1);
-  margin-bottom: 10px;
 }
 
-.typen {
+.middles .typen {
   font-size: 13px;
   font-family: PingFangSC-Light;
   font-weight: 300;
   color: rgba(102, 102, 102, 1);
+  text-decoration: line-through;
+  margin-left: 10px;
 }
 
-.guige {
+.roues {
+  margin: 20px 0 15px 0;
   font-size: 15px;
-  font-family: PingFangSC-Regular;
-  font-weight: 400;
-  color: rgba(51, 51, 51, 1);
-  margin-top: 20px;
-  margin-bottom: 20px;
-}
-
-.contentF {
-  font-size: 13px;
   font-family: PingFangSC-Light;
   font-weight: 300;
-  margin-bottom: 5px;
-}
-
-.contentC {
-  font-size: 13px;
-  font-family: PingFangSC-Light;
-  font-weight: 300;
-  border: 1px solid #666666;
-  padding: 5px 10px;
-  line-height: 1.5;
-}
-
-.numB {
-  position: fixed;
-  bottom: 0;
-  overflow: hidden;
-  width: 94%;
-}
-
-.numBa {
-  font-size: 15px;
-  font-family: PingFangSC-Regular;
-  font-weight: 500;
   color: rgba(51, 51, 51, 1);
-  margin-bottom: 10px;
 }
 
-.listnum li {
-  float: left;
-  margin-bottom: 28px;
+.wrapUl {
+  width: 100%;
+  height: 201px;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+  /* ios 自带滚动条不平滑解决方法 */
 }
 
-[v-cloak] {
+::-webkit-scrollbar {
+  width: 0;
+  height: 0;
   display: none;
 }
 
-.queren {
-  width: 100%;
-  background: rgba(210, 22, 35, 1);
-  border-radius: 2px;
-  overflow: hidden;
-  height: 44px;
-  margin-bottom: 14px;
+.confire {
+  border-radius: 4px;
   text-align: center;
-  font-size: 15px;
-  color: #fff;
   line-height: 44px;
-}
-
-.querena {
-  width: 100%;
-  background: rgba(210, 22, 35, 1);
-  border-radius: 2px;
-  overflow: hidden;
   height: 44px;
-  margin-bottom: 14px;
+  background: #D21623;
+  font-size: 15px;
+  font-family: PingFangSC-Light;
+  font-weight: 300;
+  color: rgba(255, 255, 255, 1);
+  margin: 80px 0 15px 0;
+}
+
+.wrapUl li {
+  padding-top: 10px;
+  padding-bottom: 15px;
+}
+
+.wrapUl span {
+  line-height: 26px;
+  height: 26px;
+  font-size: 13px;
+  font-family: PingFangSC-Light;
+  font-weight: 300;
+  color: rgba(102, 102, 102, 1);
+  padding: 5px 10px;
+  border: 1px solid rgba(102, 102, 102, 1);
+  border-radius: 4px;
+}
+
+.wrapUl .active span {
+  border: 1px solid rgba(168, 43, 51, 1);
+  color: #A82B33;
+}
+
+.hitNum {
+  display: flex;
+  align-items: center;
   text-align: center;
-  font-size: 15px;
-  color: #fff;
-  line-height: 44px;
-  opacity: 0.1;
 }
 
-.jia, .jian {
-  border: 1px solid #eeeeee;
-  padding: 7px 12px;
-  color: #999999;
+.hitNum input {
+  width: 35px;
+  border-top: 1px solid #666;
+  border-bottom: 1px solid #666;
+  padding: 1.5px 0;
+  text-align: center;
 }
 
-.numW {
-  padding: 6.3px 15px;
-  border-bottom: 1px solid #eeeeee;
-  border-top: 1px solid #eeeeee;
-  color: #666666;
-  font-size: 15px;
+.hitNum span {
+  width: 30px;
+  border: 1px solid #666;
+  padding: 5px 0;
 }
 
-.layerNode {
-  width: 100%;
-  height: 194px;
-  background-color: #fff;
-  position: absolute;
-  overflow-y: scroll;
-  -webkit-overflow-scrolling: touch; /* ios 自带滚动条不平滑解决方法 */
-}
-
-.content {
-  margin-bottom: 18px;
-  padding-top: 1px;
-}
-
-.layerNode .active {
-  color: #D21623;
-}
-
-.tanBottom {
-  background: #fff;
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 80%;
-  z-index: 999;
-}
-
-.wrapAll >>> .van-swipe__indicator {
-  width: 8px;
-  height: 8px;
-  background-color: #fff;
-  opacity: 1;
+[v-cloak] {
+  display: none !important;
 }
 </style>
 

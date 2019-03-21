@@ -61,7 +61,7 @@
                     <div>￥{{pl.support_money}}</div>
                     <div class="slAll">
                       <span @click="reduce(index,pl.wish_id)">-</span>
-                      <input type="text" v-model="pl.wish_nums">
+                      <input type="text" v-model="pl.wish_nums" @input="watchNum(index,pl.wish_id)">
                       <span @click="add(index,pl.wish_id)">+</span>
                     </div>
                   </div>
@@ -95,7 +95,6 @@
         </Item>
       </div>
     </div>
-   
   </div>
 </template>
 <script type="text/ecmascript-6" defer=true>
@@ -114,8 +113,7 @@ export default {
     Item,
     MineHeader,
     rSwiperOut,
-    rSwiperOutItem,
-    
+    rSwiperOutItem
   },
   data() {
     return {
@@ -166,8 +164,8 @@ export default {
       list: []
     };
   },
+  watch: {},
 
-  created: function() {},
   mounted() {
     // setTimeout
     wishPush()
@@ -192,6 +190,47 @@ export default {
     this.show = true;
   },
   methods: {
+    watchNum(index, id) {
+      let numNUM = this.json[this.Index].options[index].wish_nums;
+      if (numNUM > 99) {
+        this.$toast({
+          message: "商品最大为99",
+          duration: "2500"
+        });
+        this.json[this.Index].options[index].wish_nums = 99;
+        Addjia(id, this.json[this.Index].options[index].wish_nums)
+          .then(res => {
+            console.log(res);
+          })
+          .catch(err => {
+            console.log(err, "请求失败");
+          });
+      }
+      if (numNUM <= 0) {
+        this.$toast({
+          message: "商品最小为1",
+          duration: "2500"
+        });
+        this.json[this.Index].options[index].wish_nums = 1;
+        Addjia(id, this.json[this.Index].options[index].wish_nums)
+          .then(res => {
+            console.log(res);
+          })
+          .catch(err => {
+            console.log(err, "请求失败");
+          });
+      }
+      if (numNUM > 1 && numNUM < 99) {
+        this.json[this.Index].options[index].wish_nums = numNUM;
+        Addjia(id, this.json[this.Index].options[index].wish_nums)
+          .then(res => {
+            console.log(res);
+          })
+          .catch(err => {
+            console.log(err, "请求失败");
+          });
+      }
+    },
     linjuan() {
       this.$router.push("/linjuan");
     },
@@ -390,7 +429,7 @@ export default {
     },
     //商品++
     add(index, id) {
-      if (this.json[this.Index].options[index].wish_nums > 999999) {
+      if (this.json[this.Index].options[index].wish_nums > 99) {
         return;
       }
       const numji = this.json[this.Index].options[index].wish_nums++;

@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapAll" v-show="showQ">
+  <div class="wrapAll" v-show="show" v-cloak>
     <!-- 轮播 -->
     <!-- <van-swipe :autoplay="time" indicator-color="#D21623" @change="onChange" style="height:380px">
       <van-swipe-item v-if="shows">
@@ -22,40 +22,40 @@
         
         <img :src="imgs" class="imgsaa" @click="pauseVideo" v-show="show">
       </van-swipe-item>
-      <van-swipe-item v-for="item of picList" :key="item.id">
+      <van-swipe-item v-for="item of piclistAll" :key="item.id">
         <img class="swiper-img needsclick" :src="item" @click="imghir">
       </van-swipe-item>
     </van-swipe>-->
     <!-- 内容 -->
     <div class="container" style=" box-shadow: 0px 1px 24px 0px rgba(255, 255, 255, 0.75);">
-      <div class="title top" ref="fundingName">{{list.crowd_funding_name}}</div>
-      <div class="content top" ref="summary">{{list.summary}}</div>
+      <div class="title top" ref="fundingName">{{listAll.crowd_funding_name}}</div>
+      <div class="content top" ref="summary">{{listAll.summary}}</div>
       <div class="price top">
         <span class="mubiao">已售金额：</span>
-        <span class="Mmoney">{{computedmoey(list)}}</span>
+        <span class="Mmoney">{{computedmoey(listAll)}}</span>
       </div>
     </div>
     <!-- 人员 -->
     <div class="people top">
       <div class="progressAll">
         <div class="progress-outer">
-          <span class="progress" :style="{width:computedWidth(list)+'%'}"></span>
+          <span class="progress" :style="{width:computedWidth(listAll)+'%'}"></span>
         </div>
-        <span class="progressA" :style="{left:computedR(list)+'%'}">{{list.progress}}%</span>
+        <span class="progressA" :style="{left:computedR(listAll)+'%'}">{{listAll.progress}}%</span>
       </div>
       <ul>
         <li>
-          <span class="peopleT">{{computedmoeys(list)}}</span>
+          <span class="peopleT">{{computedmoeys(listAll)}}</span>
           <span class="peopleC">目标金额</span>
         </li>
         <li class="linesss"></li>
         <li>
-          <span class="peopleT">{{list.support_num}}</span>
+          <span class="peopleT">{{listAll.support_num}}</span>
           <span class="peopleC">支持人数</span>
         </li>
         <li class="linesss"></li>
         <li>
-          <span class="peopleT">{{computedResidualTime(list)}}</span>
+          <span class="peopleT">{{computedResidualTime(listAll)}}</span>
           <span class="peopleC">剩余时间</span>
         </li>
       </ul>
@@ -63,7 +63,7 @@
       <!-- 价格 -->
       <div class="middCon container">
         <div class="flexa">
-          <span class="flexl">¥{{list.support_money}}</span>
+          <span class="flexl">¥{{listAll.support_money}}</span>
           <!-- <span class="wordess">125</span> -->
         </div>
         <div class="flexa">
@@ -73,198 +73,130 @@
       </div>
       <div class="line container"></div>
       <!-- 查看全部档位 -->
-      <div class="allName" @click="flexr">查看全部档位</div>
+      <!-- <div class="allName" @click="flexr">查看全部档位</div> -->
+      <div class="allName container">预计发货时间：预售项目结束7天后</div>
       <div class="lines"></div>
     </div>
     <!-- 人员信息 -->
     <div class="Originator">
-      <img :src="list.headimgurl">
+      <img :src="listAll.headimgurl">
       <div class="middle">
-        <div class="middleName">{{list.nickname}}</div>
+        <div class="middleName">{{listAll.nickname}}</div>
         <div class="middleB">
-          <span class="middleC">发起项目：{{list.statistics}}项</span>
-          <span class="middleC" style="margin-left:.5rem">支持人数：{{list.total_number}}人</span>
+          <span class="middleC">发起项目：{{listAll.statistics}}项</span>
+          <span class="middleC" style="margin-left:.5rem">支持人数：{{listAll.total_number}}人</span>
         </div>
       </div>
     </div>
-
+    <div class="lines"></div>
     <!-- 详情页 -->
-    <div class="peoDela" v-html="list.content"></div>
+    <div class="peoDela" v-html="listAll.content"></div>
   </div>
   <!-- 底部 -->
 </template>
 <script>
-import { crowd_funding } from "@/components/axios/api";
+// import { crowd_funding } from "@/components/axios/api";
 import { SignPackage } from "@/components/axios/api";
 // import this.$bus from "@/bus/Bus.vue";
 export default {
+  props: {
+    listAll: {}
+  },
   data() {
     return {
-      list: {},
-      // picList: [],
-      // pic: "",
-      // video: "",
-      // imgs: require("@/assets/bof.png"),
+      show: false,
       img: require("@/assets/rr.png"),
-      // num: "",
-      // show: true,
-      // time: 3000,
-      // shows: true,
-      istanchuana: true,
-      showQ: false,
-      id: this.$route.query.key
+      busing: false,
     };
   },
   created() {
- 
+    setTimeout(() => {
+      this.show = true;
+    }, 1300);
   },
-  mounted() {
-       setTimeout(() => {
-      this.showQ = true;
-    }, 1700);
-    //获取上个页面传递的id,在下面获取数据的时候先提交id
-    crowd_funding(this.id)
-      .then(res => {
-        res = res.data;
-        if (res.status && res.data) {
-          const data = res.data;
-          this.img_path = data.imgs.split(",")[0];
-          // console.log(img_path )
-          this.list = data;
-          const value = localStorage.getItem("accessTokens");
-          console.log(value)
-          const url = window.location.href;
-          if (value == null ) return;
+  watch: {
+    listAll() {
+      this.$nextTick(function() {
+        console.log(this.listAll);
+        const title = this.listAll.crowd_funding_name;
+        const desc = this.listAll.summary;
+        const imgUrl = this.listAll.imgs.split(",")[0];
+        const value = localStorage.getItem("accessTokens");
+        const url = window.location.href;
+        console.log(imgUrl);
+        if (value == null) return;
+        SignPackage(url, value)
+          .then(res => {
+            // console.log(res.data.data.signPackage);
+            let signPackage = res.data.data.signPackage;
 
-          SignPackage(url, value)
-            .then(res => {
-              // console.log(res.data.data.signPackage);
-              let signPackage = res.data.data.signPackage;
-
-              wx.config({
-                debug: false,
-                appId: signPackage.appId,
-                timestamp: signPackage.timestamp,
-                nonceStr: signPackage.nonceStr,
-                signature: signPackage.signature,
-                jsApiList: ["onMenuShareTimeline", "onMenuShareAppMessage"]
-              });
-
-              wx.onMenuShareTimeline({
-                title: this.list.crowd_funding_name, // 分享标题
-                desc: this.list.summary, // 分享描述
-                link: url, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
-                imgUrl:  this.img_path // 分享图标
-                // success: function() {
-                //   this.$toast({
-                //     message: "分享成功",
-                //     duration: "500"
-                //   });
-                //   // 用户确认分享后执行的回调函数
-                // }
-                // cancel: function() {
-                //   _this.$toast({
-                //     message: "取消分享成功",
-                //     duration: "500"
-                //   });
-                //   // 用户取消分享后执行的回调函数
-                // }
-              });
-              wx.onMenuShareAppMessage({
-                title: this.list.crowd_funding_name, // 分享标题
-                desc: this.list.summary, // 分享描述
-                link: url, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
-                imgUrl: this.img_path // 分享图标
-                // success: function() {
-                //   this.$toast({
-                //     message: "分享成功",
-                //     duration: "500"
-                //   });
-                //   // 用户确认分享后执行的回调函数
-                // }
-              });
-            })
-            .catch(err => {
-              console.log(err, "请求失败");
+            wx.config({
+              debug: false,
+              appId: signPackage.appId,
+              timestamp: signPackage.timestamp,
+              nonceStr: signPackage.nonceStr,
+              signature: signPackage.signature,
+              jsApiList: ["onMenuShareTimeline", "onMenuShareAppMessage"]
             });
-          // this.$nextTick(() => {
-          //   console.log(this.list.crowd_funding_name);
-          //   console.log(this.$refs.fundingName.innerHTML);
-          // });
-          // console.log(3)
-          // console.log(this.list);
-          // this.picList = data.imgs.split(",");
-          // this.pic = res.data.video_pic;
-          // this.video = res.data.video_data;
-          // if (this.pic == "" && this.video == "") {
-          //   this.shows = false;
-          // }
-        }
-      })
-      .catch(err => {
-        console.log(err, "请求失败");
+
+            wx.onMenuShareTimeline({
+              title: title, // 分享标题
+              desc: desc, // 分享描述
+              link: url, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+              imgUrl: imgUrl // 分享图标
+            });
+            wx.onMenuShareAppMessage({
+              title: title, // 分享标题
+              desc: desc, // 分享描述
+              link: url, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+              imgUrl: imgUrl // 分享图标
+            });
+          })
+          .catch(err => {
+            console.log(err, "请求失败");
+          });
       });
+    }
   },
+
+  mounted() {},
   methods: {
     flexr() {
-      this.$bus.$emit("msg", this.istanchuana);
+      this.$bus.$emit("msg", this.busing);
     },
-    // onChange(index) {
-    //   this.num = index;
-    // },
-    // imghir() {
-    //   ImagePreview(this.picList);
-    // },
-    // pauseVideo() {
-    //   //暂停\播放
-    //   this.time = 0;
-    //   let video = document.querySelector("video");
-    //   // console.log(this.num);
-    //   if (this.num != 0) {
-    //     video.pause();
-    //   }
-    //   video.play();
-
-    //   this.show = false;
-    // },
-    // onPlayerEnded(player) {
-    //   this.time = 3000;
-    //   //视频结束
-    //   this.show = true;
-    // },
-    computedR: function(list) {
-      let width = list.progress + 1.6;
+    computedR: function(listAll) {
+      let width = listAll.progress + 1.6;
       if (width >= 13) {
-        width = list.progress;
+        width = listAll.progress - 1.6;
       }
       if (width >= 98.4) {
         width = 85;
       }
       return `${width}`;
     },
-    computedResidualTime: function(list) {
-      let residualTime = list.left_time;
+    computedResidualTime: function(listAll) {
+      let residualTime = listAll.left_time;
       let day = parseInt(residualTime / (24 * 3600));
       if (day <= 0) {
         day = 0;
       }
       return `${day}天`;
     },
-    computedWidth: function(list) {
-      let width = list.progress;
+    computedWidth: function(listAll) {
+      let width = listAll.progress;
       if (width >= 100) {
         width = 100;
       }
       return `${width}`;
     },
-    computedmoey: function(list) {
-      let money = list.now_money;
+    computedmoey: function(listAll) {
+      let money = listAll.now_money;
       let moneys = parseInt(money);
 
       return `${moneys}元`;
     },
-    computedmoeys: function(list) {
-      let money = list.goal_money;
+    computedmoeys: function(listAll) {
+      let money = listAll.goal_money;
       let moneys = parseInt(money);
 
       return `${moneys}元`;
@@ -277,6 +209,10 @@ export default {
   margin-top: 10px;
   height: 1px;
   background: rgba(229, 229, 229, 1);
+}
+
+[v-cloak] {
+  display: none !important;
 }
 
 .flexl {
@@ -303,8 +239,6 @@ export default {
   font-family: PingFangSC-Light;
   font-weight: 300;
   color: rgba(102, 102, 102, 1);
-  text-align: center;
-  width: 100%;
   padding-top: 20px;
   padding-bottom: 10px;
 }
@@ -450,8 +384,8 @@ export default {
 }
 
 .Originator img {
-  width: 50px;
-  height: 50px;
+  width: 60px;
+  height: 60px;
   border-radius: 50%;
 }
 
@@ -466,6 +400,7 @@ export default {
   font-family: PingFangSC-Semibold;
   font-weight: 600;
   color: rgba(51, 51, 51, 1);
+  padding-bottom: 10px;
 }
 
 .middleC {
@@ -488,11 +423,6 @@ export default {
 
 .peoDela >>> p img {
   width: 100%;
-}
-
-.peoDela {
-  margin-top: 20px;
-  padding-bottom: 50px;
 }
 </style>
 

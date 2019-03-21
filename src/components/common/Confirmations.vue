@@ -25,11 +25,11 @@
           <input type="text" placeholder="暂无使用" v-model="juan" readonly v-show="aa">
           <input type="text" placeholder="暂不可用" readonly v-show="aas">
         </div>
-        <div @click="showList" v-show="aa">
+        <div @click="showList" v-show="aa" class="numZ">
           <span style="margin-right:10px" class="same_">{{num}}张</span>
           <img :src="wx" style="vertical-align: bottom; width:7px">
         </div>
-        <div v-show="aas">
+        <div v-show="aas" class="numZ">
           <span style="margin-right:10px" class="same_">{{num}}张</span>
           <img :src="wx" style="vertical-align: bottom; width:7px">
         </div>
@@ -200,22 +200,23 @@ export default {
       totalMoney: ""
     };
   },
-  created: function() {
+  created() {
     // 接受详情页那边传来的商品id逗号分开
 
     getDIZ()
       .then(res => {
         this.letter = res.data.data;
         this.addressID = res.data.data.user_address_id;
-        console.log(this.letter);
+        // console.log(this.letter);
         if (this.letter.length == 0) {
           this.show = false;
           this.shoiw = true;
         }
       })
       .catch(err => {
-           store.commit(types.LOGOUT);
-        this.$router.push("/phone");
+        // store.commit(types.LOGOUT);
+        // this.$router.push("/phone");
+
         console.log(err, "请求失败");
       });
     coupon(111)
@@ -227,8 +228,8 @@ export default {
         }
       })
       .catch(err => {
-          store.commit(types.LOGOUT);
-        this.$router.push("/phone");
+          // store.commit(types.LOGOUT);
+        // this.$router.push("/phone");
         console.log(err, "请求失败");
       });
     // 发送请求
@@ -237,15 +238,15 @@ export default {
         this.json = res.data.data.wish_list.list;
         this.moneyAll = res.data.data.wish_list.total_money;
         var userID = localStorage.getItem("userID");
-        if (userID == "1") {
-          this.newmoney = (this.moneyAll * 0.05).toFixed(2);
-          this.totalMoney = this.moneyAll - this.newmoney;
-        } else {
+        console.log(userID)
+        // if (userID == "1") {
+        //   this.newmoney = (this.moneyAll * 0.05).toFixed(2);
+        //   this.totalMoney = this.moneyAll - this.newmoney;
+        // } else {
           this.newmoney = 0.0;
           this.totalMoney = this.moneyAll - this.newmoney;
-        }
+        // }
         if (this.moneyAll == "0.01") {
-          // console.log(11111);
           this.newmoney = 0.0;
           this.totalMoney = this.moneyAll - this.newmoney;
         }
@@ -262,8 +263,8 @@ export default {
         // }
       })
       .catch(err => {
-             store.commit(types.LOGOUT);
-        this.$router.push("/phone");
+            //  store.commit(types.LOGOUT);
+        // this.$router.push("/phone");
         console.log(err, "请求失败");
       });
   },
@@ -355,9 +356,6 @@ export default {
     address() {
       this.$router.push({
         path: "/shouhuo",
-        query: {
-          dataObj: this.wishid
-        }
       });
     },
     addresssw() {
@@ -658,7 +656,10 @@ export default {
   justify-content: space-between;
   font-size: 14px;
 }
-
+.numZ{
+  display flex
+  align-items center
+}
 .same_ {
   color: #999;
 }

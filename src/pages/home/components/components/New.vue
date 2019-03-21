@@ -71,8 +71,9 @@
         }
     }"
         >
-          <div class="icon-img">
+          <div class="icon-img" >
             <img class="icon-img-content" v-lazy="item.pic">
+            
           </div>
 
           <div class="descA">{{item.crowd_funding_name}}</div>
@@ -82,6 +83,7 @@
           </div>
         </router-link>
       </div>
+
     </div>
   </div>
 </template>
@@ -95,21 +97,7 @@ export default {
     return {};
   },
   methods: {
-    // computedResidualTime: function(item) {
-    //   let residualTime = item.left_time;
-    //   let day = parseInt(residualTime / (24 * 3600)); //剩余天数
-    //   if (day <= 0) {
-    //     day = 0;
-    //   }
-    //   return `${day}天`;
-    // },
-    // computedResidualTimea: function(item) {
-    //   let progress = item.progress;
-    //   if (progress >= 100) {
-    //     progress = 100;
-    //   }
-    //   return `${progress}`;
-    // }
+
   }
 };
 </script>
@@ -127,6 +115,7 @@ export default {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  height 177.5px
 }
 
 .icon {

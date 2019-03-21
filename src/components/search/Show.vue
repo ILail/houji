@@ -9,7 +9,7 @@
       class="people"
       v-for="item of sowingMap"
       :key="item.id"
-      @click="hitS(item.crowd_funding_id,cf_type)"
+      @click="hitS(item.crowd_funding_id,item.cf_type)"
     >
       <!-- <router-link 
         :to="{  
@@ -79,11 +79,11 @@ export default {
     search(this.keyword)
       .then(res => {
         res = res.data;
-        console.log(res);
+    
         if (res.status && res.data) {
           const data = res.data;
           this.sowingMap = data.result;
-          console.log(this.sowingMap);
+          // console.log(this.sowingMap);
           if (data.result.length == 0) {
             this.ispic = true;
           }
@@ -95,6 +95,7 @@ export default {
   },
   methods: {
     hitS(INDE, cf_type) {
+      // console.log(cf_type)
       if (cf_type == "activity") {
         this.$router.push({
           path: "/hdetial",

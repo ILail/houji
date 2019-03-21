@@ -52,7 +52,7 @@
 <script>
 import Item from "@/components/Item.vue";
 import { fs } from "@/components/axios/api";
-import assign from "@/components/axios/assign.js";
+// import assign from "@/components/axios/assign.js";
 // import {
 //   commonShare,
 //   shareTitle,
@@ -66,7 +66,7 @@ export default {
   },
   data() {
     return {
-      mixins: [assign],
+      // mixins: [assign],
       tabs: [],
       num: 0,
       img_path: "",

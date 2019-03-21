@@ -24,7 +24,7 @@
           <span>优惠卷：</span>
           <input type="text" placeholder="暂无使用" v-model="juan" readonly>
         </div>
-        <div @click="showList">
+        <div @click="showList" class="numZ">
           <span style="margin-right:10px" class="same_">{{num}}张</span>
           <img :src="wx" style="vertical-align: bottom; width:7px">
         </div>
@@ -200,8 +200,8 @@ export default {
         }
       })
       .catch(err => {
-         store.commit(types.LOGOUT);
-        this.$router.push("/phone");
+        store.commit(types.LOGOUT);
+        // this.$router.push("/phone");
         console.log(err, "请求失败");
       });
     coupon(111)
@@ -213,8 +213,8 @@ export default {
         }
       })
       .catch(err => {
-            store.commit(types.LOGOUT);
-        this.$router.push("/phone");
+        store.commit(types.LOGOUT);
+        // this.$router.push("/phone");
         console.log(err, "请求失败");
       });
     // 发送请求
@@ -227,16 +227,16 @@ export default {
 
         this.moneyAll = res.data.data.wish_list.total_money;
         var userID = localStorage.getItem("userID");
-        // console.log(userID);
-        if (userID == "1") {
-          this.newmoney = (this.moneyAll * 0.05).toFixed(2);
-          this.totalMoney = this.moneyAll - this.newmoney;
-        } else {
+        console.log(userID);
+        // if (userID == "1") {
+        //   this.newmoney = (this.moneyAll * 0.05).toFixed(2);
+        //   this.totalMoney = this.moneyAll - this.newmoney;
+        // } else {
           this.newmoney = 0.0;
           this.totalMoney = this.moneyAll - this.newmoney;
-        }
+        // }
         if (this.moneyAll == "0.01") {
-          console.log(11111);
+          // console.log(11111);
           this.newmoney = 0.0;
           this.totalMoney = this.moneyAll - this.newmoney;
         }
@@ -362,7 +362,7 @@ export default {
 </script>
 
 <style lang="stylus" type="text/stylus" rel="stylesheet/stylus" scoped>
-.WrapAll >>> .van-tab,.van-tab--active {
+.WrapAll >>> .van-tab, .van-tab--active {
   width: 100%;
   position: fixed;
 }
@@ -371,9 +371,11 @@ export default {
   overflow: visible;
   height: 450px;
 }
+
 .WrapAll >>> .van-popup::-webkit-scrollbar {
   display: none;
 }
+
 .sameInput input::-webkit-input-placeholder {
   color: #999;
 }
@@ -556,6 +558,11 @@ export default {
   align-items: center;
   justify-content: space-between;
   font-size: 14px;
+}
+
+.numZ {
+  display: flex;
+  align-items: center;
 }
 
 .same_ {

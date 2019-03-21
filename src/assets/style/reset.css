@@ -65,4 +65,7 @@ img[src=""],img:not([src]){
 	display:block;
 	clear:both;
 }
-
+input{
+  -webkit-appearance: none;
+  border-radius:0;
+} 
