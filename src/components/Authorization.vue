@@ -35,10 +35,10 @@ export default {
         // }
         // location.href=URL;
         if (iswx) {
-          const onid = localStorage.getItem("houjiapp");
+          const onid = localStorage.getItem("housss");
           console.log(onid)
           if (onid == null || onid == undefined) {
-            localStorage.setItem("houjiapp", "1314");
+            localStorage.setItem("housss", "1314");
             window.location.href = URL;
           }
         }
@@ -49,11 +49,11 @@ export default {
   },
   mounted() {
     if (iswx) {
-      const codes = localStorage.getItem("houjicode");
+      const codes = localStorage.getItem("houjisa");
       console.log(codes);
       if (codes == null || codes == undefined) {
         this.refrech();
-        localStorage.setItem("houjicode", "520");
+        localStorage.setItem("houjisa", "520");
       }
     }
   },
