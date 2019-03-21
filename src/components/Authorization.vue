@@ -49,7 +49,7 @@ export default {
   mounted() {
     if (iswx) {
       const code = localStorage.getItem("houjicode");
-      if (onid == null || onid == undefined) {
+      if (code == null || code == undefined) {
         localStorage.setItem("houjicode", "520");
         this.refrech();
       }
