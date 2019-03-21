@@ -59,6 +59,7 @@ export default {
       const url = window.location.href;
       // const oances = localStorage.getItem("oances");
       // if (oances == null || oances == undefined) {
+        console.log(url)
         const code = url.split("code=")[1].split("&")[0];
         console.log(code);
         const newurl = url.split("code=")[0];
