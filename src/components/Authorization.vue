@@ -64,7 +64,7 @@ export default {
       console.log(url);
 
       const code = url.split("code=")[1].split("&")[0];
-      // const newurl = url.split("code=")[0];
+      const newurl = url.split("code=")[0];
 
       Code(code)
         .then(res => {
@@ -107,7 +107,7 @@ export default {
         });
 
       // setTimeout(() => {
-      //   window.location.href = newurl;
+        window.location.href = newurl;
       // }, 100);
     }
   }

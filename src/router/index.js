@@ -79,7 +79,7 @@ const routes = [{
     // name: '猴集',
     // component: Small,
     meta: {
-      uio: true,
+      // uio: true,
      
       title: '猴集',
     },
