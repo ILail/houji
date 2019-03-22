@@ -1,7 +1,7 @@
 <template></template>
 <script type="text/javascript">
-import store from "@/components/vuex/store";
-import * as types from "@/components/vuex/types";
+// import store from "@/components/vuex/store";
+// import * as types from "@/components/vuex/types";
 import { Code } from "@/components/axios/api";
 import { huoqu } from "@/components/axios/api";
 // import { SignPackage } from "@/components/axios/api";
@@ -17,30 +17,30 @@ export default {
     huoqu(window.location.href)
       .then(res => {
         let URL = res.data.data;
-      console.log(URL)
-        if (iswx) {
-          const onid = localStorage.getItem("housss");
-          console.log(onid);
-          if (onid == null || onid == undefined) {
-           
-            window.location.href = URL;
-            this.refrech();
 
-             localStorage.setItem("housss", "1314");
-          }
+        if (iswx) {
+          window.location.href = URL;
+          // const onid = localStorage.getItem("housss");
+          // console.log(onid);
+          // if (onid == null || onid == undefined) {
+
+          //   window.location.href = URL;
+
+          //    localStorage.setItem("housss", "1314");
+          // }
         }
       })
       .catch(err => {
         console.log(err, "请求失败");
       });
-    // if (iswx) {
-    //   const codes = localStorage.getItem("houjisa");
-    //   console.log(codes);
-    //   if (codes == null || codes == undefined) {
-    //     this.refrech();
-    //     localStorage.setItem("houjisa", "520");
-    //   }
-    // }
+    if (iswx) {
+      const codes = localStorage.getItem("houjisa");
+      console.log(codes);
+      if (codes == null || codes == undefined) {
+        this.refrech();
+        localStorage.setItem("houjisa", "520");
+      }
+    }
   },
   methods: {
     refrech() {
