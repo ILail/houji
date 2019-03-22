@@ -8,7 +8,7 @@ export function fetch(options) {
       headers: {
         // 'Content-Type': 'application/x-www-form-urlencoded',
         // 'token_in_header': global_.token,//token从全局变量那里传过来
-        'token': store.state.token,
+        'token': '4F6C0871CFAE6D980FBF8EA95361A37FC25BD8BE0282159F6A394152489F830901E6AE2D0FFBADDFD882753470435799',
         // 'did': 'dfdfdffff',
         'apptype': 'wx_pub',
         'sign': '26644EBFD0C996C83B8E35005CBA0443DA20A54E0137DB73A838D3ACAA0DED1C056BCCFA6C22E5AB047E3B9695D7C4E3A960BAB8C8DFFA06548AB6E2E1A9E22832FDC6089785FA2BD96D03F1CE4015C0868AEE49080F259CCE922455E79C9954F48AC9128341E3ABB419CED937A192B0',
@@ -19,11 +19,10 @@ export function fetch(options) {
     });
     instance(options)
       .then(response => { //then 请求成功之后进行什么操作
+        // 如果登录失败重新赋值微信授权token
         if (response.data.message == "请重新登陆") {
-           alert('123')
-        
           window.localStorage.clear()
-          location.reload()
+          // location.reload()
         }
         resolve(response); //把请求到的数据发到引用请求的地方
       })
