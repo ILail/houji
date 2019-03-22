@@ -208,7 +208,8 @@ export default {
     // 清除缓存 刷新页面
     clickcourse() {
       this.isShow=false
-      localStorage.clear();
+      window.localStorage.clear()
+      // window.localStorage.removeItem('list')
     },
     chanceS(){
       this.$router.go(-1);
