@@ -1,74 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-
-// 首页
-// import Small from '@/pages/home/Small'
-// import Addressdetail from '@/pages/home/components/Addressdetail'
-// import Centerj from '@/pages/home/components/centerj'
-// import Shao from '@/pages/home/components/Shao'
-// import Xiao from '@/pages/home/components/Xiao'
-
-// 分类
-// import Feilei from '@/pages/fs/Feilei'
-
-// 购物车
-// import Wish from '@/pages/wish/Wish'
-
-// 我的中心
-// import Mine from '@/pages/mine/Mine'
-
-// 我的中心点击的页面
-// import Absolu from '@/pages/mine/components/components/absolu'
-// import bankMark from '@/pages/mine/components/components/bank'
-// import Czhi from '@/pages/mine/components/components/chongzhi'
-// import Desgreo from '@/pages/mine/components/components/desgreo'
-// import Fit from '@/pages/mine/components/components/fit'
-// import Gengph from '@/pages/mine/components/components/gengph'
-// import Juan from '@/pages/mine/components/components/juan'
-// import Jiaoyi from '@/pages/mine/components/components/jyi'
-// import Liping from '@/pages/mine/components/components/liping'
-// import Myjob from '@/pages/mine/components/components/Myjob'
-// import Mym from '@/pages/mine/components/components/mymoney'
-// import Myorders from '@/pages/mine/components/components/myorders'
-// import Personone from '@/pages/mine/components/components/personone'
-// import Shouhuo from '@/pages/mine/components/components/shouhuo'
-// import Tianjia from '@/pages/mine/components/components/tianjia'
-// import Txiana from '@/pages/mine/components/components/tixian'
-// import Zfu from '@/pages/mine/components/components/zfu'
-
-// 手机登录
-// import Phone from '@/components/phone'
-
-//商品详情页
-// import Detail from '@/components/common/Detailswiper'
-
-// 领取会员
-// import Sale from '@/components/common/Sale'
-// 支付完成跳转
-// import Finish from '@/components/common/Finish'
-
-// 订单详情页
-// import Orderdetails from '@/components/common/Orderdetails'
-// 物流页面
-// import Wuliudetails from '@/components/common/Logistics'
-
-// import Jdetial from '@/components/common/Jdetial'
-// 活动详情页
-// import Hdetial from '@/components/common/Hdetial'
-
-// 支付页面
-// import Zhifu from '@/components/common/Paymoney'
-// import Zhifuone from '@/components/common/Paymoneyone'
-// 搜索页 及其 展示
-// import Show from '@/components/search/Show'
-// import Search from '@/components/search/Search'
-
-// 支付详情页
-// import Confirmation from '@/components/common/Confirmation'
-// import Confirmations from '@/components/common/Confirmations'
 import store from '@/components/store/index'
-// import * as types from '@/components/vuex/types'
-// import { resolve } from 'dns';
 Vue.use(Router)
 // export default new Router({
 const routes = [{
@@ -489,7 +421,16 @@ const routes = [{
       title: '物流详情',
     },
     // component: Wuliudetails
-  }
+  },
+  {
+    path: '/Authorization',
+    // name: '消息中心',
+    component: resolve => require(["@/components/Authorization"], resolve),
+    // component: Xiao
+    meta: {
+      title: '授权登录',
+    },
+  },
 ]
 
 
@@ -507,18 +448,6 @@ const router = new Router({
     }
   },
   routes,
-  // scrollBehavior(to, from, savedPosition) {
-  //   if (savedPosition) {
-
-  //     window.scrollTo(savedPosition.x, savedPosition.y)
-
-  //   } else {
-  //     return {
-  //       x: 0,
-  //       y: 0
-  //     }
-  //   }
-  // },
 
 });
 
@@ -526,20 +455,23 @@ const router = new Router({
 // if (window.localStorage.getItem('token')) {
 //   store.commit(types.LOGIN, window.localStorage.getItem('token'));
 // }
-router.beforeEach(function (to, from, next) {
+
+router.beforeEach((to, from, next) => {
   // const toRouter = to.path
   // const fromRouter = from.path
   // console.log(toRouter)
   // console.log(fromRouter)
   if (to.matched.some(r => r.meta.requireAuth)) {
-    if (store.state.token == "") {
-    console.log(123)
-      window.localStorage.clear();
-      next();
-    } 
-  } else {
-    next();
-  }
-});
+    if (store.state.token == '') {
 
+      console.log(123)
+      next();
+      window.localStorage.clear()
+      // window.reload()
+      // next({
+      //   path: '/Authorization'
+      // })
+    }
+  }
+})
 export default router;
