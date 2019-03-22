@@ -471,6 +471,8 @@ router.beforeEach((to, from, next) => {
       // next({
       //   path: '/Authorization'
       // })
+    }else{
+      next()
     }
   }else{
     next()
