@@ -136,13 +136,13 @@ window.url = function() {
     alert("sdk尚未加载成功，请稍后再试");
   }
 };
-import store from "@/components/vuex/store";
+// import store from "@/components/vuex/store";
 import { crowd_funding } from "@/components/axios/api";
 import { specifications } from "@/components/axios/api";
 import { getDIZ } from "@/components/axios/api";
 import { ImagePreview } from "vant";
 import { SignPackage } from "@/components/axios/api";
-// import assign from "@/components/axios/assign.js";
+import assign from "@/components/axios/assign.js";
 import Vue from "vue";
 // import { Sku } from "vant";
 // Vue.use(Sku);
@@ -152,7 +152,7 @@ Vue.use(CouponList);
 import { Swipe, SwipeItem } from "vant";
 Vue.use(Swipe).use(SwipeItem);
 export default {
-  // mixins: [assign],
+  mixins: [assign],
   data() {
     return {
       confires: true,
@@ -297,13 +297,13 @@ export default {
       ImagePreview(this.img_path.split(","));
     },
     address() {
-      if (store.state.token == "") {
-        this.$router.push({ path: "/phone" });
-      }else{
+      // if (store.state.token == "") {
+      //   this.$router.push({ path: "/phone" });
+      // }else{
            this.$router.push({
         path: "/shouhuo",
       });
-      }
+      // }
     },
     jian() {
       if (this.numALL == 1) {
@@ -339,9 +339,9 @@ export default {
     },
     // 点击下单
     ljxd() {
-      if (store.state.token == "") {
-        this.$router.push({ path: "/phone" });
-      } else {
+      // if (store.state.token == "") {
+      //   this.$router.push({ path: "/phone" });
+      // } else {}
         const arry = [
           this.$route.query.key,
           this.listP[0].crowd_funding_return_id,
@@ -357,7 +357,7 @@ export default {
         });
       }
     }
-  }
+  
 };
 </script>
 

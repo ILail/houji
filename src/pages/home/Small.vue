@@ -111,9 +111,9 @@ import Yugao from "./components/Yugao";
 import Finish from "./components/finish";
 import { lookOption } from "@/components/axios/api";
 // import Guan from "@/components/Guan";
-// import assign from "@/components/axios/assign.js";
+import assign from "@/components/axios/assign.js";
 export default {
-  // mixins: [assign],
+  mixins: [assign],
   name: "Small",
   components: {
     HomeSwiper,

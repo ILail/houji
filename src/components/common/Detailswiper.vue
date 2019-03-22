@@ -144,10 +144,10 @@ import { crowd_funding } from "@/components/axios/api";
 import { wishList } from "@/components/axios/api";
 import { specifications } from "@/components/axios/api";
 
-import store from "@/components/vuex/store";
-// import assign from "@/components/axios/assign.js";
+// import store from "@/components/vuex/store";
+import assign from "@/components/axios/assign.js";
 export default {
-  // mixins: [assign],
+  mixins: [assign],
   name: "Detail",
   components: {
     Detail,
@@ -389,9 +389,9 @@ export default {
     confire() {
       this.showList = false;
       this.isbottom = true;
-      if (store.state.token == "") {
-        this.$router.push({ path: "/phone" });
-      } else {
+      // if (store.state.token == "") {
+      //   this.$router.push({ path: "/phone" });
+      // } else {
         wishList(
           this.numALL,
           this.listP[this.num].crowd_funding_return_id,
@@ -408,13 +408,13 @@ export default {
           .catch(err => {
             console.log(err, "请求失败");
           });
-      }
+      // }
     },
     // 点击下单
     ljxd() {
-      if (store.state.token == "") {
-        this.$router.push({ path: "/phone" });
-      }
+      // if (store.state.token == "") {
+      //   this.$router.push({ path: "/phone" });
+      // }
       const arry = [
         this.id,
         this.listP[this.num].crowd_funding_return_id,
