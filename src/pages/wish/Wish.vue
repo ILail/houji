@@ -167,7 +167,12 @@ export default {
   watch: {},
 
   mounted() {
-    // setTimeout
+    this.$toast({
+      type: "loading",
+      message: "加载中...",
+      duration: "1200"
+    });
+    this.show = true;
     wishPush()
       .then(res => {
         this.json = res.data.data.wish_list.list;
@@ -177,17 +182,10 @@ export default {
         }
       })
       .catch(err => {
-        // store.commit(types.LOGOUT);
-        // this.$router.push("/phone");
+        // 清楚token 重新授权
+        window.localStorage.clear();
         console.log(err, "请求失败");
       });
-    // console.log(wish_nums)
-    this.$toast({
-      type: "loading",
-      message: "加载中...",
-      duration: "1200"
-    });
-    this.show = true;
   },
   methods: {
     watchNum(index, id) {

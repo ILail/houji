@@ -70,7 +70,7 @@
       <div v-for="(item,index) in json" :key="item.id" :id="index" class="allW">
         <div class="top">
           <img :src="item.headimgurl">
-          
+
           <span class="topWord">{{item.nickname}}</span>
         </div>
         <div class="item" v-for="(pl,index) in json[index].options" :key="index" :data-id="index">
@@ -214,11 +214,35 @@ export default {
         }
       })
       .catch(err => {
-        // store.commit(types.LOGOUT);
-        // this.$router.push("/phone");
-
         console.log(err, "请求失败");
       });
+
+    // 发送请求
+    Confirtwo(this.routerParams, this.routerParamb, this.routerParamo, 111)
+      .then(res => {
+        this.json = res.data.data.wish_list.list;
+        this.moneyAll = res.data.data.wish_list.total_money;
+        var userID = localStorage.getItem("userID");
+        console.log(userID);
+        // if (userID == "1") {
+        //   this.newmoney = (this.moneyAll * 0.05).toFixed(2);
+        //   this.totalMoney = this.moneyAll - this.newmoney;
+        // } else {
+        this.newmoney = 0.0;
+        this.totalMoney = this.moneyAll - this.newmoney;
+        // }
+        if (this.moneyAll == "0.01") {
+          this.newmoney = 0.0;
+          this.totalMoney = this.moneyAll - this.newmoney;
+        }
+        // console.log(this.routerParams);
+      })
+      .catch(err => {
+        // 清楚token 重新授权
+        window.localStorage.clear();
+        console.log(err, "请求失败");
+      });
+
     coupon(111)
       .then(res => {
         this.list = res.data.data.data;
@@ -228,43 +252,6 @@ export default {
         }
       })
       .catch(err => {
-          // store.commit(types.LOGOUT);
-        // this.$router.push("/phone");
-        console.log(err, "请求失败");
-      });
-    // 发送请求
-    Confirtwo(this.routerParams, this.routerParamb, this.routerParamo, 111)
-      .then(res => {
-        this.json = res.data.data.wish_list.list;
-        this.moneyAll = res.data.data.wish_list.total_money;
-        var userID = localStorage.getItem("userID");
-        console.log(userID)
-        // if (userID == "1") {
-        //   this.newmoney = (this.moneyAll * 0.05).toFixed(2);
-        //   this.totalMoney = this.moneyAll - this.newmoney;
-        // } else {
-          this.newmoney = 0.0;
-          this.totalMoney = this.moneyAll - this.newmoney;
-        // }
-        if (this.moneyAll == "0.01") {
-          this.newmoney = 0.0;
-          this.totalMoney = this.moneyAll - this.newmoney;
-        }
-        // console.log(this.routerParams);
-        // 活动接口呀呀…………
-        // if (this.routerParams == 275) {
-        //   this.aa = false;
-        //   this.aas = true;
-        //   let nums = this.routerParama * 0.5;
-        //   let numss = this.routerParamo * nums;
-        //   this.newmoney = this.moneyAll - numss.toFixed(2);
-
-        //   this.totalMoney = numss;
-        // }
-      })
-      .catch(err => {
-            //  store.commit(types.LOGOUT);
-        // this.$router.push("/phone");
         console.log(err, "请求失败");
       });
   },
@@ -355,7 +342,7 @@ export default {
   methods: {
     address() {
       this.$router.push({
-        path: "/shouhuo",
+        path: "/shouhuo"
       });
     },
     addresssw() {
@@ -656,10 +643,12 @@ export default {
   justify-content: space-between;
   font-size: 14px;
 }
-.numZ{
-  display flex
-  align-items center
+
+.numZ {
+  display: flex;
+  align-items: center;
 }
+
 .same_ {
   color: #999;
 }

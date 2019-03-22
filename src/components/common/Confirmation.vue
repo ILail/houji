@@ -200,8 +200,6 @@ export default {
         }
       })
       .catch(err => {
-        // store.commit(types.LOGOUT);
-        // this.$router.push("/phone");
         console.log(err, "请求失败");
       });
     coupon(111)
@@ -213,8 +211,6 @@ export default {
         }
       })
       .catch(err => {
-        // store.commit(types.LOGOUT);
-        // this.$router.push("/phone");
         console.log(err, "请求失败");
       });
     // 发送请求
@@ -242,9 +238,8 @@ export default {
         }
       })
       .catch(err => {
-        //    this.$router.push({
-        //   path: "/phone"
-        // });
+          // 清楚token 重新授权
+        window.localStorage.clear();
         console.log(err, "请求失败");
       });
 

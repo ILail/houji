@@ -29,8 +29,8 @@
 </template>
 
 <script type="text/ecmascript-6">
-import * as types from "@/components/vuex/types";
-import store from "@/components/vuex/store";
+// import * as types from "@/components/vuex/types";
+// import store from "@/components/vuex/store";
 import secret from "@/utils/utils";
 import { people } from "@/components/axios/api";
 export default {
@@ -56,7 +56,7 @@ export default {
   },
   created() {
     var userID = localStorage.getItem("userID");
-    // console.log(userID)
+    console.log(userID)
     if (userID == "1") {
       this.showimg = false;
     }
@@ -73,8 +73,8 @@ export default {
       
       })
       .catch(err => {
-        // store.commit(types.LOGOUT);
-        // this.$router.push("/phone");
+          // 清楚token 重新授权
+        window.localStorage.clear();
         console.log(err, "请求失败");
       });
   },
