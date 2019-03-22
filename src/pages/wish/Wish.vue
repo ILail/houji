@@ -105,8 +105,8 @@ import { forDetil } from "@/components/axios/api";
 import { Addjia } from "@/components/axios/api";
 import Item from "@/components/Item.vue";
 
-import * as types from "@/components/vuex/types";
-import store from "@/components/vuex/store";
+// import * as types from "@/components/vuex/types";
+// import store from "@/components/vuex/store";
 export default {
   name: "Wish",
   components: {

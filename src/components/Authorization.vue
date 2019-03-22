@@ -1,7 +1,7 @@
 <template></template>
 <script type="text/javascript">
-// import store from "@/components/vuex/store";
-// import * as types from "@/components/vuex/types";
+import store from "@/components/vuex/store";
+import * as types from "@/components/vuex/types";
 import { Code } from "@/components/axios/api";
 import { huoqu } from "@/components/axios/api";
 // import { SignPackage } from "@/components/axios/api";
@@ -14,31 +14,31 @@ export default {
     // 获取当前页面的链接给后台
   },
   mounted() {
-    
     huoqu(window.location.href)
       .then(res => {
         let URL = res.data.data;
-        console.log(URL);
+      console.log(URL)
         if (iswx) {
           const onid = localStorage.getItem("housss");
           console.log(onid);
           if (onid == null || onid == undefined) {
             localStorage.setItem("housss", "1314");
             window.location.href = URL;
+            this.refrech();
           }
         }
       })
       .catch(err => {
         console.log(err, "请求失败");
       });
-    if (iswx) {
-      const codes = localStorage.getItem("houjisa");
-      console.log(codes);
-      if (codes == null || codes == undefined) {
-        this.refrech();
-        localStorage.setItem("houjisa", "520");
-      }
-    }
+    // if (iswx) {
+    //   const codes = localStorage.getItem("houjisa");
+    //   console.log(codes);
+    //   if (codes == null || codes == undefined) {
+    //     this.refrech();
+    //     localStorage.setItem("houjisa", "520");
+    //   }
+    // }
   },
   methods: {
     refrech() {
@@ -94,13 +94,14 @@ export default {
 
       // }, 100);
     }
-  },
-  destroyed() {
-    //离开页面清空 sessionStorage 中的 weixin-redirect-code
-    // if (iswx) {
-    //   if()
-    // }
   }
+  //   destroyed() {
+  //   //离开页面清空 sessionStorage 中的 weixin-redirect-code
+  //    let iswx = navigator.userAgent.toLowerCase().match(/MicroMessenger/i) == "micromessenger";
+  //    if (iswx) {
+  //       sessionStorage.removeItem('weixin-redirect-code')
+  //     }
+  // },
 };
 </script>
 <style lang="stylus" scoped>
