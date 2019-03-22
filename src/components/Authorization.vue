@@ -64,8 +64,8 @@ export default {
       console.log(url);
 
       const code = url.split("code=")[1].split("&")[0];
-      // const newurl = url.split("code=")[0];
-      // window.location.href = newurl;
+      const newurl = url.split("code=")[0];
+      
       Code(code)
         .then(res => {
           console.log(res.data.data);
@@ -101,6 +101,7 @@ export default {
               });
             }, 1800);
           }
+          window.location.href = newurl;
         })
         .catch(err => {
           console.log(err, "请求失败");
