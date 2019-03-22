@@ -54,12 +54,15 @@ export default {
       showimg: true
     };
   },
-    beforeCreate(){
-    if (this.$store.state.token == "") {
+  //   beforeCreate(){
+  //   if (this.$store.state.token == "") {
+  //     window.localStorage.clear();
+  //   }
+  // },
+  created() {
+       if (this.$store.state.token == "") {
       window.localStorage.clear();
     }
-  },
-  created() {
     people()
       .then(res => {
         const num = secret.Decrypt(res.data.data);

@@ -164,14 +164,17 @@ export default {
       list: []
     };
   },
-  beforeCreate(){
-    if (this.$store.state.token == "") {
-      window.localStorage.clear();
-    }
-  },
+  // beforeCreate(){
+  //   if (this.$store.state.token == "") {
+  //     window.localStorage.clear();
+  //   }
+  // },
 
 
   mounted() {
+       if (this.$store.state.token == "") {
+      window.localStorage.clear();
+    }
     this.$toast({
       type: "loading",
       message: "加载中...",
