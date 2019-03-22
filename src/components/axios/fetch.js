@@ -20,10 +20,7 @@ export function fetch(options) {
     instance(options)
       .then(response => { //then 请求成功之后进行什么操作
         if (response.data.message == "请重新登陆") {
-           
-         
-          // window.localStorage.removeItem('housss')
-          // window.localStorage.removeItem('houjisa')
+           alert('123')
         
           window.localStorage.clear()
           location.reload()
