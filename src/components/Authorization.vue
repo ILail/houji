@@ -35,10 +35,10 @@ export default {
         // }
         // location.href=URL;
         if (iswx) {
-          const onid = localStorage.getItem("housss");
+          const onid = localStorage.getItem("houas");
           console.log(onid);
           if (onid == null || onid == undefined) {
-            localStorage.setItem("housss", "1314");
+            localStorage.setItem("houas", "1314");
             window.location.href = URL;
           }
         }
@@ -49,11 +49,11 @@ export default {
   },
   mounted() {
     if (iswx) {
-      const codes = localStorage.getItem("houjisa");
+      const codes = localStorage.getItem("houjss");
       console.log(codes);
       if (codes == null || codes == undefined) {
         this.refrech();
-        localStorage.setItem("houjisa", "520");
+        localStorage.setItem("houjss", "520");
       }
     }
   },
