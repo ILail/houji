@@ -472,6 +472,8 @@ router.beforeEach((to, from, next) => {
       //   path: '/Authorization'
       // })
     }
+  }else{
+    next()
   }
 })
 export default router;
