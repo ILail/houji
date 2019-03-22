@@ -165,6 +165,11 @@ export default {
     };
   },
   watch: {},
+  created() {
+    if (this.$store.state.token == "") {
+      window.localStorage.clear();
+    }
+  },
 
   mounted() {
     this.$toast({
@@ -183,7 +188,7 @@ export default {
       })
       .catch(err => {
         // 清楚token 重新授权
-        window.localStorage.clear();
+        // window.localStorage.clear();
         console.log(err, "请求失败");
       });
   },

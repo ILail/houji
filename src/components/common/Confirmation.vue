@@ -189,7 +189,7 @@ export default {
   },
   created() {
     // 接受详情页那边传来的商品id逗号分开
-
+console.log(this.$store.state.token)
     getDIZ()
       .then(res => {
         this.letter = res.data.data;
@@ -239,7 +239,7 @@ export default {
       })
       .catch(err => {
           // 清楚token 重新授权
-        window.localStorage.clear();
+        // window.localStorage.clear();
         console.log(err, "请求失败");
       });
 
