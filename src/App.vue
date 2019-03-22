@@ -22,6 +22,7 @@ export default {
     FadeAnimation
   },
   mounted() {
+    console.log(this.$store.state.token)
     this.$toast({
       type: "loading",
       message: "加载中...",

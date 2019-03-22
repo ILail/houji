@@ -205,9 +205,6 @@ export default {
   // },
   created() {
     // 接受详情页那边传来的商品id逗号分开
-   if (this.$store.state.token == "") {
-      window.localStorage.clear();
-    }
     getDIZ()
       .then(res => {
         this.letter = res.data.data;

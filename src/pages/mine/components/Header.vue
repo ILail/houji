@@ -60,9 +60,6 @@ export default {
   //   }
   // },
   created() {
-       if (this.$store.state.token == "") {
-      window.localStorage.clear();
-    }
     people()
       .then(res => {
         const num = secret.Decrypt(res.data.data);
