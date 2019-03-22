@@ -123,7 +123,7 @@ export default {
         const imgUrl = this.listAll.imgs.split(",")[0];
         const value = localStorage.getItem("accessTokens");
         const url = window.location.href;
-        console.log(imgUrl);
+        console.log(url);
         if (value == null) return;
         SignPackage(url, value)
           .then(res => {

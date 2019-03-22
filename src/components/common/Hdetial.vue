@@ -175,7 +175,7 @@ export default {
       addresses: ""
     };
   },
-  created() {
+  mounted() {
     crowd_funding(this.id)
       .then(res => {
         res = res.data;
@@ -189,6 +189,7 @@ export default {
           this.picList = data.imgs.split(",");
           const value = localStorage.getItem("accessTokens");
           const url = window.location.href;
+          console.log(url)
           if (value == null) return;
           SignPackage(url, value)
             .then(res => {
