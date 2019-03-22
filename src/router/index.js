@@ -467,7 +467,7 @@ router.beforeEach((to, from, next) => {
       console.log(123)
       next();
       window.localStorage.clear()
-      // window.reload()
+      router.go(0)
       // next({
       //   path: '/Authorization'
       // })
