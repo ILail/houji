@@ -22,9 +22,11 @@ export default {
           const onid = localStorage.getItem("housss");
           console.log(onid);
           if (onid == null || onid == undefined) {
-            localStorage.setItem("housss", "1314");
+           
             window.location.href = URL;
             this.refrech();
+
+             localStorage.setItem("housss", "1314");
           }
         }
       })
