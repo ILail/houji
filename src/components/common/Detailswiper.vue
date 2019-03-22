@@ -389,32 +389,34 @@ export default {
     confire() {
       this.showList = false;
       this.isbottom = true;
-      // if (store.state.token == "") {
-      //   this.$router.push({ path: "/phone" });
-      // } else {
-        wishList(
-          this.numALL,
-          this.listP[this.num].crowd_funding_return_id,
-          this.id
-        )
-          .then(res => {
-            if (res.data.message == "操作成功") {
-              this.$toast({
-                message: "添加购物车成功",
-                duration: "1000"
-              });
-            }
-          })
-          .catch(err => {
-            console.log(err, "请求失败");
-          });
+      if (this.$store.state.token == "") {
+        
+        window.localStorage.clear();
+      }
+      wishList(
+        this.numALL,
+        this.listP[this.num].crowd_funding_return_id,
+        this.id
+      )
+        .then(res => {
+          if (res.data.message == "操作成功") {
+            this.$toast({
+              message: "添加购物车成功",
+              duration: "1000"
+            });
+          }
+        })
+        .catch(err => {
+          console.log(err, "请求失败");
+        });
       // }
     },
     // 点击下单
     ljxd() {
-      // if (store.state.token == "") {
-      //   this.$router.push({ path: "/phone" });
-      // }
+      if (this.$store.state.token == "") {
+        console.log(123);
+        window.localStorage.clear();
+      }
       const arry = [
         this.id,
         this.listP[this.num].crowd_funding_return_id,

@@ -297,11 +297,12 @@ export default {
       ImagePreview(this.img_path.split(","));
     },
     address() {
-      // if (store.state.token == "") {
-      //   this.$router.push({ path: "/phone" });
-      // }else{
-           this.$router.push({
-        path: "/shouhuo",
+      if (this.$store.state.token == "") {
+        console.log(123);
+        window.localStorage.clear();
+      }
+      this.$router.push({
+        path: "/shouhuo"
       });
       // }
     },
@@ -339,25 +340,25 @@ export default {
     },
     // 点击下单
     ljxd() {
-      // if (store.state.token == "") {
-      //   this.$router.push({ path: "/phone" });
-      // } else {}
-        const arry = [
-          this.$route.query.key,
-          this.listP[0].crowd_funding_return_id,
-          this.numALL
-        ];
-        this.$router.push({
-          path: "/querenone",
-          query: {
-            dataObjo: arry[0],
-            dataObjb: arry[1],
-            dataObjc: arry[2]
-          }
-        });
+      if (this.$store.state.token == "") {
+        console.log(123);
+        window.localStorage.clear();
       }
+      const arry = [
+        this.$route.query.key,
+        this.listP[0].crowd_funding_return_id,
+        this.numALL
+      ];
+      this.$router.push({
+        path: "/querenone",
+        query: {
+          dataObjo: arry[0],
+          dataObjb: arry[1],
+          dataObjc: arry[2]
+        }
+      });
     }
-  
+  }
 };
 </script>
 
@@ -612,7 +613,7 @@ export default {
 .cha {
   width: 13px;
   margin-top: 8px;
-  margin-right 2px
+  margin-right: 2px;
 }
 
 .middles .price {
@@ -680,7 +681,7 @@ export default {
   padding: 5px 10px;
   border: 1px solid rgba(102, 102, 102, 1);
   border-radius: 4px;
-  display inline-block
+  display: inline-block;
 }
 
 .wrapUl .active span {

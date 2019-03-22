@@ -66,8 +66,8 @@ import Router from 'vue-router'
 // 支付详情页
 // import Confirmation from '@/components/common/Confirmation'
 // import Confirmations from '@/components/common/Confirmations'
-import store from '@/components/vuex/store'
-import * as types from '@/components/vuex/types'
+import store from '@/components/store/index'
+// import * as types from '@/components/vuex/types'
 // import { resolve } from 'dns';
 Vue.use(Router)
 // export default new Router({
@@ -80,7 +80,7 @@ const routes = [{
     // component: Small,
     meta: {
       // uio: true,
-     
+
       title: '猴集',
     },
     // children: [{
@@ -111,7 +111,7 @@ const routes = [{
     // component: Wish,
     component: resolve => require(["@/pages/wish/Wish"], resolve),
     meta: {
-      // requireAuth: true, // 添加该字段，表示进入这个路由是需要登录的
+      requireAuth: true, // 添加该字段，表示进入这个路由是需要登录的
       // oppendid: true,
       title: '购物车',
     },
@@ -131,7 +131,7 @@ const routes = [{
     // component: Mine,
     component: resolve => require(["@/pages/mine/Mine"], resolve),
     meta: {
-      // requireAuth: true, // 添加该字段，表示进入这个路由是需要登录的
+      requireAuth: true, // 添加该字段，表示进入这个路由是需要登录的
       // oppendid: true,
       title: '个人中心',
     },
@@ -144,7 +144,7 @@ const routes = [{
     },
     // component: Feilei,
     // meta: {
-      // oppendid: true,
+    // oppendid: true,
     // },
   },
   // {
@@ -153,7 +153,7 @@ const routes = [{
   //   // component: Feilei,
   //   component: resolve => require(["@/pages/fs/Feilei"], resolve),
   //   meta: {
-      // oppendid: true,
+  // oppendid: true,
   //     title: '分类'
   //   },
   // },
@@ -448,7 +448,7 @@ const routes = [{
     // name: '确认订单',
     component: resolve => require(["@/components/common/Confirmation"], resolve),
     meta: {
-      // requireAuth: true,
+      requireAuth: true,
       title: '确认订单',
     },
     // component: Confirmation
@@ -458,7 +458,7 @@ const routes = [{
     // name: '确认订单',
     component: resolve => require(["@/components/common/Confirmations"], resolve),
     meta: {
-      // requireAuth: true,
+      requireAuth: true,
       title: '确认订单',
     },
     // component: Confirmations
@@ -521,26 +521,25 @@ const router = new Router({
   // },
 
 });
+
 // token 登录 之前直接手机号认证 现在直接微信认证获取
 // if (window.localStorage.getItem('token')) {
 //   store.commit(types.LOGIN, window.localStorage.getItem('token'));
 // }
-// router.beforeEach(function (to, from, next) {
-//   // const toRouter = to.path
-//   // const fromRouter = from.path
-//   // console.log(toRouter)
-//   // console.log(fromRouter)
-//   if (to.matched.some(r => r.meta.requireAuth)) {
-//     if (store.state.token) {
-//       next();
-//     } else {
-//       next({
-//         path: '/phone'
-//       })
-//     }
-//   } else {
-//     next();
-//   }
-// });
+router.beforeEach(function (to, from, next) {
+  // const toRouter = to.path
+  // const fromRouter = from.path
+  // console.log(toRouter)
+  // console.log(fromRouter)
+  if (to.matched.some(r => r.meta.requireAuth)) {
+    if (store.state.token == "") {
+    console.log(123)
+      window.localStorage.clear();
+      next();
+    } 
+  } else {
+    next();
+  }
+});
 
 export default router;
