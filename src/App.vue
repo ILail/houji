@@ -22,12 +22,13 @@ export default {
     FadeAnimation
   },
   created() {
-    console.log(this.$store.state.token);
-    if (this.$store.state.token == "") {
-      window.localStorage.removeItem("housss");
-    }
+ 
   },
   mounted() {
+    //    console.log(this.$store.state.token);
+    // if (this.$store.state.token == "") {
+    //   window.localStorage.removeItem("housss");
+    // }
     this.$toast({
       type: "loading",
       message: "加载中...",
