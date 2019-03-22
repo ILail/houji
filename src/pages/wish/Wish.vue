@@ -164,12 +164,12 @@ export default {
       list: []
     };
   },
-  watch: {},
-  created() {
+  beforeCreate(){
     if (this.$store.state.token == "") {
       window.localStorage.clear();
     }
   },
+
 
   mounted() {
     this.$toast({

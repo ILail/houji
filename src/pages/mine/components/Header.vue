@@ -54,13 +54,12 @@ export default {
       showimg: true
     };
   },
-  created() {
-    var userID = localStorage.getItem("userID");
-    console.log(userID)
-    if (userID == "1") {
-      this.showimg = false;
+    beforeCreate(){
+    if (this.$store.state.token == "") {
+      window.localStorage.clear();
     }
-
+  },
+  created() {
     people()
       .then(res => {
         const num = secret.Decrypt(res.data.data);
@@ -74,7 +73,7 @@ export default {
       })
       .catch(err => {
           // 清楚token 重新授权
-        // window.localStorage.clear();
+       
         console.log(err, "请求失败");
       });
   },
