@@ -138,17 +138,14 @@ window.url = function() {
 };
 // import store from "@/components/vuex/store";
 import { crowd_funding } from "@/components/axios/api";
+import { SignPackage } from "@/components/axios/api";
 import { specifications } from "@/components/axios/api";
 import { getDIZ } from "@/components/axios/api";
 import { ImagePreview } from "vant";
-import { SignPackage } from "@/components/axios/api";
 import assign from "@/components/axios/assign.js";
 import Vue from "vue";
 // import { Sku } from "vant";
 // Vue.use(Sku);
-import { CouponList } from "vant";
-
-Vue.use(CouponList);
 import { Swipe, SwipeItem } from "vant";
 Vue.use(Swipe).use(SwipeItem);
 export default {
@@ -175,7 +172,7 @@ export default {
       addresses: ""
     };
   },
-  mounted() {
+  created() {
     crowd_funding(this.id)
       .then(res => {
         res = res.data;
@@ -189,7 +186,6 @@ export default {
           this.picList = data.imgs.split(",");
           const value = localStorage.getItem("accessTokens");
           const url = window.location.href;
-          console.log(url)
           if (value == null) return;
           SignPackage(url, value)
             .then(res => {
