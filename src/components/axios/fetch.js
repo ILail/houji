@@ -22,7 +22,9 @@ export function fetch(options) {
       .then(response => { //then 请求成功之后进行什么操作
         // 如果登录失败重新赋值微信授权token
         if (response.data.message == "请重新登陆") {
-          alert(5431)
+          const codes = localStorage.getItem("houjss");
+          alert(codes);
+          // window.localStorage.clear()
         }
         resolve(response); //把请求到的数据发到引用请求的地方
       })
