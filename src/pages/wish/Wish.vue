@@ -187,12 +187,12 @@ export default {
         console.log(err, "请求失败");
       });
   },
-  beforeCreate() {
-    if (this.$store.state.token == "") {
-      console.log(1231);
-      return;
-    }
-  },
+  // beforeCreate() {
+  //   if (this.$store.state.token == "") {
+  //     console.log(1231);
+  //     return;
+  //   }
+  // },
   methods: {
     watchNum(index, id) {
       let numNUM = this.json[this.Index].options[index].wish_nums;
