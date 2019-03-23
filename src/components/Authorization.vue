@@ -18,12 +18,13 @@ export default {
       .then(res => {
         let URL = res.data.data;
         if (iswx) {
-          const onid = localStorage.getItem("houas");
-          console.log(onid);
-          if (onid == null || onid == undefined) {
-            localStorage.setItem("houas", "1314");
-            window.location.href = URL;
-          }
+           window.location.href = URL;
+          // const onid = localStorage.getItem("houas");
+          // console.log(onid);
+          // if (onid == null || onid == undefined) {
+          //   localStorage.setItem("houas", "1314");
+          //   window.location.href = URL;
+          // }
         }
       })
       .catch(err => {
