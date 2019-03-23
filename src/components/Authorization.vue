@@ -1,5 +1,6 @@
 <template></template>
 <script type="text/javascript">
+
 // import store from "@/components/vuex/store";
 // import * as types from "@/components/vuex/types";
 import { Code } from "@/components/axios/api";
@@ -12,7 +13,7 @@ export default {
   // inject: ["reload"],
 
   created() {
-      console.log(2)
+       
     // 获取当前页面的链接给后台
     huoqu(window.location.href)
       .then(res => {
