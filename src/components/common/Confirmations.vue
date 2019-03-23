@@ -245,6 +245,8 @@ export default {
                   this.newmoney = 0.0;
                 }
                 this.totalMoney = this.moneyAll - this.newmoney;
+              }else{
+                 this.totalMoney = this.moneyAll - this.newmoney;
               }
             }
           })
