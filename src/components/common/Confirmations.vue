@@ -201,7 +201,7 @@ export default {
     };
   },
   //   beforeCreate(){
- 
+
   // },
   created() {
     // 接受详情页那边传来的商品id逗号分开
@@ -226,18 +226,35 @@ export default {
         this.moneyAll = res.data.data.wish_list.total_money;
         var userID = localStorage.getItem("userID");
         console.log(userID);
-        // if (userID == "1") {
-        //   this.newmoney = (this.moneyAll * 0.05).toFixed(2);
-        //   this.totalMoney = this.moneyAll - this.newmoney;
-        // } else {
-        this.newmoney = 0.0;
-        this.totalMoney = this.moneyAll - this.newmoney;
-        // }
+        crowd_funding(this.routerParams)
+          .then(res => {
+            res = res.data;
+            if (res.status && res.data) {
+              const data = res.data;
+              // console.log(data);
+              const routerParama = data.reality_money;
+              if (data.class_name == "活动专区") {
+                this.aa = false;
+                this.aas = true;
+                // let moeysA = this.json[0].options[0].support_money;
+
+                let nums = this.moneyAll - routerParama;
+                const newmoneyS = nums * this.routerParamo;
+                this.newmoney = newmoneyS.toFixed(2);
+                if (this.newmoney < 0) {
+                  this.newmoney = 0.0;
+                }
+                this.totalMoney = this.moneyAll - this.newmoney;
+              }
+            }
+          })
+          .catch(err => {
+            console.log(err, "请求失败");
+          });
         if (this.moneyAll == "0.01") {
           this.newmoney = 0.0;
           this.totalMoney = this.moneyAll - this.newmoney;
         }
-        // console.log(this.routerParams);
       })
       .catch(err => {
         // 清楚token 重新授权
@@ -258,83 +275,6 @@ export default {
       });
   },
   mounted() {
-    crowd_funding(this.routerParams)
-      .then(res => {
-        res = res.data;
-        if (res.status && res.data) {
-          const data = res.data;
-          // console.log(data);
-          const routerParama = data.reality_money;
-          if (data.class_name == "活动专区") {
-            this.aa = false;
-            this.aas = true;
-            // let moeysA = this.json[0].options[0].support_money;
-      
-            let nums = this.moneyAll - routerParama;
-            const newmoneyS = nums * this.routerParamo;
-            this.newmoney = newmoneyS.toFixed(2);
-            if(this.newmoney < 0){
-                this.newmoney = 0.00
-              }
-            this.totalMoney = this.moneyAll - this.newmoney;
-          }
-          // if (this.routerParams == 283) {
-          // }
-
-          // if (this.routerParams == 285) {
-          //   this.aa = false;
-          //   this.aas = true;
-          //   let moeysA = this.json[0].options[0].support_money;
-          //   let nums = moeysA - routerParama;
-          //   const newmoneyS = nums * this.routerParamo;
-          //   this.newmoney = newmoneyS.toFixed(2);
-          //   this.totalMoney = this.moneyAll - this.newmoney;
-          // }
-
-          // if (this.routerParams == 284) {
-          //   this.aa = false;
-          //   this.aas = true;
-          //   let moeysA = this.json[0].options[0].support_money;
-          //   let nums = moeysA - routerParama;
-          //   const newmoneyS = nums * this.routerParamo;
-          //   this.newmoney = newmoneyS.toFixed(2);
-          //   this.totalMoney = this.moneyAll - this.newmoney;
-          // }
-
-          // if (this.routerParams == 292) {
-          //   this.aa = false;
-          //   this.aas = true;
-          //   let moeysA = this.json[0].options[0].support_money;
-          //   let nums = moeysA - routerParama;
-          //   const newmoneyS = nums * this.routerParamo;
-          //   this.newmoney = newmoneyS.toFixed(2);
-          //   this.totalMoney = this.moneyAll - this.newmoney;
-          // }
-
-          // if (this.routerParams == 303) {
-          //   this.aa = false;
-          //   this.aas = true;
-          //   let moeysA = this.json[0].options[0].support_money;
-          //   let nums = moeysA - routerParama;
-          //   const newmoneyS = nums * this.routerParamo;
-          //   this.newmoney = newmoneyS.toFixed(2);
-          //   this.totalMoney = this.moneyAll - this.newmoney;
-          // }
-
-          // if (this.routerParams == 304) {
-          //   this.aa = false;
-          //   this.aas = true;
-          //   let moeysA = this.json[0].options[0].support_money;
-          //   let nums = moeysA - routerParama;
-          //   const newmoneyS = nums * this.routerParamo;
-          //   this.newmoney = newmoneyS.toFixed(2);
-          //   this.totalMoney = this.moneyAll - this.newmoney;
-          // }
-        }
-      })
-      .catch(err => {
-        console.log(err, "请求失败");
-      });
     this.$toast({
       type: "loading",
       message: "加载中...",
