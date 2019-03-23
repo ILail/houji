@@ -7,7 +7,7 @@ const routes = [{
     path: '/',
     component: resolve => require(["@/pages/home/Small"], resolve),
     meta: {
-      uio:true,
+      // uio:true,
       title: '猴集',
     },
   },
@@ -31,7 +31,7 @@ const routes = [{
     component: resolve => require(["@/pages/wish/Wish"], resolve),
     meta: {
       // requireAuth: true,
-      uio:false,
+      // uio:false,
       title: '购物车',
     },
   },
@@ -47,7 +47,7 @@ const routes = [{
     component: resolve => require(["@/pages/mine/Mine"], resolve),
     meta: {
       // requireAuth: true,
-      uio:false,
+      // uio:false,
       title: '个人中心',
     },
   },
@@ -93,7 +93,7 @@ const routes = [{
     path: '/hdetial',
     component: resolve => require(["@/components/common/Hdetial"], resolve),
     meta: {
-      uio:true,
+      // uio:true,
       title: '活动专区',
     },
   },
@@ -108,7 +108,7 @@ const routes = [{
     path: '/detail',
     component: resolve => require(["@/components/common/Detailswiper"], resolve),
     meta: {
-      uio:true,
+      // uio:true,
       title: '详情页',
     },
   },
