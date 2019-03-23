@@ -30,7 +30,7 @@ const routes = [{
     component: resolve => require(["@/pages/wish/Wish"], resolve),
     meta: {
       // requireAuth: true,
-      
+      uio:false,
       title: '购物车',
     },
   },

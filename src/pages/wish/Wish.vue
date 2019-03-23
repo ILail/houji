@@ -190,9 +190,6 @@ export default {
         console.log(err, "请求失败");
       });
   },
-updated(){
-  window.localStorage.clear();
-},
   methods: {
     watchNum(index, id) {
       let numNUM = this.json[this.Index].options[index].wish_nums;
