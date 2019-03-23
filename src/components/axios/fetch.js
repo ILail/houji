@@ -49,7 +49,7 @@ export function fetch(options) {
         if (response.data.message == "请重新登陆") {
           window.localStorage.clear()
         
-          history.go(0)
+          history.go(-1)
         }
         resolve(response); //把请求到的数据发到引用请求的地方
       })
