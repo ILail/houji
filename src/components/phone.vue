@@ -36,6 +36,7 @@ import { yzm } from "@/components/axios/api";
 import { wx } from "@/components/axios/api";
 import * as types from "@/components/vuex/types";
 export default {
+  // inject:['reload'],
   data() {
     return {
       tell: "",
@@ -97,9 +98,8 @@ export default {
             });
           } else {
             let tokenmine = res.data.data.token;
-            // this.changeLogin({ Authorization: tokenmine});
 
-            this.$store.commit(types.LOGIN, tokenmine);
+            this.$store.commit("changeToken", tokens);
             this.$router.go(-1);
           }
         })
@@ -107,7 +107,11 @@ export default {
           console.log(err, "请求失败");
         });
     }
+  },
+  updated(){
+    this.$router.go(0)
   }
+  // created(){this.$router.go(0)}
 };
 </script>
 <style lang="stylus" type="text/stylus" rel="stylesheet/stylus" scoped>

@@ -318,9 +318,9 @@ const routes = [{
   {
     path: '/Authorization',
     component: resolve => require(["@/components/Authorization"], resolve),
-    meta: {
-      title: '授权登录',
-    },
+    // meta: {
+    //   title: '授权登录',
+    // },
   },
 ]
 

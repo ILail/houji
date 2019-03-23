@@ -1,5 +1,6 @@
 import axios from 'axios'; //引入axios
 import store from '@/components/store/index'
+import Router from '@/router/index'
 // console.log(store.state.token)
 export function fetch(options) {
   return new Promise((resolve, reject) => {
@@ -22,12 +23,11 @@ export function fetch(options) {
       .then(response => { //then 请求成功之后进行什么操作
         // 如果登录失败重新赋值微信授权token
         // console.log(response)
-        // if (response.data.message == "请重新登陆") {
-        //   const codes = localStorage.getItem("houjss");
-        //   alert(codes);
-        //   window.localStorage.clear()
-        //   // router.go(0)
-        // }
+        if (response.data.message == "请重新登陆") {
+       
+          window.localStorage.clear()
+          Router.push('/phone');
+        }
         resolve(response); //把请求到的数据发到引用请求的地方
       })
       .catch(error => {

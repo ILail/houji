@@ -165,7 +165,8 @@ export default {
       list: []
     };
   },
-  created() {},
+  created() {
+  },
   mounted() {
     // console.log(this.$store.state.token+'12')
     this.$toast({
@@ -183,26 +184,20 @@ export default {
         }
       })
       .catch(err => {
-        // 清楚token 重新授权
-        this.reflashPage();
+      
         console.log(err, "请求失败");
       });
   },
-  // beforeCreate() {
-  //   if (this.$store.state.token == "") {
-  //     console.log(1231);
-  //     return;
-  //   }
-  // },
+
   methods: {
-    reflashPage() {
-      let NewPage = "_empty" + "?time=" + new Date().getTime() / 500;
-      this.$router.push(NewPage);
-      setTimeout(() => {
-        window.localStorage.clear();
-        this.$router.go(-1);
-      }, 1500);
-    },
+    // reflashPage() {
+  
+    //   this.$router.push('/Authorization');
+     
+    //     window.localStorage.clear();
+    //     this.$router.go(-1);
+     
+    // },
     watchNum(index, id) {
       let numNUM = this.json[this.Index].options[index].wish_nums;
       if (numNUM > 99) {
