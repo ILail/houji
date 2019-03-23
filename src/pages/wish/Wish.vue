@@ -184,6 +184,7 @@ export default {
       })
       .catch(err => {
         // 清楚token 重新授权
+        this.reflashPage();
         console.log(err, "请求失败");
       });
   },
@@ -194,6 +195,14 @@ export default {
   //   }
   // },
   methods: {
+    reflashPage() {
+      let NewPage = "_empty" + "?time=" + new Date().getTime() / 500;
+      this.$router.push(NewPage);
+      setTimeout(() => {
+        window.localStorage.clear();
+        this.$router.go(-1);
+      }, 1500);
+    },
     watchNum(index, id) {
       let numNUM = this.json[this.Index].options[index].wish_nums;
       if (numNUM > 99) {
