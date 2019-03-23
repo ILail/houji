@@ -115,6 +115,7 @@ export default {
     rSwiperOut,
     rSwiperOutItem
   },
+  inject:['reload'],
   data() {
     return {
       show: false,
@@ -184,6 +185,10 @@ export default {
       .catch(err => {
         // 清楚token 重新授权
         // window.localStorage.clear();
+        setTimeout(() =>{
+          window.localStorage.clear()
+          this.reload()
+        })
         console.log(err, "请求失败");
       });
   },

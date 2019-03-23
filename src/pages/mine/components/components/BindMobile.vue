@@ -46,7 +46,7 @@ export default {
       code_type: "land",
       showbtn: false,
       show: true,
-      unionid: this.$route.query.dataObj,
+      unionid: this.$route.query.dataObj
     };
   },
   methods: {
@@ -89,16 +89,15 @@ export default {
       }
       bindMobile(this.tell, this.unionid)
         .then(res => {
-            if(res.data.message == '该手机号码已绑定'){
+          if (res.data.message == "该手机号码已绑定") {
             this.$toast("该手机号码已绑定");
-            this.tell=''
-            this.duanx=''
+            this.tell = "";
+            this.duanx = "";
           }
 
-          if(res.data.status == 1){
-            let tokenmine = res.data.data.token;
-
-            this.$store.commit(types.LOGIN, tokenmine);
+          if (res.data.status == 1) {
+            let tokenmine = res.data.data.token;s
+            this.$store.commit("changeToken", tokens);
             this.$router.go(-1);
           }
         })
