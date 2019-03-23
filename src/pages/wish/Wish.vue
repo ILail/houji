@@ -164,18 +164,11 @@ export default {
       list: []
     };
   },
-  beforeCreate() {
-    if (this.$store.state.token == "") {
-      window.localStorage.clear();
-      // return;
-      console.log(1);
-    }
-  },
   created() {
-    console.log(4);
+   
   },
   mounted() {
-    console.log(5);
+    
     // console.log(this.$store.state.token+'12')
     this.$toast({
       type: "loading",
@@ -193,7 +186,7 @@ export default {
       })
       .catch(err => {
         // 清楚token 重新授权
-        // window.localStorage.clear();
+        window.localStorage.clear();
         console.log(err, "请求失败");
       });
   },

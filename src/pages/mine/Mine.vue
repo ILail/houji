@@ -87,13 +87,6 @@ export default {
 
     this.show = true;
   },
-  beforeCreate() {
-    if(this.$store.state.token==''){
-console.log(123);
-return
-    }
-    
-  },
   methods: {
     getVal: function(res) {
       this.selected = res;
