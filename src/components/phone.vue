@@ -98,8 +98,7 @@ export default {
             });
           } else {
             let tokenmine = res.data.data.token;
-
-            this.$store.commit("changeToken", tokens);
+            this.$store.commit("changeToken", tokenmine);
             this.$router.go(-1);
           }
         })
@@ -108,9 +107,9 @@ export default {
         });
     }
   },
-  updated(){
-    this.$router.go(0)
-  }
+  // updated(){
+  //   this.$router.go(0)
+  // }
   // created(){this.$router.go(0)}
 };
 </script>

@@ -18,20 +18,42 @@ export function fetch(options) {
         // 'model': 'hw',
       },
     });
-   
+    // instance.interceptors.request.use(function (config) {
+    //   // 在发送请求之前做些什么
+     
+    //   return config
+    // }, function (error) {
+    //   // 对请求错误做些什么
+     
+    //   return Promise.reject(error)
+    // });
+
+    // // 添加响应拦截器
+    // instance.interceptors.response.use(function (response) {
+    //   // 对响应数据做点什么
+    //   console.log(response)
+    //    if (response.data.message == "请重新登陆") {
+
+    //       window.localStorage.clear()
+    //       Router.push('/phone');
+    //     }
+    //   return response
+    // }, function (error) {
+    //   // 对响应错误做点什么
+    //   console.log(error)
+    //   return Promise.reject(error)
+    // });
     instance(options)
       .then(response => { //then 请求成功之后进行什么操作
         // 如果登录失败重新赋值微信授权token
-        // console.log(response)
         if (response.data.message == "请重新登陆") {
-       
           window.localStorage.clear()
           Router.push('/phone');
         }
         resolve(response); //把请求到的数据发到引用请求的地方
       })
       .catch(error => {
-       
+
         console.log('请求异常信息：' + error);
         reject(error);
       });
