@@ -17,7 +17,7 @@ export default {
     huoqu(window.location.href)
       .then(res => {
         let URL = res.data.data;
-        if (iswx) {
+        if (iswx  && this.$store.state.token == "") {
           const onid = localStorage.getItem("houas");
           console.log(onid);
           if (onid == null || onid == undefined) {
@@ -32,7 +32,7 @@ export default {
   },
   mounted() {
      console.log(3)
-    if (iswx) {
+    if (iswx  && this.$store.state.token == "") {
       const codes = localStorage.getItem("houjss");
       console.log(codes);
       if (codes == null || codes == undefined) {

@@ -191,7 +191,7 @@ export default {
       console.log(wishes);
       if (wishes == null || wishes == undefined) {
         this.refrech();
-        localStorage.setItem("houjss", "1314");
+        localStorage.setItem("wishes", "1314");
       }
     }
     // console.log(this.$store.state.token+'12')
