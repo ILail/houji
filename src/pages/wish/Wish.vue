@@ -188,7 +188,7 @@ export default {
         setTimeout(() =>{
           window.localStorage.clear()
           this.reload()
-        })
+        },1500)
         console.log(err, "请求失败");
       });
   },
