@@ -331,6 +331,9 @@ export default {
       this.showVi = true;
     },
     wishesHit() {
+      if (this.$store.state.token == "") {
+        window.localStorage.clear();
+      }
       this.$router.push({
         path: "/wishs"
       });
@@ -390,7 +393,6 @@ export default {
       this.showList = false;
       this.isbottom = true;
       if (this.$store.state.token == "") {
-        
         window.localStorage.clear();
       }
       wishList(

@@ -325,6 +325,9 @@ export default {
     },
 
     wishesHit() {
+      if (this.$store.state.token == "") {
+        window.localStorage.clear();
+      }
       this.$router.push({
         path: "/wishs"
       });
