@@ -3,9 +3,9 @@
     <!-- <keep-alive> -->
     <Grant></Grant>
     <fade-animation>
-      <router-view v-if="isRouterAlive"></router-view>
+      <router-view ></router-view>
     </fade-animation>
-    <!-- </keep-alive>  v-if="$route.meta.uio"-->
+    <!-- </keep-alive>  v-if="$route.meta.uio" v-if="isRouterAlive"-->
 
     <div v-wechat-title="$route.meta.title"></div>
   </div>
@@ -17,28 +17,28 @@ import FadeAnimation from "@/components/common/Fade";
 
 export default {
   name: "App",
-  provide () {
-    return {
-      reload: this.reload
-    }
-  },
-data () {
-    return {
-      isRouterAlive: true
-    }
-  },
+  // provide () {
+  //   return {
+  //     reload: this.reload
+  //   }
+  // },
+// data () {
+//     return {
+//       isRouterAlive: true
+//     }
+//   },
   components: {
     Grant,
     FadeAnimation
   },
-  methods: {
-    reload() {
-      this.isRouterAlive = false
-      this.$nextTick(function(){
-         this.isRouterAlive = true
-      })
-    }
-  },
+  // methods: {
+  //   reload() {
+  //     this.isRouterAlive = false
+  //     this.$nextTick(function(){
+  //        this.isRouterAlive = true
+  //     })
+  //   }
+  // },
     mounted() {
     this.$toast({
       type: "loading",
