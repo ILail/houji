@@ -106,7 +106,9 @@ import { wishPush } from "@/components/axios/api";
 import { forDetil } from "@/components/axios/api";
 import { Addjia } from "@/components/axios/api";
 import Item from "@/components/Item.vue";
-
+let iswx =
+  navigator.userAgent.toLowerCase().match(/MicroMessenger/i) ==
+  "micromessenger";
 // import * as types from "@/components/vuex/types";
 // import store from "@/components/vuex/store";
 export default {
@@ -170,7 +172,7 @@ export default {
     huoqu(window.location.href)
       .then(res => {
         let URL = res.data.data;
-        if (iswx) {
+        if (iswx && this.$store.state.token == "") {
           const wish = localStorage.getItem("wish");
           console.log(wish);
           if (wish == null || wish == undefined) {
@@ -184,7 +186,7 @@ export default {
       });
   },
   mounted() {
-    if (iswx) {
+    if (iswx && this.$store.state.token == "") {
       const wishes = localStorage.getItem("wishes");
       console.log(wishes);
       if (wishes == null || wishes == undefined) {
@@ -209,13 +211,12 @@ export default {
       })
       .catch(err => {
         // 清楚token 重新授权
-        
+
         console.log(err, "请求失败");
       });
   },
   methods: {
-
-      refrech() {
+    refrech() {
       // 拿到跳转后的链接
       const url = window.location.href;
       console.log(url);
@@ -225,7 +226,7 @@ export default {
         .then(res => {
           console.log(res.data.data);
           const data = res.data.data;
-          const tokens = data.token;  
+          const tokens = data.token;
           this.$store.commit("changeToken", tokens);
           //如果没绑定手机号 跳到绑定页面
           window.location.href = newurl;
