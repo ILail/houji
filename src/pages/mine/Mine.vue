@@ -21,12 +21,10 @@
         </Item>
       </div>
     </div>
- 
   </div>
 </template>
 
 <script>
-
 import MineHeader from "./components/Header";
 import MineOrder from "./components/Order";
 import MineSevers from "./components/Severs";
@@ -39,12 +37,11 @@ export default {
     MineOrder,
     MineSevers,
     MineForyou,
-    Item,
-    
+    Item
   },
   data() {
     return {
-      show:false,
+      show: false,
       selected: "mines",
       tabbarDes: [
         {
@@ -89,6 +86,13 @@ export default {
     });
 
     this.show = true;
+  },
+  beforeCreate() {
+    if(this.$store.state.token==''){
+console.log(123);
+return
+    }
+    
   },
   methods: {
     getVal: function(res) {

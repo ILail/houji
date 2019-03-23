@@ -10,7 +10,15 @@ let iswx =
   "micromessenger";
 export default {
   // inject: ["reload"],
+    beforeCreate() {
+    if (this.$store.state.token == "") {
+      window.localStorage.clear();
+      // return;
+      console.log(1)
+    }
+  },
   created() {
+      console.log(2)
     // 获取当前页面的链接给后台
     huoqu(window.location.href)
       .then(res => {
@@ -29,6 +37,7 @@ export default {
       });
   },
   mounted() {
+     console.log(3)
     if (iswx) {
       const codes = localStorage.getItem("houjss");
       console.log(codes);
@@ -81,7 +90,8 @@ export default {
           console.log(err, "请求失败");
         });
     }
-  }
+  },
+
 };
 </script>
 <style lang="stylus" scoped>

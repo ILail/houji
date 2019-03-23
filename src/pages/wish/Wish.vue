@@ -164,10 +164,9 @@ export default {
       list: []
     };
   },
-  created(){
-     
-  },
+  created() { console.log(4);},
   mounted() {
+    console.log(5);
     // console.log(this.$store.state.token+'12')
     this.$toast({
       type: "loading",
@@ -189,6 +188,7 @@ export default {
         console.log(err, "请求失败");
       });
   },
+
   methods: {
     watchNum(index, id) {
       let numNUM = this.json[this.Index].options[index].wish_nums;

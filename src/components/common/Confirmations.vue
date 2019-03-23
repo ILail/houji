@@ -268,10 +268,14 @@ export default {
           if (data.class_name == "活动专区") {
             this.aa = false;
             this.aas = true;
-            let moeysA = this.json[0].options[0].support_money;
-            let nums = moeysA - routerParama;
+            // let moeysA = this.json[0].options[0].support_money;
+      
+            let nums = this.moneyAll - routerParama;
             const newmoneyS = nums * this.routerParamo;
             this.newmoney = newmoneyS.toFixed(2);
+            if(this.newmoney < 0){
+                this.newmoney = 0.00
+              }
             this.totalMoney = this.moneyAll - this.newmoney;
           }
           // if (this.routerParams == 283) {

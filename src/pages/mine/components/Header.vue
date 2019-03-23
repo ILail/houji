@@ -69,14 +69,16 @@ export default {
           this.shows = false;
           this.show = true;
         }
-      
       })
       .catch(err => {
-          // 清楚token 重新授权
-       
+        // 清楚token 重新授权
+
         console.log(err, "请求失败");
       });
   },
+  // updated() {
+  //   console.log(1234);
+  // },
   methods: {
     fit() {
       this.$router.push("/personone");

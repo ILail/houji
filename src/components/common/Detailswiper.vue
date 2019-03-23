@@ -414,7 +414,6 @@ export default {
     // 点击下单
     ljxd() {
       if (this.$store.state.token == "") {
-        console.log(123);
         window.localStorage.clear();
       }
       const arry = [

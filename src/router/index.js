@@ -30,6 +30,7 @@ const routes = [{
     component: resolve => require(["@/pages/wish/Wish"], resolve),
     meta: {
       // requireAuth: true,
+      
       title: '购物车',
     },
   },
@@ -337,19 +338,19 @@ const router = new Router({
 });
 
 
-router.beforeEach((to, from, next) => {
-  if (to.matched.some(r => r.meta.requireAuth)) {
-    if (store.state.token) {
-      next();
-    } else {
-      next({
-        path: '/Authorization'
-      })
-    }
-  } else {
-    next();
-  }
-})
+// router.beforeEach((to, from, next) => {
+//   if (to.matched.some(r => r.meta.requireAuth)) {
+//     if (store.state.token) {
+//       next();
+//     } else {
+//       next({
+//         path: '/Authorization'
+//       })
+//     }
+//   } else {
+//     next();
+//   }
+// })
 
 
 export default router;
