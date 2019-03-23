@@ -98,6 +98,8 @@
   </div>
 </template>
 <script type="text/ecmascript-6" defer=true>
+import { Code } from "@/components/axios/api";
+import { huoqu } from "@/components/axios/api";
 import { rSwiperOut, rSwiperOutItem } from "@/bus/components/swiperOut";
 import MineHeader from "./components/Like";
 import { wishPush } from "@/components/axios/api";
@@ -165,10 +167,31 @@ export default {
     };
   },
   created() {
-   
+    huoqu(window.location.href)
+      .then(res => {
+        let URL = res.data.data;
+        if (iswx) {
+          const wish = localStorage.getItem("wish");
+          console.log(wish);
+          if (wish == null || wish == undefined) {
+            localStorage.setItem("wish", "520");
+            window.location.href = URL;
+          }
+        }
+      })
+      .catch(err => {
+        console.log(err, "请求失败");
+      });
   },
   mounted() {
-    
+    if (iswx) {
+      const wishes = localStorage.getItem("wishes");
+      console.log(wishes);
+      if (wishes == null || wishes == undefined) {
+        this.refrech();
+        localStorage.setItem("houjss", "1314");
+      }
+    }
     // console.log(this.$store.state.token+'12')
     this.$toast({
       type: "loading",
@@ -191,6 +214,26 @@ export default {
       });
   },
   methods: {
+
+      refrech() {
+      // 拿到跳转后的链接
+      const url = window.location.href;
+      console.log(url);
+      const code = url.split("code=")[1].split("&")[0];
+      const newurl = url.split("code=")[0];
+      Code(code)
+        .then(res => {
+          console.log(res.data.data);
+          const data = res.data.data;
+          const tokens = data.token;  
+          this.$store.commit("changeToken", tokens);
+          //如果没绑定手机号 跳到绑定页面
+          window.location.href = newurl;
+        })
+        .catch(err => {
+          console.log(err, "请求失败");
+        });
+    },
     watchNum(index, id) {
       let numNUM = this.json[this.Index].options[index].wish_nums;
       if (numNUM > 99) {

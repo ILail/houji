@@ -12,21 +12,18 @@ export default {
   // inject: ["reload"],
 
   created() {
-    console.log(2);
+      console.log(2)
     // 获取当前页面的链接给后台
     huoqu(window.location.href)
       .then(res => {
         let URL = res.data.data;
-        console.log(URL);
         if (iswx) {
-          location.href =
-            "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxef17ba0b021d896c&redirect_uri=http%3A%2F%2Flocalhost%3A8101%2F&response_type=code&scope=snsapi_base&state=1234&connect_redirect=1#wechat_redirect";
-          // const onid = localStorage.getItem("houas");
-          // console.log(onid);
-          // if (onid == null || onid == undefined) {
-          //   localStorage.setItem("houas", "1314");
-          //   window.location.href = URL;
-          // }
+          const onid = localStorage.getItem("houas");
+          console.log(onid);
+          if (onid == null || onid == undefined) {
+            localStorage.setItem("houas", "1314");
+            window.location.href = URL;
+          }
         }
       })
       .catch(err => {
@@ -34,7 +31,7 @@ export default {
       });
   },
   mounted() {
-    console.log(3);
+     console.log(3)
     if (iswx) {
       const codes = localStorage.getItem("houjss");
       console.log(codes);
@@ -87,7 +84,8 @@ export default {
           console.log(err, "请求失败");
         });
     }
-  }
+  },
+
 };
 </script>
 <style lang="stylus" scoped>
