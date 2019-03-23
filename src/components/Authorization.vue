@@ -10,13 +10,7 @@ let iswx =
   "micromessenger";
 export default {
   // inject: ["reload"],
-    beforeCreate() {
-    if (this.$store.state.token == "") {
-      window.localStorage.clear();
-      // return;
-      console.log(1)
-    }
-  },
+
   created() {
       console.log(2)
     // 获取当前页面的链接给后台

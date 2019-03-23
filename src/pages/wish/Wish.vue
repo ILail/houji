@@ -164,7 +164,16 @@ export default {
       list: []
     };
   },
-  created() { console.log(4);},
+  beforeCreate() {
+    if (this.$store.state.token == "") {
+      window.localStorage.clear();
+      // return;
+      console.log(1);
+    }
+  },
+  created() {
+    console.log(4);
+  },
   mounted() {
     console.log(5);
     // console.log(this.$store.state.token+'12')
