@@ -48,7 +48,7 @@ export function fetch(options) {
         // 如果登录失败重新赋值微信授权token
         if (response.data.message == "请重新登陆") {
           window.localStorage.clear()
-          Router.push('/phone');
+        
           history.go(0)
         }
         resolve(response); //把请求到的数据发到引用请求的地方
