@@ -168,6 +168,7 @@ export default {
   created() {
     if(this.$store.state.token == ''){
       window.localStorage.clear()
+       this.$router.go(0);
     }else{
       wishPush()
       .then(res => {
