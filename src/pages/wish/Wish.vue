@@ -166,16 +166,10 @@ export default {
     };
   },
   created() {
-  },
-  mounted() {
-    // console.log(this.$store.state.token+'12')
-    this.$toast({
-      type: "loading",
-      message: "加载中...",
-      duration: "1200"
-    });
-    this.show = true;
-    wishPush()
+    if(this.$store.state.token == ''){
+      window.localStorage.clear()
+    }else{
+      wishPush()
       .then(res => {
         this.json = res.data.data.wish_list.list;
         this.list = res.data.data.recommend;
@@ -187,6 +181,18 @@ export default {
       
         console.log(err, "请求失败");
       });
+    }
+  
+  },
+  mounted() {
+    this.$toast({
+      type: "loading",
+      message: "加载中...",
+      duration: "1200"
+    });
+    this.show = true;
+    
+
   },
 
   methods: {
