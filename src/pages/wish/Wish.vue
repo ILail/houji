@@ -167,6 +167,7 @@ export default {
   },
   created() {
     if(this.$store.state.token == ''){
+      alert(123)
       window.localStorage.clear()
        this.$router.go(0);
     }else{
