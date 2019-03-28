@@ -7,9 +7,23 @@
         <span>集选全球健康食材</span>
         <img src="@/assets/trad/4.png" alt>
       </div>
-      <input type="text" class="imputO" maxlength="11" placeholder="请输入手机号" v-model="tel">
+      <input
+        type="text"
+        class="imputO"
+        maxlength="11"
+        placeholder="请输入手机号"
+        v-model="tel"
+        @blur.prevent="inputs()"
+      >
       <div class="wrapT">
-        <input type="text" placeholder="请输入验证码" maxlength="6" class="imputB" v-model="code">
+        <input
+          type="text"
+          placeholder="请输入验证码"
+          maxlength="6"
+          class="imputB"
+          v-model="code"
+          @blur.prevent="inputs()"
+        >
         <span class="GETm" @click="time" v-if="active">获取验证码</span>
         <span class="GETm" v-else>{{timed}}s重新发送</span>
       </div>
@@ -54,6 +68,13 @@ export default {
     };
   },
   methods: {
+    inputs() {
+      setTimeout(function() {
+        var scrollHeight =
+          document.documentElement.scrollTop || document.body.scrollTop || 0;
+        window.scrollTo(0, Math.max(scrollHeight - 1, 0));
+      }, 100);
+    },
     time() {
       if (!/^1(3|4|5|7|8)\d{9}$/.test(this.tel)) {
         this.$toast({
@@ -95,12 +116,15 @@ export default {
         .then(res => {
           console.log(res);
           if (res.data.message == "验证成功") {
-            alert("验证码成功")
-            const id = url.split("?")[1].split("=")[1].split('&')[0];
-            alert(id)
+            alert("验证码成功");
+            const id = url
+              .split("?")[1]
+              .split("=")[1]
+              .split("&")[0];
+            alert(id);
             tradeReceive(this.tel, id)
               .then(res => {
-                alert(res.data.message)
+                alert(res.data.message);
               })
               .catch(err => {
                 console.log(err, "请求失败");
