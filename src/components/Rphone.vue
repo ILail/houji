@@ -82,8 +82,8 @@ export default {
     now() {
       let url = window.location.href;
       // console.log(url.split("?")[1].split("=")[1]);
-      //   let url = 'http://webtest.ngba.cn/verify??shuyuhan=110'
-      //  console.log(url.split("?")[2].split("=")[1]);
+      // let url = "http://webtest.ngba.cn/verify?shuyuhan=110";
+      // console.log(url.split("?")[1].split("=")[1]);
       if (this.code == "") {
         this.$toast({
           message: "验证码不能为空",
@@ -95,11 +95,12 @@ export default {
         .then(res => {
           console.log(res);
           if (res.data.message == "验证成功") {
-            const id = url.split("?")[2].split("=")[1];
-            yzm(this.tel, id)
+            alert("验证码成功")
+            const id = url.split("?")[1].split("=")[1];
+            alert(id)
+            tradeReceive(this.tel, id)
               .then(res => {
                 alert(res);
-               
               })
               .catch(err => {
                 console.log(err, "请求失败");
