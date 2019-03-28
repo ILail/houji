@@ -754,3 +754,111 @@ export function crowdFundingClass(crowd_funding_sort_id, crowd_funding_class_id,
     }
   })
 }
+
+// 转让的首页
+
+export function tradeList(crowd_funding_id,type) {
+
+  return fetch({
+    url: api.Hallowmas + '/v2p4/trade/tradeList',
+    method: "POST",
+    data: {
+      crowd_funding_id: crowd_funding_id,
+      type: type,
+    }
+  })
+}
+
+// 转让收藏 或 取消收藏
+export function Collection(crowd_funding_id) {
+  return fetch({
+    url: api.Hallowmas + '/v2p4/trade/collection',
+    method: "POST",
+    data: {
+      crowd_funding_id: crowd_funding_id,
+    }
+  })
+}
+// 我的收藏
+export function myCollection() {
+
+  return fetch({
+    url: api.Hallowmas + '/v2p4/trade/myCollection',
+    method: "POST",
+    // data: {
+    //   crowd_funding_id: crowd_funding_id,
+    // }
+  })
+}
+// 转让订单
+export function resaleList() {
+
+  return fetch({
+    url: api.Hallowmas + '/v2p4/trade/resaleList',
+    method: "POST",
+    // data: {
+    //   crowd_funding_id: crowd_funding_id,
+    // }
+  })
+}
+
+// 我的转卖
+
+export function myTrade(type) {
+  return fetch({
+    url: api.Hallowmas + '/v2p4/trade/myTrade',
+    method: "POST",
+    data: {
+      type: type,
+    }
+  })
+}
+
+// 转赠记录
+
+export function giveRecord() {
+  return fetch({
+    url: api.Hallowmas + '/v2p4/trade/giveRecord',
+    method: "POST",
+    // data: {
+    //   type: type,
+    // }
+  })
+}
+
+// 发布转让
+export function Resell(crowd_funding_id,nums,price) {
+  return fetch({
+    url: api.Hallowmas + '/v2p4/trade/Resell',
+    method: "POST",
+    data: {
+      crowd_funding_id: crowd_funding_id,
+      nums:nums,
+      price:price
+    }
+  })
+}
+
+// 短信验证
+export function verifyCode(mobile,code) {
+  return fetch({
+    url: api.Hallowmas + '/verifyCode',
+    method: "POST",
+    data: {
+      mobile: mobile,
+      code:code,
+    }
+  })
+}
+// 领取转正
+export function tradeReceive(mobile,give_id) {
+  return fetch({
+    url: api.Hallowmas + '/v2p4/trade/tradeReceive',
+    method: "POST",
+    data: {
+      mobile: mobile,
+      give_id:give_id,
+    }
+  })
+}
+

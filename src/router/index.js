@@ -322,6 +322,42 @@ const routes = [{
     //   title: '授权登录',
     // },
   },
+  {
+    path: '/mycoll',
+    component: resolve => require(["@/pages/mine/myCollection/myColl"], resolve),
+    meta: {
+      title: '我的收藏',
+    },
+  },
+  {
+    path: '/resale',
+    component: resolve => require(["@/pages/mine/myCollection/resaleList"], resolve),
+    meta: {
+      title: '转卖订单',
+    },
+  },
+
+  {
+    path: '/trade',
+    component: resolve => require(["@/pages/mine/myCollection/myTrade"], resolve),
+    meta: {
+      title: '我的转卖',
+    },
+  },
+  {
+    path: '/give',
+    component: resolve => require(["@/pages/mine/myCollection/giveRecord"], resolve),
+    meta: {
+      title: '转正记录',
+    },
+  },
+  {
+    path: '/verify',
+    component: resolve => require(["@/components/Rphone"], resolve),
+    meta: {
+      title: '手机号领取转赠',
+    },
+  },
 ]
 
 

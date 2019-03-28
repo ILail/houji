@@ -117,13 +117,13 @@ export default {
   watch: {
     listAll() {
       this.$nextTick(function() {
-        console.log(this.listAll);
+        // console.log(this.listAll);
         const title = this.listAll.crowd_funding_name;
         const desc = this.listAll.summary;
         const imgUrl = this.listAll.imgs.split(",")[0];
         const value = localStorage.getItem("accessTokens");
         const url = window.location.href;
-        console.log(url);
+        // console.log(url);
         if (value == null) return;
         SignPackage(url, value)
           .then(res => {

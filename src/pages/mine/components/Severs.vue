@@ -1,6 +1,40 @@
 <template>
   <div>
     <div class="title" border-topbottom>
+      <div style="font-size:14px">我的仓库</div>
+       <img :src="wx" style="width:7px">
+    </div>
+    <div class="content" style="border-bottom: 1px solid #eee">
+      <div class="contentWord">
+        <span>
+          <img :src="nines" style="width:24px">
+        </span>
+        <span class="word">我的转卖</span>
+      </div>
+
+      <div class="contentWord">
+        <span>
+          <img :src="tens" style="width:24px">
+        </span>
+        <span class="word">转卖订单</span>
+      </div>
+
+      <div class="contentWord">
+        <span>
+          <img :src="tweves" style="width:24px">
+        </span>
+        <span class="word">转赠记录</span>
+      </div>
+
+      <div class="contentWord">
+        <span>
+          <img :src="thirds" style="width:24px">
+        </span>
+        <span class="word">我的收藏</span>
+      </div>
+    </div>
+    <div class="line"></div>
+    <div class="title" border-topbottom>
       <div style="font-size:14px">我的服务</div>
     </div>
     <div class="content" style="border-bottom: 1px solid #eee">
@@ -82,6 +116,7 @@ import { people } from "@/components/axios/api";
 export default {
   data() {
     return {
+      wx: require("@/assets/rr.png"),
       value: "",
       five: require("@/assets/list/5.png"),
       six: require("@/assets/list/6.png"),
@@ -90,7 +125,12 @@ export default {
       nine: require("@/assets/list/9.png"),
       ten: require("@/assets/list/10.png"),
       tweve: require("@/assets/list/11.png"),
-      third: require("@/assets/list/12.png")
+      third: require("@/assets/list/12.png"),
+
+      nines: require("@/assets/zhuanm/2.png"),
+      tens: require("@/assets/zhuanm/4.png"),
+      tweves: require("@/assets/zhuanm/1.png"),
+      thirds: require("@/assets/zhuanm/3.png")
     };
   },
   created() {
@@ -118,6 +158,11 @@ export default {
 </script>
 
 <style lang="stylus" type="text/stylus" rel="stylesheet/stylus" scoped>
+.line {
+  background: rgb(238, 238, 238);
+  height: 10px;
+}
+
 .title {
   display: flex;
   align-items: center;

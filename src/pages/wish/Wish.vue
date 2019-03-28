@@ -166,11 +166,11 @@ export default {
     };
   },
   created() {
-    if(this.$store.state.token == ''){
-      alert(123)
-      window.localStorage.clear()
-       this.$router.go(0);
-    }else{
+    // if(this.$store.state.token == ''){
+    //   alert(123)
+    //   window.localStorage.clear()
+    //    this.$router.go(0);
+    // }else{
       wishPush()
       .then(res => {
         this.json = res.data.data.wish_list.list;
@@ -180,10 +180,10 @@ export default {
         }
       })
       .catch(err => {
-      
+      this.$router.push('/phone')
         console.log(err, "请求失败");
       });
-    }
+    // }
   
   },
   mounted() {

@@ -6,8 +6,9 @@
       :items="items"
       :options="options"
       @change="handleChange"
-      v-show="isshow"
-      class="isFixed"
+      v-if="isTab"
+      :class="searchBarFixed == true ? 'isFixed' :''"
+      id="searchBar"
     ></ly-tab>
     <!-- 轮播 -->
     <van-swipe
@@ -16,8 +17,9 @@
       @change="onChange"
       style="height:375.5px"
       v-show="showA"
+      :class="{ isActive: isActive }"
     >
-      <van-swipe-item v-show="showV">
+      <van-swipe-item v-if="showV">
         <video
           width="100%"
           height="100%"
@@ -47,7 +49,7 @@
         <div class="swiper-wrapper">
           <div class="swiper-slide" v-for="item of list" :key="item.id">
             <keep-alive>
-              <component :is="item.component" :listAll="listAll"></component>
+              <component :is="item.component" :listAll="listAll" :class="{ isActive: isActive }"></component>
             </keep-alive>
           </div>
         </div>
@@ -113,10 +115,16 @@
         <div class="confiress" v-show="over">已结束</div>
       </div>
     </van-popup>
+
+    <!-- 底部弹窗 -->
+ 
+    <detail-bottom v-show="detail" :img_path="img_path"></detail-bottom>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
+import DetailBottom from "./component/Bottom";
+import { crowd_funding } from "@/components/axios/api";
 import Swiper from "moon/swiper.min";
 import "moon/swiper.min.css";
 // 客服
@@ -140,7 +148,6 @@ import Travel from "@/components/common/component/Travel";
 import Plun from "@/components/common/component/Plun";
 import Suyuan from "@/components/common/component/Suyuan";
 
-import { crowd_funding } from "@/components/axios/api";
 import { wishList } from "@/components/axios/api";
 import { specifications } from "@/components/axios/api";
 
@@ -153,10 +160,16 @@ export default {
     Detail,
     Travel,
     Plun,
-    Suyuan
+    Suyuan,
+    DetailBottom
   },
   data() {
     return {
+      detail: false,
+      isActive: false,
+      searchBarFixed: false,
+      showSale: true,
+      isTab: false,
       over: false,
       joinw: true,
       showA: true,
@@ -188,7 +201,7 @@ export default {
         { component: Suyuan }
       ],
       // 顶部
-      isshow: false,
+      // isshow: true,
       // 内容
       isbottom: true,
       numALL: 1,
@@ -278,33 +291,58 @@ export default {
       this.showList = !msg;
       this.confires = msg;
     });
+    window.addEventListener("scroll", this.watchScroll);
+    // this.$nextTick(() => {
+    const mySwiperA = new Swiper(".wrapA", {});
 
-    this.$nextTick(() => {
-      const mySwiperA = new Swiper(".wrapA", {});
+    mySwiperA.on("slideChange", () => {
+      document.body.scrollTop = 0;
+      // 监控滑动后当前页面的索引，将索引发射到导航组件
+      // 左右滑动时将当前slide的索引发送到nav组件
+      this.selectedId = mySwiperA.activeIndex;
 
-      mySwiperA.on("slideChange", () => {
-        // 监控滑动后当前页面的索引，将索引发射到导航组件
-        // 左右滑动时将当前slide的索引发送到nav组件
-        this.selectedId = mySwiperA.activeIndex;
-        // this.$root.eventHub.$emit("slideTab", mySwiperA.activeIndex);
-        if (mySwiperA.activeIndex == 0) {
-          this.isshow = false;
-          this.showA = true;
-          this.showVi = true;
-        } else {
-          this.isshow = true;
-          this.showA = false;
-        }
-      });
-      // 接收nav组件传过来的导航按钮索引值，跳转到相应内容区
-      this.$root.eventHub.$on("changeTab", index => {
-        // 点击导航键跳转相应内容区
-        mySwiperA.slideTo(index, 0, false);
-      });
+      // this.$root.eventHub.$emit("slideTab", mySwiperA.activeIndex);
+      if (mySwiperA.activeIndex == 0) {
+        this.isTab = false;
+        this.showA = true;
+        this.isActive = false;
+      } else {
+        this.isTab = true;
+        this.showA = false;
+      }
+      if (mySwiperA.activeIndex === 3) {
+        this.isbottom = false;
+        this.detail = true
+      } else {
+        this.isbottom = true;
+        this.detail = false
+      }
     });
+    // 接收nav组件传过来的导航按钮索引值，跳转到相应内容区
+    this.$root.eventHub.$on("changeTab", index => {
+      // 点击导航键跳转相应内容区
+      mySwiperA.slideTo(index, 0, false);
+    });
+    // });
   },
 
   methods: {
+    watchScroll() {
+      var scrollTop =
+        window.pageYOffset ||
+        document.documentElement.scrollTop ||
+        document.body.scrollTop;
+      var _this = this;
+      if (scrollTop > 189) {
+        _this.isActive = true;
+        _this.searchBarFixed = true;
+        _this.isTab = true;
+      }
+      // else {
+      //   _this.searchBarFixed = false;
+      //   _this.isTab = false;
+      // }
+    },
     onChange(index) {
       let video = document.querySelector("video");
       this.numV = index;
@@ -432,15 +470,31 @@ export default {
         }
       });
     }
+  },
+  destroyed() {
+    window.removeEventListener("scroll", this.watchScroll);
   }
 };
 </script>
 
 <style lang="stylus" type="text/stylus" rel="stylesheet/stylus" scoped>
+.isActive {
+  padding-top: 43px;
+}
+
 .detailWrap {
   position: relative;
   padding-bottom: 50px;
   background: #fff;
+}
+
+.detailWrap >>> .ly-tabbar {
+  box-shadow: none;
+  border-bottom: 1px solid #CCC;
+}
+
+.detailWrap >>> .ly-tab-active-bar {
+  bottom: 0;
 }
 
 // 解决swiper高度
@@ -488,6 +542,7 @@ export default {
 .isFixed {
   position: fixed;
   top: 0;
+  left: 0;
   z-index: 99;
   width: 100%;
   background: #fff;
@@ -521,7 +576,7 @@ export default {
   left: 0;
   width: 100%;
   background: #fff;
-  z-index: 9999;
+  z-index: 99;
   border-top: 1px solid rgba(204, 204, 204, 1);
 }
 

@@ -48,7 +48,7 @@
             <div class="contenr">暂时无优惠卷，赶快去领取吧！</div>
           </div>
           <div class="smae">
-            <div class="wrap container" v-for="(item , index) in list" :key="item.id" :style="note">
+            <div class="wrap container" v-for="item in list" :key="item.id" :style="note">
               <div class="wrapCenter">
                 <div class="numsN">
                   <span class="nums">¥</span>
@@ -74,7 +74,7 @@
             </div>
             <div
               class="wrap container"
-              v-for="(item , index) in lists"
+              v-for="(item) in lists"
               :key="item.id"
               :style="noteone"
             >
@@ -103,7 +103,7 @@
             </div>
             <div
               class="wrap container"
-              v-for="(item , index) in listss"
+              v-for="(item) in listss"
               :key="item.id"
               :style="noteone"
             >

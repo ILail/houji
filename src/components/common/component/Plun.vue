@@ -216,12 +216,6 @@ export default {
   margin-left: 40%;
 }
 
-.ddss {
-  font-size: 14px;
-  color: #666;
-  margin-left: 43%;
-  margin-top: 180px;
-}
 
 .plaW {
   color: #0072D2;
@@ -245,7 +239,7 @@ export default {
 
 .title {
   text-align: center;
-  margin-top: 62px;
+  padding-top: 18px;
 }
 
 .title span {

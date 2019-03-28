@@ -1,82 +1,168 @@
 <template>
   <div>
-    <div v-show="imga" class="content">暂无数据</div>
-    <div class="container wrap" v-if="show">
-      <video id="first-video" width="100%" height="250px" :src="list" controls="controls"></video>
-      <video id="first-video" width="100%" height="250px" :src="lists" controls="controls"></video>
-      
-      <video id="first-video" width="100%" height="250px" :src="lista" controls="controls"></video>
+    <div class="monopoly">
+      <span
+        v-for="(item,index) in titele"
+        :key="item.id"
+        :class="{active:index == num}"
+        @click="wordActive(index)"
+      >{{item.label}}</span>
+      <!-- <div class="line"></div> -->
+    </div>
+    <div class="lines"></div>
+    <div class="titles">
+      <span>用户</span>
+      <span>数量</span>
+      <span>单价</span>
+      <span style="background:#fff"></span>
+    </div>
+    <div class="overs">
+      <div class="titles" v-for="(item) in list" :key="item.id">
+        <span>{{item.username}}</span>
+        <span>{{item.nums}}</span>
+        <span>¥{{item.price}}</span>
+        <!-- <span>城南华阿姨</span>
+      <span>18</span>
+        <span>¥368</span>-->
+        <span v-if="sale" @click="saleM">卖出</span>
+        <span v-else>买入</span>
+      </div>
     </div>
   </div>
 </template>
-
-<script type="text/ecmascript-6">
-import { crowd_funding } from "@/components/axios/api";
+<script >
+import { tradeList } from "@/components/axios/api";
 export default {
   data() {
     return {
-      show: true,
-      list: "",
-      lists: "",
-      lista: "",
-      imga: false
+      list: [],
+      show: false,
+      sale: true,
+      titele: [{ label: "转让" }, { label: "求购" }],
+      id: this.$route.query.key,
+      // 转让
+      type: 1,
+      num: 0
     };
   },
-  created() {
-    this.id = this.$route.query.key; //获取上个页面传递的id,在下面获取数据的时候先提交id
-    crowd_funding(this.id)
-      .then(res => {
-        res = res.data;
-        if (res.status && res.data) {
-          const data = res.data;
-          if (data.video_url == "") {
-            this.show = false;
-            this.imga = true;
-          }
-          this.list = data.video_url.split(",")[0];
-          this.lists = data.video_url.split(",")[1];
-          this.lista = data.video_url.split(",")[2];
-        }
-      })
-      .catch(err => {
-        console.log(err, "请求失败");
-      });
-  },
   methods: {
-    //   pauseVideo() {
-    //   //暂停\播放
-    //   let video = document.getElementById("first-video");
-    //   console.log(videoa);
-    //   if (this.playOrPause) {
-    //     video.play();
-    //   }
-    //   this.show = false;
-    // },
-    // onPlayerEnded(player) {
-    //   //视频结束
-    //   this.show = true;
-    // }
+    wordActive(index) {
+      this.num = index;
+      switch (index) {
+        case 0:
+          this.type = 1;
+          this.types();
+          this.sale = true;
+          break;
+        case 1:
+          this.type = 2;
+          this.types();
+          this.sale = false;
+          break;
+      }
+    },
+    types() {
+      tradeList(this.id, this.type)
+        .then(res => {
+          res = res.data;
+          if (res.status && res.data) {
+            this.list = res.data.list.data;
+            console.log(res.data.list.data);
+          }
+        })
+        .catch(err => {
+          console.log(err, "请求失败");
+        });
+    },
+    saleM() {
+      this.$bus.$emit("msgaa", this.show);
+    }
+  },
+  created() {
+    this.types();
   }
 };
 </script>
-
-<style lang="stylus" type="text/stylus" rel="stylesheet/stylus" scoped>
-.wrap {
-  margin-top: 50px;
-  padding-bottom: 60px;
+<style lang="stylus" scoped>
+.top {
+  margin-top: 43px;
 }
 
-#first-video {
+.monopoly {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  text-align: center;
+}
+
+.titles {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  text-align: center;
+  height: 45px;
+  border-bottom: 1px solid #CCC;
+}
+
+.overs {
   width: 100%;
-  height: 250px;
-  background: rgba(0, 0, 0, 0.6);
-  overflow: hidden;
+  height: 252px;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+  /* ios 自带滚动条不平滑解决方法 */
 }
 
-.content {
-  font-size: 14px;
-  color: #666;
-  margin-top: 250px;
-  margin-left: 43%;
+::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  display: none;
+}
+
+.titles span {
+  font-size: 13px;
+  font-family: PingFangSC-Regular;
+  font-weight: 400;
+  color: rgba(51, 51, 51, 1);
+  width: 25%;
+}
+
+.line {
+  width: 1px;
+  height: 50px;
+  background: #CCC;
+}
+
+.lines {
+  width: 100%;
+  height: 1px;
+  background: #CCC;
+}
+
+.monopoly span {
+  font-size: 18px;
+  font-family: PingFangSC-Regular;
+  color: #333;
+  width: 50%;
+  padding: 15px 0;
+}
+
+.monopoly span:nth-child(1) {
+  border-right: 1px solid #ccc;
+}
+
+.titles span:nth-child(4) {
+  font-size: 13px;
+  background: #D21623;
+  height: 45px;
+  font-family: PingFangSC-Regular;
+  font-weight: 400;
+  color: #fff;
+  line-height: 45px;
+}
+
+.monopoly .active {
+  color: #D21623;
 }
 </style>
+
+

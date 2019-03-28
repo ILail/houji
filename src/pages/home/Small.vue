@@ -418,7 +418,7 @@ export default {
         document.documentElement.scrollTop ||
         document.body.scrollTop;
       var _this = this;
-      if (scrollTop > 32) {
+      if (scrollTop > 58) {
         _this.searchBarFixed = true;
       } else {
         _this.searchBarFixed = false;

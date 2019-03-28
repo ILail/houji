@@ -37,9 +37,8 @@ export default {
 <style lang="stylus" type="text/stylus" rel="stylesheet/stylus" scoped>
 .peoDela img {
   width: 100%;
-  margin-top: 22px;
   padding-bottom: 20px;
-  margin-top 50px
+  // margin-top 18px
 }
 
 .hitImg {

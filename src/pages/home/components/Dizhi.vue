@@ -190,7 +190,7 @@ export default {
   margin: 0 auto;
   padding-top: 20px;
   position: relative;
-  height 216px
+  height 156px
 }
 
 .contentNav img {
@@ -205,7 +205,6 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-bottom: 20px;
 }
 
 .contentNav li a {
