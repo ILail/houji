@@ -96,11 +96,11 @@ export default {
           console.log(res);
           if (res.data.message == "验证成功") {
             alert("验证码成功")
-            const id = url.split("?")[1].split("=")[1];
+            const id = url.split("?")[1].split("=")[1].split('&')[0];
             alert(id)
             tradeReceive(this.tel, id)
               .then(res => {
-                alert(res);
+                alert(res.data.message)
               })
               .catch(err => {
                 console.log(err, "请求失败");
