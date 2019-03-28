@@ -116,15 +116,17 @@ export default {
         .then(res => {
           console.log(res);
           if (res.data.message == "验证成功") {
-            alert("验证码成功");
-            const id = url
-              .split("?")[1]
-              .split("=")[1]
-              .split("&")[0];
-            alert(id);
+            // alert("验证码成功");
+            const id = url.split("?")[1].split("=")[1].split("&")[0];
+            // alert(id);
             tradeReceive(this.tel, id)
               .then(res => {
-                alert(res.data.message);
+                if (res.data.message == "领取成功") {
+                  this.$toast({
+                    message: "领取成功",
+                    duration: "2500"
+                  });
+                }
               })
               .catch(err => {
                 console.log(err, "请求失败");
