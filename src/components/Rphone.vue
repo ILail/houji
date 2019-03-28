@@ -80,8 +80,9 @@ export default {
       }
     },
     now() {
-      let url = window.location.href
-      console.log(url)
+      let url = window.location.href;
+      console.log(url.split("?")[1].split("=")[1]);
+
       if (this.code == "") {
         this.$toast({
           message: "验证码不能为空",
@@ -93,7 +94,8 @@ export default {
         .then(res => {
           console.log(res);
           if (res.data.message == "验证成功") {
-            yzm(this.tel, "")
+            const id = url.split("?")[1].split("=")[1];
+            yzm(this.tel, id)
               .then(res => {
                 console.log(res);
               })
