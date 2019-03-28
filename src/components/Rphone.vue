@@ -126,6 +126,11 @@ export default {
                     message: "领取成功",
                     duration: "2500"
                   });
+                }else{
+                    this.$toast({
+                    message: res.data.message,
+                    duration: "2500"
+                  });
                 }
               })
               .catch(err => {

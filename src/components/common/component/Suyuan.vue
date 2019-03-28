@@ -106,7 +106,7 @@ export default {
 
 .overs {
   width: 100%;
-  height: 252px;
+  height: 230px;
   overflow-y: scroll;
   -webkit-overflow-scrolling: touch;
   /* ios 自带滚动条不平滑解决方法 */
