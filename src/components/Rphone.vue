@@ -80,6 +80,8 @@ export default {
       }
     },
     now() {
+      let url = window.location.href
+      console.log(url)
       if (this.code == "") {
         this.$toast({
           message: "验证码不能为空",
