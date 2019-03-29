@@ -19,10 +19,10 @@ export default {
       .then(res => {
         let URL = res.data.data;
         if (iswx  && this.$store.state.token == "") {
-          const onid = localStorage.getItem("houas");
+          const onid = localStorage.getItem("houjenda");
           console.log(onid);
           if (onid == null || onid == undefined) {
-            localStorage.setItem("houas", "1314");
+            localStorage.setItem("houjenda", "1314");
             window.location.href = URL;
           }
         }
@@ -34,11 +34,11 @@ export default {
   mounted() {
      console.log(3)
     if (iswx  && this.$store.state.token == "") {
-      const codes = localStorage.getItem("houjss");
+      const codes = localStorage.getItem("houjend");
       console.log(codes);
       if (codes == null || codes == undefined) {
         this.refrech();
-        localStorage.setItem("houjss", "520");
+        localStorage.setItem("houjend", "520");
       }
     }
   },

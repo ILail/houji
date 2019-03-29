@@ -23,6 +23,14 @@ export default new Vuex.Store({
       try {
         localStorage.token = token
       } catch (e) {}
+    },
+
+    deletToken (state) {
+      state.token = ''
+      try {
+        localStorage.removeItem('token');
+        
+      } catch (e) {}
     }
   }
 })

@@ -369,9 +369,9 @@ export default {
       this.showVi = true;
     },
     wishesHit() {
-      if (this.$store.state.token == "") {
-        window.localStorage.clear();
-      }
+      // if (this.$store.state.token == "") {
+      //   window.localStorage.clear();
+      // }
       this.$router.push({
         path: "/wishs"
       });
@@ -430,9 +430,9 @@ export default {
     confire() {
       this.showList = false;
       this.isbottom = true;
-      if (this.$store.state.token == "") {
-        window.localStorage.clear();
-      }
+      // if (this.$store.state.token == "") {
+      //   window.localStorage.clear();
+      // }
       wishList(
         this.numALL,
         this.listP[this.num].crowd_funding_return_id,
