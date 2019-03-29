@@ -364,6 +364,7 @@ export default {
   background: #fff;
   z-index: 99;
   border-top: 1px solid #ccc;
+  display none
 
   .price {
     display: flex;

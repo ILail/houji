@@ -1,5 +1,6 @@
 <template>
-  <div>
+  <div style="display:none">
+    <div>正在更新ing</div>
     <div class="monopoly">
       <span
         v-for="(item,index) in titele"
