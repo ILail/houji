@@ -142,7 +142,7 @@ export default {
           }
         })
         .catch(err => {
-          this.$router.push('/phone')
+          
           console.log(err, "请求失败");
         });
     },

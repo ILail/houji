@@ -185,7 +185,7 @@ export default {
         { label: "详情" },
         { label: "游记" },
         { label: "评论" },
-        { label: "溯源" }
+        { label: "转卖" }
       ],
       options: {
         activeColor: "#D21623"
