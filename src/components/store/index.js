@@ -25,12 +25,12 @@ export default new Vuex.Store({
       } catch (e) {}
     },
 
-    deletToken (state) {
-      state.token = ''
-      try {
-        localStorage.removeItem('token');
+    // deletToken (state) {
+    //   state.token = ''
+    //   try {
+    //     localStorage.removeItem('token');
         
-      } catch (e) {}
-    }
+    //   } catch (e) {}
+    // }
   }
 })
