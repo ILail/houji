@@ -99,7 +99,7 @@ export default {
           } else {
             let tokenmine = res.data.data.token;
             this.$store.commit("changeToken", tokenmine);
-            this.$router.go(-1);
+            // this.$router.go(-1);
           }
         })
         .catch(err => {
