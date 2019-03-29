@@ -704,7 +704,7 @@ export function qinius() {
 }
 
 // 微信绑定手机
-export function bindMobile(mobile,unionid) {
+export function bindMobile(mobile, unionid) {
 
   return fetch({
     url: 'http://csapi.nguiba.com/api/bindMobile',
@@ -757,7 +757,7 @@ export function crowdFundingClass(crowd_funding_sort_id, crowd_funding_class_id,
 
 // 转让的首页
 
-export function tradeList(crowd_funding_id,type) {
+export function tradeList(crowd_funding_id, type) {
 
   return fetch({
     url: api.Hallowmas + '/v2p4/trade/tradeList',
@@ -826,39 +826,93 @@ export function giveRecord() {
   })
 }
 
-// 发布转让
-export function Resell(crowd_funding_id,nums,price) {
-  return fetch({
-    url: api.Hallowmas + '/v2p4/trade/Resell',
-    method: "POST",
-    data: {
-      crowd_funding_id: crowd_funding_id,
-      nums:nums,
-      price:price
-    }
-  })
-}
-
 // 短信验证
-export function verifyCode(mobile,code) {
+export function verifyCode(mobile, code) {
   return fetch({
     url: api.Hallowmas + '/verifyCode',
     method: "POST",
     data: {
       mobile: mobile,
-      code:code,
+      code: code,
     }
   })
 }
 // 领取转正
-export function tradeReceive(mobile,give_id) {
+export function tradeReceive(mobile, give_id) {
   return fetch({
     url: api.Hallowmas + '/v2p4/trade/tradeReceive',
     method: "POST",
     data: {
       mobile: mobile,
-      give_id:give_id,
+      give_id: give_id,
     }
   })
 }
 
+// 求购列表的卖出按钮
+export function WangtbBuy(nums, address_id, trade_id) {
+  return fetch({
+    url: api.Hallowmas + '/v2p4/trade/WangtbBuy',
+    method: "POST",
+    data: {
+      nums: nums,
+      address_id: address_id,
+      trade_id: trade_id
+    }
+  })
+}
+
+// 转让列表的买入按钮
+
+export function buyResell(trade_id, nums, pay_type, address_id, payment_password, amount) {
+  return fetch({
+    url: api.Hallowmas + '/v2p4/trade/buyResell',
+    method: "POST",
+    data: {
+      trade_id: trade_id,
+      nums: nums,
+      pay_type: pay_type,
+      address_id: address_id,
+      payment_password: payment_password,
+      amount: amount
+    }
+  })
+}
+
+
+// 发布求购
+export function wangToBuy(crowd_funding_id, nums, price, pay_type, address_id, payment_password) {
+  return fetch({
+    url: api.Hallowmas + '/v2p4/trade/wangToBuy',
+    method: "POST",
+    data: {
+      crowd_funding_id: crowd_funding_id,
+      nums: nums,
+      price: price,
+      pay_type: pay_type,
+      address_id: address_id,
+      payment_password: payment_password
+    }
+  })
+}
+
+// 发布转让
+export function Resell(crowd_funding_id, nums, price) {
+  return fetch({
+    url: api.Hallowmas + '/v2p4/trade/Resell',
+    method: "POST",
+    data: {
+      crowd_funding_id: crowd_funding_id,
+      nums: nums,
+      price: price
+    }
+  })
+}
+
+// 发布转让
+export function myWarehouse() {
+  return fetch({
+    url: api.Hallowmas + '/v2p4/trade/myWarehouse',
+    method: "POST",
+  })
+}

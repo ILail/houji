@@ -27,7 +27,8 @@
         <span class="GETm" @click="time" v-if="active">获取验证码</span>
         <span class="GETm" v-else>{{timed}}s重新发送</span>
       </div>
-      <div class="now" @click="now">立即领取</div>
+      <div class="now" @click="now" v-if="showN">立即领取</div>
+      <div class="nows" v-else>领取成功</div>
     </div>
     <div class="rouls">规则详情</div>
     <div class="flex">
@@ -50,6 +51,9 @@
 import { yzm } from "@/components/axios/api";
 import { verifyCode } from "@/components/axios/api";
 import { tradeReceive } from "@/components/axios/api";
+import Vue from "vue";
+import { Dialog } from "vant";
+Vue.use(Dialog);
 export default {
   data() {
     return {
@@ -58,7 +62,7 @@ export default {
       active: true,
       timed: 0,
       code_type: "land",
-
+      showN: true,
       backgroundDiv: {
         backgroundImage: "url(" + require("@/assets/trad/2.png") + ")",
         backgroundRepeat: "no-repeat",
@@ -117,8 +121,12 @@ export default {
           console.log(res);
           if (res.data.message == "验证成功") {
             // alert("验证码成功");
-            const id = url.split("?")[1].split("=")[1].split("&")[0];
+            const id = url
+              .split("?")[1]
+              .split("=")[1]
+              .split("&")[0];
             // alert(id);
+
             tradeReceive(this.tel, id)
               .then(res => {
                 if (res.data.message == "领取成功") {
@@ -126,8 +134,11 @@ export default {
                     message: "领取成功",
                     duration: "2500"
                   });
-                }else{
-                    this.$toast({
+                  this.showN = false;
+                  this.tel = "";
+                  this.code = "";
+                } else {
+                  this.$toast({
                     message: res.data.message,
                     duration: "2500"
                   });
@@ -149,6 +160,22 @@ export default {
 <style  lang="stylus" scoped>
 .wrap {
   background-color: #29100D;
+}
+
+.nows {
+  width: 70%;
+  height: 45px;
+  margin-left: 15%;
+  line-height: 45px;
+  text-align: center;
+  margin-top: 15px;
+  background: linear-gradient(90deg, rgba(123, 52, 21, 1), rgba(204, 166, 88, 1), rgba(195, 144, 80, 1));
+  border-radius: 5px;
+  border-bottom: 2px solid #76191A;
+  font-size: 22px;
+  font-family: PingFangSC-Medium;
+  font-weight: 500;
+  color: #fff;
 }
 
 .img {

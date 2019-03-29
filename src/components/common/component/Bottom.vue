@@ -1,9 +1,10 @@
 <template>
   <div class="wrap">
     <div class="price">
-      <span>最新成交价：¥368</span>
+      <span v-if="news">最新成交价：¥{{wtb}}</span>
+      <span v-else>最新成交价：¥{{resell}}</span>
       <span class="line"></span>
-      <span>建议零售价：¥312</span>
+      <span>建议零售价：¥{{exchange}}</span>
     </div>
     <div class="word">
       <div>1. 满足7天无理由退换申请的前提下，包邮商品</div>
@@ -13,8 +14,8 @@
       <span @click="Collection" v-if="Coll">收藏</span>
       <span @click="Collections" v-else>取消收藏</span>
       <span>转赠</span>
-      <span @click="wangToBuy">转让</span>
-      <span @click="wangToBuy">求购</span>
+      <span @click="wangToBuys">转让</span>
+      <span @click="wangToSale">求购</span>
     </div>
     <!-- 中间弹窗 -->
     <van-popup v-model="showM">
@@ -24,18 +25,19 @@
           <div class="middleR">
             <div class="middleS">
               <span>单价：</span>
-              <input type="text" placeholder="请输入">
+              <input type="number" placeholder="请输入" v-model="priceAll">
             </div>
             <div class="middleS" style="padding-top:10px">
               <span>数量：</span>
-              <input type="text" placeholder="请输入">
+              <input type="number" placeholder="请输入" v-model="numAll">
             </div>
           </div>
         </div>
         <div class="middleM">
-          <span class="canle">取消</span>
+          <span class="canle" @click="canleA">取消</span>
           <span class="lines"></span>
-          <span class="canles">确定</span>
+          <span class="canles" @click="canleB" v-if="canles">确定</span>
+          <span class="canles" @click="canleC" v-else>确定</span>
         </div>
       </div>
     </van-popup>
@@ -45,43 +47,191 @@
         <div class="topSale">
           <div>
             <img :src="img_path" class="topImg">
-            <span class="topWord">价格：¥386.00</span>
+            <span class="topWord">价格：¥{{price}}</span>
           </div>
           <div>
-            <img src="@/assets/cha.png" class="cha">
+            <img src="@/assets/cha.png" class="cha" @click="cha">
           </div>
         </div>
         <div class="middle">
           <div class="numbers">数量</div>
           <div class="hitNum">
-            <span>-</span>
+            <span @click="jian">-</span>
             <input type="text" v-model="numB">
-            <span>+</span>
+            <span @click="jia">+</span>
           </div>
         </div>
-        <div class="confer">确认</div>
+        <div class="confer" @click="confir" v-if="confer">确认</div>
+        <div class="confer" @click="confirs" v-else>确认</div>
       </div>
     </van-popup>
   </div>
 </template>
 <script>
 import { Collection } from "@/components/axios/api";
-
-
+import { WangtbBuy } from "@/components/axios/api";
+import { getAddress } from "@/components/axios/api";
+import { Resell } from "@/components/axios/api";
+import { wangToBuy } from "@/components/axios/api";
+import { tradeList } from "@/components/axios/api";
 export default {
-  props: { img_path: {} },
+  // props: { img_path: {} },
   data() {
     return {
       Coll: true,
       showM: false,
       showSale: false,
       numB: 1,
-      id: this.$route.query.key
+      id: this.$route.query.key,
+      confer: true,
+      canles: true,
+      price: "",
+      trade_id: "",
+      nums: "",
+      address_id: "",
+      priceAll: "",
+      numAll: "",
+      type: 1,
+      img_path: "",
+      exchange: "",
+      wtb: "",
+      news:true
     };
   },
+  watch: {
+    numB() {
+      if (this.numB >= this.nums) {
+        this.$toast({
+          message: "已经最大",
+          duration: "1000"
+        });
+        this.numB = this.nums;
+      }
+
+      if (this.numB <= 0) {
+        this.$toast({
+          message: "最小1",
+          duration: "1000"
+        });
+        this.numB = 1;
+      }
+    }
+  },
   methods: {
-    wangToBuy() {
+    crad() {
+      tradeList(this.id, this.type)
+        .then(res => {
+          res = res.data;
+          if (res.status && res.data) {
+            this.list = res.data.list.data;
+            console.log(res.data.cf_info);
+            // 系统建议成交价
+            this.exchange = res.data.cf_info.exchange_guide_price;
+            // 求购最新成交价
+            this.wtb = res.data.cf_info.wtb_new_price;
+            // 转让最新成交价
+            this.resell = res.data.cf_info.resell_new_price;
+            // 图片
+            // console.log(res.data.cf_info.pic);
+            this.img_path = res.data.cf_info.pic;
+            if(res.data.cf_info.is_collect == 1){
+               this.Coll = false
+            }else{
+              this.Coll = true
+            }
+          }
+        })
+        .catch(err => {
+          console.log(err, "请求失败");
+        });
+    },
+    canleA() {
+      this.showM = false;
+    },
+    canleB() {
+      // this.showM = false;
+      Resell(this.id, this.numAll, this.priceAll)
+        .then(res => {
+          res = res.data;
+          this.$toast({
+            message: res.message,
+            duration: "1500"
+          });
+          this.showM = false;
+          // if (res.message == "操作成功") {
+          //   this.Coll = false;
+          // }
+        })
+        .catch(err => {
+          console.log(err, "请求失败");
+        });
+    },
+    canleC() {
+      console.log(this.numAll, this.priceAll);
+      if (this.numAll == "" || this.priceAll == "") {
+        this.$toast({
+          message: "不能为空且要为数字",
+          duration: "1500"
+        });
+        return false;
+      }
+      getAddress()
+        .then(res => {
+          res = res.data;
+          console.log(res);
+          if (res.data.length == 0) {
+            this.$toast({
+              message: "请先添加地址",
+              duration: "1000"
+            });
+            this.$router.push("/shouhuo");
+          } else {
+            const address_id = res.data[0].user_address_id;
+            const price = this.numAll * this.priceAll;
+            const arry = [this.id, this.numAll, price, address_id];
+            this.$router.push({
+              path: "/wantbuy",
+              query: {
+                arry: arry
+              }
+            });
+          }
+        })
+        .catch(err => {
+          console.log(err, "请求失败");
+        });
+    },
+    cha() {
+      this.showSale = false;
+      this.numB = 1;
+    },
+    jian() {
+      if (this.numB == 1) {
+        this.$toast({
+          message: "已经最小",
+          duration: "1000"
+        });
+        return;
+      }
+      this.numB--;
+    },
+    jia() {
+      if (this.numB >= this.nums) {
+        this.$toast({
+          message: "已经最大",
+          duration: "1000"
+        });
+        return;
+      }
+      this.numB++;
+    },
+    wangToBuys() {
       this.showM = true;
+      this.canles = true;
+    },
+    wangToSale() {
+      this.showM = true;
+      this.canles = false;
     },
     Collection() {
       Collection(this.id)
@@ -108,20 +258,98 @@ export default {
         .catch(err => {
           console.log(err, "请求失败");
         });
+    },
+    confir() {
+      getAddress()
+        .then(res => {
+          res = res.data;
+          console.log(res);
+          if (res.data.length == 0) {
+            this.$toast({
+              message: "请先添加地址",
+              duration: "1000"
+            });
+            this.$router.push("/shouhuo");
+          } else {
+            // console.log(res.data[0].user_address_id)
+            const address_id = res.data[0].user_address_id;
+
+            // const address_id = res.data[0].user_address_id;
+            WangtbBuy(this.numB, address_id, this.trade_id)
+              .then(res => {
+                // console.log(res.data);
+                this.$toast({
+                  message: res.data.message,
+                  duration: "1870"
+                });
+              })
+              .catch(err => {
+                console.log(err, "请求失败");
+              });
+          }
+        })
+        .catch(err => {
+          console.log(err, "请求失败");
+        });
+    },
+    // 买入
+    confirs() {
+      getAddress()
+        .then(res => {
+          res = res.data;
+          if (res.data.length == 0) {
+            this.$toast({
+              message: "请先添加地址",
+              duration: "1000"
+            });
+            this.$router.push("/shouhuo");
+          } else {
+            const address_id = res.data[0].user_address_id;
+            const Money = this.price * this.numB;
+            const arry = [this.trade_id, this.numB, address_id, this.price];
+            this.$router.push({
+              path: "/buy",
+              query: {
+                arry: arry
+              }
+            });
+          }
+        })
+        .catch(err => {
+          console.log(err, "请求失败");
+        });
     }
   },
   created() {
-    // myCollection()
-    //   .then(res => {
-    //     res = res.data;
-    //   })
-    //   .catch(err => {
-    //     console.log(err, "请求失败");
-    //   });
+    this.crad()
   },
   mounted() {
-    this.$bus.$on("msgaa", msg => {
+    this.$bus.$on("msgaa", (msg, trade_id, nums, price) => {
       this.showSale = !msg;
+      this.confer = !msg;
+      this.price = price;
+      this.trade_id = trade_id;
+      this.nums = nums;
+      // console.log(trade_id, nums, price);
+    });
+
+    this.$bus.$on("msgas", (msg, trade_id, nums, price) => {
+      this.showSale = !msg;
+      this.confer = msg;
+      this.price = price;
+      this.trade_id = trade_id;
+      this.nums = nums;
+      // console.log(trade_id, nums, price);
+    });
+
+    this.$bus.$on("type", msg => {
+      if(msg == 2){
+        this.news = false
+      }else{
+         this.news = true
+      }
+      this.type = msg
+      this.crad()
     });
   }
 };
@@ -200,7 +428,7 @@ export default {
     font-family: PingFangSC-Regular;
     font-weight: 400;
     color: #fff;
-    line-height: 45px;
+    line-height: 50px;
   }
 
   .confer {

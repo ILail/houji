@@ -118,7 +118,7 @@
 
     <!-- 底部弹窗 -->
  
-    <detail-bottom v-show="detail" :img_path="img_path"></detail-bottom>
+    <detail-bottom v-show="detail"></detail-bottom>
   </div>
 </template>
 

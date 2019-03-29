@@ -251,6 +251,22 @@ const routes = [{
       title: '支付',
     },
   },
+
+  {
+    path: '/buy',
+    component: resolve => require(["@/components/common/buyResell"], resolve),
+    meta: {
+      title: '支付',
+    },
+  },
+
+  {
+    path: '/wantbuy',
+    component: resolve => require(["@/components/common/wangToBuy"], resolve),
+    meta: {
+      title: '支付',
+    },
+  },
   {
     path: '/tixian',
     component: resolve => require(["@/pages/mine/components/components/tixian"], resolve),
@@ -330,6 +346,13 @@ const routes = [{
     },
   },
   {
+    path: '/myhouse',
+    component: resolve => require(["@/pages/mine/myCollection/myWarehouse"], resolve),
+    meta: {
+      title: '我的仓库',
+    },
+  },
+  {
     path: '/resale',
     component: resolve => require(["@/pages/mine/myCollection/resaleList"], resolve),
     meta: {
@@ -355,7 +378,7 @@ const routes = [{
     path: '/verify',
     component: resolve => require(["@/components/Rphone"], resolve),
     meta: {
-      title: '手机号领取转赠',
+      title: '猴急app',
     },
   },
 ]

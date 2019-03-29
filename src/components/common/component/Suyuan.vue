@@ -24,8 +24,8 @@
         <!-- <span>城南华阿姨</span>
       <span>18</span>
         <span>¥368</span>-->
-        <span v-if="sale" @click="saleM">卖出</span>
-        <span v-else>买入</span>
+        <span v-if="sale" @click="saleM(item.trade_id,item.nums,item.price)">卖出</span>
+        <span v-else @click="saleMs(item.trade_id,item.nums,item.price)">买入</span>
       </div>
     </div>
   </div>
@@ -42,7 +42,8 @@ export default {
       id: this.$route.query.key,
       // 转让
       type: 1,
-      num: 0
+      num: 0,
+      img_path: ""
     };
   },
   methods: {
@@ -53,11 +54,13 @@ export default {
           this.type = 1;
           this.types();
           this.sale = true;
+          this.$bus.$emit("type", this.type);
           break;
         case 1:
           this.type = 2;
           this.types();
           this.sale = false;
+          this.$bus.$emit("type", this.type);
           break;
       }
     },
@@ -67,15 +70,17 @@ export default {
           res = res.data;
           if (res.status && res.data) {
             this.list = res.data.list.data;
-            console.log(res.data.list.data);
           }
         })
         .catch(err => {
           console.log(err, "请求失败");
         });
     },
-    saleM() {
-      this.$bus.$emit("msgaa", this.show);
+    saleM(trade_id, nums, price) {
+      this.$bus.$emit("msgaa", this.show, trade_id, nums, price);
+    },
+    saleMs(trade_id, nums, price) {
+      this.$bus.$emit("msgas", this.show, trade_id, nums, price);
     }
   },
   created() {
