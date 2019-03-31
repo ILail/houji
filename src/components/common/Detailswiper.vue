@@ -147,7 +147,7 @@ import Detail from "@/components/common/component/Detail";
 import Travel from "@/components/common/component/Travel";
 import Plun from "@/components/common/component/Plun";
 import Suyuan from "@/components/common/component/Suyuan";
-
+import Suy from "@/components/common/component/Suy";
 import { wishList } from "@/components/axios/api";
 import { specifications } from "@/components/axios/api";
 
@@ -161,6 +161,7 @@ export default {
     Travel,
     Plun,
     Suyuan,
+    Suy,
     DetailBottom
   },
   data() {
@@ -185,7 +186,8 @@ export default {
         { label: "详情" },
         { label: "游记" },
         { label: "评论" },
-        { label: "转卖" }
+        { label: "转卖" },
+        { label: "溯源" },
       ],
       options: {
         activeColor: "#D21623"
@@ -198,7 +200,8 @@ export default {
         { component: Detail },
         { component: Travel },
         { component: Plun },
-        { component: Suyuan }
+        { component: Suyuan },
+        { component: Suy }
       ],
       // 顶部
       // isshow: true,

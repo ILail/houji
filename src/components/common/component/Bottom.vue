@@ -1,5 +1,5 @@
 <template>
-  <div class="wrap">
+  <div class="wrap" v-if="hide">
     <div class="price">
       <span v-if="news">最新成交价：¥{{wtb}}</span>
       <span v-else>最新成交价：¥{{resell}}</span>
@@ -78,6 +78,7 @@ export default {
   // props: { img_path: {} },
   data() {
     return {
+      hide:true,
       Coll: true,
       showM: false,
       showSale: false,
@@ -142,7 +143,7 @@ export default {
           }
         })
         .catch(err => {
-          
+          this.hide = false
           console.log(err, "请求失败");
         });
     },
@@ -350,7 +351,6 @@ export default {
          this.news = true
       }
       this.type = msg
-      this.crad()
     });
   }
 };
@@ -364,7 +364,6 @@ export default {
   background: #fff;
   z-index: 99;
   border-top: 1px solid #ccc;
-  display none
 
   .price {
     display: flex;

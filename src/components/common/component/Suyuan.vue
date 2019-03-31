@@ -1,6 +1,10 @@
 <template>
-  <div style="display:none">
-    <div>正在更新ing</div>
+<div>
+    <div class="hitImg"  v-show="ispic">
+      <img src="@/assets/woring.png">
+      <div class="contenr">敬请期待</div>
+    </div>
+  <div v-if="hide">
     <div class="monopoly">
       <span
         v-for="(item,index) in titele"
@@ -30,12 +34,15 @@
       </div>
     </div>
   </div>
+  </div>
 </template>
 <script >
 import { tradeList } from "@/components/axios/api";
 export default {
   data() {
     return {
+      ispic: false,
+      hide:true,
       list: [],
       show: false,
       sale: true,
@@ -74,6 +81,8 @@ export default {
           }
         })
         .catch(err => {
+         this.hide = false
+         this.ispic = true
           console.log(err, "请求失败");
         });
     },
@@ -168,6 +177,22 @@ export default {
 
 .monopoly .active {
   color: #D21623;
+}
+
+.hitImg {
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+}
+
+.hitImg img {
+  width: 50%;
+  margin-top: 20%;
+}
+
+.hitImg .contenr {
+  margin-top: 5px;
+  color: #999;
 }
 </style>
 

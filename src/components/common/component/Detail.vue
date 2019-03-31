@@ -170,7 +170,7 @@ export default {
         width = listAll.progress - 1.6;
       }
       if (width >= 98.4) {
-        width = 85;
+        width = 86;
       }
       return `${width}`;
     },
