@@ -145,11 +145,20 @@ export default {
                 }
               })
               .catch(err => {
+                  this.$toast({
+                  message: "领取赠送接口错误",
+                  duration: "1000"
+                });
                 console.log(err, "请求失败");
               });
           }
         })
+
         .catch(err => {
+        this.$toast({
+                  message: "验证短信码接口错误",
+                  duration: "1000"
+                });
           console.log(err, "请求失败");
         });
     }

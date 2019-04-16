@@ -378,7 +378,7 @@ const routes = [{
     path: '/verify',
     component: resolve => require(["@/components/Rphone"], resolve),
     meta: {
-      title: '猴急app',
+      title: '猴集app',
     },
   },
 ]

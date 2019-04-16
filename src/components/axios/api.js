@@ -2,7 +2,7 @@ import {
   fetch
 } from "./fetch"; //引用fetch.js
 import api from './url'; //引用url.js
-// console.log(api.Hallowmas)
+ console.log(api.Hallowmas)
 //首页
 export function lookOption() { //lookOption是你要调用接口的名字，issuer,userId是传进来的参数
   return fetch({
@@ -603,7 +603,7 @@ export function zfuM() {
 export function jiaoY(num) {
 
   return fetch({
-    url: api.Hallowmas + '/v2p1/member/transactionRecord?page=' + num + '',
+    url: ai.Hallowmas + '/v2p1/member/transactionRecord?page=' + num + '',
     method: "GET",
   })
 }
@@ -828,8 +828,10 @@ export function giveRecord() {
 
 // 短信验证
 export function verifyCode(mobile, code) {
+  console.log(api.Hallowmas + '/verifyCode')
   return fetch({
     url: api.Hallowmas + '/verifyCode',
+
     method: "POST",
     data: {
       mobile: mobile,
