@@ -29,8 +29,8 @@
         <!-- <span>城南华阿姨</span>
       <span>18</span>
         <span>¥368</span>-->
-        <span v-if="sale" @click="saleM(item.trade_id,item.nums,item.price)">卖出</span>
-        <span v-else @click="saleMs(item.trade_id,item.nums,item.price)">买入</span>
+        <span v-if="sale" @click="saleM(item.trade_id,item.nums,item.price)">买入</span>
+        <span v-else @click="saleMs(item.trade_id,item.nums,item.price)">卖出</span>
       </div>
     </div>
   </div>
